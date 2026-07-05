@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "talkey",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-06-22",
+  "compatibility_flags": ["nodejs_compat"],
+  "ai": {
+    "binding": "AI"
+  },
+  "vars": {
+    "CF_AI_MODEL": "@cf/openai/gpt-oss-20b"
+  },
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "routes": [
+    {
+      "pattern": "talkeyco.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.talkeyco.com",
+      "custom_domain": true
+    }
+  ]
+}

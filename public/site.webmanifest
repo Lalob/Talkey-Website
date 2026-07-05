@@ -1,0 +1,17 @@
+{
+  "name": "Talkey",
+  "short_name": "Talkey",
+  "description": "Asistente virtual de soporte técnico para postventa.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070707",
+  "theme_color": "#070707",
+  "icons": [
+    {
+      "src": "/brand/talkey-key.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
