@@ -305,8 +305,27 @@ function PlatformHeader({ minimal = false, sales = false, ctaHref = "#agenda" }:
   );
 }
 
-function Footer({ currentYear, ctaHref = "#agenda" }: { currentYear: number; ctaHref?: string }) {
+function Footer({ currentYear, ctaHref = "#agenda", line }: { currentYear: number; ctaHref?: string; line?: string }) {
   const ctaExternal = ctaHref.startsWith("http");
+
+  if (line) {
+    return (
+      <footer className="mk-footer">
+        <div className="mk-container">
+          <div className="mk-footer-top">
+            <a className="mk-brand mk-brand-footer" href="#top">
+              <Image src="/brand/talkey-key.svg" width={345} height={158} alt="" />
+              <Image src="/brand/talkey-wordmark.svg" width={442} height={140} alt="Talkey" />
+            </a>
+            <p>{line}</p>
+          </div>
+          <div className="mk-footer-bottom">
+            <span>© {currentYear} Talkey</span>
+          </div>
+        </div>
+      </footer>
+    );
+  }
 
   return (
     <footer className="mk-footer">
@@ -660,7 +679,7 @@ export function SalesPage() {
         </div>
       </section>
 
-      <Footer currentYear={year} />
+      <Footer currentYear={year} line="Conversaciones que venden." />
     </main>
   );
 }
