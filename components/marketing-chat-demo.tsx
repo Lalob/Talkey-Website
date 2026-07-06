@@ -178,7 +178,7 @@ export function MarketingChatDemo({ copy, aiMode = false }: { copy: MarketingCop
       };
     }
 
-    if (/(puentear|anular|desactivar.*(alarma|seguridad|sensor)|bypass|disable.*(alarm|safety|sensor)|gas|fuga|explosion|incendio|cortocircuito|short circuit|perdita.*gas|disattivare.*sicurezza)/i.test(commandValue)) {
+    if (/(puentear|anular|desactivar.*(alarma|seguridad|sensor)|bypass|disable.*(alarm|safety|sensor)|gas|fuga|explosion|incendio|corto\s*circuito|short circuit|perdita.*gas|disattivare.*sicurezza)/i.test(commandValue)) {
       return { replies: [{ text: copy.responses.unsafeTechnical, danger: true }] };
     }
 
@@ -261,7 +261,7 @@ export function MarketingChatDemo({ copy, aiMode = false }: { copy: MarketingCop
       };
     }
 
-    if (/(tengo un problema con (talkey|talky|toki|toky)|problema con (talkey|talky|toki|toky)|i have a (talkey|talky|toki|toky) issue|(talkey|talky|toki|toky) issue|ho un problema con (talkey|talky|toki|toky))/i.test(commandValue)) {
+    if (/(tengo un problema con talkey|problema con talkey|i have a talkey issue|talkey issue|ho un problema con talkey)/i.test(commandValue)) {
       return {
         replies: [{ text: copy.responses.technical }],
         mode: "choosingFlow",

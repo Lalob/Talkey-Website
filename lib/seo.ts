@@ -13,9 +13,9 @@ type SeoLocaleConfig = {
 
 export const seoByLocale: Record<MarketingLocale, SeoLocaleConfig> = {
   es: {
-    title: "Talkey | Asistente virtual de soporte técnico con IA",
+    title: "Talkey | Plataforma IA para ventas y soporte técnico",
     description:
-      "Talkey es un asistente virtual de soporte técnico con IA para postventa. Resuelve hasta el 75% de casos frecuentes, atiende 24/7, guía diagnósticos y deriva a especialistas humanos con contexto.",
+      "Talkey es una plataforma IA para convertir conversaciones en ventas y problemas técnicos en fidelización. Une CRM de ventas, soporte técnico, tickets, historial, conocimiento editable e integraciones.",
     openGraphLocale: "es_CL",
     languageName: "Spanish",
   },
@@ -37,6 +37,10 @@ export const seoByLocale: Record<MarketingLocale, SeoLocaleConfig> = {
 
 export const seoKeywords = [
   "Talkey",
+  "plataforma IA ventas soporte",
+  "CRM de ventas con IA",
+  "asistente comercial IA",
+  "automatización de ventas con IA",
   "asistente virtual soporte técnico",
   "asistente virtual postventa",
   "asistente virtual servicio técnico",
@@ -52,6 +56,7 @@ export const seoKeywords = [
   "soporte técnico 24/7",
   "base de conocimiento soporte técnico",
   "software soporte técnico IA",
+  "software ventas soporte IA",
   "chatbot soporte técnico",
   "soporte técnico climatización",
   "soporte técnico electrodomesticos",

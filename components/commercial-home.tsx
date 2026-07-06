@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -88,7 +88,7 @@ type ExpandableListKey = "problems" | "useCases" | "faq";
 
 const narrativeContent = {
   es: {
-    controls: { showMoreProblems: "Ver más problemas...", showMoreIndustries: "Ver más industrias...", showMoreFaq: "Ver más preguntas frecuentes...", showLess: "Ver menos" },
+    controls: { showMoreProblems: "Ver más problemas/soluciones...", showMoreIndustries: "Ver más industrias...", showMoreFaq: "Ver más preguntas frecuentes...", showLess: "Ver menos..." },
     nav: { problem: "Problemas/Soluciones", solution: "Solución", cases: "Casos de uso", demo: "Demo", manuals: "Manuales", pricing: "Simulador de precios", comparison: "Comparación", quote: "Solicitar evaluación" },
     hero: {
       eyebrow: "",
@@ -216,7 +216,7 @@ const narrativeContent = {
     },
   },
   en: {
-    controls: { showMoreProblems: "Show more problems...", showMoreIndustries: "Show more industries...", showMoreFaq: "Show more frequently asked questions...", showLess: "Show less" },
+    controls: { showMoreProblems: "Show more problems...", showMoreIndustries: "Show more industries...", showMoreFaq: "Show more frequently asked questions...", showLess: "Show less..." },
     nav: { problem: "Problems/Solutions", solution: "Solution", cases: "Use cases", demo: "Demo", manuals: "Manuals", pricing: "Pricing simulator", comparison: "Comparison", quote: "Request evaluation" },
     hero: {
       eyebrow: "",
@@ -344,7 +344,7 @@ const narrativeContent = {
     },
   },
   it: {
-    controls: { showMoreProblems: "Vedi più problemi...", showMoreIndustries: "Vedi più settori...", showMoreFaq: "Vedi più domande frequenti...", showLess: "Mostra meno" },
+    controls: { showMoreProblems: "Vedi più problemi...", showMoreIndustries: "Vedi più settori...", showMoreFaq: "Vedi più domande frequenti...", showLess: "Mostra meno..." },
     nav: { problem: "Problemi/Soluzioni", solution: "Soluzione", cases: "Casi d'uso", demo: "Demo", manuals: "Manuali", pricing: "Simulatore prezzi", comparison: "Confronto", quote: "Richiedi valutazione" },
     hero: {
       eyebrow: "",
@@ -497,11 +497,13 @@ export function CommercialHome({
   currentYear,
   detectClientLocale = true,
   aiDemo = false,
+  platformHomeHref,
 }: {
   initialLocale: MarketingLocale;
   currentYear: number;
   detectClientLocale?: boolean;
   aiDemo?: boolean;
+  platformHomeHref?: string;
 }) {
   const [locale, setLocale] = useState<MarketingLocale>(initialLocale);
   const [clientLocaleReady, setClientLocaleReady] = useState(false);
@@ -511,6 +513,7 @@ export function CommercialHome({
     useCases: false,
     faq: false,
   });
+  const expandedListOpenScrollY = useRef<Partial<Record<ExpandableListKey, number>>>({});
   const copy = marketingCopy[locale];
   const narrative = narrativeContent[locale];
   const navLineBreaks = navLineBreakLabels[locale];
@@ -552,7 +555,21 @@ export function CommercialHome({
   }
 
   function toggleExpandedList(key: ExpandableListKey) {
-    setExpandedLists((current) => ({ ...current, [key]: !current[key] }));
+    const isExpanded = expandedLists[key];
+
+    if (!isExpanded) {
+      expandedListOpenScrollY.current[key] = window.scrollY;
+      setExpandedLists((current) => ({ ...current, [key]: true }));
+      return;
+    }
+
+    const targetScrollY = expandedListOpenScrollY.current[key] ?? window.scrollY;
+    setExpandedLists((current) => ({ ...current, [key]: false }));
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        window.scrollTo({ top: Math.max(0, targetScrollY), behavior: "auto" });
+      });
+    });
   }
 
   function renderListToggle(key: ExpandableListKey, totalItems: number) {
@@ -584,6 +601,7 @@ export function CommercialHome({
             <Image src="/brand/talkey-wordmark.svg" width={442} height={140} alt="Talkey" priority />
           </a>
           <nav className={`mk-nav-links ${menuOpen ? "is-open" : ""}`} aria-label="Main navigation">
+            {platformHomeHref && <Link href={platformHomeHref} onClick={() => setMenuOpen(false)}>Inicio</Link>}
             <a href="#demo" onClick={() => setMenuOpen(false)}>{narrative.nav.demo}</a>
             <Link href="/manualesdeuso" onClick={() => setMenuOpen(false)}>{narrative.nav.manuals}</Link>
             <a href="#problema" onClick={() => setMenuOpen(false)}>{narrative.nav.problem}</a>

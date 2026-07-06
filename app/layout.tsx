@@ -49,7 +49,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Talkey - asistente virtual de soporte técnico para postventa",
+        alt: "Talkey - plataforma IA para ventas y soporte técnico",
       },
     ],
   },
@@ -110,22 +110,26 @@ const structuredData = {
       "@id": `${siteUrl}/#software`,
       name: "Talkey",
       applicationCategory: "BusinessApplication",
-      applicationSubCategory: "AI technical support assistant",
+      applicationSubCategory: "AI sales and technical support platform",
       operatingSystem: "Web",
       url: siteUrl,
       description,
       keywords: seoKeywords.join(", "),
       featureList: [
+        "CRM de ventas con IA",
+        "Asistente comercial para pipeline, scoring y seguimiento",
         "Asistente virtual para soporte técnico",
         "Diagnóstico guiado de problemas técnicos",
         "Base de conocimiento con manuales y procedimientos",
         "Derivación a especialistas humanos con contexto",
+        "Consola de soporte, tickets e historial de clientes",
+        "Talkey Editor para conocimiento, flujos y criterios",
         "Soporte por chat y opción de voz",
         "Reconocimiento de producto por foto de etiqueta, QR o número de serie",
       ],
       audience: {
         "@type": "BusinessAudience",
-        audienceType: "Fabricantes, distribuidores y equipos de postventa",
+        audienceType: "Gerentes de ventas, postventa, soporte técnico y operaciones",
       },
       availableLanguage: ["es", "en", "it"],
       offers: {
@@ -140,8 +144,8 @@ const structuredData = {
     {
       "@type": "Service",
       "@id": `${siteUrl}/#service`,
-      name: "Talkey AI technical support",
-      serviceType: "Asistente virtual de soporte técnico",
+      name: "Talkey AI sales and technical support platform",
+      serviceType: "Plataforma IA para ventas y soporte técnico",
       url: siteUrl,
       provider: {
         "@id": `${siteUrl}/#organization`,
@@ -153,7 +157,7 @@ const structuredData = {
         },
         {
           "@type": "Audience",
-          audienceType: "Dueños de empresa, operaciones y postventa",
+          audienceType: "Gerentes de ventas, dueños de empresa, operaciones y postventa",
         },
       ],
       areaServed: {
@@ -162,6 +166,7 @@ const structuredData = {
       },
       serviceOutput: [
         "Respuestas consistentes para soporte técnico",
+        "Pipeline comercial, scoring y seguimiento",
         "Diagnósticos guiados",
         "Derivación a especialistas humanos con contexto",
         "Soporte técnico 24/7",
