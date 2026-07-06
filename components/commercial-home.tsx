@@ -15,8 +15,6 @@ import {
   PlugZap,
   ShieldCheck,
   Sparkles,
-  Ticket,
-  UserRound,
   X,
 } from "lucide-react";
 import { MarketingChatDemo } from "@/components/marketing-chat-demo";
@@ -25,55 +23,6 @@ import { PricingSimulator } from "@/components/pricing-simulator";
 import { trackEvent } from "@/lib/analytics";
 import { detectMarketingLocale, marketingCopy, type MarketingLocale } from "@/lib/marketing-copy";
 
-function VoiceHeadIcon({ size = 22, className }: { size?: number; className?: string }) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-      <path
-        d="M24 37C31 42.5 34.5 50.2 34.5 59C34.5 67.8 31 75.5 24 81"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="7"
-      />
-      <path
-        d="M45 27C55 35 60 45.8 60 59C60 72.2 55 83 45 91"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="7"
-      />
-      <path
-        d="M66 20C80 30 87 43 87 59C87 75 80 88 66 98"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="7"
-      />
-    </svg>
-  );
-}
-
-function TalkeyKeyOutlineIcon({ size = 22, className }: { size?: number; className?: string }) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 345 158" aria-hidden="true" focusable="false">
-      <path
-        d="M8 69L12 54L17 44L26 34L26 32L30 30L30 28L32 28L42 19L52 14L75 8L100 9L114 13L126 19L146 36L146 38L151 43L156 55L332 55L337 60L336 69L312 92L312 94L299 107L290 107L277 93L270 92L255 107L249 108L246 107L233 93L226 92L211 107L208 108L154 108L147 121L134 134L117 144L95 150L74 150L60 147L47 142L32 132L20 119L12 104L8 90Z"
-        fill="none"
-        stroke="currentColor"
-        strokeLinejoin="round"
-        strokeWidth="18"
-      />
-      <circle cx="59" cy="58" r="11" fill="currentColor" />
-      <circle cx="109" cy="58" r="11" fill="currentColor" />
-      <path d="M44 87C54 108 75 119 99 108C111 103 120 94 124 86" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="12" />
-    </svg>
-  );
-}
-
-const comparisonIcons = [UserRound, Ticket, VoiceHeadIcon, TalkeyKeyOutlineIcon];
 const integrationIcons = [Database, CalendarCheck, PlugZap];
 const supportedLocales = new Set<MarketingLocale>(["es", "en", "it"]);
 
@@ -185,12 +134,11 @@ const narrativeContent = {
       title: "Por qué Talkey es diferente.",
       body: "Resuelve una categoría distinta: convertir conocimiento técnico en soporte operativo consistente.",
       items: [
-        { title: "Humanos", text: "Aportan criterio, empatía y casos complejos. Por sí solos no resuelven variabilidad, disponibilidad limitada ni dependencia de memoria individual." },
-        { title: "Zendesk AI", text: "Ordena tickets, conversaciones, agentes de IA, copilot, base de conocimiento y métricas de atención." },
-        { title: "Intercom / Fin", text: "Automatiza atención con IA, se integra con helpdesks, opera en múltiples canales y puede atender por voz." },
-        { title: "Software de tickets", text: "Organiza estados, responsables, bandejas y derivaciones, pero normalmente no diagnostica el problema técnico." },
-        { title: "ElevenLabs", text: "Aporta experiencias de voz de alta calidad, pero no estructura por sí solo manuales, troubleshootings ni criterios técnicos." },
-        { title: "Talkey", text: "Hace lo anterior: conversa por chat o voz, ordena casos, usa conocimiento, deriva y apoya al equipo humano. Además guía diagnóstico técnico paso a paso, identifica productos por foto, convierte manuales y experiencia interna en procedimientos útiles, puede guiar agentes durante llamadas y deriva con contexto técnico." },
+        { title: "Equipo humano solamente", text: "Reduce la dependencia de personas específicas y mantiene criterios consistentes incluso cuando cambia el agente." },
+        { title: "Software de tickets / helpdesk", text: "No solo ordena casos: ayuda a resolverlos con conocimiento técnico, diagnóstico guiado y derivación con contexto." },
+        { title: "Chatbot genérico", text: "Responde desde conocimiento aprobado de la empresa, no desde respuestas genéricas o improvisadas." },
+        { title: "Herramientas de voz", text: "Puede operar por voz, pero además entiende productos, manuales, síntomas, procedimientos e historial del cliente." },
+        { title: "Base de conocimiento tradicional", text: "Convierte documentación en respuestas operativas, no solo en artículos que el cliente debe buscar por su cuenta." },
       ],
     },
     securityPrivacy: {
@@ -315,12 +263,11 @@ const narrativeContent = {
       title: "Why Talkey is different.",
       body: "It solves a different category: turning technical knowledge into consistent support operations.",
       items: [
-        { title: "Humans", text: "Strong at judgment, empathy and complex cases. Alone, they do not solve variability, limited availability or dependency on individual memory." },
-        { title: "Zendesk AI", text: "Organizes tickets, conversations, AI agents, copilot, knowledge base and service metrics." },
-        { title: "Intercom / Fin", text: "Automates AI customer service, integrates with helpdesks, works across channels and can operate by voice." },
-        { title: "Ticketing software", text: "Organizes status, owners, queues and handoffs, but usually does not diagnose the technical issue." },
-        { title: "ElevenLabs", text: "Delivers high-quality voice experiences, but does not by itself structure manuals, troubleshooting flows or technical criteria." },
-        { title: "Talkey", text: "Does the above: chats or speaks, organizes cases, uses knowledge, hands off and supports the human team. It also guides technical diagnosis step by step, identifies products from a photo, turns manuals and internal expertise into useful procedures, can guide agents during phone calls and hands off with technical context." },
+        { title: "Human team only", text: "Reduces dependency on specific people and keeps criteria consistent even when the agent changes." },
+        { title: "Ticketing software / helpdesk", text: "Does not only organize cases: it helps resolve them with technical knowledge, guided diagnosis and handoff with context." },
+        { title: "Generic chatbot", text: "Answers from approved company knowledge instead of generic or improvised responses." },
+        { title: "Voice tools", text: "Can operate by voice, but also understands products, manuals, symptoms, procedures and customer history." },
+        { title: "Traditional knowledge base", text: "Turns documentation into operational answers, not just articles the customer has to search on their own." },
       ],
     },
     securityPrivacy: {
@@ -445,12 +392,11 @@ const narrativeContent = {
       title: "Perché Talkey è diverso.",
       body: "Risolve una categoria diversa: trasformare conoscenza tecnica in supporto operativo coerente.",
       items: [
-        { title: "Umani", text: "Forti in criterio, empatia e casi complessi. Da soli non risolvono variabilità, disponibilità limitata e dipendenza dalla memoria individuale." },
-        { title: "Zendesk AI", text: "Organizza ticket, conversazioni, agenti IA, copilot, base di conoscenza e metriche di servizio." },
-        { title: "Intercom / Fin", text: "Automatizza l'assistenza con IA, si integra con helpdesk, opera su più canali e può funzionare via voce." },
-        { title: "Software di ticket", text: "Organizza stati, responsabili, code e passaggi, ma di solito non diagnostica il problema tecnico." },
-        { title: "ElevenLabs", text: "Offre esperienze vocali di alta qualità, ma non struttura da sola manuali, troubleshooting o criteri tecnici." },
-        { title: "Talkey", text: "Fa quanto sopra: conversa via chat o voce, organizza casi, usa conoscenza, passa il caso e supporta il team umano. Inoltre guida la diagnosi tecnica passo dopo passo, identifica prodotti da una foto, trasforma manuali ed esperienza interna in procedure utili, può guidare agenti durante chiamate telefoniche e passa il caso con contesto tecnico." },
+        { title: "Solo team umano", text: "Riduce la dipendenza da persone specifiche e mantiene criteri coerenti anche quando cambia l'agente." },
+        { title: "Software di ticket / helpdesk", text: "Non si limita a organizzare casi: aiuta a risolverli con conoscenza tecnica, diagnosi guidata e passaggio con contesto." },
+        { title: "Chatbot generico", text: "Risponde dalla conoscenza approvata dell'azienda, non da risposte generiche o improvvisate." },
+        { title: "Strumenti vocali", text: "Può operare via voce, ma comprende anche prodotti, manuali, sintomi, procedure e storico del cliente." },
+        { title: "Base di conoscenza tradizionale", text: "Trasforma la documentazione in risposte operative, non solo in articoli che il cliente deve cercare da solo." },
       ],
     },
     securityPrivacy: {
@@ -531,6 +477,12 @@ export function CommercialHome({
   const visibleProblemRows = expandedLists.problems ? problemRows : problemRows.slice(0, previewItemCount);
   const visibleUseCases = expandedLists.useCases ? narrative.useCases.items : narrative.useCases.items.slice(0, previewItemCount);
   const visibleFaqItems = expandedLists.faq ? narrative.faq.items : narrative.faq.items.slice(0, previewItemCount);
+  const comparisonLabels: Record<MarketingLocale, { option: string; advantage: string }> = {
+    es: { option: "Opción", advantage: "Ventaja de Talkey" },
+    en: { option: "Option", advantage: "Talkey advantage" },
+    it: { option: "Opzione", advantage: "Vantaggio di Talkey" },
+  };
+  const comparisonLabel = comparisonLabels[locale];
 
   useEffect(() => {
     if (!detectClientLocale) {
@@ -709,13 +661,17 @@ export function CommercialHome({
             <h2>{narrative.comparison.title}</h2>
             <p>{narrative.comparison.body}</p>
           </div>
-          <div className="mk-security-list">
-            {narrative.comparison.items.map((item, index) => {
-              const Icon = comparisonIcons[index] ?? ShieldCheck;
-              const isTalkey = item.title === "Talkey";
-              const isElevenLabs = item.title === "ElevenLabs";
-              return <article key={item.title}><Icon className={isTalkey ? "mk-comparison-talkey-icon" : undefined} size={isTalkey ? 42 : isElevenLabs ? 34 : 24} /><div><h3>{item.title}</h3><p>{item.text}</p></div></article>;
-            })}
+          <div className="mk-comparison-table" role="table" aria-label={narrative.comparison.title}>
+            <div className="mk-comparison-table-head" role="row">
+              <span role="columnheader">{comparisonLabel.option}</span>
+              <span role="columnheader">{comparisonLabel.advantage}</span>
+            </div>
+            {narrative.comparison.items.map((item) => (
+              <article className="mk-comparison-table-row" key={item.title} role="row">
+                <h3 role="cell">{item.title}</h3>
+                <p role="cell">{item.text}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>

@@ -192,12 +192,12 @@ const suiteContent: Record<
       },
     ],
     comparison: [
-      { title: "Vambe", text: "Automatiza demanda, conversación, calificación, agendamiento y seguimiento para que no se pierdan leads." },
-      { title: "HubSpot Breeze", text: "Aporta CRM, pipeline, automatización comercial, prospección con IA y datos de clientes en una plataforma amplia." },
-      { title: "Salesforce Agentforce", text: "Permite crear agentes conectados a datos y acciones dentro de un ecosistema enterprise muy robusto." },
-      { title: "Salesloft / Drift", text: "Orquesta revenue, chat comercial, inteligencia de conversaciones, cadencias, deals y acciones para equipos de ventas." },
-      { title: "Manychat", text: "Automatiza conversaciones en Instagram, WhatsApp, Messenger y TikTok para capturar leads y vender por canales sociales." },
-      { title: "Talkey Ventas", text: "Hace lo anterior: conversa, califica, agenda, ordena pipeline y da seguimiento. Además conecta la venta con soporte técnico, usa historial por cliente, detecta leads repetidos, permite ajustar criterios en Talkey Editor y mantiene continuidad cuando la venta termina en instalación, garantía o postventa." },
+      { title: "Equipo comercial solamente", text: "Mantiene seguimiento, priorización y contexto incluso cuando el ejecutivo está ocupado o cambia el responsable." },
+      { title: "CRM tradicional", text: "No solo almacena oportunidades: conversa, califica, prioriza y propone próximos pasos." },
+      { title: "Automatizadores tipo Vambe", text: "Hace captación, calificación y seguimiento, pero además conecta ventas con soporte técnico y postventa." },
+      { title: "Chatbots comerciales genéricos", text: "No se queda en responder preguntas: transforma conversaciones en oportunidades gestionables." },
+      { title: "Herramientas de agendamiento", text: "Agenda reuniones, pero con contexto comercial previo, intención detectada y datos mínimos levantados." },
+      { title: "Planillas o seguimiento manual", text: "Evita oportunidades perdidas por olvido, duplicación de leads o falta de continuidad entre canales." },
     ],
     nextTitle: "Convierte conversación en pipeline.",
     nextBody:
@@ -644,11 +644,15 @@ export function SalesPage() {
               necesitas que el contexto siga vivo después del cierre.
             </p>
           </div>
-          <div className="mk-comparison-grid">
+          <div className="mk-comparison-table" role="table" aria-label="Comparación Talkey Ventas">
+            <div className="mk-comparison-table-head" role="row">
+              <span role="columnheader">Opción</span>
+              <span role="columnheader">Ventaja de Talkey</span>
+            </div>
             {content.comparison.map((item) => (
-              <article key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
+              <article className="mk-comparison-table-row" key={item.title} role="row">
+                <h3 role="cell">{item.title}</h3>
+                <p role="cell">{item.text}</p>
               </article>
             ))}
           </div>
