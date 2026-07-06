@@ -4096,6 +4096,20 @@ button { cursor: pointer; }
     font-size: clamp(42px, 11.2vw, 66px);
   }
 
+  .mk-sales-section .mk-section-heading,
+  .mk-sales-comparison-section .mk-section-heading {
+    gap: 18px;
+  }
+
+  .mk-sales-section .mk-section-heading > p,
+  .mk-sales-comparison-section .mk-section-heading > p {
+    display: none;
+  }
+
+  .mk-sales-section .mk-sales-problem-table {
+    margin-top: 30px;
+  }
+
   .mk-sales-card-grid,
   .mk-sales-feature-grid,
   .mk-sales-metrics-grid,
@@ -4150,7 +4164,7 @@ button { cursor: pointer; }
   }
 
   .mk-sales-page .mk-comparison-table {
-    margin-top: 30px;
+    margin-top: 26px;
   }
 
   .mk-sales-page .mk-comparison-table-row h3,
