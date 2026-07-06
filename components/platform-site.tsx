@@ -193,7 +193,7 @@ const suiteContent: Record<
     ],
     comparison: [
       { title: "Equipo comercial solamente", text: "Talkey mantiene seguimiento, priorización y contexto incluso cuando el ejecutivo está ocupado o cambia el responsable." },
-      { title: "CRM tradicional", text: "Talkey no solo almacena oportunidades: conversa, califica, prioriza y propone próximos pasos." },
+      { title: "CRM tradicional", text: "Talkey no solo almacena oportunidades: conversa, califica, prioriza, detecta riesgo, propone próximos pasos y ayuda al ejecutivo a dar seguimiento." },
       { title: "Automatizadores tipo Vambe", text: "Talkey hace captación, calificación y seguimiento, pero además conecta ventas con soporte técnico y postventa." },
       { title: "Chatbots comerciales genéricos", text: "Talkey no se queda en responder preguntas: transforma conversaciones en oportunidades gestionables." },
       { title: "Herramientas de agendamiento", text: "Talkey agenda reuniones, pero con contexto comercial previo, intención detectada y datos mínimos levantados." },
@@ -422,7 +422,7 @@ const salesProblems = [
   {
     title: "Ventas y soporte desconectados",
     problem: "Cuando el cliente compra, postventa recibe poco contexto y la experiencia se quiebra.",
-    solution: "Talkey Ventas prepara el handoff hacia soporte técnico con información relevante del cliente, la venta y el caso.",
+    solution: "Cuando una oportunidad se gana, Talkey puede crear el cliente en soporte, abrir un ticket de onboarding y dejar un evento de integración para que postventa reciba contexto operativo desde el primer día.",
   },
   {
     title: "Ejecutivos sin próximo paso claro",
@@ -438,11 +438,11 @@ const salesProblems = [
 
 const salesWorkflow = [
   "Conversación entra",
-  "Talkey pregunta lo esencial",
   "Califica intención y fit",
   "Prioriza oportunidad",
-  "Prepara cotización o reunión",
-  "Hace seguimiento",
+  "Detecta riesgo",
+  "Prepara email o agenda",
+  "Ayuda al ejecutivo a avanzar",
   "Pasa contexto a soporte",
 ];
 
@@ -586,6 +586,10 @@ export function SalesPage() {
             <p>
               Talkey Editor permite ajustar criterios comerciales, preguntas, objeciones, reglas de seguimiento y datos
               mínimos para cotizar sin depender de desarrollo cada vez que cambia tu operación.
+            </p>
+            <p>
+              Además del flujo visible, Talkey funciona como Smart Agent interno: prioriza pipeline, detecta riesgos,
+              prepara correos de seguimiento y sugiere próximos pasos para que el ejecutivo avance oportunidades con más claridad.
             </p>
           </div>
           <div className="mk-sales-editor-list">

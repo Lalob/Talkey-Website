@@ -72,7 +72,7 @@ const narrativeContent = {
         { problem: "El cliente vuelve a consultar por un problema ya reportado", solution: "Talkey puede usar el historial individual de ese cliente, cuando está disponible, para que la atención no parta desde cero y continúe con más contexto." },
         { problem: "El cliente no sabe exactamente qué modelo o producto tiene", solution: "Talkey identifica el producto desde una foto de la etiqueta, QR o número de serie, guía el diagnóstico y resuelve o deriva el caso con contexto." },
         { problem: "Casos simples terminan derivados a especialistas", solution: "Talkey aplica criterios comunes, intenta resolver casos frecuentes y deriva solo cuando hay riesgo, baja certeza o complejidad real." },
-        { problem: "Los manuales existen, pero nadie los usa durante una llamada", solution: "Talkey transforma documentación técnica en respuestas claras y acciones concretas, y puede guiar al agente humano durante llamadas telefónicas." },
+        { problem: "Los manuales existen, pero nadie los usa durante una llamada", solution: "Talkey transforma documentación técnica en respuestas claras y acciones concretas. También funciona como copiloto para agentes humanos: resume el ticket, sugiere prioridad, responsable, ETA y una respuesta inicial." },
         { problem: "Cada agente responde distinto", solution: "Talkey responde desde conocimiento aprobado y mantiene el mismo criterio para casos equivalentes." },
         { problem: "Los técnicos antiguos saben cosas que no están documentadas", solution: "Talkey convierte experiencia individual en conocimiento reutilizable para toda la operación." },
         { problem: "Se envían técnicos a terreno demasiado pronto", solution: "Talkey mejora el diagnóstico remoto antes de enviar a una persona a terreno." },
@@ -95,7 +95,7 @@ const narrativeContent = {
       title: "Lo que un gerente de soporte necesita controlar al crecer.",
       body: "",
       items: [
-        { title: "Conocimiento crítico bajo control", text: "Convierte manuales, criterios técnicos y experiencia interna en una base reutilizable por toda la operación." },
+        { title: "Conocimiento crítico bajo control", text: "Convierte manuales, criterios técnicos y experiencia interna en una base reutilizable por toda la operación. Cuando un caso se cierra, Talkey puede sugerir convertir la solución en un artículo reutilizable de base de conocimiento." },
         { title: "Derivación con contexto", text: "Ayuda a decidir qué casos puede resolver el asistente virtual y cuáles deben llegar a una persona, usando datos ya levantados." },
         { title: "Visibilidad y productividad operativa", text: "Ordena motivos de consulta, razones de derivación, tiempos y brechas de documentación para que el equipo humano se concentre en casos de mayor valor." },
       ],
@@ -135,7 +135,7 @@ const narrativeContent = {
       body: "Resuelve una categoría distinta: convertir conocimiento técnico en soporte operativo consistente.",
       items: [
         { title: "Equipo humano solamente", text: "Talkey reduce la dependencia de personas específicas y mantiene criterios consistentes incluso cuando cambia el agente." },
-        { title: "Software de tickets / helpdesk", text: "Talkey no solo ordena casos: ayuda a resolverlos con conocimiento técnico, diagnóstico guiado y derivación con contexto." },
+        { title: "Software de tickets / helpdesk", text: "Talkey no solo ordena casos: ayuda al agente con resumen automático, prioridad, responsable sugerido, ETA, duplicados y respuesta inicial." },
         { title: "Chatbot genérico", text: "Talkey responde desde conocimiento aprobado de la empresa, no desde respuestas genéricas o improvisadas." },
         { title: "Herramientas de voz", text: "Talkey puede operar por voz, pero además entiende productos, manuales, síntomas, procedimientos e historial del cliente." },
         { title: "Base de conocimiento tradicional", text: "Talkey convierte documentación en respuestas operativas, no solo en artículos que el cliente debe buscar por su cuenta." },
@@ -158,6 +158,7 @@ const narrativeContent = {
       items: [
         { question: "¿Cuánto demora una implementación?", answer: "Depende del volumen de productos, documentos, canales y validación técnica. Lo correcto es revisarlo en una evaluación.", cta: "Solicitar evaluación", ctaHref: "#agenda" },
         { question: "¿Cuánto cuesta?", answer: "El precio depende de la operación. Usa el simulador de precios para una estimación referencial y luego solicita una evaluación.", cta: "Ir al simulador de precios" },
+        { question: "¿Talkey ayuda también al equipo interno?", answer: "Sí. Además de asistir al cliente, Talkey puede actuar como copiloto operativo para agentes: resume tickets, sugiere prioridad, responsable, próximos pasos y respuestas iniciales." },
         { question: "¿Talkey es un chatbot?", answer: "No solamente. La interfaz puede parecer un chat, pero el valor está en organizar conocimiento técnico, aplicar procedimientos y mantener criterios de soporte." },
         { question: "¿Talkey reemplaza a mis agentes?", answer: "No necesariamente. Puede complementar a tus agentes; si tu objetivo es reducir dotación o evitar seguir ampliándola, Talkey puede absorber carga repetitiva y entregar más contexto para casos complejos." },
         { question: "¿Talkey puede mejorar la satisfacción de mis clientes?", answer: "Sí, puede ayudar. La satisfacción del cliente suele mejorar cuando recibe respuestas claras, consistentes y oportunas, y cuando los casos complejos se derivan con buen contexto. Talkey no promete eliminar todos los problemas de soporte, pero sí ayuda a reducir respuestas contradictorias, esperas innecesarias y derivaciones mal preparadas." },
