@@ -717,6 +717,14 @@ button { cursor: pointer; }
 .mk-faq .mk-list-toggle {
   display: flex;
 }
+.mk-problem .mk-list-toggle {
+  border-color: #080808;
+  background: var(--mk-yellow);
+  color: #080808;
+}
+.mk-problem .mk-list-toggle:hover {
+  background: #ffd157;
+}
 .mk-use-cases .mk-list-toggle {
   display: flex;
   box-shadow: 0 16px 34px rgba(0,0,0,.18);
