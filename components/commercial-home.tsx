@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
+  BadgeCheck,
   BookOpenText,
   CalendarCheck,
   Database,
@@ -21,13 +22,13 @@ import { MarketingChatDemo } from "@/components/marketing-chat-demo";
 import { MarketingScheduler } from "@/components/marketing-scheduler";
 import { PricingSimulator } from "@/components/pricing-simulator";
 import { trackEvent } from "@/lib/analytics";
-import { detectMarketingLocale, marketingCopy, type MarketingLocale } from "@/lib/marketing-copy";
+import { detectMarketingLocale, marketingCopy, type MarketingLocale, type PricingSimulatorCopy } from "@/lib/marketing-copy";
 
 const integrationIcons = [Database, CalendarCheck, PlugZap];
 const supportedLocales = new Set<MarketingLocale>(["es", "en", "it"]);
 
 const navLineBreakLabels: Record<MarketingLocale, { cases: [string, string]; pricing: [string, string] }> = {
-  es: { cases: ["Casos", "de uso"], pricing: ["Simulador", "de precios"] },
+  es: { cases: ["Casos", "de uso"], pricing: ["Precios", ""] },
   en: { cases: ["Use", "cases"], pricing: ["Pricing", "simulator"] },
   it: { cases: ["Casi", "d'uso"], pricing: ["Simulatore", "prezzi"] },
 };
@@ -35,10 +36,61 @@ const navLineBreakLabels: Record<MarketingLocale, { cases: [string, string]; pri
 const previewItemCount = 3;
 type ExpandableListKey = "problems" | "comparison" | "useCases" | "faq";
 
+const supportPricingPackages = [
+  {
+    name: "Base",
+    description:
+      "Para empresas que quieren ordenar soporte técnico, centralizar conocimiento y empezar con un asistente virtual claro.",
+    price: "$650.000 CLP",
+    detail: "al mes",
+    setup: "Implementación desde $850.000 CLP",
+    highlighted: false,
+    features: [
+      "Suite Soporte Técnico",
+      "1.500 conversaciones incluidas",
+      "Talkey Editor para conocimiento base",
+      "3 usuarios internos",
+      "Integraciones estándar",
+    ],
+  },
+  {
+    name: "Avanzado",
+    description:
+      "Para equipos con más volumen, varios canales, consola para agentes humanos y necesidad de conectar mejor soporte con operación.",
+    price: "$950.000 CLP",
+    detail: "al mes",
+    setup: "Implementación desde $1.300.000 CLP",
+    highlighted: true,
+    features: [
+      "Suite Soporte Técnico + continuidad con Ventas",
+      "4.000 conversaciones incluidas",
+      "Diagnóstico guiado y base técnica editable",
+      "Consola para agentes, tickets y respuesta sugerida",
+      "8 usuarios internos",
+    ],
+  },
+  {
+    name: "Enterprise",
+    description:
+      "Para operaciones más grandes o complejas, con múltiples equipos, integraciones, permisos, control avanzado y acompañamiento cercano.",
+    price: "Desde $3.200.000 CLP",
+    detail: "al mes",
+    setup: "Implementación a medida",
+    highlighted: false,
+    features: [
+      "Volumen, usuarios y suites personalizados",
+      "Integraciones CRM/API y flujos internos",
+      "Talkey Editor avanzado y control por equipos",
+      "Soporte prioritario y revisión operacional",
+      "Seguridad, permisos y trazabilidad por alcance",
+    ],
+  },
+];
+
 const narrativeContent = {
   es: {
     controls: { showMoreProblems: "Ver más problemas/soluciones...", showMoreComparisons: "Ver más comparaciones...", showMoreIndustries: "Ver más industrias...", showMoreFaq: "Ver más preguntas frecuentes...", showLess: "Ver menos..." },
-    nav: { problem: "Problemas/Soluciones", solution: "Solución", cases: "Casos de uso", demo: "Demo", manuals: "Manuales", pricing: "Simulador de precios", comparison: "Comparación", quote: "Solicitar evaluación" },
+    nav: { problem: "Problemas/Soluciones", solution: "Solución", cases: "Casos de uso", demo: "Demo", manuals: "Manuales", pricing: "Precios", comparison: "Comparación", quote: "Solicitar evaluación" },
     hero: {
       eyebrow: "",
       titleParts: [
@@ -49,7 +101,7 @@ const narrativeContent = {
       body: "Transforma manuales, procedimientos y experiencia técnica en respuestas claras, diagnósticos guiados y derivación a un especialista humano cuando corresponde. Pensado para fabricantes, distribuidores y equipos de postventa que necesitan resolver soporte técnico con mayor consistencia.",
       primary: "Solicitar evaluación",
       secondary: "Probar demo",
-      tertiary: "Calcular precio estimado",
+      tertiary: "Ver precios",
       proof: ["Soporte técnico de calidad", "Menos dependencia individual", "Diagnósticos repetibles"],
       visualTitle: "Asistente virtual Talkey",
     },
@@ -157,7 +209,7 @@ const narrativeContent = {
       title: "Respuestas rápidas antes de una evaluación.",
       items: [
         { question: "¿Cuánto demora una implementación?", answer: "Depende del volumen de productos, documentos, canales y validación técnica. Lo correcto es revisarlo en una evaluación.", cta: "Solicitar evaluación", ctaHref: "#agenda" },
-        { question: "¿Cuánto cuesta?", answer: "El precio depende de la operación. Usa el simulador de precios para una estimación referencial y luego solicita una evaluación.", cta: "Ir al simulador de precios" },
+        { question: "¿Cuánto cuesta?", answer: "El precio depende del volumen, canales, documentación, integraciones y nivel de acompañamiento requerido. Revisa los paquetes referenciales y luego solicita una evaluación para ajustar alcance y precio final.", cta: "Ver paquetes de precios" },
         { question: "¿Talkey ayuda también al equipo interno?", answer: "Sí. Además de asistir al cliente, Talkey puede actuar como copiloto operativo para agentes: resume tickets, sugiere prioridad, responsable, próximos pasos y respuestas iniciales." },
         { question: "¿Talkey es un chatbot?", answer: "No solamente. La interfaz puede parecer un chat, pero el valor está en organizar conocimiento técnico, aplicar procedimientos y mantener criterios de soporte." },
         { question: "¿Talkey reemplaza a mis agentes?", answer: "No necesariamente. Puede complementar a tus agentes; si tu objetivo es reducir dotación o evitar seguir ampliándola, Talkey puede absorber carga repetitiva y entregar más contexto para casos complejos." },
@@ -445,6 +497,43 @@ function getBrowserLocale() {
   return detectMarketingLocale(null, languages);
 }
 
+export function ArchivedSupportPricingSimulator({ copy }: { copy: PricingSimulatorCopy }) {
+  return <PricingSimulator copy={copy} />;
+}
+
+function SupportPricingPackagesSection() {
+  return (
+    <section id="precios" className="mk-section mk-sales-pricing-section mk-support-package-pricing">
+      <div className="mk-container">
+        <div className="mk-section-heading">
+          <div className="mk-section-label"><span>07</span>Precios</div>
+          <h2>Paquetes para partir con soporte técnico estructurado.</h2>
+          <p>
+            Los valores son referenciales. Talkey se posiciona como una solución premium porque une asistente virtual,
+            conocimiento técnico, consola para agentes humanos, trazabilidad y continuidad operacional.
+          </p>
+        </div>
+        <div className="mk-package-grid">
+          {supportPricingPackages.map((plan) => (
+            <article className={plan.highlighted ? "is-highlighted" : ""} key={plan.name}>
+              <h3>{plan.name}</h3>
+              <p className="mk-package-description">{plan.description}</p>
+              <strong>{plan.price}</strong>
+              <small>{plan.detail} · {plan.setup}</small>
+              <ul>
+                {plan.features.map((feature) => (
+                  <li key={feature}><BadgeCheck size={17} />{feature}</li>
+                ))}
+              </ul>
+              <a href="#agenda">Solicitar evaluación <ArrowRight size={16} /></a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function CommercialHome({
   initialLocale,
   currentYear,
@@ -568,7 +657,11 @@ export function CommercialHome({
             <Link href="/manualesdeuso" onClick={() => setMenuOpen(false)}>{narrative.nav.manuals}</Link>
             <a href="#problema" onClick={() => setMenuOpen(false)}>{narrative.nav.problem}</a>
             <a href="#casos" onClick={() => setMenuOpen(false)}><span className="mk-nav-break"><span>{navLineBreaks.cases[0]}</span><span>{navLineBreaks.cases[1]}</span></span></a>
-            <a href="#precios" onClick={() => setMenuOpen(false)}><span className="mk-nav-break"><span>{navLineBreaks.pricing[0]}</span><span>{navLineBreaks.pricing[1]}</span></span></a>
+            <a href="#precios" onClick={() => setMenuOpen(false)}>
+              {navLineBreaks.pricing[1] ? (
+                <span className="mk-nav-break"><span>{navLineBreaks.pricing[0]}</span><span>{navLineBreaks.pricing[1]}</span></span>
+              ) : narrative.nav.pricing}
+            </a>
             <a href="#comparacion" onClick={() => setMenuOpen(false)}>{narrative.nav.comparison}</a>
             <a className="mk-mobile-quote" href="#agenda" onClick={() => { setMenuOpen(false); trackCta("agenda_click"); }}>{narrative.nav.quote}<ArrowRight size={16} /></a>
           </nav>
@@ -718,7 +811,7 @@ export function CommercialHome({
         </div>
       </section>
 
-      <PricingSimulator copy={copy.pricing} />
+      {locale === "es" ? <SupportPricingPackagesSection /> : <ArchivedSupportPricingSimulator copy={copy.pricing} />}
 
       <section className="mk-section mk-integrations">
         <div className="mk-container">
@@ -776,7 +869,7 @@ export function CommercialHome({
                   <a
                     className="mk-faq-cta"
                     href={"ctaHref" in item && item.ctaHref ? item.ctaHref : "#precios"}
-                    onClick={() => trackCta("ctaHref" in item && item.ctaHref === "#agenda" ? "faq_request_evaluation_click" : "faq_pricing_simulator_click")}
+                    onClick={() => trackCta("ctaHref" in item && item.ctaHref === "#agenda" ? "faq_request_evaluation_click" : "faq_pricing_packages_click")}
                   >
                     {item.cta}<ArrowRight size={16} />
                   </a>
