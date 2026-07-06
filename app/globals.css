@@ -1102,7 +1102,7 @@ button { cursor: pointer; }
   .mk-privacy { padding-top: 45px; padding-bottom: 45px; }
   .mk-faq { padding-top: 45px; padding-bottom: 45px; }
   .mk-contact { padding-top: 45px; }
-  .mk-site .mk-section-heading > p,
+  .mk-site .mk-section-heading > p:not(.mk-section-label),
   .mk-site .mk-security-copy > p,
   .mk-site .mk-use-cases-intro > p,
   .mk-site .mk-demo-copy > p {
@@ -4101,8 +4101,8 @@ button { cursor: pointer; }
     gap: 18px;
   }
 
-  .mk-sales-section .mk-section-heading > p,
-  .mk-sales-comparison-section .mk-section-heading > p {
+  .mk-sales-section .mk-section-heading > p:not(.mk-section-label),
+  .mk-sales-comparison-section .mk-section-heading > p:not(.mk-section-label) {
     display: none;
   }
 
