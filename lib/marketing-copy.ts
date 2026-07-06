@@ -192,10 +192,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       welcome: "Hola, soy Talkey. Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?",
       prompts: [
         "¿Por qué Talkey es diferente a un software de tickets?",
-        "¿Por qué Talkey es diferente a ElevenLabs?",
         "¿Qué pasa si no tengo manuales o troubleshootings?",
-        "¿Qué pasa si mi soporte depende de personas específicas?",
-        "¿Cómo ayuda Talkey a mejorar la satisfacción de clientes?",
         "Tengo un problema con Talkey",
         "¿Cuánto cuesta Talkey?",
       ],
