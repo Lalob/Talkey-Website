@@ -344,15 +344,15 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
 
   function resolveSalesReply(value: string, commandValue: string): ReplyPlan {
     if (/(precio|costo|cu[aá]nto|valor|pagar|presupuesto|pricing|price|cost|budget|plan|paquete|mensual)/i.test(value)) {
-      return { replies: [{ text: copy.responses.pricing, actions: [{ label: copy.actions.pricingSimulator, href: "#precios" }] }] };
+      return { replies: [{ text: copy.responses.pricing, actions: [{ label: copy.actions.pricingSimulator, href: "#precios" }, { label: copy.actions.bookDemo, href: "#agenda" }] }] };
     }
 
     if (/(vambe|hubspot|salesforce|manychat|salesloft|drift|competidor|competencia|competitor|alternative|alternativa|crm tradicional|comparar|comparaci[oó]n)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.competitorComparison }] };
+      return { replies: [{ text: copy.responses.competitorComparison, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
     }
 
     if (/(integr|crm|whatsapp|wasap|wsp|instagram|web|sitio|portal|api|canal|email|correo|hubspot|salesforce)/i.test(value)) {
-      return { replies: [{ text: copy.responses.integration }] };
+      return { replies: [{ text: copy.responses.integration, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
     }
 
     if (/(implement|instalar|instala|partir|comenzar|onboard|setup|configur|implementar|avvia|iniziare)/i.test(value)) {
@@ -367,27 +367,27 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     }
 
     if (/(cotiz|cotizar|propuesta|presupuesto|quote|proposal)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.ticketComparison }] };
+      return { replies: [{ text: copy.responses.ticketComparison, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
     }
 
     if (/(seguimiento|lead.*fr[ií]o|se enfr[ií]a|follow|priori|prioridad|scoring|pipeline|oportunidad|pr[oó]ximo paso)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.supportMetrics }] };
+      return { replies: [{ text: copy.responses.supportMetrics, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
     }
 
     if (/(duplic|repetid|historial|memoria|vuelve|otro canal|mismo cliente|history|memory)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.customerMemory }] };
+      return { replies: [{ text: copy.responses.customerMemory, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
     }
 
     if (/(postventa|soporte|handoff|deriv|cliente ganado|instalaci[oó]n|garant[ií]a)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.technical }] };
+      return { replies: [{ text: copy.responses.technical, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
     }
 
     if (/(vendedor|ejecutivo|humano|humanos|equipo comercial|reemplaza|replace|sales rep)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.humanRole }] };
+      return { replies: [{ text: copy.responses.humanRole, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
     }
 
     if (/(voz|tel[eé]fono|telefono|hablar|voice|phone|call|llamada)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.voiceVersion }] };
+      return { replies: [{ text: copy.responses.voiceVersion, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
     }
 
     if (/(segur|privac|dato|datos|trazab|security|privacy|data)/i.test(value)) {
@@ -395,10 +395,10 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     }
 
     if (/(que problema resuelve|que resuelve talkey|para que sirve talkey|ventas|vender|leads|comercial|prospecto)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.problemSolved }] };
+      return { replies: [{ text: copy.responses.problemSolved, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
     }
 
-    return { replies: [{ text: copy.responses.fallback }] };
+    return { replies: [{ text: copy.responses.fallback, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
   }
 
   async function resolveAiPlan(content: string, localPlan: ReplyPlan): Promise<ReplyPlan> {
