@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MarketingChatDemo } from "@/components/marketing-chat-demo";
 import { DemoPanel, type DemoOption } from "@/components/platform-demo-panel";
+import { SalesComparisonTable } from "@/components/sales-comparison-table";
 import { SalesProblemTable } from "@/components/sales-problem-table";
 import { marketingCopy } from "@/lib/marketing-copy";
 import {
@@ -651,18 +652,7 @@ export function SalesPage() {
               necesitas que el contexto siga vivo después del cierre.
             </p>
           </div>
-          <div className="mk-comparison-table" role="table" aria-label="Comparación Talkey Ventas">
-            <div className="mk-comparison-table-head" role="row">
-              <span role="columnheader">Opción</span>
-              <span role="columnheader">Ventaja de Talkey</span>
-            </div>
-            {content.comparison.map((item) => (
-              <article className="mk-comparison-table-row" key={item.title} role="row">
-                <h3 role="cell">{item.title}</h3>
-                <p role="cell">{item.text}</p>
-              </article>
-            ))}
-          </div>
+          <SalesComparisonTable items={content.comparison} />
         </div>
       </section>
 
