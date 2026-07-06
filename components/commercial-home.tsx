@@ -664,19 +664,21 @@ export function CommercialHome({
             <h2>{narrative.comparison.title}</h2>
             <p>{narrative.comparison.body}</p>
           </div>
-          <div className="mk-comparison-table" role="table" aria-label={narrative.comparison.title}>
-            <div className="mk-comparison-table-head" role="row">
-              <span role="columnheader">{comparisonLabel.option}</span>
-              <span role="columnheader">{comparisonLabel.advantage}</span>
+          <div className="mk-comparison-stack">
+            <div className="mk-comparison-table" role="table" aria-label={narrative.comparison.title}>
+              <div className="mk-comparison-table-head" role="row">
+                <span role="columnheader">{comparisonLabel.option}</span>
+                <span role="columnheader">{comparisonLabel.advantage}</span>
+              </div>
+              {visibleComparisonItems.map((item) => (
+                <article className="mk-comparison-table-row" key={item.title} role="row">
+                  <h3 role="cell">{item.title}</h3>
+                  <p role="cell">{item.text}</p>
+                </article>
+              ))}
             </div>
-            {visibleComparisonItems.map((item) => (
-              <article className="mk-comparison-table-row" key={item.title} role="row">
-                <h3 role="cell">{item.title}</h3>
-                <p role="cell">{item.text}</p>
-              </article>
-            ))}
+            {renderListToggle("comparison", narrative.comparison.items.length)}
           </div>
-          {renderListToggle("comparison", narrative.comparison.items.length)}
         </div>
       </section>
 
