@@ -43,7 +43,7 @@ function normalizeCommand(value: string) {
   return value.toLocaleLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-export function MarketingChatDemo({ copy, aiMode = false }: { copy: MarketingCopy["chat"]; aiMode?: boolean }) {
+export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }: { copy: MarketingCopy["chat"]; aiMode?: boolean; variant?: "support" | "sales" }) {
   const [messages, setMessages] = useState<DemoMessage[]>([
     { id: "welcome", sender: "assistant", text: copy.welcome },
   ]);
@@ -194,6 +194,8 @@ export function MarketingChatDemo({ copy, aiMode = false }: { copy: MarketingCop
       return { replies: [{ text: copy.responses.absurd }] };
     }
 
+    if (variant === "sales") return resolveSalesReply(value, commandValue);
+
     if (/(chatgpt|openai|gpt|ia general|general ai|directamente con ai|directly.*ai)/i.test(commandValue)) {
       return { replies: [{ text: copy.responses.directChatGpt }] };
     }
@@ -337,6 +339,65 @@ export function MarketingChatDemo({ copy, aiMode = false }: { copy: MarketingCop
     if (/(segur|privac|dato|datos|trazab|confianz|security|privacy|data|sicurezza|dati)/i.test(value)) {
       return { replies: [{ text: copy.responses.security }] };
     }
+    return { replies: [{ text: copy.responses.fallback }] };
+  }
+
+  function resolveSalesReply(value: string, commandValue: string): ReplyPlan {
+    if (/(precio|costo|cu[aá]nto|valor|pagar|presupuesto|pricing|price|cost|budget|plan|paquete|mensual)/i.test(value)) {
+      return { replies: [{ text: copy.responses.pricing, actions: [{ label: copy.actions.pricingSimulator, href: "#precios" }] }] };
+    }
+
+    if (/(vambe|hubspot|salesforce|manychat|salesloft|drift|competidor|competencia|competitor|alternative|alternativa|crm tradicional|comparar|comparaci[oó]n)/i.test(commandValue)) {
+      return { replies: [{ text: copy.responses.competitorComparison }] };
+    }
+
+    if (/(integr|crm|whatsapp|wasap|wsp|instagram|web|sitio|portal|api|canal|email|correo|hubspot|salesforce)/i.test(value)) {
+      return { replies: [{ text: copy.responses.integration }] };
+    }
+
+    if (/(implement|instalar|instala|partir|comenzar|onboard|setup|configur|implementar|avvia|iniziare)/i.test(value)) {
+      return {
+        replies: [{ text: implementationAsked ? copy.responses.implementationFollowUp : copy.responses.implementation }],
+        implementationAsked: true,
+      };
+    }
+
+    if (/(agenda|agendar|demo|reuni[oó]n|llamada|evaluaci[oó]n|calendar|meeting)/i.test(commandValue)) {
+      return { replies: [{ text: copy.responses.implementation, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
+    }
+
+    if (/(cotiz|cotizar|propuesta|presupuesto|quote|proposal)/i.test(commandValue)) {
+      return { replies: [{ text: copy.responses.ticketComparison }] };
+    }
+
+    if (/(seguimiento|lead.*fr[ií]o|se enfr[ií]a|follow|priori|prioridad|scoring|pipeline|oportunidad|pr[oó]ximo paso)/i.test(commandValue)) {
+      return { replies: [{ text: copy.responses.supportMetrics }] };
+    }
+
+    if (/(duplic|repetid|historial|memoria|vuelve|otro canal|mismo cliente|history|memory)/i.test(commandValue)) {
+      return { replies: [{ text: copy.responses.customerMemory }] };
+    }
+
+    if (/(postventa|soporte|handoff|deriv|cliente ganado|instalaci[oó]n|garant[ií]a)/i.test(commandValue)) {
+      return { replies: [{ text: copy.responses.technical }] };
+    }
+
+    if (/(vendedor|ejecutivo|humano|humanos|equipo comercial|reemplaza|replace|sales rep)/i.test(commandValue)) {
+      return { replies: [{ text: copy.responses.humanRole }] };
+    }
+
+    if (/(voz|tel[eé]fono|telefono|hablar|voice|phone|call|llamada)/i.test(commandValue)) {
+      return { replies: [{ text: copy.responses.voiceVersion }] };
+    }
+
+    if (/(segur|privac|dato|datos|trazab|security|privacy|data)/i.test(value)) {
+      return { replies: [{ text: copy.responses.security }] };
+    }
+
+    if (/(que problema resuelve|que resuelve talkey|para que sirve talkey|ventas|vender|leads|comercial|prospecto)/i.test(commandValue)) {
+      return { replies: [{ text: copy.responses.problemSolved }] };
+    }
+
     return { replies: [{ text: copy.responses.fallback }] };
   }
 
@@ -486,7 +547,7 @@ export function MarketingChatDemo({ copy, aiMode = false }: { copy: MarketingCop
   }
 
   return (
-    <div className="mk-chat-wrap" aria-label={copy.live}>
+    <div className={`mk-chat-wrap ${variant === "sales" ? "is-sales-chat" : ""}`} aria-label={copy.live}>
       <div className="mk-chat-glow" />
       {renderCard("hero")}
       <aside className={`mk-chat-persistent ${dockOpen ? "is-open" : ""} ${nearPricing ? "is-near-pricing" : ""}`} data-testid="persistent-chat" aria-label={copy.live}>

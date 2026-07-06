@@ -3661,6 +3661,87 @@ button { cursor: pointer; }
   color: var(--sales-petrol-readable);
 }
 
+.mk-sales-page .mk-chat-wrap.is-sales-chat {
+  padding-top: 0;
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-glow {
+  background: rgba(18,53,91,.26);
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-card {
+  border-color: rgba(47,111,153,.56);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(18,53,91,.2), transparent 34%),
+    #111;
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-topline {
+  border-bottom-color: var(--sales-petrol-hover);
+  background: var(--sales-petrol);
+  color: #f5f7fa;
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-live-dot {
+  background: #f5f7fa;
+  box-shadow: 0 0 0 5px rgba(245,247,250,.12);
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-signal i {
+  background: rgba(245,247,250,.5);
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-signal i:nth-child(3) {
+  background: #f5f7fa;
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-minimize {
+  border-color: rgba(245,247,250,.24);
+  background: rgba(255,255,255,.08);
+  color: #f5f7fa;
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-demo-message.is-visitor p {
+  border-color: var(--sales-petrol);
+  background: var(--sales-petrol);
+  color: #f5f7fa;
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-demo-message.is-assistant p {
+  border-color: #2b3440;
+  background: #151b21;
+  color: #edf5f6;
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-typing > span,
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-form button,
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-demo-action {
+  background: var(--sales-petrol);
+  color: #f5f7fa !important;
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-form button:hover,
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-demo-action:hover {
+  background: var(--sales-petrol-hover);
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-prompts button:hover {
+  border-color: var(--sales-petrol-readable);
+  color: var(--sales-petrol-readable);
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-launcher {
+  border-color: rgba(47,111,153,.7);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(18,53,91,.2), transparent 34%),
+    #111;
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-launcher > span {
+  background: var(--sales-petrol);
+  color: #f5f7fa;
+}
+
 .mk-sales-page .mk-package-grid article.is-highlighted {
   border-color: var(--sales-petrol-hover);
   background:

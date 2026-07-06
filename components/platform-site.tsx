@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { MarketingChatDemo } from "@/components/marketing-chat-demo";
 import { DemoPanel, type DemoOption } from "@/components/platform-demo-panel";
 import { SalesProblemTable } from "@/components/sales-problem-table";
+import { marketingCopy } from "@/lib/marketing-copy";
 import {
   ArrowRight,
   BadgeCheck,
@@ -417,6 +419,66 @@ const salesWorkflow = [
   "Pasa contexto a soporte",
 ];
 
+const salesChatCopy = {
+  ...marketingCopy.es.chat,
+  live: "Demo en vivo · Talkey Ventas",
+  open: "Abrir demo de Talkey Ventas",
+  minimize: "Minimizar demo de ventas",
+  welcome:
+    "Hola, soy Talkey Ventas. Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?",
+  prompts: [
+    "¿Cómo califica Talkey un lead?",
+    "¿Qué pasa si un lead vuelve por otro canal?",
+    "¿Cómo ayuda con cotizaciones?",
+    "¿Cómo se compara con Vambe?",
+    "¿Se integra con mi CRM?",
+    "¿Cómo conecta ventas con soporte?",
+    "¿Cuánto cuesta Talkey Ventas?",
+  ],
+  placeholder: "Pregúntame sobre Talkey Ventas...",
+  typing: "Talkey Ventas está preparando una respuesta",
+  danger: "Talkey Ventas",
+  actions: {
+    ...marketingCopy.es.chat.actions,
+    pricingSimulator: "Ver paquetes de precios",
+    bookDemo: "Solicitar evaluación",
+    bookReview: "Solicitar evaluación",
+  },
+  responses: {
+    ...marketingCopy.es.chat.responses,
+    pricing:
+      "Talkey Ventas se ofrece en paquetes referenciales según volumen, canales, nivel de automatización, integraciones y continuidad con soporte técnico. Puedes revisar los paquetes de la sección de precios y luego solicitar una evaluación para ajustar alcance, implementación y precio final.",
+    implementation:
+      "La implementación parte revisando tu proceso comercial: canales de entrada, criterios de calificación, etapas de pipeline, datos mínimos para cotizar, reglas de seguimiento e integraciones necesarias. Después se configura Talkey Editor, se prueban conversaciones reales y se valida el handoff hacia el equipo comercial o soporte.",
+    implementationFollowUp:
+      "En más detalle: 1. levantamos canales y origen de leads; 2. definimos criterios de scoring; 3. configuramos preguntas comerciales y datos para cotizar; 4. conectamos CRM, agenda o canales; 5. probamos casos reales; 6. ajustamos seguimiento y handoff. ¿Qué otra parte de la implementación quieres revisar?",
+    integration:
+      "Talkey Ventas puede integrarse con tu CRM o funcionar junto al CRM de Talkey. También puede conectarse con formularios del sitio, WhatsApp, email, agenda de reuniones y otros canales comerciales según evaluación técnica.",
+    security:
+      "Talkey Ventas debe operar con criterios aprobados, trazabilidad y control de datos comerciales. La configuración de permisos, historial, integraciones y tratamiento de información se revisa en la evaluación técnica.",
+    technical:
+      "Talkey Ventas conecta ventas con soporte cuando el cliente ganado necesita instalación, garantía, postventa o atención técnica. La idea es que el contexto comercial no se pierda: producto, necesidad, historial y próximos pasos llegan preparados.",
+    problemSolved:
+      "Talkey Ventas resuelve una fricción común: muchas conversaciones entrantes se pierden por demora, falta de seguimiento, baja priorización o poca continuidad. Talkey califica, prioriza, ordena pipeline, prepara próximos pasos y mantiene contexto por cliente.",
+    ticketComparison:
+      "Para cotizaciones, Talkey Ventas puede levantar datos mínimos, entender intención, ordenar la información y dejar lista la base para que el equipo comercial prepare una propuesta sin volver a preguntar lo mismo.",
+    competitorComparison:
+      "Vambe, HubSpot, Salesforce, Salesloft/Drift y Manychat cubren partes importantes de captación, CRM, automatización, agendamiento y seguimiento. Talkey Ventas hace eso, más continuidad con soporte técnico, historial por cliente, detección de leads repetidos, Talkey Editor y handoff hacia postventa.",
+    supportMetrics:
+      "Talkey Ventas ayuda a que el equipo no trate todos los leads igual: identifica intención, urgencia, fit, presupuesto, repetición y potencial. Con eso prioriza oportunidades y propone próximos pasos concretos.",
+    customerMemory:
+      "Si un lead vuelve por otro canal, Talkey Ventas puede usar el historial disponible para no partir desde cero, detectar duplicados, unificar contexto y mantener el seguimiento activo.",
+    humanRole:
+      "Talkey Ventas no reemplaza necesariamente al equipo comercial. Puede absorber tareas repetitivas, calificar leads, preparar datos y sugerir próximos pasos, dejando a los ejecutivos las conversaciones de mayor valor, negociación y cierre.",
+    voiceVersion:
+      "Talkey Ventas puede operar también por voz si el canal lo justifica: por ejemplo, para capturar datos iniciales, calificar intención o preparar una reunión antes de que intervenga un ejecutivo.",
+    negativeChallenge:
+      "¿Qué te hace pensar eso? Si tu duda es sobre precio, precisión, comparación con Vambe o capacidad real de cerrar oportunidades, puedo responderlo desde el enfoque de Talkey Ventas.",
+    fallback:
+      "Puedo explicarte cómo Talkey Ventas califica leads, prioriza oportunidades, prepara cotizaciones, evita duplicados, agenda reuniones, se integra con CRM o conecta ventas con soporte técnico.",
+  },
+};
+
 const salesEditorItems = [
   "Criterios de scoring",
   "Preguntas comerciales",
@@ -512,7 +574,7 @@ export function SalesPage() {
             <h2>{content.demoTitle}</h2>
             <p>{content.demoBody}</p>
           </div>
-          <DemoPanel title={content.demoTitle} body={content.demoBody} options={content.demoOptions} />
+          <MarketingChatDemo copy={salesChatCopy} variant="sales" />
         </div>
       </section>
 
