@@ -3362,6 +3362,10 @@ button { cursor: pointer; }
   letter-spacing: -.058em;
 }
 
+.mk-sales-hero-highlight {
+  color: var(--sales-petrol-readable);
+}
+
 .mk-sales-hero p:not(.mk-eyebrow) {
   max-width: 520px;
   margin: 0;

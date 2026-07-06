@@ -534,7 +534,9 @@ export function SalesPage() {
       <section id="top" className="mk-section mk-sales-hero" aria-labelledby="talkey-sales-title">
         <div className="mk-container mk-sales-hero-grid">
           <div className="mk-sales-hero-copy">
-            <h1 id="talkey-sales-title">Convierte conversaciones en ventas sin perder oportunidades por seguimiento débil.</h1>
+            <h1 id="talkey-sales-title">
+              Convierte conversaciones en <span className="mk-sales-hero-highlight">ventas</span> sin perder oportunidades por seguimiento débil.
+            </h1>
           </div>
           <div className="mk-sales-hero-aside">
             <p>
