@@ -2624,9 +2624,17 @@ button { cursor: pointer; }
 }
 
 .mk-package-grid h3 {
-  margin: 22px 0 0;
+  margin: 0;
   color: #f4f0e8;
   font-size: 31px;
+}
+
+.mk-package-description {
+  min-height: 92px;
+  margin: 14px 0 0;
+  color: #bdb8ae;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 .mk-package-grid strong {

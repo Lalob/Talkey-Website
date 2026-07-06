@@ -63,8 +63,9 @@ const products: Array<{
 
 const pricing = [
   {
-    label: "Para partir con foco",
-    name: "Base Operativa",
+    name: "Base",
+    description:
+      "Para empresas que quieren ordenar conversaciones entrantes, calificar leads y empezar con automatización comercial clara.",
     price: "USD 690",
     detail: "al mes",
     setup: "Implementación desde USD 900",
@@ -78,8 +79,9 @@ const pricing = [
     ],
   },
   {
-    label: "Recomendado",
-    name: "Crecimiento",
+    name: "Avanzado",
+    description:
+      "Para equipos que ya tienen más volumen, varios canales, seguimiento activo, scoring y necesidad de conectar mejor ventas con operación.",
     price: "USD 990",
     detail: "al mes",
     setup: "Implementación desde USD 1.400",
@@ -93,8 +95,9 @@ const pricing = [
     ],
   },
   {
-    label: "Operación avanzada",
-    name: "Arquitectura",
+    name: "Enterprise",
+    description:
+      "Para operaciones más grandes o complejas, con integraciones, múltiples equipos, permisos, control avanzado y acompañamiento más cercano.",
     price: "Desde USD 3.400",
     detail: "al mes",
     setup: "Implementación a medida",
@@ -615,8 +618,8 @@ export function SalesPage() {
           <div className="mk-package-grid">
             {pricing.map((plan) => (
               <article className={plan.highlighted ? "is-highlighted" : ""} key={plan.name}>
-                <span>{plan.label}</span>
                 <h3>{plan.name}</h3>
+                <p className="mk-package-description">{plan.description}</p>
                 <strong>{plan.price}</strong>
                 <small>{plan.detail} · {plan.setup}</small>
                 <ul>
