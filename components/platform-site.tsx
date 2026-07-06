@@ -448,7 +448,7 @@ const salesWorkflow = [
 ];
 
 const salesDemoCta =
-  "En este demo, esto es lo que haría el agente real: terminaría proponiendo agendar una reunión o preparar un presupuesto con el contexto levantado. Para verlo aplicado a tu operación, solicita una evaluación.";
+  "Talkey Ventas puede dejar listo el contexto para agendar una reunión o preparar un presupuesto por email. Para verlo aplicado a tu operación, solicita una evaluación.";
 
 export const archivedSalesChatPrompts = [
   "¿Cómo califica Talkey un lead?",
