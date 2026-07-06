@@ -33,11 +33,11 @@ const navLineBreakLabels: Record<MarketingLocale, { cases: [string, string]; pri
 };
 
 const previewItemCount = 3;
-type ExpandableListKey = "problems" | "useCases" | "faq";
+type ExpandableListKey = "problems" | "comparison" | "useCases" | "faq";
 
 const narrativeContent = {
   es: {
-    controls: { showMoreProblems: "Ver más problemas/soluciones...", showMoreIndustries: "Ver más industrias...", showMoreFaq: "Ver más preguntas frecuentes...", showLess: "Ver menos..." },
+    controls: { showMoreProblems: "Ver más problemas/soluciones...", showMoreComparisons: "Ver más comparaciones...", showMoreIndustries: "Ver más industrias...", showMoreFaq: "Ver más preguntas frecuentes...", showLess: "Ver menos..." },
     nav: { problem: "Problemas/Soluciones", solution: "Solución", cases: "Casos de uso", demo: "Demo", manuals: "Manuales", pricing: "Simulador de precios", comparison: "Comparación", quote: "Solicitar evaluación" },
     hero: {
       eyebrow: "",
@@ -166,7 +166,7 @@ const narrativeContent = {
     },
   },
   en: {
-    controls: { showMoreProblems: "Show more problems...", showMoreIndustries: "Show more industries...", showMoreFaq: "Show more frequently asked questions...", showLess: "Show less..." },
+    controls: { showMoreProblems: "Show more problems...", showMoreComparisons: "Show more comparisons...", showMoreIndustries: "Show more industries...", showMoreFaq: "Show more frequently asked questions...", showLess: "Show less..." },
     nav: { problem: "Problems/Solutions", solution: "Solution", cases: "Use cases", demo: "Demo", manuals: "Manuals", pricing: "Pricing simulator", comparison: "Comparison", quote: "Request evaluation" },
     hero: {
       eyebrow: "",
@@ -295,7 +295,7 @@ const narrativeContent = {
     },
   },
   it: {
-    controls: { showMoreProblems: "Vedi più problemi...", showMoreIndustries: "Vedi più settori...", showMoreFaq: "Vedi più domande frequenti...", showLess: "Mostra meno..." },
+    controls: { showMoreProblems: "Vedi più problemi...", showMoreComparisons: "Vedi più confronti...", showMoreIndustries: "Vedi più settori...", showMoreFaq: "Vedi più domande frequenti...", showLess: "Mostra meno..." },
     nav: { problem: "Problemi/Soluzioni", solution: "Soluzione", cases: "Casi d'uso", demo: "Demo", manuals: "Manuali", pricing: "Simulatore prezzi", comparison: "Confronto", quote: "Richiedi valutazione" },
     hero: {
       eyebrow: "",
@@ -462,6 +462,7 @@ export function CommercialHome({
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedLists, setExpandedLists] = useState<Record<ExpandableListKey, boolean>>({
     problems: false,
+    comparison: false,
     useCases: false,
     faq: false,
   });
@@ -475,6 +476,7 @@ export function CommercialHome({
     ...narrative.problem.pairs.slice(4),
   ];
   const visibleProblemRows = expandedLists.problems ? problemRows : problemRows.slice(0, previewItemCount);
+  const visibleComparisonItems = expandedLists.comparison ? narrative.comparison.items : narrative.comparison.items.slice(0, previewItemCount);
   const visibleUseCases = expandedLists.useCases ? narrative.useCases.items : narrative.useCases.items.slice(0, previewItemCount);
   const visibleFaqItems = expandedLists.faq ? narrative.faq.items : narrative.faq.items.slice(0, previewItemCount);
   const comparisonLabels: Record<MarketingLocale, { option: string; advantage: string }> = {
@@ -536,6 +538,7 @@ export function CommercialHome({
     const isExpanded = expandedLists[key];
     const collapsedLabels: Record<ExpandableListKey, string> = {
       problems: narrative.controls.showMoreProblems,
+      comparison: narrative.controls.showMoreComparisons,
       useCases: narrative.controls.showMoreIndustries,
       faq: narrative.controls.showMoreFaq,
     };
@@ -666,13 +669,14 @@ export function CommercialHome({
               <span role="columnheader">{comparisonLabel.option}</span>
               <span role="columnheader">{comparisonLabel.advantage}</span>
             </div>
-            {narrative.comparison.items.map((item) => (
+            {visibleComparisonItems.map((item) => (
               <article className="mk-comparison-table-row" key={item.title} role="row">
                 <h3 role="cell">{item.title}</h3>
                 <p role="cell">{item.text}</p>
               </article>
             ))}
           </div>
+          {renderListToggle("comparison", narrative.comparison.items.length)}
         </div>
       </section>
 

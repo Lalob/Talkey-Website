@@ -709,16 +709,19 @@ button { cursor: pointer; }
   transform: translateY(-2px);
 }
 .mk-problem .mk-list-toggle,
+.mk-security .mk-list-toggle,
 .mk-faq .mk-list-toggle {
   display: flex;
 }
 .mk-problem .mk-list-toggle,
+.mk-security .mk-list-toggle,
 .mk-faq .mk-list-toggle {
   border-color: #080808;
   background: var(--mk-yellow);
   color: #080808;
 }
 .mk-problem .mk-list-toggle:hover,
+.mk-security .mk-list-toggle:hover,
 .mk-faq .mk-list-toggle:hover {
   background: #ffd157;
 }
