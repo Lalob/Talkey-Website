@@ -380,7 +380,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       subject: "Evaluación Talkey",
       details: "Reunión de 30 minutos para revisar la operación de soporte técnico y evaluar si Talkey calza con la empresa.",
     },
-    footer: { line: "De problemas técnicos a fidelización.", product: "Probar soporte", admin: "Administrar conocimiento", support: "Escribir a Talkey" },
+    footer: { line: "Soluciones técnicas que fidelizan.", product: "Probar soporte", admin: "Administrar conocimiento", support: "Escribir a Talkey" },
   },
   en: {
     languageName: "English",
@@ -590,7 +590,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       subject: "Talkey evaluation",
       details: "A 30-minute meeting to review the technical support operation and evaluate whether Talkey fits the company.",
     },
-    footer: { line: "From technical problems to loyalty.", product: "Try support", admin: "Manage knowledge", support: "Email Talkey" },
+    footer: { line: "Technical solutions that build loyalty.", product: "Try support", admin: "Manage knowledge", support: "Email Talkey" },
   },
   it: {
     languageName: "Italiano",
@@ -800,7 +800,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       subject: "Valutazione Talkey",
       details: "Riunione di 30 minuti per esaminare l'operazione di supporto tecnico e valutare se Talkey è adatto all'azienda.",
     },
-    footer: { line: "Dai problemi tecnici alla fidelizzazione.", product: "Prova il supporto", admin: "Gestisci conoscenza", support: "Scrivi a Talkey" },
+    footer: { line: "Soluzioni tecniche che fidelizzano.", product: "Prova il supporto", admin: "Gestisci conoscenza", support: "Scrivi a Talkey" },
   },
 };
 
