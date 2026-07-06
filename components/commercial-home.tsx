@@ -158,7 +158,7 @@ const narrativeContent = {
       body: "Talkey no obliga a reemplazar el stack actual. Puede convivir con CRM, calendarios de agendamiento, portales de clientes y sistemas internos para recibir contexto y devolver tickets, eventos y trazabilidad.",
       items: [
         { title: "CRM e historial de clientes", text: "Usa datos existentes del cliente, producto, garantía e interacciones previas para que el soporte no parta desde cero." },
-        { title: "Agenda de visitas técnicas", text: "Google Calendar es el primer conector para agendar visitas desde un caso diagnosticado; el flujo queda preparado para cualquier sistema de reservas." },
+        { title: "Agenda de visitas técnicas", text: "Google Calendar es nuestro conector predilecto para agendar visitas desde un caso diagnosticado, pero nuestro flujo está preparado para integrarse con cualquier sistema de reservas." },
         { title: "API para tu operación", text: "Talkey puede integrarse con herramientas como HubSpot, Salesforce, Microsoft Bookings, Calendly o sistemas propios según el alcance del proyecto." },
       ],
     },
