@@ -439,12 +439,10 @@ const salesProblems = [
 
 const salesWorkflow = [
   "Conversación entra",
-  "Califica intención y fit",
-  "Prioriza oportunidad",
-  "Detecta riesgo",
-  "Prepara email o agenda",
-  "Ayuda al ejecutivo a avanzar",
-  "Pasa contexto a soporte",
+  "Lead calificado",
+  "Oportunidad creada",
+  "Seguimiento sugerido",
+  "Handoff a soporte",
 ];
 
 const salesDemoCta =
@@ -525,6 +523,101 @@ const salesMetrics = [
   { value: "0", label: "leads duplicados tratados como nuevos" },
 ];
 
+function SalesLeadSnapshot() {
+  return (
+    <article className="mk-sales-lead-shot" aria-label="Pantallazo de lead priorizado en Talkey Ventas">
+      <div className="mk-sales-shot-topbar">
+        <span />
+        <span />
+        <span />
+        <strong>Talkey Ventas</strong>
+      </div>
+      <div className="mk-sales-lead-head">
+        <div>
+          <span>Lead de WhatsApp</span>
+          <strong>Distribuidora Norte</strong>
+        </div>
+        <strong className="mk-sales-score">87</strong>
+      </div>
+      <div className="mk-sales-lead-grid">
+        <div>
+          <span>Prioridad</span>
+          <strong>Alta</strong>
+        </div>
+        <div>
+          <span>Riesgo</span>
+          <strong>Sin seguimiento</strong>
+        </div>
+      </div>
+      <div className="mk-sales-next-action">
+        <span>Siguiente acción</span>
+        <strong>Enviar propuesta / agendar reunión</strong>
+      </div>
+    </article>
+  );
+}
+
+function SalesPipelineSnapshot({ stages }: { stages: string[] }) {
+  return (
+    <article className="mk-sales-pipeline-shot" aria-label="Mockup de pipeline de Talkey Ventas">
+      <div className="mk-sales-shot-topbar">
+        <span />
+        <span />
+        <span />
+        <strong>Pipeline operativo</strong>
+      </div>
+      <div className="mk-sales-pipeline-row">
+        {stages.map((stage, index) => (
+          <div key={stage} className="mk-sales-pipeline-stage">
+            <small>{String(index + 1).padStart(2, "0")}</small>
+            <strong>{stage}</strong>
+            {index < stages.length - 1 && <ArrowRight size={17} />}
+          </div>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function SalesEditorMockup({ items }: { items: string[] }) {
+  return (
+    <article className="mk-sales-editor-mockup" aria-label="Pantallazo de Talkey Editor">
+      <div className="mk-sales-shot-topbar">
+        <span />
+        <span />
+        <span />
+        <strong>Talkey Editor</strong>
+      </div>
+      <div className="mk-sales-editor-field">
+        <span>Criterios editables</span>
+        <strong>Scoring, objeciones y seguimiento</strong>
+      </div>
+      <div className="mk-sales-editor-rules">
+        {items.map((item) => (
+          <span key={item}><BadgeCheck size={15} />{item}</span>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function SalesSmartAgentMockup() {
+  return (
+    <article className="mk-sales-smart-agent-shot" aria-label="Pantallazo de Smart Agent interno">
+      <div className="mk-sales-smart-agent-copy">
+        <span>Smart Agent interno</span>
+        <strong>Detecté que este lead está caliente.</strong>
+        <p>Sugiero enviar este email y llamar hoy antes de que pierda intención.</p>
+      </div>
+      <div className="mk-sales-email-card">
+        <span>Email sugerido</span>
+        <p>Hola, vi que estás evaluando implementar Talkey Ventas. Te propongo revisar canales, volumen y próximos pasos en una reunión breve.</p>
+        <strong>Próxima acción: llamar hoy</strong>
+      </div>
+    </article>
+  );
+}
+
 export function SalesPage() {
   const content = suiteContent.ventas;
   const year = new Date().getUTCFullYear();
@@ -543,6 +636,7 @@ export function SalesPage() {
             </h1>
           </div>
           <div className="mk-sales-hero-aside">
+            <SalesLeadSnapshot />
             <p>
               Talkey Ventas atiende, califica, prioriza y organiza conversaciones comerciales para que tu equipo llegue
               con contexto, foco y próximos pasos claros.
@@ -573,14 +667,7 @@ export function SalesPage() {
         <div className="mk-container">
           <p className="mk-section-label"><span>02</span>Flujo</p>
           <h2>De conversación a oportunidad gestionada.</h2>
-          <div className="mk-sales-flow">
-            {salesWorkflow.map((step, index) => (
-              <article key={step}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <strong>{step}</strong>
-              </article>
-            ))}
-          </div>
+          <SalesPipelineSnapshot stages={salesWorkflow} />
         </div>
       </section>
 
@@ -598,9 +685,7 @@ export function SalesPage() {
               prepara correos de seguimiento y sugiere próximos pasos para que el ejecutivo avance oportunidades con más claridad.
             </p>
           </div>
-          <div className="mk-sales-editor-list">
-            {salesEditorItems.map((item) => <span key={item}>{item}</span>)}
-          </div>
+          <SalesEditorMockup items={salesEditorItems} />
         </div>
       </section>
 
@@ -654,6 +739,7 @@ export function SalesPage() {
               necesitas que el contexto siga vivo después del cierre.
             </p>
           </div>
+          <SalesSmartAgentMockup />
           <SalesComparisonTable items={content.comparison} />
         </div>
       </section>
