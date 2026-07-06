@@ -271,7 +271,9 @@ function Brand() {
   );
 }
 
-function PlatformHeader({ minimal = false, sales = false }: { minimal?: boolean; sales?: boolean }) {
+function PlatformHeader({ minimal = false, sales = false, ctaHref = "#agenda" }: { minimal?: boolean; sales?: boolean; ctaHref?: string }) {
+  const ctaExternal = ctaHref.startsWith("http");
+
   return (
     <header className={`mk-header${minimal ? " is-minimal" : ""}`}>
       <nav className="mk-container mk-nav" aria-label="Navegación principal">
@@ -296,14 +298,16 @@ function PlatformHeader({ minimal = false, sales = false }: { minimal?: boolean;
           )}
         </div>
         <div className="mk-nav-actions">
-          <a className="mk-nav-cta" href="#agenda">Solicitar evaluación <ArrowRight size={16} /></a>
+          <a className="mk-nav-cta" href={ctaHref} target={ctaExternal ? "_blank" : undefined} rel={ctaExternal ? "noopener noreferrer" : undefined}>Solicitar evaluación <ArrowRight size={16} /></a>
         </div>
       </nav>
     </header>
   );
 }
 
-function Footer({ currentYear }: { currentYear: number }) {
+function Footer({ currentYear, ctaHref = "#agenda" }: { currentYear: number; ctaHref?: string }) {
+  const ctaExternal = ctaHref.startsWith("http");
+
   return (
     <footer className="mk-footer">
       <div className="mk-container mk-footer-bottom">
@@ -311,7 +315,7 @@ function Footer({ currentYear }: { currentYear: number }) {
         <div>
           <Link href="/ventas">Suite Ventas</Link>
           <Link href="/soporte-tecnico">Suite Soporte Técnico</Link>
-          <a href="#agenda">Solicitar evaluación</a>
+          <a href={ctaHref} target={ctaExternal ? "_blank" : undefined} rel={ctaExternal ? "noopener noreferrer" : undefined}>Solicitar evaluación</a>
         </div>
       </div>
     </footer>
@@ -340,12 +344,13 @@ function ProductCard({ product }: { product: (typeof products)[number] }) {
 
 export function PlatformHome() {
   const year = new Date().getUTCFullYear();
+  const bookingUrl = "https://calendar.app.google/3GHWcX3gvTc1ujv6A";
 
   return (
     <main className="mk-site mk-platform-site mk-platform-home-minimal">
       <div className="mk-ambient mk-ambient-one" />
       <div className="mk-ambient mk-ambient-two" />
-      <PlatformHeader minimal />
+      <PlatformHeader minimal ctaHref={bookingUrl} />
 
       <section className="mk-section mk-platform-hero" aria-labelledby="talkey-home-title">
         <div className="mk-container">
@@ -361,7 +366,7 @@ export function PlatformHome() {
         </div>
       </section>
 
-      <Footer currentYear={year} />
+      <Footer currentYear={year} ctaHref={bookingUrl} />
     </main>
   );
 }
