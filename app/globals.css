@@ -3902,7 +3902,35 @@ button { cursor: pointer; }
   }
 
   .mk-sales-flow {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .mk-sales-flow article {
+    display: flex;
+    min-height: 0;
+    align-items: center;
+    gap: 12px;
+    border-radius: 14px;
+    padding: 13px 14px;
+  }
+
+  .mk-sales-flow span {
+    display: grid;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 32px;
+    place-items: center;
+    border: 1px solid rgba(47, 111, 153, .45);
+    border-radius: 999px;
+    font-size: 11px;
+  }
+
+  .mk-sales-flow strong {
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 1.2;
   }
 
   .mk-sales-problem-table-head {
