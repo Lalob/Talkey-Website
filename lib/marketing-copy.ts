@@ -171,6 +171,33 @@ export type MarketingCopy = {
   footer: { line: string; product: string; admin: string; support: string };
 };
 
+export const archivedSupportChatPrompts: Record<MarketingLocale, string[]> = {
+  es: [
+    "¿Por qué Talkey es diferente a un software de tickets?",
+    "¿Qué pasa si no tengo manuales o troubleshootings?",
+    "Tengo un problema con Talkey",
+    "¿Cuánto cuesta Talkey?",
+  ],
+  en: [
+    "How is Talkey different from ticketing software?",
+    "How is Talkey different from ElevenLabs?",
+    "What if I do not have manuals or troubleshooting procedures?",
+    "What if support depends on specific people?",
+    "How does Talkey help improve customer satisfaction?",
+    "I have a Talkey issue",
+    "How much does Talkey cost?",
+  ],
+  it: [
+    "Perché Talkey è diverso da un software ticket?",
+    "Perché Talkey è diverso da ElevenLabs?",
+    "Cosa succede se non ho manuali o troubleshooting?",
+    "Cosa succede se il supporto dipende da persone specifiche?",
+    "In che modo Talkey aiuta a migliorare la soddisfazione dei clienti?",
+    "Ho un problema con Talkey",
+    "Quanto costa Talkey?",
+  ],
+};
+
 export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
   es: {
     languageName: "Español",
@@ -190,12 +217,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       open: "Abrir demostración en vivo",
       minimize: "Minimizar demostración",
       welcome: "Hola, soy Talkey. Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?",
-      prompts: [
-        "¿Por qué Talkey es diferente a un software de tickets?",
-        "¿Qué pasa si no tengo manuales o troubleshootings?",
-        "Tengo un problema con Talkey",
-        "¿Cuánto cuesta Talkey?",
-      ],
+      prompts: [],
       placeholder: "Pregúntame sobre Talkey...",
       send: "Enviar mensaje",
       typing: "Talkey está preparando una respuesta",
@@ -397,15 +419,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       open: "Open live demonstration",
       minimize: "Minimize demonstration",
       welcome: "Hi, I am Talkey. I can explain what problem Talkey solves, how it differs from other tools, how implementation works or show a simulated technical support case. What would you like to know?",
-      prompts: [
-        "How is Talkey different from ticketing software?",
-        "How is Talkey different from ElevenLabs?",
-        "What if I do not have manuals or troubleshooting procedures?",
-        "What if support depends on specific people?",
-        "How does Talkey help improve customer satisfaction?",
-        "I have a Talkey issue",
-        "How much does Talkey cost?",
-      ],
+      prompts: [],
       placeholder: "Ask me about Talkey...",
       send: "Send message",
       typing: "Talkey is preparing a response",
@@ -607,15 +621,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       open: "Apri la dimostrazione dal vivo",
       minimize: "Riduci la dimostrazione",
       welcome: "Ciao, sono Talkey. Posso spiegarti quale problema risolve Talkey, come si differenzia da altri strumenti, come si implementa o mostrarti un caso simulato di supporto tecnico. Cosa vuoi sapere?",
-      prompts: [
-        "Perché Talkey è diverso da un software ticket?",
-        "Perché Talkey è diverso da ElevenLabs?",
-        "Cosa succede se non ho manuali o troubleshooting?",
-        "Cosa succede se il supporto dipende da persone specifiche?",
-        "In che modo Talkey aiuta a migliorare la soddisfazione dei clienti?",
-        "Ho un problema con Talkey",
-        "Quanto costa Talkey?",
-      ],
+      prompts: [],
       placeholder: "Chiedimi di Talkey...",
       send: "Invia messaggio",
       typing: "Talkey sta preparando una risposta",

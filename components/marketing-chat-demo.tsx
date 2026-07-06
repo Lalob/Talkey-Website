@@ -480,6 +480,8 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
   }
 
   function renderCard(mode: "hero" | "dock") {
+    const promptOptions = getPromptOptions();
+
     return (
       <div className={`mk-chat-card ${mode === "dock" ? "is-docked" : ""}`}>
         <div className="mk-chat-topline">
@@ -517,21 +519,23 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
             </div>
           )}
         </div>
-        <div className="mk-chat-prompts">
-          {getPromptOptions().map((prompt) => (
-            <button
-              key={prompt}
-              type="button"
-              disabled={typing}
-              onClick={() => {
-                trackEvent("demo_question_clicked", { question_label: prompt });
-                send(prompt);
-              }}
-            >
-              {prompt}
-            </button>
-          ))}
-        </div>
+        {promptOptions.length > 0 && (
+          <div className="mk-chat-prompts">
+            {promptOptions.map((prompt) => (
+              <button
+                key={prompt}
+                type="button"
+                disabled={typing}
+                onClick={() => {
+                  trackEvent("demo_question_clicked", { question_label: prompt });
+                  send(prompt);
+                }}
+              >
+                {prompt}
+              </button>
+            ))}
+          </div>
+        )}
         <form className="mk-chat-form" onSubmit={submit}>
           <input
             data-testid="marketing-chat-input"

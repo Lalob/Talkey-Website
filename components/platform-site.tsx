@@ -450,6 +450,14 @@ const salesWorkflow = [
 const salesDemoCta =
   "En este demo, esto es lo que haría el agente real: terminaría proponiendo agendar una reunión o preparar un presupuesto con el contexto levantado. Para verlo aplicado a tu operación, solicita una evaluación.";
 
+export const archivedSalesChatPrompts = [
+  "¿Cómo califica Talkey un lead?",
+  "¿Cómo ayuda con cotizaciones?",
+  "¿Se integra con mi CRM?",
+  "¿Cómo conecta ventas con soporte?",
+  "¿Cuánto cuesta Talkey Ventas?",
+];
+
 const salesChatCopy = {
   ...marketingCopy.es.chat,
   live: "Demo en vivo · Talkey Ventas",
@@ -457,13 +465,7 @@ const salesChatCopy = {
   minimize: "Minimizar demo de ventas",
   welcome:
     "Hola, soy Talkey Ventas. Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?",
-  prompts: [
-    "¿Cómo califica Talkey un lead?",
-    "¿Cómo ayuda con cotizaciones?",
-    "¿Se integra con mi CRM?",
-    "¿Cómo conecta ventas con soporte?",
-    "¿Cuánto cuesta Talkey Ventas?",
-  ],
+  prompts: [],
   placeholder: "Pregúntame sobre Talkey Ventas...",
   typing: "Talkey Ventas está preparando una respuesta",
   danger: "Talkey Ventas",
