@@ -3463,6 +3463,15 @@ button { cursor: pointer; }
   border-top: 1px solid #222;
 }
 
+.mk-sales-page .mk-section {
+  padding-top: clamp(58px, 6vw, 72px);
+  padding-bottom: clamp(58px, 6vw, 72px);
+}
+
+.mk-sales-page .mk-sales-hero {
+  padding-top: clamp(76px, 7vw, 96px);
+}
+
 .mk-sales-section-deep,
 .mk-sales-demo-section,
 .mk-sales-comparison-section {
@@ -3925,6 +3934,7 @@ button { cursor: pointer; }
 }
 
 .mk-sales-page .mk-comparison-table {
+  margin-top: 38px;
   border-color: var(--sales-line);
   background:
     linear-gradient(145deg, rgba(18,53,91,.1), rgba(18,53,91,0) 38%),
@@ -3937,11 +3947,17 @@ button { cursor: pointer; }
 }
 
 .mk-sales-page .mk-comparison-table-head span {
+  padding: 18px 26px;
   color: var(--sales-petrol-readable);
 }
 
 .mk-sales-page .mk-comparison-table-row {
   border-bottom-color: var(--sales-line);
+}
+
+.mk-sales-page .mk-comparison-table-row h3,
+.mk-sales-page .mk-comparison-table-row p {
+  padding: 26px;
 }
 
 .mk-sales-page .mk-comparison-table-row h3 {
@@ -4068,6 +4084,11 @@ button { cursor: pointer; }
     padding-top: 54px;
   }
 
+  .mk-sales-page .mk-section {
+    padding-top: 52px;
+    padding-bottom: 52px;
+  }
+
   .mk-sales-hero h1 {
     font-size: clamp(42px, 11.2vw, 66px);
   }
@@ -4123,6 +4144,15 @@ button { cursor: pointer; }
   .mk-sales-problem-row > div {
     border-right: 0;
     border-bottom: 1px solid #2d2d2d;
+  }
+
+  .mk-sales-page .mk-comparison-table {
+    margin-top: 30px;
+  }
+
+  .mk-sales-page .mk-comparison-table-row h3,
+  .mk-sales-page .mk-comparison-table-row p {
+    padding: 20px;
   }
 
   .mk-sales-editor-list {
