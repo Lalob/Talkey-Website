@@ -455,9 +455,7 @@ const salesChatCopy = {
     "Hola, soy Talkey Ventas. Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?",
   prompts: [
     "¿Cómo califica Talkey un lead?",
-    "¿Qué pasa si un lead vuelve por otro canal?",
     "¿Cómo ayuda con cotizaciones?",
-    "¿Cómo se compara con Vambe?",
     "¿Se integra con mi CRM?",
     "¿Cómo conecta ventas con soporte?",
     "¿Cuánto cuesta Talkey Ventas?",
