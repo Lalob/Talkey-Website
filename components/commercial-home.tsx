@@ -186,9 +186,11 @@ const narrativeContent = {
       body: "Resuelve una categoría distinta: convertir conocimiento técnico en soporte operativo consistente.",
       items: [
         { title: "Humanos", text: "Aportan criterio, empatía y casos complejos. Por sí solos no resuelven variabilidad, disponibilidad limitada ni dependencia de memoria individual." },
-        { title: "Zendesk / Intercom", text: "Son excelentes para tickets, conversaciones y operación de equipos. No resuelven por sí solos diagnóstico técnico ni estructuración profunda de conocimiento de producto." },
-        { title: "ElevenLabs", text: "Son fuertes en experiencias conversacionales y voz. No gestionan por sí solas manuales, procedimientos, troubleshootings ni criterios de soporte técnico." },
-        { title: "Talkey", text: "Organiza conocimiento técnico, guía diagnósticos y también puede operar por voz, con respuestas coherentes y consistentes basadas en los criterios de los mejores empleados de tu empresa." },
+        { title: "Zendesk AI", text: "Ordena tickets, conversaciones, agentes de IA, copilot, base de conocimiento y métricas de atención." },
+        { title: "Intercom / Fin", text: "Automatiza atención con IA, se integra con helpdesks, opera en múltiples canales y puede atender por voz." },
+        { title: "Software de tickets", text: "Organiza estados, responsables, bandejas y derivaciones, pero normalmente no diagnostica el problema técnico." },
+        { title: "ElevenLabs", text: "Aporta experiencias de voz de alta calidad, pero no estructura por sí solo manuales, troubleshootings ni criterios técnicos." },
+        { title: "Talkey", text: "Hace lo anterior: conversa por chat o voz, ordena casos, usa conocimiento, deriva y apoya al equipo humano. Además guía diagnóstico técnico paso a paso, identifica productos por foto, convierte manuales y experiencia interna en procedimientos útiles, puede guiar agentes durante llamadas y deriva con contexto técnico." },
       ],
     },
     securityPrivacy: {
@@ -314,9 +316,11 @@ const narrativeContent = {
       body: "It solves a different category: turning technical knowledge into consistent support operations.",
       items: [
         { title: "Humans", text: "Strong at judgment, empathy and complex cases. Alone, they do not solve variability, limited availability or dependency on individual memory." },
-        { title: "Zendesk / Intercom", text: "Excellent for tickets, conversations and team operations. They do not by themselves solve technical diagnosis or deep product knowledge structuring." },
-        { title: "ElevenLabs", text: "Strong at conversational and voice experiences. They do not by themselves manage manuals, procedures, troubleshooting flows or technical support criteria." },
-        { title: "Talkey", text: "Organizes technical knowledge, guides diagnostics and can also operate by voice, with coherent and consistent answers based on the criteria of your company's best employees." },
+        { title: "Zendesk AI", text: "Organizes tickets, conversations, AI agents, copilot, knowledge base and service metrics." },
+        { title: "Intercom / Fin", text: "Automates AI customer service, integrates with helpdesks, works across channels and can operate by voice." },
+        { title: "Ticketing software", text: "Organizes status, owners, queues and handoffs, but usually does not diagnose the technical issue." },
+        { title: "ElevenLabs", text: "Delivers high-quality voice experiences, but does not by itself structure manuals, troubleshooting flows or technical criteria." },
+        { title: "Talkey", text: "Does the above: chats or speaks, organizes cases, uses knowledge, hands off and supports the human team. It also guides technical diagnosis step by step, identifies products from a photo, turns manuals and internal expertise into useful procedures, can guide agents during phone calls and hands off with technical context." },
       ],
     },
     securityPrivacy: {
@@ -442,9 +446,11 @@ const narrativeContent = {
       body: "Risolve una categoria diversa: trasformare conoscenza tecnica in supporto operativo coerente.",
       items: [
         { title: "Umani", text: "Forti in criterio, empatia e casi complessi. Da soli non risolvono variabilità, disponibilità limitata e dipendenza dalla memoria individuale." },
-        { title: "Zendesk / Intercom", text: "Eccellenti per ticket, conversazioni e operazione dei team. Non risolvono da soli diagnosi tecnica o strutturazione profonda della conoscenza di prodotto." },
-        { title: "ElevenLabs", text: "Forti in esperienze conversazionali e voce. Non gestiscono da soli manuali, procedure, troubleshooting o criteri di supporto tecnico." },
-        { title: "Talkey", text: "Organizza conoscenza tecnica, guida diagnosi e può operare anche via voce, con risposte coerenti e consistenti basate sui criteri dei migliori dipendenti della tua azienda." },
+        { title: "Zendesk AI", text: "Organizza ticket, conversazioni, agenti IA, copilot, base di conoscenza e metriche di servizio." },
+        { title: "Intercom / Fin", text: "Automatizza l'assistenza con IA, si integra con helpdesk, opera su più canali e può funzionare via voce." },
+        { title: "Software di ticket", text: "Organizza stati, responsabili, code e passaggi, ma di solito non diagnostica il problema tecnico." },
+        { title: "ElevenLabs", text: "Offre esperienze vocali di alta qualità, ma non struttura da sola manuali, troubleshooting o criteri tecnici." },
+        { title: "Talkey", text: "Fa quanto sopra: conversa via chat o voce, organizza casi, usa conoscenza, passa il caso e supporta il team umano. Inoltre guida la diagnosi tecnica passo dopo passo, identifica prodotti da una foto, trasforma manuali ed esperienza interna in procedure utili, può guidare agenti durante chiamate telefoniche e passa il caso con contesto tecnico." },
       ],
     },
     securityPrivacy: {
@@ -705,7 +711,7 @@ export function CommercialHome({
           </div>
           <div className="mk-security-list">
             {narrative.comparison.items.map((item, index) => {
-              const Icon = comparisonIcons[index];
+              const Icon = comparisonIcons[index] ?? ShieldCheck;
               const isTalkey = item.title === "Talkey";
               const isElevenLabs = item.title === "ElevenLabs";
               return <article key={item.title}><Icon className={isTalkey ? "mk-comparison-talkey-icon" : undefined} size={isTalkey ? 42 : isElevenLabs ? 34 : 24} /><div><h3>{item.title}</h3><p>{item.text}</p></div></article>;

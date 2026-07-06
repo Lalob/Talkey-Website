@@ -187,9 +187,12 @@ const suiteContent: Record<
       },
     ],
     comparison: [
-      { title: "Vambe", text: "Muy fuerte en automatización comercial, demanda, agendamiento y seguimiento de leads." },
-      { title: "CRM tradicional", text: "Ordena oportunidades, pero depende de que el equipo registre, priorice y mantenga la conversación viva." },
-      { title: "Talkey Ventas", text: "Opera la conversación, prioriza, prepara próximos pasos y conecta el cliente ganado con soporte técnico." },
+      { title: "Vambe", text: "Automatiza demanda, conversación, calificación, agendamiento y seguimiento para que no se pierdan leads." },
+      { title: "HubSpot Breeze", text: "Aporta CRM, pipeline, automatización comercial, prospección con IA y datos de clientes en una plataforma amplia." },
+      { title: "Salesforce Agentforce", text: "Permite crear agentes conectados a datos y acciones dentro de un ecosistema enterprise muy robusto." },
+      { title: "Salesloft / Drift", text: "Orquesta revenue, chat comercial, inteligencia de conversaciones, cadencias, deals y acciones para equipos de ventas." },
+      { title: "Manychat", text: "Automatiza conversaciones en Instagram, WhatsApp, Messenger y TikTok para capturar leads y vender por canales sociales." },
+      { title: "Talkey Ventas", text: "Hace lo anterior: conversa, califica, agenda, ordena pipeline y da seguimiento. Además conecta la venta con soporte técnico, usa historial por cliente, detecta leads repetidos, permite ajustar criterios en Talkey Editor y mantiene continuidad cuando la venta termina en instalación, garantía o postventa." },
     ],
     nextTitle: "Convierte conversación en pipeline.",
     nextBody:
@@ -546,10 +549,10 @@ export function SalesPage() {
         <div className="mk-container">
           <div className="mk-section-heading">
             <p className="mk-section-label"><span>06</span>Comparación</p>
-            <h2>Talkey compite con Vambe, pero mira más ciclo de vida.</h2>
+            <h2>Talkey compite con herramientas de ventas, pero mira más ciclo de vida.</h2>
             <p>
-              Si tu venta termina en instalación, garantía, postventa o soporte técnico, el contexto no puede morir cuando
-              se cierra la oportunidad.
+              Si tu venta termina en instalación, garantía, postventa o soporte técnico, necesitas más que captar y convertir:
+              necesitas que el contexto siga vivo después del cierre.
             </p>
           </div>
           <div className="mk-comparison-grid">
