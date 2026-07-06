@@ -66,9 +66,9 @@ const pricing = [
     name: "Base",
     description:
       "Para empresas que quieren ordenar conversaciones entrantes, calificar leads y empezar con automatización comercial clara.",
-    price: "USD 690",
+    price: "$650.000 CLP",
     detail: "al mes",
-    setup: "Implementación desde USD 900",
+    setup: "Implementación desde $850.000 CLP",
     highlighted: false,
     features: [
       "Una suite: Ventas o Soporte Técnico",
@@ -82,9 +82,9 @@ const pricing = [
     name: "Avanzado",
     description:
       "Para equipos que ya tienen más volumen, varios canales, seguimiento activo, scoring y necesidad de conectar mejor ventas con operación.",
-    price: "USD 990",
+    price: "$950.000 CLP",
     detail: "al mes",
-    setup: "Implementación desde USD 1.400",
+    setup: "Implementación desde $1.300.000 CLP",
     highlighted: true,
     features: [
       "Suite Ventas + Suite Soporte Técnico",
@@ -98,7 +98,7 @@ const pricing = [
     name: "Enterprise",
     description:
       "Para operaciones más grandes o complejas, con integraciones, múltiples equipos, permisos, control avanzado y acompañamiento más cercano.",
-    price: "Desde USD 3.400",
+    price: "Desde $3.200.000 CLP",
     detail: "al mes",
     setup: "Implementación a medida",
     highlighted: false,
