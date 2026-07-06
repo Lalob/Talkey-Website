@@ -134,11 +134,11 @@ const narrativeContent = {
       title: "Por qué Talkey es diferente.",
       body: "Resuelve una categoría distinta: convertir conocimiento técnico en soporte operativo consistente.",
       items: [
-        { title: "Equipo humano solamente", text: "Reduce la dependencia de personas específicas y mantiene criterios consistentes incluso cuando cambia el agente." },
-        { title: "Software de tickets / helpdesk", text: "No solo ordena casos: ayuda a resolverlos con conocimiento técnico, diagnóstico guiado y derivación con contexto." },
-        { title: "Chatbot genérico", text: "Responde desde conocimiento aprobado de la empresa, no desde respuestas genéricas o improvisadas." },
-        { title: "Herramientas de voz", text: "Puede operar por voz, pero además entiende productos, manuales, síntomas, procedimientos e historial del cliente." },
-        { title: "Base de conocimiento tradicional", text: "Convierte documentación en respuestas operativas, no solo en artículos que el cliente debe buscar por su cuenta." },
+        { title: "Equipo humano solamente", text: "Talkey reduce la dependencia de personas específicas y mantiene criterios consistentes incluso cuando cambia el agente." },
+        { title: "Software de tickets / helpdesk", text: "Talkey no solo ordena casos: ayuda a resolverlos con conocimiento técnico, diagnóstico guiado y derivación con contexto." },
+        { title: "Chatbot genérico", text: "Talkey responde desde conocimiento aprobado de la empresa, no desde respuestas genéricas o improvisadas." },
+        { title: "Herramientas de voz", text: "Talkey puede operar por voz, pero además entiende productos, manuales, síntomas, procedimientos e historial del cliente." },
+        { title: "Base de conocimiento tradicional", text: "Talkey convierte documentación en respuestas operativas, no solo en artículos que el cliente debe buscar por su cuenta." },
       ],
     },
     securityPrivacy: {

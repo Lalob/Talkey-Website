@@ -192,12 +192,12 @@ const suiteContent: Record<
       },
     ],
     comparison: [
-      { title: "Equipo comercial solamente", text: "Mantiene seguimiento, priorización y contexto incluso cuando el ejecutivo está ocupado o cambia el responsable." },
-      { title: "CRM tradicional", text: "No solo almacena oportunidades: conversa, califica, prioriza y propone próximos pasos." },
-      { title: "Automatizadores tipo Vambe", text: "Hace captación, calificación y seguimiento, pero además conecta ventas con soporte técnico y postventa." },
-      { title: "Chatbots comerciales genéricos", text: "No se queda en responder preguntas: transforma conversaciones en oportunidades gestionables." },
-      { title: "Herramientas de agendamiento", text: "Agenda reuniones, pero con contexto comercial previo, intención detectada y datos mínimos levantados." },
-      { title: "Planillas o seguimiento manual", text: "Evita oportunidades perdidas por olvido, duplicación de leads o falta de continuidad entre canales." },
+      { title: "Equipo comercial solamente", text: "Talkey mantiene seguimiento, priorización y contexto incluso cuando el ejecutivo está ocupado o cambia el responsable." },
+      { title: "CRM tradicional", text: "Talkey no solo almacena oportunidades: conversa, califica, prioriza y propone próximos pasos." },
+      { title: "Automatizadores tipo Vambe", text: "Talkey hace captación, calificación y seguimiento, pero además conecta ventas con soporte técnico y postventa." },
+      { title: "Chatbots comerciales genéricos", text: "Talkey no se queda en responder preguntas: transforma conversaciones en oportunidades gestionables." },
+      { title: "Herramientas de agendamiento", text: "Talkey agenda reuniones, pero con contexto comercial previo, intención detectada y datos mínimos levantados." },
+      { title: "Planillas o seguimiento manual", text: "Talkey evita oportunidades perdidas por olvido, duplicación de leads o falta de continuidad entre canales." },
     ],
     nextTitle: "Convierte conversación en pipeline.",
     nextBody:
@@ -255,9 +255,9 @@ const suiteContent: Record<
       },
     ],
     comparison: [
-      { title: "Vambe", text: "Fuerte en conversación comercial y automatización de demanda; no está centrado en diagnóstico técnico profundo." },
-      { title: "Software de tickets", text: "Ordena estados y bandejas, pero no necesariamente resuelve el problema técnico del cliente." },
-      { title: "Talkey Soporte", text: "Responde desde conocimiento técnico, guía diagnóstico y deriva con contexto cuando hace falta un especialista." },
+      { title: "Vambe", text: "Talkey cubre conversación y automatización, pero además se centra en diagnóstico técnico profundo." },
+      { title: "Software de tickets", text: "Talkey no solo ordena estados y bandejas: ayuda a resolver el problema técnico del cliente." },
+      { title: "Talkey Soporte", text: "Talkey responde desde conocimiento técnico, guía diagnóstico y deriva con contexto cuando hace falta un especialista." },
     ],
     nextTitle: "Haz que soporte no dependa de memoria individual.",
     nextBody:

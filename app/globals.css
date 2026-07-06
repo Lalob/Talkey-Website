@@ -725,6 +725,15 @@ button { cursor: pointer; }
 .mk-faq .mk-list-toggle:hover {
   background: #ffd157;
 }
+.mk-security-grid > .mk-list-toggle {
+  grid-column: 2;
+  justify-self: center;
+}
+@media (max-width: 820px) {
+  .mk-security-grid > .mk-list-toggle {
+    grid-column: 1;
+  }
+}
 .mk-use-cases .mk-list-toggle {
   display: flex;
   box-shadow: 0 16px 34px rgba(0,0,0,.18);
