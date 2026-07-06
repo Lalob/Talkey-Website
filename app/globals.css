@@ -3835,14 +3835,80 @@ button { cursor: pointer; }
     #171717;
 }
 
+.mk-sales-pricing-section .mk-package-grid {
+  gap: clamp(18px, 2vw, 26px);
+  margin-top: 48px;
+}
+
+.mk-sales-pricing-section .mk-package-grid article {
+  border-radius: 28px;
+  padding: clamp(30px, 3vw, 40px);
+}
+
+.mk-sales-pricing-section .mk-package-grid h3 {
+  font-size: clamp(34px, 3vw, 42px);
+  letter-spacing: -.035em;
+}
+
+.mk-sales-pricing-section .mk-package-description {
+  min-height: 128px;
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.62;
+}
+
+.mk-sales-pricing-section .mk-package-grid strong {
+  margin-top: 28px;
+  font-size: clamp(36px, 3.2vw, 48px);
+  line-height: 1;
+}
+
+.mk-sales-pricing-section .mk-package-grid small {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.mk-sales-pricing-section .mk-package-grid ul {
+  gap: 15px;
+  margin-top: 34px;
+}
+
+.mk-sales-pricing-section .mk-package-grid li {
+  gap: 12px;
+  font-size: 15.5px;
+  line-height: 1.58;
+}
+
+.mk-sales-pricing-section .mk-package-grid li svg {
+  width: 19px;
+  height: 19px;
+  margin-top: 2px;
+}
+
 .mk-sales-page .mk-package-grid strong,
 .mk-sales-page .mk-package-grid li svg {
   color: var(--sales-petrol-readable);
 }
 
 .mk-sales-page .mk-package-grid a {
+  min-height: 54px;
+  gap: 10px;
+  margin-top: 36px;
+  padding: 0 20px;
   background: var(--sales-petrol);
   color: #f5f7fa;
+}
+
+@media (max-width: 720px) {
+  .mk-sales-pricing-section .mk-package-grid {
+    gap: 18px;
+    margin-top: 34px;
+  }
+
+  .mk-sales-pricing-section .mk-package-description {
+    min-height: auto;
+  }
 }
 
 .mk-sales-page .mk-comparison-grid article {
