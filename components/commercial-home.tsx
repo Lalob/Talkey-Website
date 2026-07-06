@@ -534,56 +534,6 @@ function SupportPricingPackagesSection() {
   );
 }
 
-function SupportTicketSnapshot() {
-  return (
-    <article className="mk-support-ticket-shot" aria-label="Pantallazo de consola operativa de soporte Talkey">
-      <div className="mk-support-shot-topbar">
-        <span />
-        <span />
-        <span />
-        <strong>Ticket técnico</strong>
-      </div>
-      <div className="mk-support-ticket-grid">
-        <div className="mk-support-ticket-summary">
-          <span>Resumen automático</span>
-          <strong>Cliente reporta error E04 después de reinicio.</strong>
-          <p>Talkey identifica síntomas, evita repetir preguntas y deja una respuesta inicial lista para el agente.</p>
-        </div>
-        <div className="mk-support-ticket-side">
-          <span>Producto identificado</span>
-          <strong>Calefactor NX-24</strong>
-          <small>Prioridad alta · ETA 2 h · Responsable sugerido: soporte técnico</small>
-        </div>
-      </div>
-      <div className="mk-support-suggested-answer">
-        <span>Respuesta sugerida</span>
-        <p>“Antes de derivar, revisemos ventilación, código de error y última mantención. Si el código se repite, se agenda revisión técnica.”</p>
-      </div>
-    </article>
-  );
-}
-
-function SupportVisitFlowSnapshot() {
-  return (
-    <article className="mk-support-visit-flow-shot" aria-label="Flujo de agenda de visita técnica">
-      <div>
-        <span><MessageSquareText size={18} /></span>
-        <strong>Caso diagnosticado</strong>
-      </div>
-      <ArrowRight size={18} />
-      <div>
-        <span><BadgeCheck size={18} /></span>
-        <strong>Visita sugerida</strong>
-      </div>
-      <ArrowRight size={18} />
-      <div>
-        <span><CalendarCheck size={18} /></span>
-        <strong>Google Calendar / sistema de reservas</strong>
-      </div>
-    </article>
-  );
-}
-
 export function CommercialHome({
   initialLocale,
   currentYear,
@@ -767,7 +717,6 @@ export function CommercialHome({
             <h2>{narrative.problem.title}</h2>
             {narrative.problem.body && <p>{narrative.problem.body}</p>}
           </div>
-          {locale === "es" && <SupportTicketSnapshot />}
           <div className="mk-problem-pairs">
             <div className="mk-problem-pair-head">
               <span>{narrative.problem.pairTitleProblem}</span>
@@ -883,7 +832,6 @@ export function CommercialHome({
               );
             })}
           </div>
-          {locale === "es" && <SupportVisitFlowSnapshot />}
         </div>
       </section>
 
