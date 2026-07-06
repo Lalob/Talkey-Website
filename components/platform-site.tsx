@@ -148,7 +148,7 @@ const suiteContent: Record<
       { icon: Users, title: "Leads repetidos", text: "Detecta contactos duplicados o recurrentes para no tratar cada conversación como si fuera nueva." },
       { icon: RefreshCw, title: "Handoff hacia soporte", text: "Cuando una venta se gana, pasa el contexto relevante a soporte o postventa." },
       { icon: Bot, title: "Asistente comercial", text: "Sugiere próximos pasos, objeciones a resolver y acciones para que el ejecutivo avance mejor." },
-      { icon: Calendar, title: "Agenda y reuniones", text: "Puede coordinar evaluaciones, demos o llamadas comerciales según disponibilidad." },
+      { icon: Calendar, title: "Agenda y reuniones", text: "Usamos Google Calendar como conector predilecto, pero Talkey puede integrarse al sistema de agendamiento que ya use tu empresa." },
     ],
     workflow: ["Lead entra", "Talkey conversa", "Califica", "Prioriza", "Cotiza", "Hace seguimiento"],
     demoTitle: "Demo de Talkey Ventas",
@@ -433,7 +433,7 @@ const salesProblems = [
   {
     title: "Reuniones difíciles de coordinar",
     problem: "Agendar demos, evaluaciones o llamadas puede depender de demasiado ida y vuelta manual.",
-    solution: "Talkey Ventas puede coordinar reuniones comerciales según disponibilidad y dejar la conversación lista para avanzar.",
+    solution: "Talkey Ventas puede coordinar reuniones con Google Calendar o integrarse al sistema de agendamiento que ya use tu empresa.",
   },
 ];
 
@@ -482,7 +482,7 @@ const salesChatCopy = {
     implementationFollowUp:
       "En más detalle: 1. levantamos canales y origen de leads; 2. definimos criterios de scoring; 3. configuramos preguntas comerciales y datos para cotizar; 4. conectamos CRM, agenda o canales; 5. probamos casos reales; 6. ajustamos seguimiento y handoff. ¿Qué otra parte de la implementación quieres revisar?",
     integration:
-      `Talkey Ventas puede integrarse con tu CRM o funcionar junto al CRM de Talkey. También puede conectarse con formularios del sitio, WhatsApp, email, agenda de reuniones y otros canales comerciales según evaluación técnica.\n\n${salesDemoCta}`,
+      `Talkey Ventas puede integrarse con tu CRM o funcionar junto al CRM de Talkey. También puede conectarse con formularios del sitio, WhatsApp, email y otros canales comerciales. Para agendamiento usamos Google Calendar como sistema predilecto, pero podemos integrarnos al sistema de reservas o agenda que ya use tu empresa, según evaluación técnica.\n\n${salesDemoCta}`,
     security:
       "Talkey Ventas debe operar con criterios aprobados, trazabilidad y control de datos comerciales. La configuración de permisos, historial, integraciones y tratamiento de información se revisa en la evaluación técnica.",
     technical:
