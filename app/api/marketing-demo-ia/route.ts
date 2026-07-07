@@ -6,6 +6,12 @@ import { talkeyTroubleshootingFlows } from "@/lib/talkey-troubleshooting-flows";
 const OPENAI_RESPONSES_URL = "https://api.openai.com/v1/responses";
 const DEFAULT_MODEL = "gpt-5.5";
 const DEFAULT_CF_MODEL = "@cf/openai/gpt-oss-20b";
+const forbiddenDemoIntroPhrases = [
+  "Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?",
+  "Hola, soy Talkey. Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?",
+  "Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?",
+  "Hola, soy Talkey Ventas. Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?",
+];
 
 type WorkersAiBinding = {
   run: (model: string, input: unknown) => Promise<{ response?: string }>;
@@ -49,6 +55,28 @@ function extractCloudflareAiText(result: unknown) {
 
 function trimText(value: unknown, maxLength: number) {
   return String(value || "").slice(0, maxLength);
+}
+
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function stripForbiddenDemoIntro(text: string) {
+  let sanitized = text;
+
+  for (const phrase of forbiddenDemoIntroPhrases) {
+    const flexiblePhrase = phrase.trim().split(/\s+/).map(escapeRegExp).join("\\s+");
+    sanitized = sanitized.replace(new RegExp(flexiblePhrase, "gi"), "");
+  }
+
+  sanitized = sanitized
+    .replace(/\s+([.,;:!?])/g, "$1")
+    .replace(/(^|\n)\s*[.,;:!?]\s*/g, "$1")
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+
+  return sanitized || "Para responderte bien, necesito un poco más de contexto sobre lo que quieres revisar.";
 }
 
 function extractOutputText(payload: OpenAIResponsePayload) {
@@ -141,6 +169,7 @@ export async function POST(request: Request) {
         "Eres el demo IA de Talkey Ventas en el sitio web.",
         "Responde en español, con tono claro, directo, sobrio y comercialmente útil.",
         "Contesta la pregunta concreta primero. No repitas el mensaje de bienvenida ni una lista genérica de temas.",
+        "Nunca escribas esta frase ni una variación literal: 'Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?'",
         "Si la respuesta local de respaldo suena como menú o fallback, úsala solo como contexto y no la copies.",
         "Explica Talkey Ventas como una suite para convertir conversaciones en pipeline, prioridad, seguimiento, próximos pasos y continuidad con soporte.",
         "No inventes precios, integraciones cerradas, garantías ni compromisos técnicos no indicados.",
@@ -151,6 +180,7 @@ export async function POST(request: Request) {
         "Eres el demo IA de Talkey Soporte en el sitio web.",
         "Responde en español, con tono claro, directo, sobrio y útil para gerentes de soporte, postventa y operaciones.",
         "Contesta la pregunta concreta primero. No repitas el mensaje de bienvenida ni una lista genérica de temas.",
+        "Nunca escribas esta frase ni una variación literal: 'Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?'",
         "Si la respuesta local de respaldo suena como menú o fallback, úsala solo como contexto y no la copies.",
         "Explica Talkey Soporte como un sistema basado en conocimiento aprobado, trazabilidad, diagnóstico guiado, copiloto para agentes humanos y derivación con contexto.",
         "No inventes precios, integraciones cerradas, garantías ni compromisos técnicos no indicados.",
@@ -176,7 +206,9 @@ export async function POST(request: Request) {
 
   const workersAiEnv = await getWorkersAiEnv();
   const workersAiResult = await runWorkersAi(workersAiEnv, instructions, input).catch(() => null);
-  if (workersAiResult) return NextResponse.json(workersAiResult);
+  if (workersAiResult) {
+    return NextResponse.json({ ...workersAiResult, reply: stripForbiddenDemoIntro(workersAiResult.reply) });
+  }
 
   if (!process.env.OPENAI_API_KEY) return NextResponse.json({ error: "OPENAI_API_KEY no configurada." }, { status: 503 });
 
@@ -201,7 +233,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: payload.error?.message || "No se pudo generar la respuesta IA." }, { status: response.status });
   }
 
-  const reply = extractOutputText(payload);
+  const reply = stripForbiddenDemoIntro(extractOutputText(payload));
   if (!reply) return NextResponse.json({ error: "La IA no devolvió texto." }, { status: 502 });
 
   return NextResponse.json({ reply, model: payload.model || model, provider: "openai-responses" });

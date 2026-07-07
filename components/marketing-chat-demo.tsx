@@ -45,8 +45,37 @@ const supportEvaluationAction: DemoAction = {
   href: talkeyBookingUrl,
 };
 
+const forbiddenDemoIntroPhrases = [
+  "Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?",
+  "Hola, soy Talkey. Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?",
+  "Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?",
+  "Hola, soy Talkey Ventas. Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?",
+];
+
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function normalizeCommand(value: string) {
   return value.toLocaleLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function stripForbiddenDemoIntro(text: string) {
+  let sanitized = text;
+
+  for (const phrase of forbiddenDemoIntroPhrases) {
+    const flexiblePhrase = phrase.trim().split(/\s+/).map(escapeRegExp).join("\\s+");
+    sanitized = sanitized.replace(new RegExp(flexiblePhrase, "gi"), "");
+  }
+
+  sanitized = sanitized
+    .replace(/\s+([.,;:!?])/g, "$1")
+    .replace(/(^|\n)\s*[.,;:!?]\s*/g, "$1")
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+
+  return sanitized || "Para responderte bien, necesito un poco más de contexto sobre lo que quieres revisar.";
 }
 
 export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }: { copy: MarketingCopy["chat"]; aiMode?: boolean; variant?: "support" | "sales" }) {
@@ -223,7 +252,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     const commandValue = normalizeCommand(message);
     if (/(^|\b)(volver al inicio|volver a inicio|ir al inicio|menu inicial|empezar de nuevo|comenzar de nuevo|partir de nuevo|volver a empezar|reiniciar|reset|start over|restart|back to start|iniziare da capo|ricominciare)(\b|$)/i.test(commandValue)) {
       return {
-        replies: [{ text: copy.welcome }],
+        replies: [{ text: variant === "sales" ? "Listo. Volvemos al inicio. ¿Qué quieres probar ahora?" : "Listo. Volvemos al inicio. ¿Qué quieres revisar ahora?" }],
         mode: "idle",
         activeFlowId: null,
         answers: [],
@@ -485,7 +514,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
   }
 
   function applyPlan(plan: ReplyPlan) {
-    const assistantMessages = plan.replies.map((reply) => ({ id: crypto.randomUUID(), sender: "assistant" as const, ...reply }));
+    const assistantMessages = plan.replies.map((reply) => ({ id: crypto.randomUUID(), sender: "assistant" as const, ...reply, text: stripForbiddenDemoIntro(reply.text) }));
     lastAssistantMessageIdRef.current = assistantMessages[0]?.id ?? null;
     setMessages((current) => [
       ...current,
