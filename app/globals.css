@@ -2417,10 +2417,6 @@ button { cursor: pointer; }
 }
 
 @media (max-width: 820px) {
-  .mk-manual-header {
-    position: relative;
-  }
-
   .mk-manual-nav {
     min-height: 74px;
   }
