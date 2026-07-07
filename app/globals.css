@@ -1606,6 +1606,22 @@ button { cursor: pointer; }
   transform: scaleX(1);
 }
 
+.mk-manual-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mk-manual-nav .mk-nav-cta-sales {
+  border: 1px solid #3f83ad;
+  background: #12355b;
+  color: #f5f7fa !important;
+}
+
+.mk-manual-nav .mk-nav-cta-sales:hover {
+  background: #1c4c7a;
+}
+
 .mk-manual-hero {
   padding: 100px 0 76px;
 }

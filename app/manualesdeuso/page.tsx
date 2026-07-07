@@ -358,14 +358,20 @@ export default function ManualsPage() {
             <Image src="/brand/talkey-wordmark.svg" width={442} height={140} alt="Talkey" priority />
           </Link>
           <nav className="mk-manual-nav-links" aria-label="Navegación de manuales">
+            <Link href="/">Inicio</Link>
             <a href="#apps">Apps</a>
             <a href="#manuales">Manuales</a>
             <a href="#versiones">Base vs IA</a>
             <a href="#practicas">Buenas prácticas</a>
           </nav>
-          <Link className="mk-nav-cta" href="/soporte-tecnico">
-            Ver Talkey Soporte <ArrowUpRight size={16} />
-          </Link>
+          <div className="mk-manual-nav-actions">
+            <Link className="mk-nav-cta mk-nav-cta-sales" href="/ventas">
+              Ver Talkey Ventas <ArrowUpRight size={16} />
+            </Link>
+            <Link className="mk-nav-cta" href="/soporte-tecnico">
+              Ver Talkey Soporte <ArrowUpRight size={16} />
+            </Link>
+          </div>
         </div>
       </header>
 
