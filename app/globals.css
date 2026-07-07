@@ -4025,10 +4025,6 @@ button { cursor: pointer; }
   padding-top: 0;
 }
 
-.mk-sales-demo-section .mk-chat-wrap.is-sales-chat {
-  padding-bottom: 0;
-}
-
 .mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-glow {
   background: rgba(18,53,91,.26);
 }
