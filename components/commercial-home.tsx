@@ -22,6 +22,7 @@ import { MarketingChatDemo } from "@/components/marketing-chat-demo";
 import { MarketingScheduler } from "@/components/marketing-scheduler";
 import { PricingSimulator } from "@/components/pricing-simulator";
 import { trackEvent } from "@/lib/analytics";
+import { talkeyBookingUrl } from "@/lib/booking";
 import { detectMarketingLocale, marketingCopy, type MarketingLocale, type PricingSimulatorCopy } from "@/lib/marketing-copy";
 
 const integrationIcons = [Database, CalendarCheck, PlugZap];
@@ -208,7 +209,7 @@ const narrativeContent = {
       kicker: "Preguntas frecuentes",
       title: "Respuestas rápidas antes de una evaluación.",
       items: [
-        { question: "¿Cuánto demora una implementación?", answer: "Depende del volumen de productos, documentos, canales y validación técnica. Lo correcto es revisarlo en una evaluación.", cta: "Solicitar evaluación", ctaHref: "#agenda" },
+        { question: "¿Cuánto demora una implementación?", answer: "Depende del volumen de productos, documentos, canales y validación técnica. Lo correcto es revisarlo en una evaluación.", cta: "Solicitar evaluación", ctaHref: talkeyBookingUrl },
         { question: "¿Cuánto cuesta?", answer: "El precio depende del volumen, canales, documentación, integraciones y nivel de acompañamiento requerido. Revisa los paquetes referenciales y luego solicita una evaluación para ajustar alcance y precio final.", cta: "Ver paquetes de precios" },
         { question: "¿Talkey ayuda también al equipo interno?", answer: "Sí. Además de asistir al cliente, Talkey puede actuar como copiloto operativo para agentes: resume tickets, sugiere prioridad, responsable, próximos pasos y respuestas iniciales." },
         { question: "¿Talkey es un chatbot?", answer: "No solamente. La interfaz puede parecer un chat, pero el valor está en organizar conocimiento técnico, aplicar procedimientos y mantener criterios de soporte." },
@@ -338,7 +339,7 @@ const narrativeContent = {
       kicker: "FAQ",
       title: "Quick answers before an evaluation.",
       items: [
-        { question: "How long does implementation take?", answer: "It depends on products, documents, channels and technical validation. The right next step is to review it in an evaluation.", cta: "Request evaluation", ctaHref: "#agenda" },
+        { question: "How long does implementation take?", answer: "It depends on products, documents, channels and technical validation. The right next step is to review it in an evaluation.", cta: "Request evaluation", ctaHref: talkeyBookingUrl },
         { question: "How much does it cost?", answer: "Pricing depends on the operation. Use the pricing simulator for a reference estimate, then request an evaluation.", cta: "Go to pricing simulator" },
         { question: "Is Talkey a chatbot?", answer: "Not only. The interface can look like chat, but the value is in organizing technical knowledge, applying procedures and keeping support criteria consistent." },
         { question: "Does Talkey replace my agents?", answer: "Not necessarily. It can complement your agents; if your goal is to reduce headcount or avoid expanding it, Talkey can absorb repetitive load and provide more context for complex cases." },
@@ -467,7 +468,7 @@ const narrativeContent = {
       kicker: "Domande frequenti",
       title: "Risposte rapide prima di una valutazione.",
       items: [
-        { question: "Quanto dura un'implementazione?", answer: "Dipende da prodotti, documenti, canali e validazione tecnica. La cosa corretta è valutarlo in una riunione.", cta: "Richiedi valutazione", ctaHref: "#agenda" },
+        { question: "Quanto dura un'implementazione?", answer: "Dipende da prodotti, documenti, canali e validazione tecnica. La cosa corretta è valutarlo in una riunione.", cta: "Richiedi valutazione", ctaHref: talkeyBookingUrl },
         { question: "Quanto costa?", answer: "Il prezzo dipende dall'operazione. Usa il simulatore prezzi per una stima indicativa e poi richiedi una valutazione.", cta: "Vai al simulatore prezzi" },
         { question: "Talkey è un chatbot?", answer: "Non solo. L'interfaccia può sembrare una chat, ma il valore sta nell'organizzare conoscenza tecnica, applicare procedure e mantenere criteri coerenti." },
         { question: "Talkey sostituisce i miei operatori?", answer: "Non necessariamente. Può affiancare gli operatori; se l'obiettivo è ridurre il team o evitare di ampliarlo, Talkey può assorbire carico ripetitivo e fornire più contesto per i casi complessi." },
@@ -525,7 +526,7 @@ function SupportPricingPackagesSection() {
                   <li key={feature}><BadgeCheck size={17} />{feature}</li>
                 ))}
               </ul>
-              <a href="#agenda">Solicitar evaluación <ArrowRight size={16} /></a>
+              <a href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">Solicitar evaluación <ArrowRight size={16} /></a>
             </article>
           ))}
         </div>
@@ -663,7 +664,7 @@ export function CommercialHome({
               ) : narrative.nav.pricing}
             </a>
             <a href="#comparacion" onClick={() => setMenuOpen(false)}>{narrative.nav.comparison}</a>
-            <a className="mk-mobile-quote" href="#agenda" onClick={() => { setMenuOpen(false); trackCta("agenda_click"); }}>{narrative.nav.quote}<ArrowRight size={16} /></a>
+            <a className="mk-mobile-quote" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => { setMenuOpen(false); trackCta("agenda_click"); }}>{narrative.nav.quote}<ArrowRight size={16} /></a>
           </nav>
           <div className="mk-nav-actions">
             <div className="mk-language" aria-label="Language selector">
@@ -671,7 +672,7 @@ export function CommercialHome({
                 <button key={item} type="button" className={locale === item ? "is-active" : ""} onClick={() => selectLocale(item)} aria-label={marketingCopy[item].languageName}>{item.toUpperCase()}</button>
               ))}
             </div>
-            <a className="mk-nav-cta" href="#agenda" onClick={() => trackCta("agenda_click")}>{narrative.nav.quote}<ArrowUpRight size={16} /></a>
+            <a className="mk-nav-cta" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("agenda_click")}>{narrative.nav.quote}<ArrowUpRight size={16} /></a>
             <button className="mk-menu-button" type="button" onClick={() => setMenuOpen((value) => !value)} aria-label={copy.nav.menu} aria-expanded={menuOpen}>
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -691,7 +692,7 @@ export function CommercialHome({
               ))}
             </h1>
             <div className="mk-hero-actions">
-              <a className="mk-button mk-button-primary" href="#agenda" onClick={() => trackCta("hero_request_evaluation_click")}>{narrative.hero.primary}<ArrowUpRight size={18} /></a>
+              <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("hero_request_evaluation_click")}>{narrative.hero.primary}<ArrowUpRight size={18} /></a>
               <a className="mk-button mk-button-secondary" href="#demo" onClick={() => trackCta("hero_try_demo_click")}>{narrative.hero.secondary}<MessageSquareText size={18} /></a>
               <a className="mk-button mk-button-secondary" href="#precios" onClick={() => trackCta("hero_estimate_price_click")}>{narrative.hero.tertiary}<ArrowRight size={18} /></a>
             </div>
@@ -785,7 +786,7 @@ export function CommercialHome({
             </div>
             <div className="mk-use-cases-intro">
               <p>{narrative.useCases.body}</p>
-              <a href="#agenda" onClick={() => trackCta("agenda_click")}>{narrative.hero.primary}<ArrowUpRight size={18} /></a>
+              <a href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("agenda_click")}>{narrative.hero.primary}<ArrowUpRight size={18} /></a>
             </div>
           </div>
           <div className="mk-use-case-cards">
@@ -861,21 +862,28 @@ export function CommercialHome({
             <h2>{narrative.faq.title}</h2>
           </div>
           <div className="mk-faq-grid">
-            {visibleFaqItems.map((item) => (
-              <article key={item.question}>
-                <h3>{item.question}</h3>
-                <p>{item.answer}</p>
-                {"cta" in item && item.cta && (
-                  <a
-                    className="mk-faq-cta"
-                    href={"ctaHref" in item && item.ctaHref ? item.ctaHref : "#precios"}
-                    onClick={() => trackCta("ctaHref" in item && item.ctaHref === "#agenda" ? "faq_request_evaluation_click" : "faq_pricing_packages_click")}
-                  >
-                    {item.cta}<ArrowRight size={16} />
-                  </a>
-                )}
-              </article>
-            ))}
+            {visibleFaqItems.map((item) => {
+              const ctaHref = "ctaHref" in item && item.ctaHref ? item.ctaHref : "#precios";
+              const ctaExternal = ctaHref.startsWith("http");
+
+              return (
+                <article key={item.question}>
+                  <h3>{item.question}</h3>
+                  <p>{item.answer}</p>
+                  {"cta" in item && item.cta && (
+                    <a
+                      className="mk-faq-cta"
+                      href={ctaHref}
+                      target={ctaExternal ? "_blank" : undefined}
+                      rel={ctaExternal ? "noopener noreferrer" : undefined}
+                      onClick={() => trackCta(ctaHref === talkeyBookingUrl ? "faq_request_evaluation_click" : "faq_pricing_packages_click")}
+                    >
+                      {item.cta}<ArrowRight size={16} />
+                    </a>
+                  )}
+                </article>
+              );
+            })}
           </div>
           {renderListToggle("faq", narrative.faq.items.length)}
         </div>

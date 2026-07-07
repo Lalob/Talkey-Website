@@ -4,6 +4,7 @@ import { ChangeEvent, useMemo, useRef, useState } from "react";
 import { AlertTriangle, ArrowUpRight, Calculator, ChevronDown, ChevronUp, Info } from "lucide-react";
 import type { PricingSimulatorCopy } from "@/lib/marketing-copy";
 import { trackEvent } from "@/lib/analytics";
+import { talkeyBookingUrl } from "@/lib/booking";
 
 const REAL_AGENT_MONTHLY_COST_CLP = 900000;
 const TOOLS_BASE_MONTHLY_COST_CLP = 160000;
@@ -463,7 +464,7 @@ export function PricingSimulator({ copy }: { copy: PricingSimulatorCopy }) {
               {result.warnings.map((warning) => <p key={warning}>{copy.warnings[warning]}</p>)}
             </div>
 
-            <a className="mk-pricing-demo" href="#agenda" onClick={() => trackEvent("pricing_request_demo_click", { source: "pricing_simulator" })}>
+            <a className="mk-pricing-demo" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent("pricing_request_demo_click", { source: "pricing_simulator" })}>
               {copy.results.demoButton}<ArrowUpRight size={18} />
             </a>
 

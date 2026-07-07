@@ -4,6 +4,7 @@ import { MarketingChatDemo } from "@/components/marketing-chat-demo";
 import { DemoPanel, type DemoOption } from "@/components/platform-demo-panel";
 import { SalesComparisonTable } from "@/components/sales-comparison-table";
 import { SalesProblemTable } from "@/components/sales-problem-table";
+import { talkeyBookingUrl } from "@/lib/booking";
 import { marketingCopy } from "@/lib/marketing-copy";
 import {
   ArrowRight,
@@ -275,7 +276,7 @@ function Brand() {
   );
 }
 
-function PlatformHeader({ minimal = false, sales = false, ctaHref = "#agenda" }: { minimal?: boolean; sales?: boolean; ctaHref?: string }) {
+function PlatformHeader({ minimal = false, sales = false, ctaHref = talkeyBookingUrl }: { minimal?: boolean; sales?: boolean; ctaHref?: string }) {
   const ctaExternal = ctaHref.startsWith("http");
 
   return (
@@ -309,7 +310,7 @@ function PlatformHeader({ minimal = false, sales = false, ctaHref = "#agenda" }:
   );
 }
 
-function Footer({ currentYear, ctaHref = "#agenda", line }: { currentYear: number; ctaHref?: string; line?: string }) {
+function Footer({ currentYear, ctaHref = talkeyBookingUrl, line }: { currentYear: number; ctaHref?: string; line?: string }) {
   const ctaExternal = ctaHref.startsWith("http");
 
   if (line) {
@@ -367,13 +368,12 @@ function ProductCard({ product }: { product: (typeof products)[number] }) {
 
 export function PlatformHome() {
   const year = new Date().getUTCFullYear();
-  const bookingUrl = "https://calendar.app.google/3GHWcX3gvTc1ujv6A";
 
   return (
     <main className="mk-site mk-platform-site mk-platform-home-minimal">
       <div className="mk-ambient mk-ambient-one" />
       <div className="mk-ambient mk-ambient-two" />
-      <PlatformHeader minimal ctaHref={bookingUrl} />
+      <PlatformHeader minimal ctaHref={talkeyBookingUrl} />
 
       <section className="mk-section mk-platform-hero" aria-labelledby="talkey-home-title">
         <div className="mk-container">
@@ -389,7 +389,7 @@ export function PlatformHome() {
         </div>
       </section>
 
-      <Footer currentYear={year} ctaHref={bookingUrl} />
+      <Footer currentYear={year} ctaHref={talkeyBookingUrl} />
     </main>
   );
 }
@@ -549,7 +549,7 @@ export function SalesPage() {
             </p>
             <div className="mk-hero-actions">
               <a className="mk-button mk-button-primary" href="#demo">Ver demo <ArrowRight size={18} /></a>
-              <a className="mk-button mk-button-secondary" href="#agenda">Solicitar evaluación <ArrowRight size={18} /></a>
+              <a className="mk-button mk-button-secondary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">Solicitar evaluación <ArrowRight size={18} /></a>
             </div>
           </div>
         </div>
@@ -646,7 +646,7 @@ export function SalesPage() {
                     <li key={feature}><BadgeCheck size={17} />{feature}</li>
                   ))}
                 </ul>
-                <a href="#agenda">Solicitar evaluación <ArrowRight size={16} /></a>
+                <a href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">Solicitar evaluación <ArrowRight size={16} /></a>
               </article>
             ))}
           </div>
@@ -688,7 +688,7 @@ export function SalesPage() {
               CRM actual y qué haría falta para implementarlo bien.
             </p>
           </div>
-          <a className="mk-button mk-button-primary" href="https://calendar.app.google/3GHWcX3gvTc1ujv6A">
+          <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">
             Solicitar evaluación <ArrowRight size={18} />
           </a>
         </div>
@@ -733,7 +733,7 @@ export function SuitePage({ suite }: { suite: SuiteKey }) {
             <p>{pageBody}</p>
             <div className="mk-hero-actions">
               <a className="mk-button mk-button-primary" href="#demo">Ver demo <ArrowRight size={18} /></a>
-              <a className="mk-button mk-button-secondary" href="#agenda">Solicitar evaluación <ArrowRight size={18} /></a>
+              <a className="mk-button mk-button-secondary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">Solicitar evaluación <ArrowRight size={18} /></a>
             </div>
           </div>
           <article className="mk-suite-simple-panel">
@@ -786,7 +786,7 @@ export function SuitePage({ suite }: { suite: SuiteKey }) {
               La implementación se confirma después de una evaluación técnica y comercial.
             </small>
           </div>
-          <a className="mk-button mk-button-primary" href="https://calendar.app.google/3GHWcX3gvTc1ujv6A">
+          <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">
             Solicitar evaluación <ArrowRight size={18} />
           </a>
         </div>

@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { AlertTriangle, ArrowUp, ArrowUpRight, MessageCircleMore, Minus } from "lucide-react";
+import { talkeyBookingUrl } from "@/lib/booking";
 import type { MarketingCopy } from "@/lib/marketing-copy";
 import { trackEvent } from "@/lib/analytics";
 import {
@@ -125,10 +126,10 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     const result = buildTroubleshootingResult(flow, nextAnswers);
     const isHighSeverity = result.severity === "Alta";
     const actions: DemoAction[] = isHighSeverity
-      ? [{ label: copy.actions.bookReview, href: "#agenda" }]
+      ? [{ label: copy.actions.bookReview, href: talkeyBookingUrl }]
       : [
           { label: copy.actions.tryAnotherCase, prompt: copy.actions.tryAnotherCase },
-          { label: copy.actions.bookDemo, href: "#agenda" },
+          { label: copy.actions.bookDemo, href: talkeyBookingUrl },
         ];
 
     return {
@@ -344,15 +345,15 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
 
   function resolveSalesReply(value: string, commandValue: string): ReplyPlan {
     if (/(precio|costo|cu[aá]nto|valor|pagar|presupuesto|pricing|price|cost|budget|plan|paquete|mensual)/i.test(value)) {
-      return { replies: [{ text: copy.responses.pricing, actions: [{ label: copy.actions.pricingSimulator, href: "#precios" }, { label: copy.actions.bookDemo, href: "#agenda" }] }] };
+      return { replies: [{ text: copy.responses.pricing, actions: [{ label: copy.actions.pricingSimulator, href: "#precios" }, { label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
     if (/(vambe|hubspot|salesforce|manychat|salesloft|drift|competidor|competencia|competitor|alternative|alternativa|crm tradicional|comparar|comparaci[oó]n)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.competitorComparison, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
+      return { replies: [{ text: copy.responses.competitorComparison, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
     if (/(integr|crm|whatsapp|wasap|wsp|instagram|web|sitio|portal|api|canal|email|correo|hubspot|salesforce)/i.test(value)) {
-      return { replies: [{ text: copy.responses.integration, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
+      return { replies: [{ text: copy.responses.integration, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
     if (/(implement|instalar|instala|partir|comenzar|onboard|setup|configur|implementar|avvia|iniziare)/i.test(value)) {
@@ -363,31 +364,31 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     }
 
     if (/(agenda|agendar|demo|reuni[oó]n|llamada|evaluaci[oó]n|calendar|meeting)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.implementation, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
+      return { replies: [{ text: copy.responses.implementation, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
     if (/(cotiz|cotizar|propuesta|presupuesto|quote|proposal)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.ticketComparison, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
+      return { replies: [{ text: copy.responses.ticketComparison, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
     if (/(seguimiento|lead.*fr[ií]o|se enfr[ií]a|follow|priori|prioridad|scoring|pipeline|oportunidad|pr[oó]ximo paso)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.supportMetrics, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
+      return { replies: [{ text: copy.responses.supportMetrics, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
     if (/(duplic|repetid|historial|memoria|vuelve|otro canal|mismo cliente|history|memory)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.customerMemory, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
+      return { replies: [{ text: copy.responses.customerMemory, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
     if (/(postventa|soporte|handoff|deriv|cliente ganado|instalaci[oó]n|garant[ií]a)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.technical, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
+      return { replies: [{ text: copy.responses.technical, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
     if (/(vendedor|ejecutivo|humano|humanos|equipo comercial|reemplaza|replace|sales rep)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.humanRole, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
+      return { replies: [{ text: copy.responses.humanRole, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
     if (/(voz|tel[eé]fono|telefono|hablar|voice|phone|call|llamada)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.voiceVersion, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
+      return { replies: [{ text: copy.responses.voiceVersion, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
     if (/(segur|privac|dato|datos|trazab|security|privacy|data)/i.test(value)) {
@@ -395,10 +396,10 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     }
 
     if (/(que problema resuelve|que resuelve talkey|para que sirve talkey|ventas|vender|leads|comercial|prospecto)/i.test(commandValue)) {
-      return { replies: [{ text: copy.responses.problemSolved, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
+      return { replies: [{ text: copy.responses.problemSolved, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
-    return { replies: [{ text: copy.responses.fallback, actions: [{ label: copy.actions.bookDemo, href: "#agenda" }] }] };
+    return { replies: [{ text: copy.responses.fallback, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
   }
 
   async function resolveAiPlan(content: string, localPlan: ReplyPlan): Promise<ReplyPlan> {
@@ -497,17 +498,26 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
               <p>{message.text}</p>
               {message.actions && (
                 <div className="mk-demo-actions">
-                  {message.actions.map((action) => (
-                    action.href ? (
-                      <a key={action.label} className="mk-demo-action" href={action.href} onClick={() => trackEvent(action.href === "#precios" ? "hero_estimate_price_click" : "agenda_click", { source: "demo_action" })}>
+                  {message.actions.map((action) => {
+                    const isExternalAction = action.href?.startsWith("http") ?? false;
+
+                    return action.href ? (
+                      <a
+                        key={action.label}
+                        className="mk-demo-action"
+                        href={action.href}
+                        target={isExternalAction ? "_blank" : undefined}
+                        rel={isExternalAction ? "noopener noreferrer" : undefined}
+                        onClick={() => trackEvent(action.href === "#precios" ? "hero_estimate_price_click" : "agenda_click", { source: "demo_action" })}
+                      >
                         {action.label}<ArrowUpRight size={15} />
                       </a>
                     ) : (
                       <button key={action.label} className="mk-demo-action" type="button" disabled={typing} onClick={() => send(action.prompt ?? action.label)}>
                         {action.label}<ArrowUpRight size={15} />
                       </button>
-                    )
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
