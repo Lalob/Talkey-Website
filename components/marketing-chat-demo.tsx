@@ -539,6 +539,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
         <form className="mk-chat-form" onSubmit={submit}>
           <input
             data-testid="marketing-chat-input"
+            className={input ? "has-value" : "is-empty"}
             value={input}
             onChange={(event) => setInput(event.target.value)}
             placeholder={copy.placeholder}
