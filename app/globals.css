@@ -1613,7 +1613,7 @@ button { cursor: pointer; }
 }
 
 .mk-manual-nav .mk-nav-cta-sales {
-  border: 1px solid #3f83ad;
+  border: 0;
   background: #12355b;
   color: #f5f7fa !important;
 }
