@@ -473,19 +473,19 @@ const salesChatCopy = {
   actions: {
     ...marketingCopy.es.chat.actions,
     pricingSimulator: "Ver paquetes de precios",
-    bookDemo: "Solicitar evaluación",
-    bookReview: "Solicitar evaluación",
+    bookDemo: "Solicitar una evaluación",
+    bookReview: "Solicitar una evaluación",
   },
   responses: {
     ...marketingCopy.es.chat.responses,
     pricing:
-      `Talkey Ventas se ofrece en paquetes referenciales según volumen, canales, nivel de automatización, integraciones y continuidad con soporte técnico. Puedes revisar los paquetes de la sección de precios y luego solicitar una evaluación para ajustar alcance, implementación y precio final.\n\n${salesDemoCta}`,
+      `Talkey Ventas se ofrece en paquetes referenciales. Puedes revisar la sección de precios y luego solicitar una evaluación para confirmar cuál calza mejor con tu empresa.\n\n${salesDemoCta}`,
     implementation:
-      "La implementación parte revisando tu proceso comercial: canales de entrada, criterios de calificación, etapas de pipeline, datos mínimos para cotizar, reglas de seguimiento e integraciones necesarias. Después se configura Talkey Editor, se prueban conversaciones reales y se valida el handoff hacia el equipo comercial o soporte.",
+      "La implementación parte ordenando el flujo comercial: cómo entra una conversación, cómo se califica, cómo se prioriza, qué próximo paso se sugiere y cómo se conecta con el equipo comercial o soporte. Después se configura Talkey Editor, se prueban conversaciones reales y se ajusta el flujo antes de operar.",
     implementationFollowUp:
-      "En más detalle: 1. levantamos canales y origen de leads; 2. definimos criterios de scoring; 3. configuramos preguntas comerciales y datos para cotizar; 4. conectamos CRM, agenda o canales; 5. probamos casos reales; 6. ajustamos seguimiento y handoff. ¿Qué otra parte de la implementación quieres revisar?",
+      "En más detalle: se define el flujo comercial, se configuran criterios de calificación, se preparan reglas de seguimiento, se conectan las herramientas necesarias, se prueban conversaciones reales y se ajusta el handoff hacia ventas o soporte. Si quieres verlo aplicado a tu empresa, solicita una evaluación.",
     integration:
-      `Talkey Ventas puede integrarse con tu CRM o funcionar junto al CRM de Talkey. También puede conectarse con formularios del sitio, WhatsApp, email, agenda de reuniones y otros canales comerciales según evaluación técnica.\n\n${salesDemoCta}`,
+      `Talkey Ventas puede integrarse con tu CRM o funcionar junto al CRM de Talkey. También puede conectarse con formularios del sitio, WhatsApp, email, agenda de reuniones y otros canales comerciales.\n\n${salesDemoCta}`,
     security:
       "Talkey Ventas debe operar con criterios aprobados, trazabilidad y control de datos comerciales. La configuración de permisos, historial, integraciones y tratamiento de información se revisa en la evaluación técnica.",
     technical:
@@ -507,7 +507,7 @@ const salesChatCopy = {
     negativeChallenge:
       "¿Qué te hace pensar eso? Si tu duda es sobre precio, precisión, comparación con Vambe o capacidad real de cerrar oportunidades, puedo responderlo desde el enfoque de Talkey Ventas.",
     fallback:
-      `Para responderte bien necesito un poco más de contexto: ¿quieres revisar calificación de leads, seguimiento, cotizaciones, CRM, agenda o continuidad hacia soporte técnico?\n\nEn una operación real, Talkey Ventas toma la conversación, identifica intención comercial y deja una acción siguiente clara para que el equipo avance la oportunidad.\n\n${salesDemoCta}`,
+      `Talkey Ventas toma la conversación, identifica intención comercial y deja una acción siguiente clara para que el equipo avance la oportunidad.\n\n${salesDemoCta}`,
   },
 };
 

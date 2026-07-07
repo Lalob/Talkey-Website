@@ -41,7 +41,7 @@ type ReplyPlan = {
 };
 
 const supportEvaluationAction: DemoAction = {
-  label: "Solicitar evaluación",
+  label: "Solicitar una evaluación",
   href: talkeyBookingUrl,
 };
 
@@ -75,7 +75,7 @@ function stripForbiddenDemoIntro(text: string) {
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 
-  return sanitized || "Para responderte bien, necesito un poco más de contexto sobre lo que quieres revisar.";
+  return sanitized || "Puedo orientarte con lo esencial y, si quieres verlo aplicado a tu operación, puedes solicitar una evaluación.";
 }
 
 export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }: { copy: MarketingCopy["chat"]; aiMode?: boolean; variant?: "support" | "sales" }) {
