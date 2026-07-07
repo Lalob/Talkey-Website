@@ -263,7 +263,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
         unsafeTechnical: "No puedo guiar acciones peligrosas o que anulen medidas de seguridad. En un caso real, Talkey debería detener el autoservicio, levantar los datos relevantes y derivar a un técnico o canal autorizado.",
         truthfulSupport: "No. Talkey no debe inventar, ocultar información ni cerrar tickets de forma engañosa. El objetivo es precisión, trazabilidad y derivación cuando no hay certeza suficiente.",
         competitorComparison: "La comparación correcta es por capa de problema. Herramientas como Zendesk, Intercom o Freshdesk ordenan conversaciones y tickets; ElevenLabs destaca en voz; ChatGPT responde preguntas generales. Talkey se enfoca en resolver soporte técnico con conocimiento estructurado, procedimientos, historial cuando está disponible y derivación con contexto.",
-        fallback: "Puedo explicarte qué problema resuelve Talkey, compararlo con Zendesk, Intercom o ElevenLabs, hablar de implementación, integración, seguridad, métricas o mostrarte un caso simulado de soporte técnico.",
+        fallback: "Para responderte mejor necesito un poco más de contexto: ¿quieres revisar implementación, integración, seguridad, métricas o un caso simulado de soporte técnico? Talkey responde desde conocimiento aprobado, guía diagnósticos y deriva con contexto cuando el caso necesita una persona.",
       },
     },
     metrics: [

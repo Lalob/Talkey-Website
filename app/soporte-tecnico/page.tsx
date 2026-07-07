@@ -15,6 +15,7 @@ export default function SoporteTecnicoPage() {
       initialLocale="es"
       currentYear={new Date().getUTCFullYear()}
       detectClientLocale={false}
+      aiDemo
       platformHomeHref="/"
     />
   );

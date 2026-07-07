@@ -371,7 +371,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
       return { replies: [{ text: copy.responses.ticketComparison, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
-    if (/(seguimiento|lead.*fr[ií]o|se enfr[ií]a|follow|priori|prioridad|scoring|pipeline|oportunidad|pr[oó]ximo paso)/i.test(commandValue)) {
+    if (/(seguimiento|lead.*fr[ií]o|se enfr[ií]a|follow|priori|prioridad|scoring|pipeline|oportunidad|pr[oó]xim[oa]s?\s+pasos?|prepar.*(paso|agenda|email|correo|seguimiento)|siguiente acci[oó]n|next step)/i.test(commandValue)) {
       return { replies: [{ text: copy.responses.supportMetrics, actions: [{ label: copy.actions.bookDemo, href: talkeyBookingUrl }] }] };
     }
 
@@ -411,6 +411,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
       body: JSON.stringify({
         message: content,
         localReply: localPlan.replies.map((reply) => reply.text).join("\n\n"),
+        variant,
         history: messages.slice(-8).map((message) => ({ sender: message.sender, text: message.text }))
       })
     });

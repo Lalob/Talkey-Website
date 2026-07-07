@@ -496,7 +496,7 @@ const salesChatCopy = {
     competitorComparison:
       `Vambe, HubSpot, Salesforce, Salesloft/Drift y Manychat cubren partes importantes de captación, CRM, automatización, agendamiento y seguimiento. Talkey Ventas hace eso, más continuidad con soporte técnico, historial por cliente, detección de leads repetidos, Talkey Editor y handoff hacia postventa.\n\n${salesDemoCta}`,
     supportMetrics:
-      `Talkey Ventas ayuda a que el equipo no trate todos los leads igual: identifica intención, urgencia, fit, presupuesto, repetición y potencial. Con eso prioriza oportunidades y propone próximos pasos concretos.\n\n${salesDemoCta}`,
+      `Talkey Ventas prepara próximos pasos leyendo la intención de la conversación, la etapa comercial, los datos faltantes y el nivel de urgencia. Con eso puede sugerir una acción concreta: pedir un dato para cotizar, enviar un correo de seguimiento, agendar una reunión, preparar una propuesta o pasar el caso a un ejecutivo.\n\nTambién deja el contexto ordenado en el pipeline: prioridad, responsable sugerido, riesgo detectado y siguiente acción. Así el ejecutivo no parte desde cero ni depende de recordar qué había que hacer.\n\n${salesDemoCta}`,
     customerMemory:
       `Si un lead vuelve por otro canal, Talkey Ventas puede usar el historial disponible para no partir desde cero, detectar duplicados, unificar contexto y mantener el seguimiento activo.\n\n${salesDemoCta}`,
     humanRole:
@@ -506,7 +506,7 @@ const salesChatCopy = {
     negativeChallenge:
       "¿Qué te hace pensar eso? Si tu duda es sobre precio, precisión, comparación con Vambe o capacidad real de cerrar oportunidades, puedo responderlo desde el enfoque de Talkey Ventas.",
     fallback:
-      `Puedo explicarte cómo Talkey Ventas califica leads, prioriza oportunidades, prepara cotizaciones, evita duplicados, agenda reuniones, se integra con CRM o conecta ventas con soporte técnico.\n\n${salesDemoCta}`,
+      `Para responderte bien necesito un poco más de contexto: ¿quieres revisar calificación de leads, seguimiento, cotizaciones, CRM, agenda o continuidad hacia soporte técnico?\n\nEn una operación real, Talkey Ventas toma la conversación, identifica intención comercial y deja una acción siguiente clara para que el equipo avance la oportunidad.\n\n${salesDemoCta}`,
   },
 };
 
@@ -620,7 +620,7 @@ export function SalesPage() {
             <h2>{content.demoTitle}</h2>
             <p>{content.demoBody}</p>
           </div>
-          <MarketingChatDemo copy={salesChatCopy} variant="sales" />
+          <MarketingChatDemo copy={salesChatCopy} variant="sales" aiMode />
         </div>
       </section>
 

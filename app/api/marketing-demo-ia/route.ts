@@ -90,12 +90,21 @@ export async function POST(request: Request) {
   const message = trimText(body.message, 1600);
   const localReply = trimText(body.localReply, 2500);
   const history = trimText(JSON.stringify(body.history || []), 4000);
+  const variant = body.variant === "sales" ? "sales" : "support";
 
   if (!message) return NextResponse.json({ error: "Falta el mensaje." }, { status: 400 });
   const copy = marketingCopy.es.chat;
-  const knowledge = {
-    product: "Talkey",
+  const supportKnowledge = {
+    product: "Talkey Soporte",
     positioning: "Sistema de soporte técnico con IA para transformar manuales, procedimientos y experiencia técnica en respuestas trazables, diagnósticos guiados y derivación humana cuando corresponde.",
+    capabilities: [
+      "responder desde conocimiento técnico aprobado",
+      "guiar diagnósticos paso a paso",
+      "usar historial por cliente cuando está disponible",
+      "identificar productos por foto de etiqueta, QR o número de serie",
+      "resumir tickets y sugerir prioridad, responsable, ETA y respuesta inicial",
+      "derivar a un especialista humano con contexto cuando corresponde"
+    ],
     responses: copy.responses,
     troubleshootingFlows: talkeyTroubleshootingFlows.map((flow) => ({
       title: flow.title,
@@ -103,21 +112,60 @@ export async function POST(request: Request) {
       derivationRules: flow.derivationRules
     }))
   };
+  const salesKnowledge = {
+    product: "Talkey Ventas",
+    positioning: "Suite de ventas con IA para convertir conversaciones entrantes en oportunidades priorizadas, seguimiento comercial y próximos pasos claros.",
+    capabilities: [
+      "calificar leads según intención, urgencia, fit, presupuesto y potencial",
+      "crear y ordenar oportunidades en pipeline",
+      "detectar leads repetidos o recurrentes",
+      "preparar próximos pasos comerciales",
+      "sugerir correos de seguimiento, agenda, llamada, cotización o propuesta",
+      "detectar riesgo por falta de seguimiento",
+      "integrarse con CRM o usar el CRM de Talkey",
+      "coordinar reuniones con Google Calendar u otro sistema de agendamiento",
+      "pasar contexto hacia Talkey Soporte cuando una venta requiere instalación, garantía o postventa"
+    ],
+    nextStepLogic: [
+      "lee la intención de la conversación",
+      "identifica etapa comercial y datos faltantes",
+      "evalúa urgencia, riesgo y prioridad",
+      "propone una acción concreta y responsable sugerido",
+      "deja el contexto listo en el pipeline para que el ejecutivo avance"
+    ]
+  };
+  const knowledge = variant === "sales" ? salesKnowledge : supportKnowledge;
 
-  const instructions = [
-    "Eres el demo IA comercial de Talkey en el sitio web.",
-    "Responde en español, con tono claro, directo y comercialmente útil.",
-    "Usa solo el conocimiento entregado. No inventes precios, integraciones cerradas, garantías ni compromisos técnicos no indicados.",
-    "Explica Talkey como un sistema para soporte técnico basado en conocimiento aprobado, trazabilidad y derivación humana.",
-    "Si la pregunta requiere evaluación comercial, invita a agendar una revisión o usar el simulador de precios, sin prometer montos exactos.",
-    "Mantén respuestas breves: 1 a 3 párrafos o bullets cortos."
-  ].join("\n");
+  const instructions = variant === "sales"
+    ? [
+        "Eres el demo IA de Talkey Ventas en el sitio web.",
+        "Responde en español, con tono claro, directo, sobrio y comercialmente útil.",
+        "Contesta la pregunta concreta primero. No repitas el mensaje de bienvenida ni una lista genérica de temas.",
+        "Si la respuesta local de respaldo suena como menú o fallback, úsala solo como contexto y no la copies.",
+        "Explica Talkey Ventas como una suite para convertir conversaciones en pipeline, prioridad, seguimiento, próximos pasos y continuidad con soporte.",
+        "No inventes precios, integraciones cerradas, garantías ni compromisos técnicos no indicados.",
+        "Cuando corresponda, termina con una invitación sobria a solicitar una evaluación para verlo aplicado a la operación del visitante.",
+        "Mantén respuestas breves: 1 a 3 párrafos o bullets cortos."
+      ].join("\n")
+    : [
+        "Eres el demo IA de Talkey Soporte en el sitio web.",
+        "Responde en español, con tono claro, directo, sobrio y útil para gerentes de soporte, postventa y operaciones.",
+        "Contesta la pregunta concreta primero. No repitas el mensaje de bienvenida ni una lista genérica de temas.",
+        "Si la respuesta local de respaldo suena como menú o fallback, úsala solo como contexto y no la copies.",
+        "Explica Talkey Soporte como un sistema basado en conocimiento aprobado, trazabilidad, diagnóstico guiado, copiloto para agentes humanos y derivación con contexto.",
+        "No inventes precios, integraciones cerradas, garantías ni compromisos técnicos no indicados.",
+        "Si la pregunta requiere evaluación comercial o técnica, invita a solicitar una evaluación sin prometer montos exactos.",
+        "Mantén respuestas breves: 1 a 3 párrafos o bullets cortos."
+      ].join("\n");
 
   const input = [
     "Pregunta del visitante: " + message,
     "",
     "Historial reciente:",
     history,
+    "",
+    "Variante del demo:",
+    variant,
     "",
     "Conocimiento del sitio:",
     JSON.stringify(knowledge).slice(0, 18000),
