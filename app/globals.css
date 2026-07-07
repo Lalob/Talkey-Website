@@ -924,8 +924,8 @@ button { cursor: pointer; }
 }
 .mk-demo-section .mk-chat-wrap > .mk-chat-card .mk-chat-topline,
 .mk-sales-demo-section .mk-chat-wrap.is-sales-chat > .mk-chat-card .mk-chat-topline {
-  min-height: 62px;
-  padding-top: 28px;
+  min-height: 72px;
+  padding-top: 40px;
 }
 .mk-demo-section .mk-chat-wrap > .mk-chat-card .mk-chat-conversation,
 .mk-sales-demo-section .mk-chat-wrap.is-sales-chat > .mk-chat-card .mk-chat-conversation {
