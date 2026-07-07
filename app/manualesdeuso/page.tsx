@@ -23,21 +23,21 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Manuales BioHertz Talkey | Guías para soporte, ventas y CRM",
+    absolute: "Manuales Talkey | Guías para soporte técnico, ventas y CRM",
   },
   description:
-    "Manuales BioHertz Talkey para soporte técnico, CRM de soporte, agente de ventas y CRM de ventas. Guías claras con pasos, referencias visuales y funciones IA.",
+    "Manuales Talkey para soporte técnico, CRM de soporte, asistente de ventas y CRM de ventas. Guías claras con pasos, referencias visuales y funciones IA.",
   keywords: [
     ...seoKeywords,
     "manuales Talkey",
-    "manuales BioHertz Talkey",
     "manuales de uso Talkey",
     "CRM soporte Talkey",
     "CRM ventas Talkey",
     "guías soporte técnico Talkey",
+    "guías Talkey ventas",
   ],
   alternates: {
-    canonical: absoluteUrl("/manualesbiohertz"),
+    canonical: absoluteUrl("/manualesdeuso"),
   },
   robots: {
     index: true,
@@ -52,10 +52,10 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "article",
-    title: "Manuales BioHertz Talkey",
+    title: "Manuales Talkey",
     description:
-      "Guías paso a paso para usar las apps BioHertz de Talkey en soporte técnico, ventas y operación asistida por IA.",
-    url: absoluteUrl("/manualesbiohertz"),
+      "Guías paso a paso para usar las apps Talkey en soporte técnico, ventas y operación asistida por IA.",
+    url: absoluteUrl("/manualesdeuso"),
     siteName: "Talkey",
     locale: "es_CL",
     images: [
@@ -63,15 +63,15 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Manuales BioHertz Talkey",
+        alt: "Manuales Talkey",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Manuales BioHertz Talkey | Guías para soporte, ventas y CRM",
+    title: "Manuales Talkey | Guías para soporte, ventas y CRM",
     description:
-      "Guías paso a paso para usar las apps BioHertz de Talkey en soporte técnico, ventas y operación asistida por IA.",
+      "Guías paso a paso para usar las apps Talkey en soporte técnico, ventas y operación asistida por IA.",
     images: ["/opengraph-image"],
   },
 };
@@ -116,14 +116,14 @@ const appManuals: AppManual[] = [
     preview: {
       eyebrow: "Vista cliente",
       title: "Ticket abierto automáticamente",
-      primary: "BH-1048 · En revisión",
-      secondary: "Modelo detectado: X-CUBE 50 · Prioridad media",
+      primary: "TK-1048 · En revisión",
+      secondary: "Modelo detectado: equipo técnico · Prioridad media",
       rows: ["Mensaje del cliente", "Foto o etiqueta del producto", "Respuesta sugerida", "Próximo paso"],
       chips: ["Estado", "Responsable", "ETA", "Historial"],
     },
     links: [
-      { label: "Abrir versión base", href: "/asistentebiohertz/" },
-      { label: "Abrir versión IA", href: "/asistentebiohertzIA/" },
+      { label: "Ver Suite Soporte", href: "/soporte-tecnico" },
+      { label: "Ver demo de soporte", href: "/soporte-tecnico#demo" },
     ],
     before: [
       "Ten a mano tu email, nombre y teléfono de contacto.",
@@ -167,8 +167,8 @@ const appManuals: AppManual[] = [
       chips: ["Categoría", "Urgencia", "Responsable", "Base de conocimiento"],
     },
     links: [
-      { label: "Abrir versión base", href: "/soportebiohertz/" },
-      { label: "Abrir versión IA", href: "/soportebiohertzIA/" },
+      { label: "Ver Suite Soporte", href: "/soporte-tecnico" },
+      { label: "Ver problemas/soluciones", href: "/soporte-tecnico#problema" },
     ],
     before: [
       "Revisa primero la lista de tickets y usa el buscador por email, serie, ticket o modelo.",
@@ -213,8 +213,8 @@ const appManuals: AppManual[] = [
       chips: ["Score", "Cotización", "Agenda", "CRM"],
     },
     links: [
-      { label: "Abrir versión base", href: "/agenteventasbiohertz/" },
-      { label: "Abrir versión IA", href: "/agenteventasbiohertzIA/" },
+      { label: "Ver Suite Ventas", href: "/ventas" },
+      { label: "Ver demo de ventas", href: "/ventas#demo" },
     ],
     before: [
       "Piensa qué necesitas resolver: producto, aplicación, presupuesto, ciudad, demo o cotización.",
@@ -258,8 +258,8 @@ const appManuals: AppManual[] = [
       chips: ["Score", "Riesgo", "Agenda", "Soporte"],
     },
     links: [
-      { label: "Abrir versión base", href: "/ventasbiohertz/" },
-      { label: "Abrir versión IA", href: "/ventasbiohertzIA/" },
+      { label: "Ver Suite Ventas", href: "/ventas" },
+      { label: "Ver precios", href: "/ventas#precios" },
     ],
     before: [
       "Parte en Inicio para revisar pipeline abierto, prospectos calientes y clientes enviados a CRM Soporte.",
@@ -363,8 +363,8 @@ export default function ManualsPage() {
             <a href="#versiones">Base vs IA</a>
             <a href="#practicas">Buenas prácticas</a>
           </nav>
-          <Link className="mk-nav-cta" href="/ventasbiohertzIA/">
-            Abrir app IA <ArrowUpRight size={16} />
+          <Link className="mk-nav-cta" href="/soporte-tecnico">
+            Ver Talkey Soporte <ArrowUpRight size={16} />
           </Link>
         </div>
       </header>
@@ -375,9 +375,9 @@ export default function ManualsPage() {
             <span className="mk-eyebrow">
               <span />
               <BookIcon />
-              Manuales BioHertz Talkey
+              Manuales Talkey
             </span>
-            <h1>Guías claras para usar cada app BioHertz.</h1>
+            <h1>Guías claras para usar cada app Talkey.</h1>
             <p>
               Manuales con pasos accionables, referencias visuales de interfaz y criterios para operar soporte,
               ventas y las versiones IA sin tener que aprender un software enorme.

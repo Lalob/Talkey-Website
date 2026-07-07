@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     })),
     {
-      url: absoluteUrl("/manualesbiohertz"),
+      url: absoluteUrl("/manualesdeuso"),
       lastModified,
       changeFrequency: "monthly",
       priority: 0.8,
