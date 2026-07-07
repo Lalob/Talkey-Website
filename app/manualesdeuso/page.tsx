@@ -135,7 +135,7 @@ const appManuals: AppManual[] = [
     },
     screenshots: [
       {
-        src: "/manualesdeuso/01-agente-soporte-inicio.jpg",
+        src: "/manual-assets/01-agente-soporte-inicio.jpg",
         alt: "Ejemplo BioHertz del inicio del asistente conversacional de soporte Talkey",
         caption:
           "Inicio del asistente: el usuario ingresa su email, Talkey crea el ticket y muestra estado, responsable, prioridad y tiempo estimado.",
@@ -146,7 +146,7 @@ const appManuals: AppManual[] = [
         ],
       },
       {
-        src: "/manualesdeuso/02-agente-soporte-conversacion.jpg",
+        src: "/manual-assets/02-agente-soporte-conversacion.jpg",
         alt: "Ejemplo BioHertz de conversación guiada en el asistente de soporte Talkey",
         caption:
           "Conversación guiada: el usuario describe el problema, puede adjuntar foto de etiqueta o QR y Talkey deja el caso mejor clasificado.",
@@ -204,7 +204,7 @@ const appManuals: AppManual[] = [
     },
     screenshots: [
       {
-        src: "/manualesdeuso/03-backoffice-soporte-ticket.jpg",
+        src: "/manual-assets/03-backoffice-soporte-ticket.jpg",
         alt: "Ejemplo BioHertz del backoffice de soporte Talkey con inteligencia del ticket",
         caption:
           "Consola de soporte: el equipo revisa tickets, toma control humano, cambia estados y usa la inteligencia del ticket para responder con contexto.",
@@ -264,7 +264,7 @@ const appManuals: AppManual[] = [
     },
     screenshots: [
       {
-        src: "/manualesdeuso/06-agente-ventas.jpg",
+        src: "/manual-assets/06-agente-ventas.jpg",
         alt: "Ejemplo BioHertz del agente conversacional de ventas Talkey",
         caption:
           "Agente comercial: el prospecto puede preguntar por productos, Talkey precalifica la intención y deja un CTA claro a demo o presupuesto.",
@@ -323,7 +323,7 @@ const appManuals: AppManual[] = [
     },
     screenshots: [
       {
-        src: "/manualesdeuso/04-crm-ventas-dashboard.jpg",
+        src: "/manual-assets/04-crm-ventas-dashboard.jpg",
         alt: "Ejemplo BioHertz del dashboard del CRM de ventas Talkey",
         caption:
           "Dashboard comercial: permite ver pipeline, forecast, leads calientes, riesgos y actividad reciente sin depender de seguimiento manual.",
@@ -335,7 +335,7 @@ const appManuals: AppManual[] = [
         ],
       },
       {
-        src: "/manualesdeuso/05-crm-ventas-smart-agent.jpg",
+        src: "/manual-assets/05-crm-ventas-smart-agent.jpg",
         alt: "Ejemplo BioHertz del Smart Agent interno en el CRM de ventas Talkey",
         caption:
           "Smart Agent interno: ayuda a priorizar, detectar riesgos, preparar seguimiento, sugerir agenda y revisar handoff hacia soporte.",
