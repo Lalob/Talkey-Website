@@ -581,6 +581,15 @@ export function SalesPage() {
               </article>
             ))}
           </div>
+          <div className="mk-sales-flow-cta">
+            <p>
+              Cuando una oportunidad ganada necesita instalación, garantía o postventa, el contexto puede continuar
+              hacia Talkey Soporte.
+            </p>
+            <Link href="/soporte-tecnico">
+              Ver Talkey Soporte <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
       </section>
 
