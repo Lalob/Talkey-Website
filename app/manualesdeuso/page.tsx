@@ -359,13 +359,11 @@ const appManuals: AppManual[] = [
     steps: [
       "Crea un prospecto con empresa, contacto, email, segmento, score y necesidad comercial.",
       "Convierte el prospecto cuando esté listo: la app creará cuenta comercial, contacto y oportunidad inicial.",
-      "Gestiona la oportunidad en el pipeline: avanza etapa, actualiza próximo paso y fecha de cierre.",
+      "Gestiona la oportunidad en el pipeline: avanza etapa, actualiza próximo paso, fecha de cierre y cotizaciones cuando corresponda.",
       "Usa Smart Agent para priorizar pipeline, detectar riesgos, preparar correos, encontrar duplicados o sugerir agenda.",
       "Cuando Smart Agent prepare un correo de seguimiento, revisa tono, datos del cliente, propuesta de valor y próximo paso antes de enviarlo.",
       "Si necesitas reunión, genera el enlace de Google Calendar, revisa la invitación y guárdala desde tu cuenta.",
-      "Crea cotizaciones desde oportunidades cuando corresponda.",
-      "Marca una oportunidad como ganada solo cuando el cierre sea real.",
-      "Después de ganar, revisa CRM Soporte: Talkey crea o actualiza el cliente operativo y deja ticket de onboarding.",
+      "Marca una oportunidad como ganada solo cuando el cierre sea real. Después de ganar, revisa Talkey Soporte: Talkey crea o actualiza el cliente operativo y deja ticket de onboarding.",
       "Confirma que el evento de integración o handoff hacia soporte incluya producto, contexto comercial, responsable y próximos pasos.",
     ],
     checks: [
@@ -631,8 +629,15 @@ export default function ManualsPage() {
                     <div>
                       <h3>Paso a paso</h3>
                       <ol>
-                        {manual.steps.map((step) => (
-                          <li key={step}>{step}</li>
+                        {manual.steps.map((step, index) => (
+                          <li key={step}>
+                            {step}
+                            {manual.id === "crm-ventas" && index === 6 ? (
+                              <Link className="mk-manual-step-cta" href="https://www.talkeyco.com/soporte-tecnico">
+                                Ver Talkey Soporte <ArrowUpRight size={15} />
+                              </Link>
+                            ) : null}
+                          </li>
                         ))}
                       </ol>
 

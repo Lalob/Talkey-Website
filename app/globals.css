@@ -2269,6 +2269,28 @@ button { cursor: pointer; }
   font-weight: 900;
 }
 
+.mk-manual-step-cta {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #f6c238;
+  border-radius: 12px;
+  margin-top: 14px;
+  padding: 0 14px;
+  background: var(--mk-yellow);
+  color: #080808;
+  font-size: 13px;
+  font-weight: 900;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.mk-manual-step-cta:hover {
+  background: #ffd159;
+  transform: translateY(-2px);
+}
+
 .mk-manual-tip {
   display: flex;
   gap: 12px;
