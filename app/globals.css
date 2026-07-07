@@ -1554,6 +1554,7 @@ button { cursor: pointer; }
 
 /* Talkey manuals */
 .mk-manuals-site {
+  padding-top: 84px;
   background:
     radial-gradient(circle at 85% 8%, rgba(255,198,56,.13), transparent 32%),
     radial-gradient(circle at 10% 28%, rgba(255,198,56,.07), transparent 28%),
@@ -1561,12 +1562,19 @@ button { cursor: pointer; }
 }
 
 .mk-manual-header {
-  position: sticky;
-  z-index: 60;
+  position: fixed;
+  z-index: 100;
   top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
   border-bottom: 1px solid rgba(255,255,255,.08);
   background: rgba(7,7,7,.9);
   backdrop-filter: blur(18px);
+}
+
+.mk-manuals-site .mk-section {
+  scroll-margin-top: 110px;
 }
 
 .mk-manual-nav {
@@ -2395,6 +2403,14 @@ button { cursor: pointer; }
 }
 
 @media (max-width: 820px) {
+  .mk-manuals-site {
+    padding-top: 74px;
+  }
+
+  .mk-manuals-site .mk-section {
+    scroll-margin-top: 92px;
+  }
+
   .mk-manual-nav {
     min-height: 74px;
   }
