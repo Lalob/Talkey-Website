@@ -4108,10 +4108,15 @@ button { cursor: pointer; }
   margin-top: 14px;
   padding: 0 13px;
   background: var(--mk-yellow);
-  color: #080808;
+  color: #080808 !important;
   font-size: 12px;
   font-weight: 900;
   transition: transform .2s ease, background .2s ease, border-color .2s ease;
+}
+
+.mk-sales-flow-card-cta svg {
+  color: #080808;
+  stroke: #080808;
 }
 
 .mk-sales-flow-card-cta:hover {
