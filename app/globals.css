@@ -173,6 +173,8 @@ button { cursor: pointer; }
 .mk-chat-form { display: flex; gap: 8px; margin: 0 13px 13px; border: 1px solid #343434; border-radius: 14px; padding: 6px; background: #191919; }
 .mk-chat-form input { min-width: 0; flex: 1; border: 0; background: transparent; color: var(--mk-text); padding: 0 8px; font-size: 10px; outline: 0; }
 .mk-chat-form input::placeholder { color: #69665f; }
+.mk-chat-form input:placeholder-shown { caret-color: transparent; }
+.mk-chat-form input:not(:placeholder-shown) { caret-color: currentColor; }
 .mk-chat-form button { display: grid; width: 35px; height: 35px; place-items: center; border: 0; border-radius: 10px; background: var(--mk-yellow); color: #070707; }
 .mk-chat-form button:disabled { background: #303030; color: #666; }
 

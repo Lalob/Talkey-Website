@@ -466,7 +466,7 @@ const salesChatCopy = {
   welcome:
     "Hola, soy Talkey Ventas. Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?",
   prompts: [],
-  placeholder: "Pregúntame sobre Talkey Ventas",
+  placeholder: "Pregúntame sobre Talkey Ventas...",
   typing: "Talkey Ventas está preparando una respuesta",
   danger: "Talkey Ventas",
   actions: {
