@@ -287,6 +287,7 @@ function PlatformHeader({ minimal = false, sales = false, ctaHref = talkeyBookin
           {sales ? (
             <>
               <Link href="/">Inicio</Link>
+              <Link href="/manualesdeuso">Manuales</Link>
               <a href="#problema">Problemas/Soluciones</a>
               <a href="#demo">Demo</a>
               <a href="#precios">Precios</a>
