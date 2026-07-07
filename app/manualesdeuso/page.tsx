@@ -81,6 +81,17 @@ type AppLink = {
   href: string;
 };
 
+type ManualScreenshot = {
+  src: string;
+  alt: string;
+  caption: string;
+  callouts: {
+    label: string;
+    x: string;
+    y: string;
+  }[];
+};
+
 type AppManual = {
   id: string;
   number: string;
@@ -96,6 +107,7 @@ type AppManual = {
     rows: string[];
     chips: string[];
   };
+  screenshots: ManualScreenshot[];
   links: AppLink[];
   before: string[];
   steps: string[];
@@ -121,6 +133,30 @@ const appManuals: AppManual[] = [
       rows: ["Mensaje del cliente", "Foto o etiqueta del producto", "Respuesta sugerida", "Próximo paso"],
       chips: ["Estado", "Responsable", "ETA", "Historial"],
     },
+    screenshots: [
+      {
+        src: "/manualesdeuso/01-agente-soporte-inicio.jpg",
+        alt: "Ejemplo BioHertz del inicio del asistente conversacional de soporte Talkey",
+        caption:
+          "Inicio del asistente: el usuario ingresa su email, Talkey crea el ticket y muestra estado, responsable, prioridad y tiempo estimado.",
+        callouts: [
+          { label: "Email para iniciar atención", x: "27%", y: "35%" },
+          { label: "Portal de seguimiento del ticket", x: "19%", y: "50%" },
+          { label: "Campo de mensaje y cámara", x: "67%", y: "94%" },
+        ],
+      },
+      {
+        src: "/manualesdeuso/02-agente-soporte-conversacion.jpg",
+        alt: "Ejemplo BioHertz de conversación guiada en el asistente de soporte Talkey",
+        caption:
+          "Conversación guiada: el usuario describe el problema, puede adjuntar foto de etiqueta o QR y Talkey deja el caso mejor clasificado.",
+        callouts: [
+          { label: "Historial y estado visible", x: "31%", y: "29%" },
+          { label: "Respuestas sugeridas antes de enviar", x: "32%", y: "78%" },
+          { label: "Cámara para etiqueta, QR o serie", x: "82%", y: "88%" },
+        ],
+      },
+    ],
     links: [
       { label: "Ver Suite Soporte", href: "/soporte-tecnico" },
       { label: "Ver demo de soporte", href: "/soporte-tecnico#demo" },
@@ -166,6 +202,20 @@ const appManuals: AppManual[] = [
       rows: ["Resumen automático", "Duplicados posibles", "Respuesta inicial", "Artículo sugerido"],
       chips: ["Categoría", "Urgencia", "Responsable", "Base de conocimiento"],
     },
+    screenshots: [
+      {
+        src: "/manualesdeuso/03-backoffice-soporte-ticket.jpg",
+        alt: "Ejemplo BioHertz del backoffice de soporte Talkey con inteligencia del ticket",
+        caption:
+          "Consola de soporte: el equipo revisa tickets, toma control humano, cambia estados y usa la inteligencia del ticket para responder con contexto.",
+        callouts: [
+          { label: "Buscar por email, serie, ticket o modelo", x: "17%", y: "65%" },
+          { label: "Tomar control humano", x: "65%", y: "31%" },
+          { label: "IA integrada al ticket", x: "87%", y: "21%" },
+          { label: "Respuesta inicial sugerida", x: "86%", y: "78%" },
+        ],
+      },
+    ],
     links: [
       { label: "Ver Suite Soporte", href: "/soporte-tecnico" },
       { label: "Ver problemas/soluciones", href: "/soporte-tecnico#problema" },
@@ -212,6 +262,20 @@ const appManuals: AppManual[] = [
       rows: ["Necesidad del prospecto", "Producto sugerido", "Datos mínimos", "Próximo paso"],
       chips: ["Score", "Cotización", "Agenda", "CRM"],
     },
+    screenshots: [
+      {
+        src: "/manualesdeuso/06-agente-ventas.jpg",
+        alt: "Ejemplo BioHertz del agente conversacional de ventas Talkey",
+        caption:
+          "Agente comercial: el prospecto puede preguntar por productos, Talkey precalifica la intención y deja un CTA claro a demo o presupuesto.",
+        callouts: [
+          { label: "Catálogo y filtros", x: "12%", y: "42%" },
+          { label: "Precalificación del lead", x: "47%", y: "28%" },
+          { label: "CTA comercial", x: "91%", y: "29%" },
+          { label: "Chat para preguntas del prospecto", x: "61%", y: "91%" },
+        ],
+      },
+    ],
     links: [
       { label: "Ver Suite Ventas", href: "/ventas" },
       { label: "Ver demo de ventas", href: "/ventas#demo" },
@@ -257,6 +321,32 @@ const appManuals: AppManual[] = [
       rows: ["Pipeline priorizado", "Correo preparado", "Duplicado detectado", "Handoff postventa"],
       chips: ["Score", "Riesgo", "Agenda", "Soporte"],
     },
+    screenshots: [
+      {
+        src: "/manualesdeuso/04-crm-ventas-dashboard.jpg",
+        alt: "Ejemplo BioHertz del dashboard del CRM de ventas Talkey",
+        caption:
+          "Dashboard comercial: permite ver pipeline, forecast, leads calientes, riesgos y actividad reciente sin depender de seguimiento manual.",
+        callouts: [
+          { label: "Menú comercial", x: "10%", y: "30%" },
+          { label: "Métricas del pipeline", x: "48%", y: "25%" },
+          { label: "Pipeline por etapa", x: "47%", y: "61%" },
+          { label: "Riesgos y actividad", x: "82%", y: "65%" },
+        ],
+      },
+      {
+        src: "/manualesdeuso/05-crm-ventas-smart-agent.jpg",
+        alt: "Ejemplo BioHertz del Smart Agent interno en el CRM de ventas Talkey",
+        caption:
+          "Smart Agent interno: ayuda a priorizar, detectar riesgos, preparar seguimiento, sugerir agenda y revisar handoff hacia soporte.",
+        callouts: [
+          { label: "Acceso a Smart Agent", x: "79%", y: "12%" },
+          { label: "Prospectos y oportunidades", x: "12%", y: "42%" },
+          { label: "Recomendaciones del agente", x: "81%", y: "43%" },
+          { label: "Conector hacia soporte", x: "10%", y: "73%" },
+        ],
+      },
+    ],
     links: [
       { label: "Ver Suite Ventas", href: "/ventas" },
       { label: "Ver precios", href: "/ventas#precios" },
@@ -343,6 +433,32 @@ function InterfacePreview({ manual }: { manual: AppManual }) {
   );
 }
 
+function ManualScreenshots({ manual }: { manual: AppManual }) {
+  return (
+    <div className="mk-manual-shot-list" aria-label={`Capturas anotadas de ${manual.title}`}>
+      {manual.screenshots.map((screenshot) => (
+        <figure className="mk-manual-shot" key={screenshot.src}>
+          <div className="mk-manual-shot-frame">
+            <Image src={screenshot.src} alt={screenshot.alt} width={1280} height={720} loading="lazy" />
+            <div className="mk-manual-shot-callouts" aria-hidden="true">
+              {screenshot.callouts.map((callout) => (
+                <span
+                  className="mk-manual-shot-callout"
+                  key={callout.label}
+                  style={{ left: callout.x, top: callout.y }}
+                >
+                  {callout.label}
+                </span>
+              ))}
+            </div>
+          </div>
+          <figcaption>{screenshot.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
+
 export default function ManualsPage() {
   const currentYear = new Date().getUTCFullYear();
 
@@ -418,6 +534,18 @@ export default function ManualsPage() {
         </div>
       </section>
 
+      <section className="mk-manual-example-note" aria-label="Nota sobre imágenes de ejemplo">
+        <div className="mk-container">
+          <div>
+            <strong>Imágenes de ejemplo</strong>
+            <p>
+              Las capturas muestran una interfaz Talkey aplicada a nuestro cliente BioHertz. En una implementación real,
+              tu empresa verá su propio logo, colores institucionales, productos, canales y reglas operativas.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section id="apps" className="mk-section mk-manual-apps">
         <div className="mk-container">
           <div className="mk-manual-section-head">
@@ -486,6 +614,7 @@ export default function ManualsPage() {
                   </div>
 
                   <InterfacePreview manual={manual} />
+                  <ManualScreenshots manual={manual} />
 
                   <div className="mk-manual-guide-content">
                     <aside>
