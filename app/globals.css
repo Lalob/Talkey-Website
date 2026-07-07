@@ -893,8 +893,9 @@ button { cursor: pointer; }
 .mk-demo-section .mk-chat-wrap,
 .mk-sales-demo-section .mk-chat-wrap.is-sales-chat {
   width: clamp(286px, 22vw, 320px);
-  justify-self: end;
-  margin-left: auto;
+  justify-self: center;
+  margin-right: auto;
+  margin-left: 0;
   padding: 12px 0 28px;
 }
 .mk-demo-section .mk-chat-wrap > .mk-chat-card,
