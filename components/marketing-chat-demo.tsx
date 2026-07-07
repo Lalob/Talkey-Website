@@ -40,6 +40,11 @@ type ReplyPlan = {
   implementationAsked?: boolean;
 };
 
+const supportEvaluationAction: DemoAction = {
+  label: "Solicitar evaluación",
+  href: talkeyBookingUrl,
+};
+
 function normalizeCommand(value: string) {
   return value.toLocaleLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
@@ -112,6 +117,54 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     };
   }
 
+  function normalizeEvaluationActions(actions: DemoAction[] = []) {
+    let hasBookingAction = false;
+    const normalizedActions = actions.map((action) => {
+      if (action.href !== talkeyBookingUrl) return action;
+      hasBookingAction = true;
+      return { ...action, label: supportEvaluationAction.label };
+    });
+
+    return hasBookingAction ? normalizedActions : [...normalizedActions, supportEvaluationAction];
+  }
+
+  function shouldOfferSupportEvaluation(message: string, plan: ReplyPlan) {
+    if (variant !== "support") return false;
+    if (plan.mode === "choosingFlow" || plan.mode === "inFlow") return false;
+
+    const commandValue = normalizeCommand(message);
+    const responseText = normalizeCommand(plan.replies.map((reply) => reply.text).join(" "));
+
+    return (
+      /(precio|costo|cuanto|valor|pagar|presupuesto|cotizacion|caro|costoso|pricing|price|cost|budget)/i.test(commandValue) ||
+      /(implement|instalar|puesta|partir|comenzar|onboard|setup|configur|calza|sirve.*empresa|aplicar.*operacion)/i.test(commandValue) ||
+      /(integr|sitio|web|portal|api|qr|whatsapp|email|correo|canal|crm|calendar|calendario|agendamiento)/i.test(commandValue) ||
+      /(segur|privac|dato|datos|trazab|confianz|security|privacy|data)/i.test(commandValue) ||
+      /(metric|indicador|kpi|satisfaccion|primer contacto|tiempo promedio|costo por caso|derivacion|handoff)/i.test(commandValue) ||
+      /(manuales|troubleshooting|procedimiento|protocolo|documentacion|base de conocimiento|knowledge)/i.test(commandValue) ||
+      /(reemplaza|reemplazar|humanos|humano|personas|agentes|equipo)/i.test(commandValue) ||
+      /(industria|rubro|sector|fit|clinic|mineria|fabricante|distribuidor|servicio)/i.test(commandValue) ||
+      /(75|garanti|promesa|equivoc|error|alucina|hallucinat|wrong answer)/i.test(commandValue) ||
+      /(chatgpt|zendesk|intercom|freshdesk|hubspot|salesforce|competidor|competencia|alternativa)/i.test(commandValue) ||
+      /(evaluacion|evaluar|implementacion|integracion|configuracion|depende de|validar|revisar como|revisar si|operacion|precio final|evaluacion tecnica|evaluacion comercial)/i.test(responseText)
+    );
+  }
+
+  function addSupportEvaluationAction(plan: ReplyPlan, message: string): ReplyPlan {
+    if (!shouldOfferSupportEvaluation(message, plan)) return plan;
+
+    return {
+      ...plan,
+      replies: plan.replies.map((reply, index) => {
+        if (index !== plan.replies.length - 1) return reply;
+        return {
+          ...reply,
+          actions: normalizeEvaluationActions(reply.actions),
+        };
+      }),
+    };
+  }
+
   function startFlow(flow: TroubleshootingFlow): ReplyPlan {
     return {
       replies: [{ text: `${flow.introMessage}\n\n${flow.questions[0].text}` }],
@@ -126,10 +179,10 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     const result = buildTroubleshootingResult(flow, nextAnswers);
     const isHighSeverity = result.severity === "Alta";
     const actions: DemoAction[] = isHighSeverity
-      ? [{ label: copy.actions.bookReview, href: talkeyBookingUrl }]
+      ? [supportEvaluationAction]
       : [
           { label: copy.actions.tryAnotherCase, prompt: copy.actions.tryAnotherCase },
-          { label: copy.actions.bookDemo, href: talkeyBookingUrl },
+          supportEvaluationAction,
         ];
 
     return {
@@ -456,7 +509,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     setTyping(true);
 
     window.setTimeout(() => {
-      const localPlan = resolveReply(content);
+      const localPlan = addSupportEvaluationAction(resolveReply(content), content);
       resolveAiPlan(content, localPlan)
         .then(applyPlan)
         .catch(() => applyPlan(localPlan));
