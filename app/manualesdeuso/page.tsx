@@ -23,20 +23,21 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Manuales de uso Talkey | Guías para soporte, ventas y CRM",
+    absolute: "Manuales BioHertz Talkey | Guías para soporte, ventas y CRM",
   },
   description:
-    "Manuales de uso Talkey para soporte técnico, CRM de soporte, agente de ventas y CRM de ventas. Guías claras para clientes, agentes, ventas y managers.",
+    "Manuales BioHertz Talkey para soporte técnico, CRM de soporte, agente de ventas y CRM de ventas. Guías claras con pasos, referencias visuales y funciones IA.",
   keywords: [
     ...seoKeywords,
     "manuales Talkey",
+    "manuales BioHertz Talkey",
     "manuales de uso Talkey",
     "CRM soporte Talkey",
     "CRM ventas Talkey",
     "guías soporte técnico Talkey",
   ],
   alternates: {
-    canonical: absoluteUrl("/manualesdeuso"),
+    canonical: absoluteUrl("/manualesbiohertz"),
   },
   robots: {
     index: true,
@@ -51,10 +52,10 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "article",
-    title: "Manuales de uso Talkey",
+    title: "Manuales BioHertz Talkey",
     description:
-      "Guías rápidas para usar las apps de Talkey en soporte técnico, ventas y operación asistida por IA.",
-    url: absoluteUrl("/manualesdeuso"),
+      "Guías paso a paso para usar las apps BioHertz de Talkey en soporte técnico, ventas y operación asistida por IA.",
+    url: absoluteUrl("/manualesbiohertz"),
     siteName: "Talkey",
     locale: "es_CL",
     images: [
@@ -62,15 +63,15 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Manuales de uso Talkey",
+        alt: "Manuales BioHertz Talkey",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Manuales de uso Talkey | Guías para soporte, ventas y CRM",
+    title: "Manuales BioHertz Talkey | Guías para soporte, ventas y CRM",
     description:
-      "Guías rápidas para usar las apps de Talkey en soporte técnico, ventas y operación asistida por IA.",
+      "Guías paso a paso para usar las apps BioHertz de Talkey en soporte técnico, ventas y operación asistida por IA.",
     images: ["/opengraph-image"],
   },
 };
@@ -87,6 +88,14 @@ type AppManual = {
   title: string;
   subtitle: string;
   audience: string;
+  preview: {
+    eyebrow: string;
+    title: string;
+    primary: string;
+    secondary: string;
+    rows: string[];
+    chips: string[];
+  };
   links: AppLink[];
   before: string[];
   steps: string[];
@@ -104,6 +113,14 @@ const appManuals: AppManual[] = [
       "Para clientes o usuarios que necesitan abrir un ticket, explicar un problema y seguir el avance sin perder contexto.",
     audience:
       "Personas que necesitan ayuda técnica desde el sitio, un QR, un enlace de soporte o una conversación guiada.",
+    preview: {
+      eyebrow: "Vista cliente",
+      title: "Ticket abierto automáticamente",
+      primary: "BH-1048 · En revisión",
+      secondary: "Modelo detectado: X-CUBE 50 · Prioridad media",
+      rows: ["Mensaje del cliente", "Foto o etiqueta del producto", "Respuesta sugerida", "Próximo paso"],
+      chips: ["Estado", "Responsable", "ETA", "Historial"],
+    },
     links: [
       { label: "Abrir versión base", href: "/asistentebiohertz/" },
       { label: "Abrir versión IA", href: "/asistentebiohertzIA/" },
@@ -117,6 +134,7 @@ const appManuals: AppManual[] = [
       "Abre el asistente. Talkey creará un ticket automáticamente para que el caso tenga seguimiento.",
       "Completa tus datos de contacto cuando la app los pida. Esto permite que soporte encuentre tu caso después.",
       "Escribe el problema como lo dirías por WhatsApp: qué intentaste hacer, qué ocurrió y desde cuándo pasa.",
+      "Si el problema depende de un equipo físico, usa la opción de foto para adjuntar etiqueta, QR, número de serie o imagen del producto.",
       "Antes de enviar, revisa las respuestas sugeridas de autoservicio. Si una te sirve, puedes usarla al tiro.",
       "Si necesitas enviar el caso, Talkey lo dejará clasificado con categoría, prioridad, responsable sugerido y próximos pasos.",
       "Guarda el código de ticket. En el portal verás estado, responsable, prioridad, tiempo estimado e historial.",
@@ -140,6 +158,14 @@ const appManuals: AppManual[] = [
       "Para agentes, supervisores y equipos de postventa que gestionan tickets, respuestas, prioridad y trazabilidad.",
     audience:
       "Equipos internos de soporte que reciben tickets desde el asistente, revisan contexto y deciden si responde Talkey o una persona.",
+    preview: {
+      eyebrow: "Consola soporte",
+      title: "Inteligencia del ticket",
+      primary: "Resumen IA · Prioridad alta · ETA 2 h",
+      secondary: "Responsable sugerido: Soporte técnico nivel 2",
+      rows: ["Resumen automático", "Duplicados posibles", "Respuesta inicial", "Artículo sugerido"],
+      chips: ["Categoría", "Urgencia", "Responsable", "Base de conocimiento"],
+    },
     links: [
       { label: "Abrir versión base", href: "/soportebiohertz/" },
       { label: "Abrir versión IA", href: "/soportebiohertzIA/" },
@@ -154,6 +180,7 @@ const appManuals: AppManual[] = [
       "Lee el bloque de IA integrada al ticket: categoría, urgencia, prioridad, responsable sugerido y tiempo estimado.",
       "Revisa el resumen automático: qué pasó, qué pidió el usuario, qué falta y próximo paso sugerido.",
       "Si la respuesta inicial sugerida es correcta, usa el botón para preparar el borrador y ajústalo antes de enviarlo.",
+      "Revisa si la IA detectó modelo, serie, etiqueta o producto asociado a partir de texto o foto enviada por el usuario.",
       "Cambia el estado del ticket según avance: nuevo, en revisión, escalado o cerrado.",
       "Si detectas que varios tickets tratan el mismo tema, usa la sugerencia de duplicados para agruparlos o responder en bloque.",
       "Al cerrar un caso, revisa la sugerencia de base de conocimiento y guarda el artículo si la solución puede servir de nuevo.",
@@ -177,6 +204,14 @@ const appManuals: AppManual[] = [
       "Para prospectos o clientes que quieren orientación comercial, comparación de productos, demo o cotización.",
     audience:
       "Personas interesadas en comprar, cotizar, entender productos o pedir una reunión comercial con contexto ya ordenado.",
+    preview: {
+      eyebrow: "Vista prospecto",
+      title: "Conversación comercial guiada",
+      primary: "Intención: cotización · Score alto",
+      secondary: "CTA sugerido: agendar demo o preparar presupuesto",
+      rows: ["Necesidad del prospecto", "Producto sugerido", "Datos mínimos", "Próximo paso"],
+      chips: ["Score", "Cotización", "Agenda", "CRM"],
+    },
     links: [
       { label: "Abrir versión base", href: "/agenteventasbiohertz/" },
       { label: "Abrir versión IA", href: "/agenteventasbiohertzIA/" },
@@ -193,6 +228,7 @@ const appManuals: AppManual[] = [
       "Si Talkey sugiere una demo o reunión, usa Agendar demo para abrir una plantilla en Google Calendar.",
       "Completa o revisa los datos del evento antes de guardarlo y enviarlo desde tu calendario.",
       "Si pides cotización, entrega producto de interés, ciudad, uso principal, instalación, capacitación y cualquier accesorio relevante.",
+      "Al final de una conversación comercial, confirma que Talkey haya dejado un llamado a la acción claro: agendar reunión o preparar presupuesto.",
       "Continúa la conversación hasta que el equipo comercial tenga suficiente contexto para responder sin partir desde cero.",
     ],
     checks: [
@@ -213,6 +249,14 @@ const appManuals: AppManual[] = [
       "Para equipos comerciales que administran prospectos, oportunidades, cotizaciones y handoff hacia soporte.",
     audience:
       "Ejecutivos, jefaturas comerciales y equipos que necesitan pipeline claro, próximos pasos y coordinación con postventa.",
+    preview: {
+      eyebrow: "CRM ventas",
+      title: "Smart Agent interno",
+      primary: "Riesgo: sin seguimiento · Acción: enviar email",
+      secondary: "Oportunidad ganada crea cliente y ticket en soporte",
+      rows: ["Pipeline priorizado", "Correo preparado", "Duplicado detectado", "Handoff postventa"],
+      chips: ["Score", "Riesgo", "Agenda", "Soporte"],
+    },
     links: [
       { label: "Abrir versión base", href: "/ventasbiohertz/" },
       { label: "Abrir versión IA", href: "/ventasbiohertzIA/" },
@@ -227,10 +271,12 @@ const appManuals: AppManual[] = [
       "Convierte el prospecto cuando esté listo: la app creará cuenta comercial, contacto y oportunidad inicial.",
       "Gestiona la oportunidad en el pipeline: avanza etapa, actualiza próximo paso y fecha de cierre.",
       "Usa Smart Agent para priorizar pipeline, detectar riesgos, preparar correos, encontrar duplicados o sugerir agenda.",
+      "Cuando Smart Agent prepare un correo de seguimiento, revisa tono, datos del cliente, propuesta de valor y próximo paso antes de enviarlo.",
       "Si necesitas reunión, genera el enlace de Google Calendar, revisa la invitación y guárdala desde tu cuenta.",
       "Crea cotizaciones desde oportunidades cuando corresponda.",
       "Marca una oportunidad como ganada solo cuando el cierre sea real.",
       "Después de ganar, revisa CRM Soporte: Talkey crea o actualiza el cliente operativo y deja ticket de onboarding.",
+      "Confirma que el evento de integración o handoff hacia soporte incluya producto, contexto comercial, responsable y próximos pasos.",
     ],
     checks: [
       "Cada oportunidad tiene responsable, monto, etapa, fecha y próximo paso.",
@@ -258,6 +304,44 @@ const bestPractices = [
   "En las versiones IA, revisa las sugerencias antes de usarlas. La IA acelera, pero el equipo decide.",
   "Cuando una solución se repite, conviértela en artículo de ayuda para que Talkey aprenda a atender mejor.",
 ];
+
+function InterfacePreview({ manual }: { manual: AppManual }) {
+  const Icon = manual.icon;
+
+  return (
+    <figure className="mk-manual-interface-preview" aria-label={`Referencia visual de ${manual.title}`}>
+      <div className="mk-manual-preview-top">
+        <span />
+        <strong>{manual.preview.eyebrow}</strong>
+      </div>
+      <div className="mk-manual-preview-hero">
+        <div>
+          <small>{manual.number}</small>
+          <h3>{manual.preview.title}</h3>
+          <p>{manual.preview.primary}</p>
+        </div>
+        <span>
+          <Icon size={24} />
+        </span>
+      </div>
+      <p className="mk-manual-preview-secondary">{manual.preview.secondary}</p>
+      <div className="mk-manual-preview-rows">
+        {manual.preview.rows.map((row) => (
+          <div key={row}>
+            <span />
+            <p>{row}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mk-manual-preview-chips">
+        {manual.preview.chips.map((chip) => (
+          <small key={chip}>{chip}</small>
+        ))}
+      </div>
+      <figcaption>Referencia visual: ubica estos bloques dentro de la app antes de operar el flujo.</figcaption>
+    </figure>
+  );
+}
 
 export default function ManualsPage() {
   const currentYear = new Date().getUTCFullYear();
@@ -291,12 +375,12 @@ export default function ManualsPage() {
             <span className="mk-eyebrow">
               <span />
               <BookIcon />
-              Manuales de uso Talkey
+              Manuales BioHertz Talkey
             </span>
-            <h1>Guías claras para usar cada app.</h1>
+            <h1>Guías claras para usar cada app BioHertz.</h1>
             <p>
-              Una guía amable para clientes, agentes, ventas y managers. La idea es que cualquier persona entienda qué hacer,
-              dónde mirar y cuál es el siguiente paso sin tener que aprender un software enorme.
+              Manuales con pasos accionables, referencias visuales de interfaz y criterios para operar soporte,
+              ventas y las versiones IA sin tener que aprender un software enorme.
             </p>
             <div className="mk-manual-hero-actions">
               <a className="mk-button mk-button-primary" href="#apps">
@@ -335,7 +419,7 @@ export default function ManualsPage() {
               <span>01</span> Elige tu app
             </div>
             <h2>Empieza por la experiencia que vas a usar.</h2>
-            <p>Cada app tiene una versión base y una versión IA. La versión IA agrega clasificación, resumen, sugerencias y próximos pasos automáticos.</p>
+            <p>Cada app tiene una versión base y una versión IA. La versión IA agrega clasificación, resumen, sugerencias, próximos pasos automáticos y apoyo operativo para el equipo.</p>
           </div>
 
           <div className="mk-manual-app-grid">
@@ -371,6 +455,7 @@ export default function ManualsPage() {
               <span>02</span> Manuales paso a paso
             </div>
             <h2>Usa Talkey con calma, pero con foco.</h2>
+            <p>Antes de seguir cada flujo, mira la referencia visual: te muestra qué bloques de la interfaz debes revisar y qué datos deberían quedar visibles.</p>
           </div>
 
           <div className="mk-manual-guide-list">
@@ -393,6 +478,8 @@ export default function ManualsPage() {
                       ))}
                     </div>
                   </div>
+
+                  <InterfacePreview manual={manual} />
 
                   <div className="mk-manual-guide-content">
                     <aside>

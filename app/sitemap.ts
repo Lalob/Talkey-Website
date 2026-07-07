@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl, languageAlternates, localePaths, supportedSeoLocales } from "@/lib/seo";
 
-const lastModified = new Date("2026-07-02");
+const lastModified = new Date("2026-07-07");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     })),
     {
-      url: absoluteUrl("/manualesdeuso"),
+      url: absoluteUrl("/manualesbiohertz"),
       lastModified,
       changeFrequency: "monthly",
       priority: 0.8,
