@@ -37,6 +37,15 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   distDir: isDevelopment ? ".next-dev" : ".next",
   poweredByHeader: false,
+  async redirects() {
+    return [
+      {
+        source: "/manualesbiohertz",
+        destination: "/manualesdeuso",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
