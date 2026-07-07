@@ -172,6 +172,8 @@ button { cursor: pointer; }
 .mk-chat-prompts button:disabled { opacity: .45; }
 .mk-chat-form { display: flex; gap: 8px; margin: 0 13px 13px; border: 1px solid #343434; border-radius: 14px; padding: 6px; background: #191919; }
 .mk-chat-form input { min-width: 0; flex: 1; border: 0; background: transparent; color: var(--mk-text); padding: 0 8px; font-size: 10px; outline: 0; }
+.mk-chat-form:focus-within { border-color: var(--mk-yellow); box-shadow: 0 0 0 3px rgba(255,198,56,.12); }
+.mk-chat-form input:focus-visible { outline: 0; }
 .mk-chat-form input::placeholder { color: #69665f; }
 .mk-chat-form input:placeholder-shown { caret-color: transparent; }
 .mk-chat-form input:not(:placeholder-shown) { caret-color: currentColor; }
@@ -4072,6 +4074,11 @@ button { cursor: pointer; }
   border-color: #2b3440;
   background: #151b21;
   color: #edf5f6;
+}
+
+.mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-form:focus-within {
+  border-color: var(--sales-petrol-readable);
+  box-shadow: 0 0 0 3px rgba(47,111,153,.18);
 }
 
 .mk-sales-page .mk-chat-wrap.is-sales-chat .mk-chat-typing > span,
