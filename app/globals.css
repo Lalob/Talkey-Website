@@ -2269,28 +2269,6 @@ button { cursor: pointer; }
   font-weight: 900;
 }
 
-.mk-manual-step-cta {
-  display: inline-flex;
-  min-height: 40px;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: 1px solid #f6c238;
-  border-radius: 12px;
-  margin-top: 14px;
-  padding: 0 14px;
-  background: var(--mk-yellow);
-  color: #080808;
-  font-size: 13px;
-  font-weight: 900;
-  transition: transform .2s ease, background .2s ease;
-}
-
-.mk-manual-step-cta:hover {
-  background: #ffd159;
-  transform: translateY(-2px);
-}
-
 .mk-manual-tip {
   display: flex;
   gap: 12px;
@@ -4099,48 +4077,30 @@ button { cursor: pointer; }
   line-height: 1.22;
 }
 
-.mk-sales-flow-cta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  border: 1px solid rgba(47,111,153,.42);
-  border-radius: 18px;
-  margin-top: 18px;
-  padding: 18px;
-  background:
-    radial-gradient(circle at 12% 10%, rgba(18,53,91,.18), transparent 34%),
-    #111;
+.mk-sales-flow-support-step {
+  border-color: rgba(246, 194, 56, .5);
 }
 
-.mk-sales-flow-cta p {
-  max-width: 680px;
-  margin: 0;
-  color: var(--sales-muted);
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.mk-sales-flow-cta a {
+.mk-sales-flow-card-cta {
   display: inline-flex;
-  min-height: 44px;
-  flex: 0 0 auto;
+  min-height: 38px;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border: 1px solid var(--sales-petrol-readable);
+  border: 1px solid #f6c238;
   border-radius: 12px;
-  padding: 0 16px;
-  background: var(--sales-petrol);
-  color: #f5f7fa;
-  font-size: 13px;
-  font-weight: 850;
+  margin-top: 14px;
+  padding: 0 13px;
+  background: var(--mk-yellow);
+  color: #080808;
+  font-size: 12px;
+  font-weight: 900;
   transition: transform .2s ease, background .2s ease, border-color .2s ease;
 }
 
-.mk-sales-flow-cta a:hover {
-  border-color: var(--sales-petrol-hover);
-  background: var(--sales-petrol-hover);
+.mk-sales-flow-card-cta:hover {
+  border-color: #ffd159;
+  background: #ffd159;
   transform: translateY(-2px);
 }
 
@@ -4631,15 +4591,16 @@ button { cursor: pointer; }
     line-height: 1.2;
   }
 
-  .mk-sales-flow-cta {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
-    margin-top: 12px;
+  .mk-sales-flow-support-step {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    align-items: center;
   }
 
-  .mk-sales-flow-cta a {
-    width: 100%;
+  .mk-sales-flow-card-cta {
+    grid-column: 2;
+    width: fit-content;
+    margin-top: 10px;
   }
 
   .mk-sales-problem-table-head {

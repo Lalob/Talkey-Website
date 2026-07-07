@@ -625,14 +625,9 @@ export default function ManualsPage() {
                     <div>
                       <h3>Paso a paso</h3>
                       <ol>
-                        {manual.steps.map((step, index) => (
+                        {manual.steps.map((step) => (
                           <li key={step}>
                             {step}
-                            {manual.id === "crm-ventas" && index === 6 ? (
-                              <Link className="mk-manual-step-cta" href="https://www.talkeyco.com/soporte-tecnico">
-                                Ver Talkey Soporte <ArrowUpRight size={15} />
-                              </Link>
-                            ) : null}
                           </li>
                         ))}
                       </ol>

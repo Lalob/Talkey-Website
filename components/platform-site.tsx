@@ -576,20 +576,16 @@ export function SalesPage() {
           <h2>De conversación a oportunidad gestionada.</h2>
           <div className="mk-sales-flow">
             {salesWorkflow.map((step, index) => (
-              <article key={step}>
+              <article key={step} className={index === 6 ? "mk-sales-flow-support-step" : undefined}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <strong>{step}</strong>
+                {index === 6 ? (
+                  <Link className="mk-sales-flow-card-cta" href="/soporte-tecnico">
+                    Ver Talkey Soporte <ArrowRight size={15} />
+                  </Link>
+                ) : null}
               </article>
             ))}
-          </div>
-          <div className="mk-sales-flow-cta">
-            <p>
-              Cuando una oportunidad ganada necesita instalación, garantía o postventa, el contexto puede continuar
-              hacia Talkey Soporte.
-            </p>
-            <Link href="/soporte-tecnico">
-              Ver Talkey Soporte <ArrowRight size={16} />
-            </Link>
           </div>
         </div>
       </section>
