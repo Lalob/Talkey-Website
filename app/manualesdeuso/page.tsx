@@ -5,15 +5,12 @@ import type { LucideIcon } from "lucide-react";
 import {
   ArrowRight,
   ArrowUpRight,
-  Bot,
-  CalendarDays,
   CheckCircle2,
   FileText,
   Handshake,
   LayoutDashboard,
   LifeBuoy,
   MessageSquareText,
-  Network,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -389,7 +386,7 @@ const bestPractices = [
   "No mezcles temas distintos en el mismo ticket: un problema claro se resuelve más rápido.",
   "En soporte, valida riesgos, garantías y procedimientos sensibles antes de responder.",
   "En ventas, deja siempre un próximo paso concreto: llamada, demo, cotización o handoff.",
-  "En las versiones IA, revisa las sugerencias antes de usarlas. La IA acelera, pero el equipo decide.",
+  "Revisa las sugerencias de IA antes de usarlas. Talkey acelera, pero el equipo decide.",
   "Cuando una solución se repite, conviértela en artículo de ayuda para que Talkey aprenda a atender mejor.",
 ];
 
@@ -475,7 +472,6 @@ export default function ManualsPage() {
             <Link href="/">Inicio</Link>
             <a href="#apps">Apps</a>
             <a href="#manuales">Manuales</a>
-            <a href="#versiones">Base vs IA</a>
             <a href="#practicas">Buenas prácticas</a>
           </nav>
           <div className="mk-manual-nav-actions">
@@ -499,8 +495,8 @@ export default function ManualsPage() {
             </span>
             <h1>Guías claras para usar cada app Talkey.</h1>
             <p>
-              Manuales con pasos accionables, referencias visuales de interfaz y criterios para operar soporte,
-              ventas y las versiones IA sin tener que aprender un software enorme.
+              Manuales con pasos accionables, referencias visuales de interfaz y criterios para operar soporte y
+              ventas con asistencia IA sin tener que aprender un software enorme.
             </p>
             <div className="mk-manual-hero-actions">
               <a className="mk-button mk-button-primary" href="#apps">
@@ -551,7 +547,7 @@ export default function ManualsPage() {
               <span>01</span> Elige tu app
             </div>
             <h2>Empieza por la experiencia que vas a usar.</h2>
-            <p>Cada app tiene una versión base y una versión IA. La versión IA agrega clasificación, resumen, sugerencias, próximos pasos automáticos y apoyo operativo para el equipo.</p>
+            <p>Cada app está pensada para operar con asistencia IA: clasificación, resumen, sugerencias, próximos pasos automáticos y apoyo operativo para el equipo.</p>
           </div>
 
           <div className="mk-manual-app-grid">
@@ -661,44 +657,11 @@ export default function ManualsPage() {
         </div>
       </section>
 
-      <section id="versiones" className="mk-section mk-manual-versions">
-        <div className="mk-container mk-manual-versions-grid">
-          <div>
-            <div className="mk-section-label mk-section-label-dark">
-              <span>03</span> Base vs IA
-            </div>
-            <h2>La versión base opera el flujo. La versión IA ayuda a decidir mejor.</h2>
-          </div>
-          <div className="mk-manual-version-cards">
-            <article>
-              <Bot size={22} />
-              <h3>Versión base</h3>
-              <p>Permite conversar, crear registros, avanzar estados, guardar contexto y operar el proceso con reglas internas.</p>
-            </article>
-            <article>
-              <Sparkles size={22} />
-              <h3>Versión IA</h3>
-              <p>Agrega clasificación automática, resumen, prioridad sugerida, responsable, duplicados, respuestas iniciales y próximos pasos.</p>
-            </article>
-            <article>
-              <CalendarDays size={22} />
-              <h3>Agenda conectable</h3>
-              <p>Hoy parte con Google Calendar para demos o visitas. El diseño permite conectar Calendly, Microsoft Bookings u otro sistema.</p>
-            </article>
-            <article>
-              <Network size={22} />
-              <h3>Integraciones</h3>
-              <p>Talkey está pensado para convivir con CRM, calendarios, portales de clientes, WhatsApp y sistemas internos de cada empresa.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
       <section id="practicas" className="mk-section mk-manual-practices">
         <div className="mk-container mk-manual-practices-grid">
           <div>
             <div className="mk-section-label">
-              <span>04</span> Buenas prácticas
+              <span>03</span> Buenas prácticas
             </div>
             <h2>Pequeños hábitos que hacen que Talkey funcione mucho mejor.</h2>
           </div>

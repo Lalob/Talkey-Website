@@ -2306,12 +2306,6 @@ button { cursor: pointer; }
   color: var(--mk-yellow);
 }
 
-.mk-manual-versions {
-  background: var(--mk-yellow);
-  color: #080808;
-}
-
-.mk-manual-versions-grid,
 .mk-manual-practices-grid {
   display: grid;
   grid-template-columns: .82fr 1.18fr;
@@ -2319,7 +2313,6 @@ button { cursor: pointer; }
   gap: 70px;
 }
 
-.mk-manual-versions h2,
 .mk-manual-practices h2,
 .mk-manual-final-card h2 {
   margin: 30px 0 0;
@@ -2327,39 +2320,6 @@ button { cursor: pointer; }
   font-weight: 660;
   line-height: 1;
   letter-spacing: -.06em;
-}
-
-.mk-manual-version-cards {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.mk-manual-version-cards article {
-  min-height: 210px;
-  border: 1px solid rgba(0,0,0,.22);
-  border-radius: 18px;
-  padding: 22px;
-  background: #101010;
-  color: #f5f1e8;
-  box-shadow: 0 22px 70px rgba(0,0,0,.18);
-}
-
-.mk-manual-version-cards svg {
-  color: var(--mk-yellow);
-}
-
-.mk-manual-version-cards h3 {
-  margin: 42px 0 0;
-  font-size: 20px;
-  letter-spacing: -.025em;
-}
-
-.mk-manual-version-cards p {
-  margin: 12px 0 0;
-  color: #cfcac1;
-  font-size: 15px;
-  line-height: 1.6;
 }
 
 .mk-manual-practices {
@@ -2439,7 +2399,6 @@ button { cursor: pointer; }
   .mk-manual-hero-grid,
   .mk-manual-section-head,
   .mk-manual-guide-title,
-  .mk-manual-versions-grid,
   .mk-manual-practices-grid {
     grid-template-columns: 1fr;
   }
@@ -2486,8 +2445,7 @@ button { cursor: pointer; }
     font-size: 17px;
   }
 
-  .mk-manual-app-grid,
-  .mk-manual-version-cards {
+  .mk-manual-app-grid {
     grid-template-columns: 1fr;
   }
 
