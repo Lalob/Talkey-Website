@@ -471,32 +471,32 @@ const salesProblems = [
   {
     title: "Leads que se enfrían",
     problem: "La empresa responde tarde o pierde continuidad después del primer contacto.",
-    solution: "Talkey Ventas mantiene oportunidades vivas con seguimiento comercial automatizado, recordatorios y próximos pasos claros.",
+    solution: "TALKEY Ventas mantiene seguimiento comercial, recordatorios y próximos pasos claros para que la oportunidad no se enfríe después del primer contacto.",
   },
   {
     title: "Pipeline incompleto",
     problem: "Las conversaciones quedan dispersas entre canales y no siempre pasan a una etapa comercial clara.",
-    solution: "Talkey Ventas convierte conversaciones en pipeline, con estado, origen, contexto y próximo paso para cada oportunidad.",
+    solution: "TALKEY Ventas convierte conversaciones en oportunidades trazables, con estado, origen, contexto y próximo paso dentro del pipeline.",
   },
   {
     title: "Oportunidades sin prioridad",
     problem: "El equipo trata consultas de bajo valor y oportunidades urgentes casi con el mismo criterio.",
-    solution: "Talkey Ventas aplica scoring según intención, urgencia, fit, presupuesto, repetición y potencial comercial.",
+    solution: "TALKEY Ventas aplica scoring por intención, urgencia, fit, presupuesto y potencial comercial para priorizar mejor el trabajo del equipo.",
+  },
+  {
+    title: "Leads duplicados",
+    problem: "El mismo cliente vuelve por otro canal y el equipo lo trata como si partiera desde cero.",
+    solution: "TALKEY Ventas detecta repeticiones antes de tratarlas como casos nuevos, recupera historial y evita duplicar esfuerzos comerciales.",
+  },
+  {
+    title: "Handoff débil a soporte",
+    problem: "Cuando el cliente compra, postventa recibe poco contexto y la experiencia se quiebra.",
+    solution: "TALKEY Ventas mantiene contexto después del cierre: producto, necesidad, historial y próximos pasos pueden llegar preparados a soporte o postventa.",
   },
   {
     title: "Cotizaciones lentas",
     problem: "Faltan datos básicos para cotizar y el ejecutivo debe pedir información que pudo levantarse antes.",
     solution: "Talkey Ventas pide los datos mínimos, ordena la información y deja preparada la base para cotizaciones o propuestas.",
-  },
-  {
-    title: "Conversaciones duplicadas",
-    problem: "El mismo cliente vuelve por otro canal y el equipo lo trata como si partiera desde cero.",
-    solution: "Talkey Ventas detecta leads repetidos o recurrentes, recupera historial y evita duplicar esfuerzos comerciales.",
-  },
-  {
-    title: "Ventas y soporte desconectados",
-    problem: "Cuando el cliente compra, postventa recibe poco contexto y la experiencia se quiebra.",
-    solution: "Cuando una oportunidad se gana, Talkey puede crear el cliente en soporte, abrir un ticket de onboarding y dejar un evento de integración para que postventa reciba contexto operativo desde el primer día.",
   },
   {
     title: "Ejecutivos sin próximo paso claro",

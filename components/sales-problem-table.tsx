@@ -8,7 +8,7 @@ type SalesProblem = {
   solution: string;
 };
 
-const previewItemCount = 3;
+const previewItemCount = 5;
 
 export function SalesProblemTable({ problems }: { problems: SalesProblem[] }) {
   const [expanded, setExpanded] = useState(false);
@@ -36,7 +36,7 @@ export function SalesProblemTable({ problems }: { problems: SalesProblem[] }) {
       <div className="mk-sales-problem-table">
         <div className="mk-sales-problem-table-head">
           <span>Problema</span>
-          <span>Cómo lo resuelve Talkey Ventas</span>
+          <span>Cómo lo resuelve TALKEY Ventas</span>
         </div>
         {visibleProblems.map((item) => (
           <article className="mk-sales-problem-row" key={item.title}>
