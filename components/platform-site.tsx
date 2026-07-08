@@ -63,6 +63,15 @@ const products: Array<{
   },
 ];
 
+const platformHomeFlow = [
+  "Conversa",
+  "Identifica producto/intención",
+  "Consulta conocimiento",
+  "Clasifica",
+  "Responde o deriva",
+  "Deja el caso listo para la siguiente acción",
+];
+
 const pricing = [
   {
     name: "Base",
@@ -385,6 +394,24 @@ export function PlatformHome() {
 
           <div id="suites" className="mk-platform-home-suite-grid" aria-label="Suites Talkey">
             {products.map((product) => <ProductCard product={product} key={product.key} />)}
+          </div>
+        </div>
+      </section>
+
+      <section className="mk-platform-home-how" aria-labelledby="talkey-how-title">
+        <div className="mk-container">
+          <div className="mk-platform-home-how-head">
+            <p className="mk-section-label"><span>01</span>Cómo funciona TALKEY</p>
+            <h2 id="talkey-how-title">Cómo funciona TALKEY</h2>
+          </div>
+
+          <div className="mk-platform-home-flow" aria-label="Flujo de funcionamiento de Talkey">
+            {platformHomeFlow.map((step, index) => (
+              <article key={step}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{step}</strong>
+              </article>
+            ))}
           </div>
         </div>
       </section>
