@@ -196,13 +196,13 @@ const narrativeContent = {
     },
     securityPrivacy: {
       kicker: "Seguridad y privacidad",
-      title: "Control de seguridad para conocimiento técnico sensible.",
+      title: "Control para soporte técnico sensible",
       body: "",
       items: [
-        { title: "Separación por cliente", text: "Cada empresa trabaja con su propio conocimiento, sin mezclar bases ni criterios de soporte." },
-        { title: "Sin entrenamiento cruzado", text: "Las conversaciones de una empresa no se usan para entrenar modelos o respuestas de otras empresas." },
-        { title: "Permisos por alcance", text: "El acceso al conocimiento puede configurarse según roles, productos, canales y responsabilidades." },
-        { title: "Revisión técnica y contractual", text: "Los datos sensibles se tratan según contrato, configuración y normativa aplicable." },
+        { title: "Conocimiento separado por cliente", text: "Cada empresa trabaja con su propia base de conocimiento, criterios y procedimientos, sin mezclar información con otros clientes." },
+        { title: "Sin entrenamiento cruzado", text: "Las conversaciones y documentos de una empresa no se usan para entrenar respuestas de otra empresa." },
+        { title: "Permisos por alcance", text: "El acceso puede limitarse por rol, producto, canal o responsabilidad del equipo." },
+        { title: "Validación humana en garantías, seguridad y procedimientos sensibles", text: "Cuando un caso puede afectar garantía, seguridad o un procedimiento crítico, Talkey deja contexto y deriva a una persona autorizada." },
       ],
     },
     faq: {
@@ -507,7 +507,7 @@ function SupportPricingPackagesSection() {
     <section id="precios" className="mk-section mk-sales-pricing-section mk-support-package-pricing">
       <div className="mk-container">
         <div className="mk-section-heading">
-          <div className="mk-section-label"><span>07</span>Precios</div>
+          <div className="mk-section-label"><span>08</span>Precios</div>
           <h2>Paquetes para partir con soporte técnico estructurado.</h2>
           <p>
             Los valores son referenciales. Talkey se posiciona como una solución premium porque une asistente virtual,
@@ -812,12 +812,31 @@ export function CommercialHome({
         </div>
       </section>
 
+      <section className="mk-section mk-privacy">
+        <div className="mk-container">
+          <div className="mk-section-heading mk-privacy-heading">
+            <div className="mk-section-label"><span>07</span>{narrative.securityPrivacy.kicker}</div>
+            <h2>{narrative.securityPrivacy.title}</h2>
+            {narrative.securityPrivacy.body ? <p>{narrative.securityPrivacy.body}</p> : null}
+          </div>
+          <div className="mk-privacy-grid">
+            {narrative.securityPrivacy.items.map((item) => (
+              <article key={item.title}>
+                <div className="mk-privacy-icon"><ShieldCheck size={20} /></div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {locale === "es" ? <SupportPricingPackagesSection /> : <ArchivedSupportPricingSimulator copy={copy.pricing} />}
 
       <section className="mk-section mk-integrations">
         <div className="mk-container">
           <div className="mk-section-heading">
-            <div className="mk-section-label"><span>08</span>{narrative.integrations.kicker}</div>
+            <div className="mk-section-label"><span>09</span>{narrative.integrations.kicker}</div>
             <h2>{narrative.integrations.title}</h2>
             <p>{narrative.integrations.body}</p>
           </div>
@@ -832,25 +851,6 @@ export function CommercialHome({
                 </article>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      <section className="mk-section mk-privacy">
-        <div className="mk-container">
-          <div className="mk-section-heading mk-privacy-heading">
-            <div className="mk-section-label"><span>09</span>{narrative.securityPrivacy.kicker}</div>
-            <h2>{narrative.securityPrivacy.title}</h2>
-            {narrative.securityPrivacy.body ? <p>{narrative.securityPrivacy.body}</p> : null}
-          </div>
-          <div className="mk-privacy-grid">
-            {narrative.securityPrivacy.items.map((item) => (
-              <article key={item.title}>
-                <div className="mk-privacy-icon"><ShieldCheck size={20} /></div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
-            ))}
           </div>
         </div>
       </section>
