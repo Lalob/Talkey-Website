@@ -107,7 +107,7 @@ const pricing = [
     setup: "Implementación desde $850.000 CLP",
     highlighted: false,
     features: [
-      "Una suite: Ventas o Soporte Técnico",
+      "Una solución: ventas o soporte",
       "1.500 conversaciones incluidas",
       "Talkey Editor para conocimiento base",
       "3 usuarios internos",
@@ -123,7 +123,7 @@ const pricing = [
     setup: "Implementación desde $1.300.000 CLP",
     highlighted: true,
     features: [
-      "Suite Ventas + Suite Soporte Técnico",
+      "Solución para ventas + Solución para soporte",
       "4.000 conversaciones incluidas",
       "Pipeline, scoring, seguimiento y handoff a soporte",
       "Diagnóstico guiado y base técnica editable",
@@ -139,7 +139,7 @@ const pricing = [
     setup: "Implementación a medida",
     highlighted: false,
     features: [
-      "Volumen, usuarios y suites personalizados",
+      "Volumen, usuarios y soluciones personalizadas",
       "Integraciones CRM/API y flujos internos",
       "Talkey Editor avanzado y control por equipos",
       "Soporte prioritario y revisión operacional",
@@ -168,7 +168,7 @@ const suiteContent: Record<
   }
 > = {
   ventas: {
-    eyebrow: "Talkey Suite Ventas",
+    eyebrow: "Talkey · Solución para ventas",
     title: "Convierte conversaciones comerciales en oportunidades que avanzan.",
     body:
       "Talkey Ventas atiende, califica, prioriza y organiza leads para que el equipo comercial trabaje con mejor contexto y menos seguimiento manual.",
@@ -240,7 +240,7 @@ const suiteContent: Record<
       "Talkey Ventas está pensado para equipos que no quieren perder leads por demora, seguimiento débil o falta de contexto comercial.",
   },
   soporte: {
-    eyebrow: "Talkey Suite Soporte Técnico",
+    eyebrow: "Talkey · Solución para soporte",
     title: "Convierte problemas técnicos en una experiencia de soporte consistente.",
     body:
       "Talkey Soporte Técnico guía al cliente, usa conocimiento aprobado, recuerda historial cuando está disponible y deriva con contexto cuando corresponde.",
@@ -329,7 +329,7 @@ function PlatformHeader({ minimal = false, sales = false, ctaHref = talkeyBookin
             </>
           ) : (
             <>
-              <Link href="/#suites">Suites</Link>
+              <Link href="/#suites">Soluciones</Link>
               <Link href="/ventas">Ventas</Link>
               <Link href="/soporte-tecnico">Soporte técnico</Link>
               <Link href="/#precios">Precios</Link>
@@ -372,8 +372,8 @@ function Footer({ currentYear, ctaHref = talkeyBookingUrl, line }: { currentYear
       <div className="mk-container mk-footer-bottom">
         <span>© {currentYear} Talkey</span>
         <div>
-          <Link href="/ventas">Suite Ventas</Link>
-          <Link href="/soporte-tecnico">Suite Soporte Técnico</Link>
+          <Link href="/ventas">Solución para ventas</Link>
+          <Link href="/soporte-tecnico">Solución para soporte</Link>
           <a href={ctaHref} target={ctaExternal ? "_blank" : undefined} rel={ctaExternal ? "noopener noreferrer" : undefined}>{diagnosisCtaLabel}</a>
         </div>
       </div>
@@ -417,7 +417,7 @@ export function PlatformHome() {
             </h1>
           </div>
 
-          <div id="suites" className="mk-platform-home-suite-grid" aria-label="Suites Talkey">
+          <div id="suites" className="mk-platform-home-suite-grid" aria-label="Soluciones Talkey">
             {products.map((product) => <ProductCard product={product} key={product.key} />)}
           </div>
         </div>

@@ -142,7 +142,7 @@ export async function POST(request: Request) {
   };
   const salesKnowledge = {
     product: "Talkey Ventas",
-    positioning: "Suite de ventas con IA para convertir conversaciones entrantes en oportunidades priorizadas, seguimiento comercial y próximos pasos claros.",
+    positioning: "Solución para ventas con IA para convertir conversaciones entrantes en oportunidades priorizadas, seguimiento comercial y próximos pasos claros.",
     capabilities: [
       "calificar leads según intención, urgencia, fit, presupuesto y potencial",
       "crear y ordenar oportunidades en pipeline",
@@ -171,7 +171,7 @@ export async function POST(request: Request) {
         "Contesta la pregunta concreta primero. No repitas el mensaje de bienvenida ni una lista genérica de temas.",
         "Nunca escribas esta frase ni una variación literal: 'Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?'",
         "Si la respuesta local de respaldo suena como menú o fallback, úsala solo como contexto y no la copies.",
-        "Explica Talkey Ventas como una suite para convertir conversaciones en pipeline, prioridad, seguimiento, próximos pasos y continuidad con soporte.",
+        "Explica Talkey Ventas como una solución para convertir conversaciones en pipeline, prioridad, seguimiento, próximos pasos y continuidad con soporte.",
         "No inventes precios, integraciones cerradas, garantías ni compromisos técnicos no indicados.",
         "Cuando invites a solicitar una evaluación, no pidas antes datos como volumen, canales, productos, documentación, preparación técnica, seguridad o cumplimiento. Esos datos se revisan en la reunión.",
         "Si la pregunta requiere evaluación, responde lo necesario y cierra invitando a solicitar una evaluación.",

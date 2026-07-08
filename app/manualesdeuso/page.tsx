@@ -155,7 +155,7 @@ const appManuals: AppManual[] = [
       },
     ],
     links: [
-      { label: "Ver Suite Soporte", href: "/soporte-tecnico" },
+      { label: "Ver solución para soporte", href: "/soporte-tecnico" },
       { label: "Ver demo de soporte", href: "/soporte-tecnico#demo" },
     ],
     before: [
@@ -214,7 +214,7 @@ const appManuals: AppManual[] = [
       },
     ],
     links: [
-      { label: "Ver Suite Soporte", href: "/soporte-tecnico" },
+      { label: "Ver solución para soporte", href: "/soporte-tecnico" },
       { label: "Ver problemas/soluciones", href: "/soporte-tecnico#problema" },
     ],
     before: [
@@ -274,7 +274,7 @@ const appManuals: AppManual[] = [
       },
     ],
     links: [
-      { label: "Ver Suite Ventas", href: "/ventas" },
+      { label: "Ver solución para ventas", href: "/ventas" },
       { label: "Ver demo de ventas", href: "/ventas#demo" },
     ],
     before: [
@@ -345,7 +345,7 @@ const appManuals: AppManual[] = [
       },
     ],
     links: [
-      { label: "Ver Suite Ventas", href: "/ventas" },
+      { label: "Ver solución para ventas", href: "/ventas" },
       { label: "Ver precios", href: "/ventas#precios" },
     ],
     before: [

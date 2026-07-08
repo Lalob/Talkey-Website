@@ -4,9 +4,9 @@ import { SalesPage } from "@/components/platform-site";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Suite Ventas",
+  title: "Solución para ventas",
   description:
-    "Talkey Suite Ventas convierte conversaciones en pipeline, scoring, cotizaciones, seguimiento y handoff hacia soporte técnico.",
+    "La solución para ventas de Talkey convierte conversaciones en pipeline, scoring, cotizaciones, seguimiento y handoff hacia soporte técnico.",
 };
 
 export default function VentasPage() {

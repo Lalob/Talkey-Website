@@ -47,7 +47,7 @@ const supportPricingPackages = [
     setup: "Implementación desde $850.000 CLP",
     highlighted: false,
     features: [
-      "Suite Soporte Técnico",
+      "Solución para soporte",
       "1.500 conversaciones incluidas",
       "Talkey Editor para conocimiento base",
       "3 usuarios internos",
@@ -63,7 +63,7 @@ const supportPricingPackages = [
     setup: "Implementación desde $1.300.000 CLP",
     highlighted: true,
     features: [
-      "Suite Soporte Técnico + continuidad con Ventas",
+      "Solución para soporte + continuidad con ventas",
       "4.000 conversaciones incluidas",
       "Diagnóstico guiado y base técnica editable",
       "Consola para agentes, tickets y respuesta sugerida",
@@ -79,7 +79,7 @@ const supportPricingPackages = [
     setup: "Implementación a medida",
     highlighted: false,
     features: [
-      "Volumen, usuarios y suites personalizados",
+      "Volumen, usuarios y soluciones personalizadas",
       "Integraciones CRM/API y flujos internos",
       "Talkey Editor avanzado y control por equipos",
       "Soporte prioritario y revisión operacional",
