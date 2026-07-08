@@ -3445,6 +3445,91 @@ button { cursor: pointer; }
   line-height: 1.25;
 }
 
+.mk-platform-home-value {
+  padding: clamp(54px, 7vw, 88px) 0;
+  border-top: 1px solid rgba(8,8,8,.22);
+  background:
+    radial-gradient(circle at 85% 0%, rgba(255,255,255,.32), transparent 24%),
+    linear-gradient(180deg, #ffd34b, var(--mk-yellow));
+  color: #080808;
+}
+
+.mk-platform-home-value-head {
+  display: grid;
+  grid-template-columns: .75fr 1.25fr;
+  align-items: end;
+  gap: 34px;
+}
+
+.mk-platform-home-value-head h2 {
+  margin: 0;
+  max-width: 820px;
+  color: #080808;
+  font-size: clamp(38px, 4.4vw, 68px);
+  font-weight: 650;
+  line-height: .98;
+  letter-spacing: -.055em;
+}
+
+.mk-platform-home-industries {
+  overflow: hidden;
+  margin-top: clamp(28px, 4vw, 44px);
+  border: 1px solid rgba(8,8,8,.24);
+  border-radius: 26px;
+  background: rgba(8,8,8,.06);
+  box-shadow: 0 28px 70px rgba(8,8,8,.18);
+}
+
+.mk-platform-home-industries-head,
+.mk-platform-home-industries article {
+  display: grid;
+  grid-template-columns: minmax(240px, .72fr) minmax(0, 1.28fr);
+  gap: 26px;
+  align-items: center;
+}
+
+.mk-platform-home-industries-head {
+  padding: 18px 24px;
+  background: #080808;
+  color: var(--mk-yellow);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.mk-platform-home-industries article {
+  min-height: 94px;
+  padding: 22px 24px;
+  background:
+    linear-gradient(90deg, rgba(8,8,8,.08), rgba(8,8,8,0)),
+    rgba(255,255,255,.16);
+}
+
+.mk-platform-home-industries article + article {
+  border-top: 1px solid rgba(8,8,8,.16);
+}
+
+.mk-platform-home-industries h3,
+.mk-platform-home-industries p {
+  margin: 0;
+}
+
+.mk-platform-home-industries h3 {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 760;
+  line-height: 1.05;
+  letter-spacing: -.035em;
+}
+
+.mk-platform-home-industries p {
+  max-width: 720px;
+  color: rgba(8,8,8,.78);
+  font-size: clamp(17px, 1.35vw, 22px);
+  font-weight: 560;
+  line-height: 1.25;
+}
+
 @media (min-width: 821px) {
   .mk-platform-home-minimal {
     height: auto;
@@ -4919,6 +5004,34 @@ button { cursor: pointer; }
 
   .mk-platform-home-flow strong {
     margin-top: 22px;
+    font-size: 18px;
+  }
+
+  .mk-platform-home-value-head {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .mk-platform-home-industries {
+    border-radius: 22px;
+  }
+
+  .mk-platform-home-industries-head {
+    display: none;
+  }
+
+  .mk-platform-home-industries article {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    min-height: 0;
+    padding: 22px;
+  }
+
+  .mk-platform-home-industries h3 {
+    font-size: 23px;
+  }
+
+  .mk-platform-home-industries p {
     font-size: 18px;
   }
 

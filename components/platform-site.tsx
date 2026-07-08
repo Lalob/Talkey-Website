@@ -74,6 +74,29 @@ const platformHomeFlow = [
   "Deja el caso listo para la siguiente acción",
 ];
 
+const platformHomeIndustries = [
+  {
+    industry: "Calefones y climatización",
+    message: "Diagnóstico remoto antes de enviar un técnico.",
+  },
+  {
+    industry: "Servicios técnicos",
+    message: "Casos mejor levantados desde el primer contacto.",
+  },
+  {
+    industry: "Distribuidores técnicos",
+    message: "Consultas de producto convertidas en ventas o soporte.",
+  },
+  {
+    industry: "Equipos industriales",
+    message: "Criticidad, manuales y derivación experta.",
+  },
+  {
+    industry: "Electrodomésticos / línea blanca",
+    message: "Garantías, fallas frecuentes y postventa ordenada.",
+  },
+];
+
 const pricing = [
   {
     name: "Base",
@@ -412,6 +435,28 @@ export function PlatformHome() {
               <article key={step}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <strong>{step}</strong>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mk-platform-home-value" aria-labelledby="talkey-value-title">
+        <div className="mk-container">
+          <div className="mk-platform-home-value-head">
+            <p className="mk-section-label mk-section-label-dark"><span>02</span>Dónde genera más valor</p>
+            <h2 id="talkey-value-title">Dónde genera más valor</h2>
+          </div>
+
+          <div className="mk-platform-home-industries" aria-label="Industrias donde Talkey genera más valor">
+            <div className="mk-platform-home-industries-head" aria-hidden="true">
+              <span>Industria</span>
+              <span>Mensaje corto</span>
+            </div>
+            {platformHomeIndustries.map((item) => (
+              <article key={item.industry}>
+                <h3>{item.industry}</h3>
+                <p>{item.message}</p>
               </article>
             ))}
           </div>
