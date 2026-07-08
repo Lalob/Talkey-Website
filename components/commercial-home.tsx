@@ -91,7 +91,7 @@ const supportPricingPackages = [
 const narrativeContent = {
   es: {
     controls: { showMoreProblems: "Ver más problemas/soluciones...", showMoreComparisons: "Ver más comparaciones...", showMoreIndustries: "Ver más industrias...", showMoreFaq: "Ver más preguntas frecuentes...", showLess: "Ver menos..." },
-    nav: { problem: "Problemas/Soluciones", solution: "Solución", cases: "Casos de uso", demo: "Demo", manuals: "Manuales", pricing: "Precios", comparison: "Comparación", quote: "Solicitar evaluación" },
+    nav: { problem: "Problemas/Soluciones", solution: "Solución", cases: "Casos de uso", demo: "Demo", manuals: "Manuales", pricing: "Precios", comparison: "Comparación", quote: "Agendar diagnóstico de 30 min" },
     hero: {
       eyebrow: "",
       titleParts: [
@@ -100,7 +100,7 @@ const narrativeContent = {
         { text: "." },
       ],
       body: "Transforma manuales, procedimientos y experiencia técnica en respuestas claras, diagnósticos guiados y derivación a un especialista humano cuando corresponde. Pensado para fabricantes, distribuidores y equipos de postventa que necesitan resolver soporte técnico con mayor consistencia.",
-      primary: "Solicitar evaluación",
+      primary: "Agendar diagnóstico de 30 min",
       secondary: "Probar demo",
       tertiary: "Ver precios",
       proof: ["Soporte técnico de calidad", "Menos dependencia individual", "Diagnósticos repetibles"],
@@ -209,7 +209,7 @@ const narrativeContent = {
       kicker: "Preguntas frecuentes",
       title: "Respuestas rápidas antes de una evaluación.",
       items: [
-        { question: "¿Cuánto demora una implementación?", answer: "Depende del volumen de productos, documentos, canales y validación técnica. Lo correcto es revisarlo en una evaluación.", cta: "Solicitar evaluación", ctaHref: talkeyBookingUrl },
+        { question: "¿Cuánto demora una implementación?", answer: "Depende del volumen de productos, documentos, canales y validación técnica. Lo correcto es revisarlo en una evaluación.", cta: "Agendar diagnóstico de 30 min", ctaHref: talkeyBookingUrl },
         { question: "¿Cuánto cuesta?", answer: "El precio depende del volumen, canales, documentación, integraciones y nivel de acompañamiento requerido. Revisa los paquetes referenciales y luego solicita una evaluación para ajustar alcance y precio final.", cta: "Ver paquetes de precios" },
         { question: "¿Talkey ayuda también al equipo interno?", answer: "Sí. Además de asistir al cliente, Talkey puede actuar como copiloto operativo para agentes: resume tickets, sugiere prioridad, responsable, próximos pasos y respuestas iniciales." },
         { question: "¿Talkey es un chatbot?", answer: "No solamente. La interfaz puede parecer un chat, pero el valor está en organizar conocimiento técnico, aplicar procedimientos y mantener criterios de soporte." },
@@ -526,7 +526,7 @@ function SupportPricingPackagesSection() {
                   <li key={feature}><BadgeCheck size={17} />{feature}</li>
                 ))}
               </ul>
-              <a href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">Solicitar evaluación <ArrowRight size={16} /></a>
+              <a href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">Agendar diagnóstico de 30 min <ArrowRight size={16} /></a>
             </article>
           ))}
         </div>

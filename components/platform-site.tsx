@@ -29,6 +29,8 @@ import type { LucideIcon } from "lucide-react";
 
 type SuiteKey = "ventas" | "soporte";
 
+const diagnosisCtaLabel = "Agendar diagnóstico de 30 min";
+
 const products: Array<{
   key: SuiteKey;
   name: string;
@@ -313,7 +315,7 @@ function PlatformHeader({ minimal = false, sales = false, ctaHref = talkeyBookin
           )}
         </div>
         <div className="mk-nav-actions">
-          <a className="mk-nav-cta" href={ctaHref} target={ctaExternal ? "_blank" : undefined} rel={ctaExternal ? "noopener noreferrer" : undefined}>Solicitar evaluación <ArrowRight size={16} /></a>
+          <a className="mk-nav-cta" href={ctaHref} target={ctaExternal ? "_blank" : undefined} rel={ctaExternal ? "noopener noreferrer" : undefined}>{diagnosisCtaLabel} <ArrowRight size={16} /></a>
         </div>
       </nav>
     </header>
@@ -349,7 +351,7 @@ function Footer({ currentYear, ctaHref = talkeyBookingUrl, line }: { currentYear
         <div>
           <Link href="/ventas">Suite Ventas</Link>
           <Link href="/soporte-tecnico">Suite Soporte Técnico</Link>
-          <a href={ctaHref} target={ctaExternal ? "_blank" : undefined} rel={ctaExternal ? "noopener noreferrer" : undefined}>Solicitar evaluación</a>
+          <a href={ctaHref} target={ctaExternal ? "_blank" : undefined} rel={ctaExternal ? "noopener noreferrer" : undefined}>{diagnosisCtaLabel}</a>
         </div>
       </div>
     </footer>
@@ -499,8 +501,8 @@ const salesChatCopy = {
   actions: {
     ...marketingCopy.es.chat.actions,
     pricingSimulator: "Ver paquetes de precios",
-    bookDemo: "Solicitar una evaluación",
-    bookReview: "Solicitar una evaluación",
+    bookDemo: diagnosisCtaLabel,
+    bookReview: diagnosisCtaLabel,
   },
   responses: {
     ...marketingCopy.es.chat.responses,
@@ -576,7 +578,7 @@ export function SalesPage() {
             </p>
             <div className="mk-hero-actions">
               <a className="mk-button mk-button-primary" href="#demo">Ver demo <ArrowRight size={18} /></a>
-              <a className="mk-button mk-button-secondary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">Solicitar evaluación <ArrowRight size={18} /></a>
+              <a className="mk-button mk-button-secondary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">{diagnosisCtaLabel} <ArrowRight size={18} /></a>
             </div>
           </div>
         </div>
@@ -669,7 +671,7 @@ export function SalesPage() {
                     <li key={feature}><BadgeCheck size={17} />{feature}</li>
                   ))}
                 </ul>
-                <a href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">Solicitar evaluación <ArrowRight size={16} /></a>
+                <a href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">{diagnosisCtaLabel} <ArrowRight size={16} /></a>
               </article>
             ))}
           </div>
@@ -712,7 +714,7 @@ export function SalesPage() {
             </p>
           </div>
           <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">
-            Solicitar evaluación <ArrowRight size={18} />
+            {diagnosisCtaLabel} <ArrowRight size={18} />
           </a>
         </div>
       </section>
@@ -756,7 +758,7 @@ export function SuitePage({ suite }: { suite: SuiteKey }) {
             <p>{pageBody}</p>
             <div className="mk-hero-actions">
               <a className="mk-button mk-button-primary" href="#demo">Ver demo <ArrowRight size={18} /></a>
-              <a className="mk-button mk-button-secondary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">Solicitar evaluación <ArrowRight size={18} /></a>
+              <a className="mk-button mk-button-secondary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">{diagnosisCtaLabel} <ArrowRight size={18} /></a>
             </div>
           </div>
           <article className="mk-suite-simple-panel">
@@ -810,7 +812,7 @@ export function SuitePage({ suite }: { suite: SuiteKey }) {
             </small>
           </div>
           <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">
-            Solicitar evaluación <ArrowRight size={18} />
+            {diagnosisCtaLabel} <ArrowRight size={18} />
           </a>
         </div>
       </section>

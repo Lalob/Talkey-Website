@@ -208,7 +208,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       emphasis: "CON CONOCIMIENTO ESTRUCTURADO",
       tail: "para operaciones de postventa",
       body: "Talkey transforma manuales, procedimientos y experiencia técnica en respuestas claras, trazables y siempre disponibles.",
-      primary: "Solicitar evaluación",
+      primary: "Agendar diagnóstico de 30 min",
       secondary: "Probar demo",
       proof: ["Sin reemplazar tu equipo", "Derivación humana", "Respuestas trazables"],
     },
@@ -225,8 +225,8 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       actions: {
         pricingSimulator: "Ir al simulador de precios",
         tryAnotherCase: "Probar otro caso",
-        bookReview: "Solicitar una evaluación",
-        bookDemo: "Solicitar una evaluación",
+        bookReview: "Agendar diagnóstico de 30 min",
+        bookDemo: "Agendar diagnóstico de 30 min",
       },
       responses: {
         pricing: "El precio final se confirma en una evaluación, porque Talkey se ajusta al alcance real de cada operación. En el sitio puedes revisar paquetes referenciales y, si quieres aterrizarlo a tu empresa, solicita una evaluación.",
@@ -383,7 +383,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       ],
     },
     scheduler: {
-      kicker: "Solicitar evaluación",
+      kicker: "Agendar diagnóstico de 30 min",
       title: "Revisemos si Talkey calza con tu operación de soporte técnico",
       body: "Cuéntanos cómo funciona tu soporte, qué productos y servicios atiendes, qué documentación existe y qué canales necesitas cubrir. En 30 minutos revisaremos si Talkey puede ayudarte y qué haría falta para implementarlo.",
       duration: "30 minutos",

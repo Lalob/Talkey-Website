@@ -41,7 +41,7 @@ type ReplyPlan = {
 };
 
 const supportEvaluationAction: DemoAction = {
-  label: "Solicitar una evaluación",
+  label: "Agendar diagnóstico de 30 min",
   href: talkeyBookingUrl,
 };
 
