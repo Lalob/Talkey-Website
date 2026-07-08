@@ -35,6 +35,7 @@ const navLineBreakLabels: Record<MarketingLocale, { cases: [string, string]; pri
 };
 
 const previewItemCount = 3;
+const useCasesPreviewItemCount = 6;
 type ExpandableListKey = "problems" | "comparison" | "useCases" | "faq";
 
 const supportPricingPackages = [
@@ -169,11 +170,13 @@ const narrativeContent = {
       body: "No se trata de una lista decorativa de industrias. Cada caso tiene una necesidad concreta de soporte técnico estructurado.",
       items: [
         { title: "Calefones y climatización", text: "Diagnóstico remoto antes de enviar un técnico." },
-        { title: "Hornos eléctricos y electrodomésticos", text: "Guías de uso, instalación, fallas frecuentes y garantía." },
-        { title: "Equipos industriales", text: "Procedimientos técnicos, seguridad operacional y derivación según criticidad." },
+        { title: "Servicios técnicos multi-marca", text: "Casos mejor levantados desde el primer contacto, incluso cuando se atienden múltiples marcas y modelos." },
+        { title: "Distribuidores e importadores", text: "Soporte uniforme aunque trabajen con múltiples marcas, modelos o versiones." },
+        { title: "Equipos industriales", text: "Criticidad, manuales y derivación experta para procedimientos técnicos y operación sensible." },
+        { title: "Electrodomésticos y línea blanca", text: "Garantías, fallas frecuentes y postventa ordenada." },
+        { title: "Equipamiento gastronómico / HoReCa", text: "Diagnóstico y derivación para equipos de cocina, frío, lavado y operación diaria." },
         { title: "Equipos médicos", text: "Respuestas consistentes y trazables para productos sensibles." },
         { title: "Minería", text: "Soporte técnico estructurado para equipos, procedimientos y operación en terreno." },
-        { title: "Distribuidores e importadores", text: "Soporte uniforme aunque trabajen con múltiples marcas, modelos o versiones." },
         { title: "Fabricantes", text: "Conversión de conocimiento interno en soporte técnico preparado para crecer." },
       ],
     },
@@ -568,7 +571,7 @@ export function CommercialHome({
   ];
   const visibleProblemRows = expandedLists.problems ? problemRows : problemRows.slice(0, previewItemCount);
   const visibleComparisonItems = expandedLists.comparison ? narrative.comparison.items : narrative.comparison.items.slice(0, previewItemCount);
-  const visibleUseCases = expandedLists.useCases ? narrative.useCases.items : narrative.useCases.items.slice(0, previewItemCount);
+  const visibleUseCases = expandedLists.useCases ? narrative.useCases.items : narrative.useCases.items.slice(0, useCasesPreviewItemCount);
   const visibleFaqItems = expandedLists.faq ? narrative.faq.items : narrative.faq.items.slice(0, previewItemCount);
   const comparisonLabels: Record<MarketingLocale, { option: string; advantage: string }> = {
     es: { option: "Opción", advantage: "Ventaja de Talkey" },
@@ -624,7 +627,8 @@ export function CommercialHome({
   }
 
   function renderListToggle(key: ExpandableListKey, totalItems: number) {
-    if (totalItems <= previewItemCount) return null;
+    const limit = key === "useCases" ? useCasesPreviewItemCount : previewItemCount;
+    if (totalItems <= limit) return null;
 
     const isExpanded = expandedLists[key];
     const collapsedLabels: Record<ExpandableListKey, string> = {
