@@ -45,7 +45,7 @@ const products: Array<{
     key: "soporte",
     name: "TALKEY Soporte Técnico",
     href: "/soporte-tecnico",
-    kicker: "Soporte técnico",
+    kicker: "Soporte que fideliza",
     value:
       "Soporte técnico que no parte de cero: diagnóstico guiado, respuestas consistentes y derivación con contexto.",
     proof: ["Diagnóstico guiado", "Historial por cliente", "Derivación técnica"],
@@ -56,7 +56,7 @@ const products: Array<{
     key: "ventas",
     name: "TALKEY Ventas",
     href: "/ventas",
-    kicker: "Ventas",
+    kicker: "Conversaciones que venden",
     value:
       "Conversaciones comerciales que no quedan sin seguimiento: calificación, scoring, pipeline y próximos pasos.",
     proof: ["Pipeline vivo", "Scoring comercial", "Seguimiento automático"],
