@@ -3957,6 +3957,12 @@ button { cursor: pointer; }
   line-height: 1.62;
 }
 
+.mk-sales-hero .mk-sales-hero-note {
+  color: color-mix(in srgb, var(--sales-muted) 82%, #f5f7fa 18%);
+  font-size: clamp(16px, 1.05vw, 18px);
+  line-height: 1.58;
+}
+
 .mk-sales-hero-aside {
   display: grid;
   gap: 26px;

@@ -612,13 +612,15 @@ export function SalesPage() {
         <div className="mk-container mk-sales-hero-grid">
           <div className="mk-sales-hero-copy">
             <h1 id="talkey-sales-title">
-              Convierte conversaciones en <span className="mk-sales-hero-highlight">ventas</span> sin perder oportunidades por seguimiento débil.
+              Conversaciones comerciales que no quedan sin seguimiento
             </h1>
           </div>
           <div className="mk-sales-hero-aside">
             <p>
-              Talkey Ventas atiende, califica, prioriza y organiza conversaciones comerciales para que tu equipo llegue
-              con contexto, foco y próximos pasos claros.
+              TALKEY atiende, califica, prioriza y prepara próximos pasos para que tu equipo venda con más contexto.
+            </p>
+            <p className="mk-sales-hero-note">
+              Ideal para empresas donde cada venta puede terminar en instalación, garantía, postventa o soporte técnico.
             </p>
             <div className="mk-hero-actions">
               <a className="mk-button mk-button-primary" href="#demo">Ver demo <ArrowRight size={18} /></a>
