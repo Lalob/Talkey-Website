@@ -380,7 +380,7 @@ export function PlatformHome() {
         <div className="mk-container">
           <div className="mk-platform-home-hero-box">
             <h1 id="talkey-home-title">
-              La plataforma IA para convertir conversaciones en <span className="mk-hero-highlight">ventas</span> y problemas técnicos en <span className="mk-hero-highlight">fidelización</span>.
+              La plataforma de IA que convierte conversaciones en <span className="mk-hero-highlight">ventas</span> y soporte técnico en <span className="mk-hero-highlight">fidelización</span>
             </h1>
           </div>
 
