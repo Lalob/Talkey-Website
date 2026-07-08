@@ -100,7 +100,7 @@ const narrativeContent = {
       ],
       body: "TALKEY convierte manuales, procedimientos e historial en respuestas consistentes, diagnóstico guiado y derivación con contexto.",
       primary: "Agendar diagnóstico de 30 min",
-      secondary: "Probar demo",
+      secondary: "Ver demo de caso técnico",
       tertiary: "Ver precios",
       proof: ["Soporte técnico de calidad", "Menos dependencia individual", "Diagnósticos repetibles"],
       visualTitle: "Asistente virtual Talkey",
