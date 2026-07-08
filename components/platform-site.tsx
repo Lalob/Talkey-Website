@@ -447,10 +447,6 @@ export function PlatformHome() {
           </div>
 
           <div className="mk-platform-home-industries" aria-label="Industrias donde Talkey genera más valor">
-            <div className="mk-platform-home-industries-head" aria-hidden="true">
-              <span>Industria</span>
-              <span>Mensaje corto</span>
-            </div>
             {platformHomeIndustries.map((item) => (
               <article key={item.industry}>
                 <h3>{item.industry}</h3>
