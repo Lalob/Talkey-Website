@@ -3378,6 +3378,10 @@ button { cursor: pointer; }
   gap: 34px;
 }
 
+.mk-platform-home-how-head.is-simple {
+  grid-template-columns: 1fr;
+}
+
 .mk-platform-home-how-head h2 {
   margin: 0;
   color: #f4f0e8;

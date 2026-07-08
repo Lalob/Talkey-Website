@@ -425,8 +425,7 @@ export function PlatformHome() {
 
       <section className="mk-platform-home-how" aria-labelledby="talkey-how-title">
         <div className="mk-container">
-          <div className="mk-platform-home-how-head">
-            <p className="mk-section-label"><span>01</span>Cómo funciona TALKEY</p>
+          <div className="mk-platform-home-how-head is-simple">
             <h2 id="talkey-how-title">Cómo funciona TALKEY</h2>
           </div>
 
