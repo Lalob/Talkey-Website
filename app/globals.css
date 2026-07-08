@@ -3465,6 +3465,10 @@ button { cursor: pointer; }
   gap: 34px;
 }
 
+.mk-platform-home-value-head.is-simple {
+  grid-template-columns: 1fr;
+}
+
 .mk-platform-home-value-head h2 {
   margin: 0;
   max-width: 820px;

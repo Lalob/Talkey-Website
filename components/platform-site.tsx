@@ -442,8 +442,7 @@ export function PlatformHome() {
 
       <section className="mk-platform-home-value" aria-labelledby="talkey-value-title">
         <div className="mk-container">
-          <div className="mk-platform-home-value-head">
-            <p className="mk-section-label mk-section-label-dark"><span>02</span>Dónde genera más valor</p>
+          <div className="mk-platform-home-value-head is-simple">
             <h2 id="talkey-value-title">Dónde genera más valor</h2>
           </div>
 
