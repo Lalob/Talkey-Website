@@ -35,8 +35,7 @@ const navLineBreakLabels: Record<MarketingLocale, { cases: [string, string]; pri
 };
 
 const previewItemCount = 3;
-const useCasesPreviewItemCount = 6;
-type ExpandableListKey = "problems" | "comparison" | "useCases" | "faq";
+type ExpandableListKey = "problems" | "comparison" | "faq";
 
 const supportPricingPackages = [
   {
@@ -508,7 +507,7 @@ function SupportPricingPackagesSection() {
     <section id="precios" className="mk-section mk-sales-pricing-section mk-support-package-pricing">
       <div className="mk-container">
         <div className="mk-section-heading">
-          <div className="mk-section-label"><span>08</span>Precios</div>
+          <div className="mk-section-label"><span>07</span>Precios</div>
           <h2>Paquetes para partir con soporte técnico estructurado.</h2>
           <p>
             Los valores son referenciales. Talkey se posiciona como una solución premium porque une asistente virtual,
@@ -555,7 +554,6 @@ export function CommercialHome({
   const [expandedLists, setExpandedLists] = useState<Record<ExpandableListKey, boolean>>({
     problems: false,
     comparison: false,
-    useCases: false,
     faq: false,
   });
   const expandedListOpenScrollY = useRef<Partial<Record<ExpandableListKey, number>>>({});
@@ -569,7 +567,6 @@ export function CommercialHome({
   ];
   const visibleProblemRows = expandedLists.problems ? problemRows : problemRows.slice(0, previewItemCount);
   const visibleComparisonItems = expandedLists.comparison ? narrative.comparison.items : narrative.comparison.items.slice(0, previewItemCount);
-  const visibleUseCases = expandedLists.useCases ? narrative.useCases.items : narrative.useCases.items.slice(0, useCasesPreviewItemCount);
   const visibleFaqItems = expandedLists.faq ? narrative.faq.items : narrative.faq.items.slice(0, previewItemCount);
   const comparisonLabels: Record<MarketingLocale, { option: string; advantage: string }> = {
     es: { option: "Opción", advantage: "Ventaja de Talkey" },
@@ -625,14 +622,12 @@ export function CommercialHome({
   }
 
   function renderListToggle(key: ExpandableListKey, totalItems: number) {
-    const limit = key === "useCases" ? useCasesPreviewItemCount : previewItemCount;
-    if (totalItems <= limit) return null;
+    if (totalItems <= previewItemCount) return null;
 
     const isExpanded = expandedLists[key];
     const collapsedLabels: Record<ExpandableListKey, string> = {
       problems: narrative.controls.showMoreProblems,
       comparison: narrative.controls.showMoreComparisons,
-      useCases: narrative.controls.showMoreIndustries,
       faq: narrative.controls.showMoreFaq,
     };
 
@@ -777,34 +772,10 @@ export function CommercialHome({
         </div>
       </section>
 
-      <section id="casos" className="mk-impact mk-use-cases">
-        <div className="mk-container">
-          <div className="mk-use-cases-header">
-            <div>
-              <div className="mk-section-label mk-section-label-dark"><span>05</span>{narrative.useCases.kicker}</div>
-              <h2>{narrative.useCases.title}</h2>
-            </div>
-            <div className="mk-use-cases-intro">
-              <p>{narrative.useCases.body}</p>
-              <a href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("agenda_click")}>{narrative.hero.primary}<ArrowUpRight size={18} /></a>
-            </div>
-          </div>
-          <div className="mk-use-case-cards">
-            {visibleUseCases.map((item) => (
-              <article key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
-            ))}
-          </div>
-          {renderListToggle("useCases", narrative.useCases.items.length)}
-        </div>
-      </section>
-
       <section id="demo" className="mk-section mk-demo-section">
         <div className="mk-container mk-demo-grid">
           <div className="mk-demo-copy">
-            <div className="mk-section-label"><span>06</span>{narrative.demo.kicker}</div>
+            <div className="mk-section-label"><span>05</span>{narrative.demo.kicker}</div>
             <h2>{narrative.demo.title}</h2>
             <p>{narrative.demo.body}</p>
           </div>
@@ -815,7 +786,7 @@ export function CommercialHome({
       <section className="mk-section mk-privacy">
         <div className="mk-container">
           <div className="mk-section-heading mk-privacy-heading">
-            <div className="mk-section-label"><span>07</span>{narrative.securityPrivacy.kicker}</div>
+            <div className="mk-section-label"><span>06</span>{narrative.securityPrivacy.kicker}</div>
             <h2>{narrative.securityPrivacy.title}</h2>
             {narrative.securityPrivacy.body ? <p>{narrative.securityPrivacy.body}</p> : null}
           </div>
@@ -836,7 +807,7 @@ export function CommercialHome({
       <section className="mk-section mk-integrations">
         <div className="mk-container">
           <div className="mk-section-heading">
-            <div className="mk-section-label"><span>09</span>{narrative.integrations.kicker}</div>
+            <div className="mk-section-label"><span>08</span>{narrative.integrations.kicker}</div>
             <h2>{narrative.integrations.title}</h2>
             <p>{narrative.integrations.body}</p>
           </div>
@@ -858,7 +829,7 @@ export function CommercialHome({
       <section className="mk-section mk-faq">
         <div className="mk-container">
           <div className="mk-section-heading">
-            <div className="mk-section-label"><span>10</span>{narrative.faq.kicker}</div>
+            <div className="mk-section-label"><span>09</span>{narrative.faq.kicker}</div>
             <h2>{narrative.faq.title}</h2>
           </div>
           <div className="mk-faq-grid">
@@ -892,7 +863,7 @@ export function CommercialHome({
       <section id="agenda" className="mk-section mk-contact">
         <div className="mk-container mk-contact-grid">
           <div className="mk-contact-copy">
-            <div className="mk-section-label"><span>11</span>{copy.scheduler.kicker}</div>
+            <div className="mk-section-label"><span>10</span>{copy.scheduler.kicker}</div>
             <h2>{copy.scheduler.title}</h2>
             <p>{copy.scheduler.body}</p>
             <div className="mk-contact-badge"><Globe2 size={18} /><span>ES · EN · IT</span></div>
