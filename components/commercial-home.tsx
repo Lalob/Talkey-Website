@@ -96,11 +96,9 @@ const narrativeContent = {
     hero: {
       eyebrow: "",
       titleParts: [
-        { text: "Soporte técnico consistente, incluso cuando el " },
-        { text: "conocimiento está disperso", highlight: true },
-        { text: "." },
+        { text: "Soporte técnico que no parte de cero" },
       ],
-      body: "Transforma manuales, procedimientos y experiencia técnica en respuestas claras, diagnósticos guiados y derivación a un especialista humano cuando corresponde. Pensado para fabricantes, distribuidores y equipos de postventa que necesitan resolver soporte técnico con mayor consistencia.",
+      body: "TALKEY convierte manuales, procedimientos e historial en respuestas consistentes, diagnóstico guiado y derivación con contexto.",
       primary: "Agendar diagnóstico de 30 min",
       secondary: "Probar demo",
       tertiary: "Ver precios",
