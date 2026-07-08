@@ -666,11 +666,11 @@ button { cursor: pointer; }
   background: #1d1a12;
 }
 .mk-problem-pair-head span {
-  padding: 16px 22px;
+  padding: 18px 22px;
   color: var(--mk-yellow);
-  font-size: 13px;
+  font-size: clamp(15px, 1.05vw, 17px);
   font-weight: 900;
-  letter-spacing: .08em;
+  letter-spacing: .06em;
   text-transform: uppercase;
 }
 .mk-problem-pair {
@@ -4157,11 +4157,11 @@ button { cursor: pointer; }
 }
 
 .mk-sales-problem-table-head span {
-  padding: 16px 22px;
+  padding: 18px 22px;
   color: var(--sales-petrol-readable);
-  font-size: 13px;
+  font-size: clamp(15px, 1.05vw, 17px);
   font-weight: 900;
-  letter-spacing: .08em;
+  letter-spacing: .06em;
   text-transform: uppercase;
 }
 

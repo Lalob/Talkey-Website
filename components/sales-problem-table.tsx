@@ -8,7 +8,7 @@ type SalesProblem = {
   solution: string;
 };
 
-const previewItemCount = 5;
+const previewItemCount = 3;
 
 export function SalesProblemTable({ problems }: { problems: SalesProblem[] }) {
   const [expanded, setExpanded] = useState(false);

@@ -429,14 +429,19 @@ const salesProblems = [
     solution: "TALKEY Ventas mantiene seguimiento comercial, recordatorios y próximos pasos claros para que la oportunidad no se enfríe después del primer contacto.",
   },
   {
-    title: "Pipeline incompleto",
-    problem: "Las conversaciones quedan dispersas entre canales y no siempre pasan a una etapa comercial clara.",
-    solution: "TALKEY Ventas convierte conversaciones en oportunidades trazables, con estado, origen, contexto y próximo paso dentro del pipeline.",
-  },
-  {
     title: "Oportunidades sin prioridad",
     problem: "El equipo trata consultas de bajo valor y oportunidades urgentes casi con el mismo criterio.",
     solution: "TALKEY Ventas aplica scoring por intención, urgencia, fit, presupuesto y potencial comercial para priorizar mejor el trabajo del equipo.",
+  },
+  {
+    title: "Ejecutivos sin próximo paso claro",
+    problem: "Después de una conversación, no siempre queda claro qué objeción resolver o qué acción tomar.",
+    solution: "Talkey Ventas actúa como asistente comercial y sugiere próximos pasos, objeciones a resolver y acciones concretas.",
+  },
+  {
+    title: "Pipeline incompleto",
+    problem: "Las conversaciones quedan dispersas entre canales y no siempre pasan a una etapa comercial clara.",
+    solution: "TALKEY Ventas convierte conversaciones en oportunidades trazables, con estado, origen, contexto y próximo paso dentro del pipeline.",
   },
   {
     title: "Leads duplicados",
@@ -452,11 +457,6 @@ const salesProblems = [
     title: "Cotizaciones lentas",
     problem: "Faltan datos básicos para cotizar y el ejecutivo debe pedir información que pudo levantarse antes.",
     solution: "Talkey Ventas pide los datos mínimos, ordena la información y deja preparada la base para cotizaciones o propuestas.",
-  },
-  {
-    title: "Ejecutivos sin próximo paso claro",
-    problem: "Después de una conversación, no siempre queda claro qué objeción resolver o qué acción tomar.",
-    solution: "Talkey Ventas actúa como asistente comercial y sugiere próximos pasos, objeciones a resolver y acciones concretas.",
   },
   {
     title: "Reuniones difíciles de coordinar",
