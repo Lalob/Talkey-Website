@@ -40,26 +40,26 @@ const products: Array<{
   icon: LucideIcon;
 }> = [
   {
-    key: "ventas",
-    name: "Talkey Suite Ventas",
-    href: "/ventas",
-    kicker: "Conversaciones que venden",
-    value:
-      "Convierte conversaciones entrantes en oportunidades priorizadas, con seguimiento comercial automatizado y próximos pasos claros para cerrar más ventas.",
-    proof: ["Pipeline vivo", "Scoring comercial", "Seguimiento automático"],
-    metric: "Ventas",
-    icon: Briefcase,
-  },
-  {
     key: "soporte",
-    name: "Talkey Suite Soporte Técnico",
+    name: "TALKEY Soporte Técnico",
     href: "/soporte-tecnico",
-    kicker: "Soporte que fideliza",
+    kicker: "Soporte técnico",
     value:
-      "Convierte problemas técnicos en respuestas consistentes, diagnóstico guiado y derivación con contexto para proteger la experiencia del cliente.",
+      "Soporte técnico que no parte de cero: diagnóstico guiado, respuestas consistentes y derivación con contexto.",
     proof: ["Diagnóstico guiado", "Historial por cliente", "Derivación técnica"],
     metric: "Soporte",
     icon: Headphones,
+  },
+  {
+    key: "ventas",
+    name: "TALKEY Ventas",
+    href: "/ventas",
+    kicker: "Ventas",
+    value:
+      "Conversaciones comerciales que no quedan sin seguimiento: calificación, scoring, pipeline y próximos pasos.",
+    proof: ["Pipeline vivo", "Scoring comercial", "Seguimiento automático"],
+    metric: "Ventas",
+    icon: Briefcase,
   },
 ];
 
@@ -349,7 +349,6 @@ function Footer({ currentYear, ctaHref = talkeyBookingUrl, line }: { currentYear
 
 function ProductCard({ product }: { product: (typeof products)[number] }) {
   const Icon = product.icon;
-  const title = product.key === "ventas" ? "Talkey Ventas" : "Talkey Soporte";
 
   return (
     <Link className={`mk-suite-card mk-suite-card-${product.key}`} href={product.href}>
@@ -357,7 +356,7 @@ function ProductCard({ product }: { product: (typeof products)[number] }) {
         <span><Icon size={28} /></span>
         <p>{product.kicker}</p>
       </div>
-      <h2>{title}</h2>
+      <h2>{product.name}</h2>
       <p>{product.value}</p>
       <div className="mk-suite-card-bottom">
         <small>Ver página</small>
