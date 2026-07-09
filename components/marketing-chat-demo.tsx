@@ -69,6 +69,7 @@ function stripForbiddenDemoIntro(text: string) {
   }
 
   sanitized = sanitized
+    .replace(/\*\*/g, "")
     .replace(/\s+([.,;:!?])/g, "$1")
     .replace(/(^|\n)\s*[.,;:!?]\s*/g, "$1")
     .replace(/[ \t]{2,}/g, " ")
