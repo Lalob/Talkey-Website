@@ -1432,6 +1432,16 @@ button { cursor: pointer; }
   --comparison-card-text: #f4f7f9;
   --comparison-card-muted: #cbd7df;
   --comparison-accent: var(--sales-petrol-readable);
+  grid-template-columns: minmax(0, 1fr) minmax(44px, .1fr) minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.mk-comparison-showcase-sales .mk-comparison-source-card,
+.mk-comparison-showcase-sales .mk-comparison-talkey-card {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .mk-comparison-showcase-sales .mk-comparison-source-card > p {
