@@ -33,10 +33,6 @@ export function ComparisonShowcase({
         </div>
       </div>
 
-      <div className="mk-comparison-brace" aria-hidden="true">
-        <span />
-      </div>
-
       <article className="mk-comparison-talkey-card">
         <p className="mk-comparison-talkey-eyebrow">TALKEY</p>
         <h3>{summaryTitle}</h3>
