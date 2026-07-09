@@ -112,7 +112,7 @@ button { cursor: pointer; }
 .mk-hero::before { position: absolute; top: 0; left: 50%; width: min(1240px, calc(100% - 48px)); height: 100%; border-right: 1px solid rgba(255,255,255,.045); border-left: 1px solid rgba(255,255,255,.045); content: ""; transform: translateX(-50%); pointer-events: none; }
 .mk-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(420px, .82fr); align-items: start; gap: 74px; }
 .mk-hero-copy { position: relative; z-index: 1; padding-bottom: 80px; }
-.mk-eyebrow { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #34322c; border-radius: 999px; padding: 8px 12px; background: rgba(255,255,255,.025); color: #cac6bc; font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+.mk-eyebrow { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #34322c; border-radius: 999px; padding: 8px 12px; background: rgba(255,255,255,.025); color: #cac6bc; font-size: 11px; font-weight: 700; letter-spacing: .07em; }
 .mk-eyebrow > span { width: 6px; height: 6px; border-radius: 50%; background: var(--mk-yellow); box-shadow: 0 0 0 5px rgba(255,198,56,.1); }
 .mk-eyebrow svg { color: var(--mk-yellow); }
 .mk-hero h1 { max-width: 720px; margin: 26px 0 0; font-size: clamp(48px, 5.3vw, 78px); font-weight: 560; line-height: .98; letter-spacing: -.057em; }
@@ -140,7 +140,7 @@ button { cursor: pointer; }
 .mk-chat-glow { position: absolute; inset: 12% 8% 15%; border-radius: 50%; background: rgba(255,198,56,.18); filter: blur(90px); }
 .mk-chat-card { position: relative; overflow: hidden; border: 1px solid #34322e; border-radius: 26px; background: #111; box-shadow: 0 36px 100px rgba(0,0,0,.52); transform: rotate(1deg); }
 .mk-chat-card::after { position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 1px rgba(255,255,255,.05); content: ""; pointer-events: none; }
-.mk-chat-topline { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #2b2b2b; padding: 11px 18px; color: #8d8980; font-size: 9px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.mk-chat-topline { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #2b2b2b; padding: 11px 18px; color: #8d8980; font-size: 9px; font-weight: 800; letter-spacing: .14em; }
 .mk-live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mk-yellow); box-shadow: 0 0 0 5px rgba(255,198,56,.09); }
 .mk-chat-signal { display: flex; align-items: end; gap: 2px; margin-left: auto; }
 .mk-chat-signal i { display: block; width: 2px; background: #69665e; }
@@ -164,7 +164,7 @@ button { cursor: pointer; }
 .mk-demo-message.is-visitor { align-self: flex-end; }
 .mk-demo-message.is-visitor p { border-color: #776322; border-radius: 15px 15px 4px; background: var(--mk-yellow); color: #090909; font-weight: 650; }
 .mk-demo-message.is-danger p { border-color: #6f5b1c; background: #211d12; color: #f7e2a2; }
-.mk-danger-label { display: inline-flex; align-items: center; gap: 5px; margin-bottom: 5px; color: var(--mk-yellow); font-size: 8px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.mk-danger-label { display: inline-flex; align-items: center; gap: 5px; margin-bottom: 5px; color: var(--mk-yellow); font-size: 8px; font-weight: 900; letter-spacing: .1em; }
 .mk-demo-message p { white-space: pre-line; }
 .mk-demo-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .mk-demo-action { display: inline-flex; min-height: 34px; align-items: center; gap: 7px; border: 0; border-radius: 999px; padding: 0 12px; background: var(--mk-yellow); color: #080808 !important; font-size: 12px; font-weight: 850; }
@@ -189,7 +189,7 @@ button { cursor: pointer; }
 .mk-chat-form button:disabled { background: #303030; color: #666; }
 
 .mk-section { padding: 120px 0; }
-.mk-section-label { display: flex; align-items: center; gap: 12px; color: #8c8981; font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.mk-section-label { display: flex; align-items: center; gap: 12px; color: #8c8981; font-size: 10px; font-weight: 800; letter-spacing: .13em; }
 .mk-section-label > span { display: grid; width: 32px; height: 24px; place-items: center; border: 1px solid #3a3833; border-radius: 999px; color: var(--mk-yellow); font-size: 8px; }
 .mk-section-label-dark { color: rgba(0,0,0,.65); }
 .mk-section-label-dark > span { border-color: rgba(0,0,0,.25); color: #070707; }
@@ -292,7 +292,7 @@ button { cursor: pointer; }
 .mk-pricing-checkboxes input { width: 16px; height: 16px; accent-color: var(--mk-yellow); }
 .mk-pricing-result { position: sticky; top: 104px; padding: 24px; }
 .mk-pricing-result-top { border: 1px solid #5f4b19; border-radius: 20px; padding: 22px; background: linear-gradient(135deg, #211c10, #171717 64%); }
-.mk-pricing-result-top span { display: inline-flex; align-items: center; gap: 8px; color: #d6caa1; font-size: 13px; font-weight: 850; letter-spacing: .055em; text-transform: uppercase; }
+.mk-pricing-result-top span { display: inline-flex; align-items: center; gap: 8px; color: #d6caa1; font-size: 13px; font-weight: 850; letter-spacing: .055em; }
 .mk-pricing-result-top strong { display: block; margin-top: 25px; color: #bdb8ae; font-size: 15px; font-weight: 720; }
 .mk-pricing-result-top p { margin: 8px 0 0; color: var(--mk-yellow); font-size: clamp(36px, 4.1vw, 56px); font-weight: 820; line-height: .95; letter-spacing: -.055em; }
 .mk-pricing-result-top small { display: block; margin-top: 10px; color: #b9b3a7; font-size: 14px; font-weight: 720; }
@@ -767,7 +767,6 @@ button { cursor: pointer; }
   font-size: clamp(15px, 1.05vw, 17px);
   font-weight: 900;
   letter-spacing: .06em;
-  text-transform: uppercase;
 }
 .mk-problem-pair {
   border-bottom: 1px solid #2b2b2b;
@@ -1455,10 +1454,10 @@ button { cursor: pointer; }
   font-size: 12px;
   font-weight: 900;
   letter-spacing: .12em;
-  text-transform: uppercase;
 }
 .mk-comparison-source-card > p {
   color: var(--comparison-source-muted);
+  text-transform: uppercase;
 }
 .mk-comparison-source-list {
   display: grid;
@@ -4440,7 +4439,6 @@ button { cursor: pointer; }
   font-size: clamp(15px, 1.05vw, 17px);
   font-weight: 900;
   letter-spacing: .06em;
-  text-transform: uppercase;
 }
 
 .mk-sales-problem-row {

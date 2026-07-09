@@ -34,7 +34,7 @@ export function ComparisonShowcase({
       </div>
 
       <article className="mk-comparison-talkey-card">
-        <p className="mk-comparison-talkey-eyebrow">TALKEY</p>
+        <p className="mk-comparison-talkey-eyebrow">Talkey</p>
         <h3>{summaryTitle}</h3>
         {summaryBody ? <p className="mk-comparison-talkey-body">{summaryBody}</p> : null}
         <ul>

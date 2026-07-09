@@ -43,7 +43,7 @@ const products: Array<{
 }> = [
   {
     key: "ventas",
-    name: "TALKEY Ventas",
+    name: "Talkey Ventas",
     href: "/ventas",
     kicker: "Conversaciones que venden",
     value:
@@ -54,7 +54,7 @@ const products: Array<{
   },
   {
     key: "soporte",
-    name: "TALKEY Soporte Técnico",
+    name: "Talkey Soporte Técnico",
     href: "/soporte-tecnico",
     kicker: "Soporte que fideliza",
     value:
@@ -76,17 +76,17 @@ const platformHomeFlow = [
 
 const pricing = [
   {
-    name: "TALKEY Base",
+    name: "Talkey Base",
     description:
       "Para empresas que quieren ordenar conversaciones entrantes y empezar con una operación comercial o de soporte más clara.",
     price: "$590.000 CLP",
     setup: "Implementación desde $850.000 CLP (se paga solo una vez)",
     highlighted: false,
     features: [
-      "Una solución: TALKEY Soporte Técnico o TALKEY Ventas",
+      "Una solución: Talkey Soporte Técnico o Talkey Ventas",
       "1.500 conversaciones incluidas",
       "3 usuarios internos",
-      "TALKEY Editor para conocimiento base",
+      "Talkey Editor para conocimiento base",
       "CRM operativo básico: contactos, conversaciones, estados, responsables y próximos pasos",
       "Tickets básicos o pipeline básico, según la suite elegida",
       "Una integración estándar",
@@ -95,14 +95,14 @@ const pricing = [
     ],
   },
   {
-    name: "TALKEY Pro",
+    name: "Talkey Pro",
     description:
       "Para equipos que necesitan unir ventas, soporte técnico, seguimiento, diagnóstico y operación en un solo flujo.",
     price: "$990.000 CLP",
     setup: "Implementación desde $1.300.000 CLP (se paga solo una vez)",
     highlighted: true,
     features: [
-      "TALKEY Ventas + TALKEY Soporte Técnico",
+      "Talkey Ventas + Talkey Soporte Técnico",
       "4.000 conversaciones incluidas",
       "8 usuarios internos",
       "Pipeline comercial",
@@ -120,7 +120,7 @@ const pricing = [
     ],
   },
   {
-    name: "TALKEY Enterprise",
+    name: "Talkey Enterprise",
     description:
       "Para operaciones más grandes o complejas, con integraciones, múltiples equipos, permisos, control avanzado y acompañamiento más cercano.",
     price: "Desde $2.900.000 CLP",
@@ -132,7 +132,7 @@ const pricing = [
       "Más de 10 usuarios o usuarios personalizados",
       "Integraciones CRM/API avanzadas",
       "Permisos por rol, producto, cliente o equipo",
-      "TALKEY Editor avanzado",
+      "Talkey Editor avanzado",
       "Flujos internos personalizados",
       "Seguridad, trazabilidad y control por alcance",
       "Soporte prioritario",
@@ -419,7 +419,7 @@ export function PlatformHome() {
       <section className="mk-platform-home-how" aria-labelledby="talkey-how-title">
         <div className="mk-container">
           <div className="mk-platform-home-how-head is-simple">
-            <h2 id="talkey-how-title">Cómo funciona TALKEY</h2>
+            <h2 id="talkey-how-title">Cómo funciona Talkey</h2>
           </div>
 
           <div className="mk-platform-home-flow" aria-label="Flujo de funcionamiento de Talkey">
@@ -442,12 +442,12 @@ const salesProblems = [
   {
     title: "Leads que se enfrían",
     problem: "La empresa responde tarde o pierde continuidad después del primer contacto.",
-    solution: "TALKEY Ventas mantiene seguimiento comercial, recordatorios y próximos pasos claros para que la oportunidad no se enfríe después del primer contacto.",
+    solution: "Talkey Ventas mantiene seguimiento comercial, recordatorios y próximos pasos claros para que la oportunidad no se enfríe después del primer contacto.",
   },
   {
     title: "Oportunidades sin prioridad",
     problem: "El equipo trata consultas de bajo valor y oportunidades urgentes casi con el mismo criterio.",
-    solution: "TALKEY Ventas aplica scoring por intención, urgencia, fit, presupuesto y potencial comercial para priorizar mejor el trabajo del equipo.",
+    solution: "Talkey Ventas aplica scoring por intención, urgencia, fit, presupuesto y potencial comercial para priorizar mejor el trabajo del equipo.",
   },
   {
     title: "Ejecutivos sin próximo paso claro",
@@ -457,17 +457,17 @@ const salesProblems = [
   {
     title: "Pipeline incompleto",
     problem: "Las conversaciones quedan dispersas entre canales y no siempre pasan a una etapa comercial clara.",
-    solution: "TALKEY Ventas convierte conversaciones en oportunidades trazables, con estado, origen, contexto y próximo paso dentro del pipeline.",
+    solution: "Talkey Ventas convierte conversaciones en oportunidades trazables, con estado, origen, contexto y próximo paso dentro del pipeline.",
   },
   {
     title: "Leads duplicados",
     problem: "El mismo cliente vuelve por otro canal y el equipo lo trata como si partiera desde cero.",
-    solution: "TALKEY Ventas detecta repeticiones antes de tratarlas como casos nuevos, recupera historial y evita duplicar esfuerzos comerciales.",
+    solution: "Talkey Ventas detecta repeticiones antes de tratarlas como casos nuevos, recupera historial y evita duplicar esfuerzos comerciales.",
   },
   {
     title: "Handoff débil a soporte",
     problem: "Cuando el cliente compra, postventa recibe poco contexto y la experiencia se quiebra.",
-    solution: "TALKEY Ventas mantiene contexto después del cierre: producto, necesidad, historial y próximos pasos pueden llegar preparados a soporte o postventa.",
+    solution: "Talkey Ventas mantiene contexto después del cierre: producto, necesidad, historial y próximos pasos pueden llegar preparados a soporte o postventa.",
   },
   {
     title: "Cotizaciones lentas",
@@ -580,7 +580,7 @@ export function SalesPage() {
               Conversaciones comerciales que no quedan sin seguimiento
             </h1>
             <p>
-              TALKEY atiende, califica, prioriza y prepara próximos pasos para que tu equipo venda con más contexto.
+              Talkey atiende, califica, prioriza y prepara próximos pasos para que tu equipo venda con más contexto.
             </p>
             <p className="mk-sales-hero-note">
               Ideal para empresas donde cada venta puede terminar en instalación, garantía, postventa o soporte técnico.
@@ -654,7 +654,7 @@ export function SalesPage() {
             <div className="mk-sales-editor-points">
               <p><strong>Configurable sin desarrollo.</strong> Ajusta preguntas, objeciones, scoring y reglas comerciales cuando cambia tu operación.</p>
               <p><strong>CRM flexible.</strong> Usa el CRM inteligente de Talkey o intégralo con el CRM que ya utiliza tu empresa.</p>
-              <p><strong>Implementación acompañada.</strong> Si faltan criterios, preguntas o reglas, TALKEY puede ayudar a crearlos y estructurarlos.</p>
+              <p><strong>Implementación acompañada.</strong> Si faltan criterios, preguntas o reglas, Talkey puede ayudar a crearlos y estructurarlos.</p>
             </div>
             <div className="mk-sales-data-note">
               <ShieldCheck size={22} />
@@ -724,7 +724,7 @@ export function SalesPage() {
             <h2>Veamos si Talkey Ventas calza con tu operación.</h2>
             <p>
               En 30 minutos revisamos canales, volumen de conversaciones, proceso comercial, criterios de calificación,
-              CRM actual y qué haría falta para implementar TALKEY.
+              CRM actual y qué haría falta para implementar Talkey.
             </p>
           </div>
           <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">

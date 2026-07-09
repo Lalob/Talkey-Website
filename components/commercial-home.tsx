@@ -47,7 +47,7 @@ const supportComparisonShowcaseContent: Record<
 > = {
   es: {
     sourceTitle: "Alternativas que cubren partes del soporte",
-    summaryTitle: "TALKEY hace todo eso + diagnóstico técnico con contexto.",
+    summaryTitle: "Talkey hace todo eso + diagnóstico técnico con contexto.",
     summaryBody:
       "No es solo tickets, voz o una base de conocimiento: une identificación de producto, conocimiento aprobado, diagnóstico guiado y derivación preparada.",
     advantages: [
@@ -61,7 +61,7 @@ const supportComparisonShowcaseContent: Record<
   },
   en: {
     sourceTitle: "Alternatives that cover parts of support",
-    summaryTitle: "TALKEY does all that + technical diagnosis with context.",
+    summaryTitle: "Talkey does all that + technical diagnosis with context.",
     summaryBody:
       "It is not only tickets, voice or a knowledge base: it connects product identification, approved knowledge, guided diagnosis and prepared handoff.",
     advantages: [
@@ -75,7 +75,7 @@ const supportComparisonShowcaseContent: Record<
   },
   it: {
     sourceTitle: "Alternative che coprono parti del supporto",
-    summaryTitle: "TALKEY fa tutto questo + diagnosi tecnica con contesto.",
+    summaryTitle: "Talkey fa tutto questo + diagnosi tecnica con contesto.",
     summaryBody:
       "Non è solo ticket, voce o una base di conoscenza: collega identificazione del prodotto, conoscenza approvata, diagnosi guidata e passaggio preparato.",
     advantages: [
@@ -91,17 +91,17 @@ const supportComparisonShowcaseContent: Record<
 
 const supportPricingPackages = [
   {
-    name: "TALKEY Base",
+    name: "Talkey Base",
     description:
       "Para empresas que quieren ordenar conversaciones entrantes y empezar con una operación comercial o de soporte más clara.",
     price: "$590.000 CLP",
     setup: "Implementación desde $850.000 CLP (se paga solo una vez)",
     highlighted: false,
     features: [
-      "Una solución: TALKEY Soporte Técnico o TALKEY Ventas",
+      "Una solución: Talkey Soporte Técnico o Talkey Ventas",
       "1.500 conversaciones incluidas",
       "3 usuarios internos",
-      "TALKEY Editor para conocimiento base",
+      "Talkey Editor para conocimiento base",
       "CRM operativo básico: contactos, conversaciones, estados, responsables y próximos pasos",
       "Tickets básicos o pipeline básico, según la suite elegida",
       "Una integración estándar",
@@ -110,14 +110,14 @@ const supportPricingPackages = [
     ],
   },
   {
-    name: "TALKEY Pro",
+    name: "Talkey Pro",
     description:
       "Para equipos que necesitan unir ventas, soporte técnico, seguimiento, diagnóstico y operación en un solo flujo.",
     price: "$990.000 CLP",
     setup: "Implementación desde $1.300.000 CLP (se paga solo una vez)",
     highlighted: true,
     features: [
-      "TALKEY Ventas + TALKEY Soporte Técnico",
+      "Talkey Ventas + Talkey Soporte Técnico",
       "4.000 conversaciones incluidas",
       "8 usuarios internos",
       "Pipeline comercial",
@@ -135,7 +135,7 @@ const supportPricingPackages = [
     ],
   },
   {
-    name: "TALKEY Enterprise",
+    name: "Talkey Enterprise",
     description:
       "Para operaciones más grandes o complejas, con múltiples equipos, integraciones, permisos, control avanzado y acompañamiento cercano.",
     price: "Desde $2.900.000 CLP",
@@ -147,7 +147,7 @@ const supportPricingPackages = [
       "Más de 10 usuarios o usuarios personalizados",
       "Integraciones CRM/API avanzadas",
       "Permisos por rol, producto, cliente o equipo",
-      "TALKEY Editor avanzado",
+      "Talkey Editor avanzado",
       "Flujos internos personalizados",
       "Seguridad, trazabilidad y control por alcance",
       "Soporte prioritario",
@@ -166,7 +166,7 @@ const narrativeContent = {
       titleParts: [
         { text: "Soporte técnico que no parte de cero" },
       ],
-      body: "TALKEY convierte manuales, procedimientos e historial en respuestas consistentes, diagnóstico guiado y derivación con contexto.",
+      body: "Talkey convierte manuales, procedimientos e historial en respuestas consistentes, diagnóstico guiado y derivación con contexto.",
       primary: "Agendar diagnóstico de 30 min",
       secondary: "Ver demo de caso técnico",
       tertiary: "Ver precios",
@@ -269,7 +269,7 @@ const narrativeContent = {
       title: "Control para soporte técnico sensible",
       body: "",
       dataOwnership:
-        "En TALKEY, tus datos son tuyos. Puedes exportar tickets, conversaciones, historial, documentos técnicos, estados, responsables y decisiones de derivación en formatos utilizables cuando quieras. No bloqueamos tu operación si decides irte.",
+        "En Talkey, tus datos son tuyos. Puedes exportar tickets, conversaciones, historial, documentos técnicos, estados, responsables y decisiones de derivación en formatos utilizables cuando quieras. No bloqueamos tu operación si decides irte.",
       items: [
         { title: "Conocimiento separado por cliente", text: "Cada empresa trabaja con su propia base de conocimiento, criterios y procedimientos, sin mezclar información con otros clientes." },
         { title: "Sin entrenamiento cruzado", text: "Las conversaciones y documentos de una empresa no se usan para entrenar respuestas de otra empresa." },
