@@ -42,17 +42,6 @@ const products: Array<{
   icon: LucideIcon;
 }> = [
   {
-    key: "soporte",
-    name: "TALKEY Soporte Técnico",
-    href: "/soporte-tecnico",
-    kicker: "Soporte que fideliza",
-    value:
-      "Soporte técnico que no parte de cero: diagnóstico guiado, respuestas consistentes y derivación con contexto.",
-    proof: ["Diagnóstico guiado", "Historial por cliente", "Derivación técnica"],
-    metric: "Soporte",
-    icon: Headphones,
-  },
-  {
     key: "ventas",
     name: "TALKEY Ventas",
     href: "/ventas",
@@ -62,6 +51,17 @@ const products: Array<{
     proof: ["Pipeline vivo", "Scoring comercial", "Seguimiento automático"],
     metric: "Ventas",
     icon: Briefcase,
+  },
+  {
+    key: "soporte",
+    name: "TALKEY Soporte Técnico",
+    href: "/soporte-tecnico",
+    kicker: "Soporte que fideliza",
+    value:
+      "Soporte técnico que no parte de cero: diagnóstico guiado, respuestas consistentes y derivación con contexto.",
+    proof: ["Diagnóstico guiado", "Historial por cliente", "Derivación técnica"],
+    metric: "Soporte",
+    icon: Headphones,
   },
 ];
 
