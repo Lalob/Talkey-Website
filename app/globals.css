@@ -4105,6 +4105,29 @@ button { cursor: pointer; }
   color: var(--sales-muted);
 }
 
+.mk-sales-data-note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  max-width: 760px;
+  margin-top: 22px;
+  border: 1px solid rgba(47, 111, 153, .46);
+  border-radius: 22px;
+  padding: 22px 24px;
+  background:
+    linear-gradient(135deg, rgba(18,53,91,.28), rgba(18,53,91,0) 44%),
+    #101419;
+  color: var(--sales-petrol-readable);
+}
+.mk-sales-data-note p {
+  margin: 0;
+  color: #e6edf2;
+  font-size: 16px;
+  font-weight: 680;
+  line-height: 1.62;
+}
+
 .mk-sales-card-grid,
 .mk-sales-feature-grid,
 .mk-sales-metrics-grid {

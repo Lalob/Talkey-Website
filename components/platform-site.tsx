@@ -632,6 +632,14 @@ export function SalesPage() {
               Además del flujo visible, Talkey funciona como Smart Agent interno: prioriza pipeline, detecta riesgos,
               prepara correos de seguimiento y sugiere próximos pasos para que el ejecutivo avance oportunidades con más claridad.
             </p>
+            <div className="mk-sales-data-note">
+              <ShieldCheck size={22} />
+              <p>
+                En TALKEY, tus datos comerciales son tuyos. Puedes exportar contactos, conversaciones, oportunidades,
+                historial, campos, estados, próximos pasos y seguimiento comercial en formatos utilizables cuando quieras.
+                No bloqueamos tu operación si decides irte.
+              </p>
+            </div>
           </div>
           <div className="mk-sales-editor-list">
             {salesEditorItems.map((item) => <span key={item}>{item}</span>)}
