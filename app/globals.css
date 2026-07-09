@@ -540,13 +540,16 @@ button { cursor: pointer; }
 
 .mk-hero-knowledge {
   position: relative;
+  display: flex;
+  align-items: center;
   overflow: hidden;
   border: 1px solid #4f4426;
   border-radius: 30px;
-  padding: 28px;
-  min-height: 330px;
+  padding: clamp(30px, 3vw, 42px);
+  min-height: clamp(260px, 28vw, 340px);
   background:
-    radial-gradient(circle at 20% 0%, rgba(255,198,56,.18), transparent 34%),
+    radial-gradient(circle at 18% 0%, rgba(255,198,56,.18), transparent 36%),
+    radial-gradient(circle at 92% 94%, rgba(255,198,56,.1), transparent 32%),
     linear-gradient(145deg, #171717, #0e0e0e 62%);
   box-shadow: 0 38px 100px rgba(0,0,0,.42);
 }
@@ -564,32 +567,35 @@ button { cursor: pointer; }
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: 18px;
-  align-items: start;
+  width: 100%;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
 }
 .mk-hero-knowledge-top > span {
   display: grid;
-  width: 64px;
-  height: 64px;
+  width: 76px;
+  height: 76px;
   place-items: center;
   border: 1px solid #6c5520;
-  border-radius: 18px;
+  border-radius: 22px;
   background: var(--mk-yellow);
   color: #080808;
+  box-shadow: 0 18px 44px rgba(0,0,0,.28);
 }
 .mk-hero-knowledge-top strong {
   display: block;
   color: #f4f0e8;
-  font-size: 24px;
+  font-size: clamp(26px, 2vw, 34px);
   line-height: 1.15;
   letter-spacing: -.035em;
 }
 .mk-hero-knowledge-top p {
-  margin: 12px 0 0;
+  max-width: 520px;
+  margin: 16px 0 0;
   color: #bdb8ae;
-  font-size: 18px;
-  line-height: 1.72;
+  font-size: clamp(17px, 1.18vw, 19px);
+  line-height: 1.62;
 }
 
 .mk-problem { border-top: 1px solid #262626; background: #0d0d0d; }
@@ -1143,6 +1149,7 @@ button { cursor: pointer; }
   .mk-hero-grid { gap: 34px; }
   .mk-hero-visual { margin-top: 4px; }
   .mk-hero-knowledge-top { gap: 16px; }
+  .mk-hero-knowledge-top > span { width: 64px; height: 64px; border-radius: 18px; }
   .mk-hero-knowledge-top strong { font-size: 22px; }
   .mk-hero-knowledge-top p { font-size: 16px; line-height: 1.62; }
   .mk-chat-persistent:not(.is-open) .mk-chat-header, .mk-chat-persistent:not(.is-open) .mk-product-chip { display: none; }
