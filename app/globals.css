@@ -4466,8 +4466,33 @@ button { cursor: pointer; }
   line-height: 1.62;
 }
 
-.mk-sales-editor-card p + p {
-  margin-top: 18px;
+.mk-sales-editor-lead {
+  max-width: 720px;
+  color: var(--sales-ink) !important;
+  font-size: clamp(19px, 1.6vw, 24px) !important;
+  font-weight: 780;
+  line-height: 1.35 !important;
+  letter-spacing: -.025em;
+}
+
+.mk-sales-editor-points {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.mk-sales-editor-points p {
+  border: 1px solid rgba(47, 111, 153, .32);
+  border-radius: 18px;
+  padding: 16px 18px;
+  background: rgba(18, 53, 91, .1);
+  font-size: clamp(15px, 1vw, 16px);
+  line-height: 1.5;
+}
+
+.mk-sales-editor-points strong {
+  color: var(--sales-petrol-readable);
+  font-weight: 900;
 }
 
 .mk-sales-editor-card .mk-sales-data-note {

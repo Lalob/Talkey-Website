@@ -617,29 +617,21 @@ export function SalesPage() {
             <h2>Tu equipo define cómo Talkey vende.</h2>
           </div>
           <article className="mk-sales-editor-card">
-            <p>
-              Talkey Editor permite ajustar criterios comerciales, preguntas, objeciones, reglas de seguimiento y datos
-              mínimos para cotizar sin depender de desarrollo cada vez que cambia tu operación.
+            <p className="mk-sales-editor-lead">
+              Talkey Editor deja tu operación comercial bajo control: criterios, seguimiento, próximos pasos y datos
+              conectados en un sistema editable.
             </p>
-            <p>
-              Además del flujo visible, Talkey funciona como Smart Agent interno: prioriza pipeline, detecta riesgos,
-              prepara correos de seguimiento y sugiere próximos pasos para que el ejecutivo avance oportunidades con más claridad.
-            </p>
-            <p>
-              Puedes usar el CRM completo e inteligente de Talkey o integrarlo con el CRM que ya usa tu empresa,
-              manteniendo contactos, oportunidades, historial y próximos pasos conectados.
-            </p>
-            <p>
-              Si la empresa todavía no tiene criterios comerciales, preguntas de calificación, objeciones frecuentes,
-              reglas de seguimiento o datos mínimos para cotizar bien definidos, TALKEY puede ayudar a estructurarlos
-              durante la implementación.
-            </p>
+            <div className="mk-sales-editor-points">
+              <p><strong>Configurable sin desarrollo.</strong> Ajusta preguntas, objeciones, scoring y reglas comerciales cuando cambia tu operación.</p>
+              <p><strong>Smart Agent interno.</strong> Prioriza pipeline, detecta riesgos y prepara correos o próximos pasos para el ejecutivo.</p>
+              <p><strong>CRM flexible.</strong> Usa el CRM inteligente de Talkey o intégralo con el CRM que ya utiliza tu empresa.</p>
+              <p><strong>Implementación acompañada.</strong> Si faltan criterios, preguntas o reglas, TALKEY puede ayudar a estructurarlos.</p>
+            </div>
             <div className="mk-sales-data-note">
               <ShieldCheck size={22} />
               <p>
-                En TALKEY, tus datos comerciales son tuyos. Puedes exportar contactos, conversaciones, oportunidades,
-                historial, campos, estados, próximos pasos y seguimiento comercial en formatos utilizables cuando quieras.
-                No bloqueamos tu operación si decides irte.
+                Tus datos comerciales son tuyos: contactos, conversaciones, oportunidades, historial y próximos pasos
+                pueden exportarse en formatos utilizables.
               </p>
             </div>
           </article>
