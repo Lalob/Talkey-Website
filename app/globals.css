@@ -3447,11 +3447,10 @@ button { cursor: pointer; }
 }
 
 .mk-platform-home-minimal {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  display: block;
   min-height: 100svh;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: visible;
 }
 
 .mk-platform-home-minimal .mk-platform-hero {
@@ -3761,10 +3760,11 @@ button { cursor: pointer; }
 
 @media (min-width: 821px) {
   .mk-platform-home-minimal {
+    display: block;
     height: auto;
     max-height: none;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: visible;
   }
 
   .mk-platform-home-minimal .mk-platform-hero {
