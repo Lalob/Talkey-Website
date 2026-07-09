@@ -3455,7 +3455,7 @@ button { cursor: pointer; }
 .mk-platform-home-minimal {
   display: block;
   min-height: 100svh;
-  overflow-x: hidden;
+  overflow-x: clip;
   overflow-y: visible;
   overscroll-behavior-y: auto;
   scroll-snap-type: none;
@@ -3775,7 +3775,7 @@ button { cursor: pointer; }
     display: block;
     height: auto;
     max-height: none;
-    overflow-x: hidden;
+    overflow-x: clip;
     overflow-y: visible;
     scroll-snap-type: none;
   }
