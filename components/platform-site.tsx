@@ -317,7 +317,6 @@ function PlatformHeader({ minimal = false, sales = false, ctaHref = talkeyBookin
               <Link href="/">Inicio</Link>
               <Link href="/manualesdeuso">Manuales</Link>
               <a href="#problema">Problemas/Soluciones</a>
-              <a href="#demo">Demo</a>
               <a href="#precios">Precios</a>
               <a href="#comparacion">Comparación</a>
             </>
@@ -580,8 +579,6 @@ export function SalesPage() {
             <h1 id="talkey-sales-title">
               Conversaciones comerciales que no quedan sin seguimiento
             </h1>
-          </div>
-          <div className="mk-sales-hero-aside">
             <p>
               TALKEY atiende, califica, prioriza y prepara próximos pasos para que tu equipo venda con más contexto.
             </p>
@@ -589,8 +586,17 @@ export function SalesPage() {
               Ideal para empresas donde cada venta puede terminar en instalación, garantía, postventa o soporte técnico.
             </p>
             <div className="mk-hero-actions">
-              <a className="mk-button mk-button-primary" href="#demo">Ver demo <ArrowRight size={18} /></a>
-              <a className="mk-button mk-button-secondary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">{diagnosisCtaLabel} <ArrowRight size={18} /></a>
+              <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">{diagnosisCtaLabel} <ArrowRight size={18} /></a>
+              <a className="mk-button mk-button-secondary" href="#precios">Ver precios <ArrowRight size={18} /></a>
+            </div>
+          </div>
+          <div className="mk-sales-hero-aside">
+            <div id="demo-hero" className="mk-hero-demo-panel mk-sales-hero-demo-panel">
+              <MarketingChatDemo copy={salesChatCopy} variant="sales" aiMode />
+              <div className="mk-hero-demo-callout">
+                <p>Prueba cómo Talkey convierte una conversación comercial en oportunidad, prioridad y próximo paso.</p>
+                <ArrowRight size={36} aria-hidden="true" />
+              </div>
             </div>
           </div>
         </div>
@@ -661,21 +667,10 @@ export function SalesPage() {
         </div>
       </section>
 
-      <section id="demo" className="mk-section mk-sales-demo-section">
-        <div className="mk-container mk-sales-demo-grid">
-          <div>
-            <p className="mk-section-label"><span>04</span>Demo</p>
-            <h2>{content.demoTitle}</h2>
-            <p>{content.demoBody}</p>
-          </div>
-          <MarketingChatDemo copy={salesChatCopy} variant="sales" aiMode />
-        </div>
-      </section>
-
       <section id="precios" className="mk-section mk-sales-pricing-section">
         <div className="mk-container">
           <div className="mk-section-heading">
-            <p className="mk-section-label"><span>05</span>Precios</p>
+            <p className="mk-section-label"><span>04</span>Precios</p>
             <h2>Paquetes para partir con una conversación seria.</h2>
             <p>
               Los valores son referenciales. Talkey se posiciona como una solución premium porque une conversación,
@@ -704,7 +699,7 @@ export function SalesPage() {
       <section id="comparacion" className="mk-section mk-sales-comparison-section">
         <div className="mk-container">
           <div className="mk-section-heading">
-            <p className="mk-section-label"><span>06</span>Comparación</p>
+            <p className="mk-section-label"><span>05</span>Comparación</p>
             <h2>Talkey hace todo lo que hacen otras herramientas y además cuida tu ciclo venta-postventa.</h2>
             <p>
               Si tu venta termina en instalación, garantía, postventa o soporte técnico, necesitas más que captar y convertir:
@@ -725,7 +720,7 @@ export function SalesPage() {
       <section id="agenda" className="mk-section mk-sales-final-section">
         <div className="mk-container mk-sales-final-card">
           <div>
-            <p className="mk-section-label"><span>07</span>Evaluación</p>
+            <p className="mk-section-label"><span>06</span>Evaluación</p>
             <h2>Veamos si Talkey Ventas calza con tu operación.</h2>
             <p>
               En 30 minutos revisamos canales, volumen de conversaciones, proceso comercial, criterios de calificación,

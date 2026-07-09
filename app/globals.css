@@ -4162,9 +4162,15 @@ button { cursor: pointer; }
 
 .mk-sales-hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(320px, .58fr);
-  align-items: end;
+  grid-template-columns: minmax(0, .95fr) minmax(520px, 1.05fr);
+  align-items: center;
   gap: clamp(34px, 5vw, 82px);
+}
+
+.mk-sales-hero-copy {
+  display: grid;
+  align-content: center;
+  gap: 24px;
 }
 
 .mk-sales-hero h1 {
@@ -4197,8 +4203,22 @@ button { cursor: pointer; }
 
 .mk-sales-hero-aside {
   display: grid;
+  min-width: 0;
   gap: 26px;
   padding-bottom: clamp(4px, 1vw, 14px);
+}
+
+.mk-sales-hero-demo-panel {
+  width: 100%;
+}
+
+.mk-sales-page .mk-hero-demo-callout p {
+  max-width: 260px;
+  color: #e7f1f3;
+}
+
+.mk-sales-page .mk-hero-demo-callout svg {
+  color: var(--sales-petrol-readable);
 }
 
 .mk-sales-console,
