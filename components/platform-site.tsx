@@ -538,10 +538,10 @@ const salesChatCopy = {
 const salesComparisonAdvantages = [
   "Conversa, califica, prioriza, detecta riesgo y propone próximos pasos.",
   "Une lead, oportunidad, historial y handoff hacia soporte o postventa.",
+  "Puede identificar producto o modelo por foto de etiqueta, QR o número de serie cuando la venta técnica lo requiere.",
   "Usa conocimiento de producto y operación para responder mejor y preparar cotizaciones.",
   "Detecta leads repetidos entre canales para no partir de cero.",
-  "Puede identificar producto o modelo por foto de etiqueta, QR o número de serie cuando la venta técnica lo requiere.",
-  "Permite ajustar criterios comerciales desde Talkey Editor sin depender de desarrollo.",
+  "Permite ajustar criterios comerciales desde Talkey Editor sin depender de cambios en el software.",
 ];
 
 export function SalesPage() {
