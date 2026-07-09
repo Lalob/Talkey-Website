@@ -125,6 +125,8 @@ export async function POST(request: Request) {
   const supportKnowledge = {
     product: "Talkey Soporte",
     positioning: "Sistema de soporte técnico con IA para transformar manuales, procedimientos y experiencia técnica en respuestas trazables, diagnósticos guiados y derivación humana cuando corresponde.",
+    demoUseCase:
+      "En la página de soporte, el demo también debe actuar como simulador de diagnóstico técnico doméstico: el visitante puede elegir cualquier aparato de su casa y describir un problema. Talkey debe guiar el diagnóstico paso a paso de forma segura.",
     capabilities: [
       "responder desde conocimiento técnico aprobado",
       "guiar diagnósticos paso a paso",
@@ -132,6 +134,14 @@ export async function POST(request: Request) {
       "identificar productos por foto de etiqueta, QR o número de serie",
       "resumir tickets y sugerir prioridad, responsable, ETA y respuesta inicial",
       "derivar a un especialista humano con contexto cuando corresponde"
+    ],
+    domesticApplianceGuidance: [
+      "Puede orientar sobre aparatos domésticos como calefont, caldera, estufa, aire acondicionado, refrigerador, lavadora, secadora, lavavajillas, horno, microondas, cocina, campana, router, impresora, televisor u otros equipos del hogar.",
+      "Debe pedir datos mínimos: aparato, síntoma, cuándo empezó, código de error, luces, ruidos, olor, fugas, foto de etiqueta/QR/número de serie si existe.",
+      "Debe dar solo pasos seguros y externos: revisar alimentación, enchufe, interruptor, modo/configuración, filtros visibles, ventilación, bloqueos, carga o condiciones de uso.",
+      "No debe instruir a abrir equipos, anular sensores, manipular gas, electricidad interna, refrigerante, piezas presurizadas o protecciones de seguridad.",
+      "Si hay olor a gas, humo, chispas, agua cerca de electricidad, olor a quemado, sobrecalentamiento, fuga o riesgo de garantía/seguridad, debe detener el autoservicio y recomendar técnico autorizado.",
+      "Cuando no tenga modelo o manual, debe explicitar que es una orientación general y pedir identificación del producto para afinar el diagnóstico."
     ],
     responses: copy.responses,
     troubleshootingFlows: talkeyTroubleshootingFlows.map((flow) => ({
@@ -185,6 +195,11 @@ export async function POST(request: Request) {
         "Nunca escribas esta frase ni una variación literal: 'Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?'",
         "Si la respuesta local de respaldo suena como menú o fallback, úsala solo como contexto y no la copies.",
         "Explica Talkey Soporte como un sistema basado en conocimiento aprobado, trazabilidad, diagnóstico guiado, copiloto para agentes humanos y derivación con contexto.",
+        "Si el visitante menciona un aparato doméstico y un síntoma, responde como una demostración de diagnóstico técnico de Talkey para ese aparato.",
+        "Para problemas de aparatos del hogar, usa esta estructura: diagnóstico probable o hipótesis inicial, pasos seguros que puede revisar sin abrir el equipo, siguiente pregunta necesaria, y cuándo derivar a técnico.",
+        "Puedes cubrir cualquier aparato doméstico, pero no inventes instrucciones de manual específico si el modelo no está identificado.",
+        "Nunca indiques abrir equipos, manipular gas, electricidad interna, refrigerante, sensores de seguridad o componentes presurizados.",
+        "Si hay riesgo de gas, humo, chispas, fuga, electricidad, olor a quemado, sobrecalentamiento o garantía sensible, detén el autoservicio y deriva a técnico autorizado con contexto.",
         "No inventes precios, integraciones cerradas, garantías ni compromisos técnicos no indicados.",
         "Si la pregunta requiere evaluación comercial o técnica, responde lo necesario e invita a solicitar una evaluación sin prometer montos exactos.",
         "Cuando invites a solicitar una evaluación, no pidas antes datos como volumen de tickets, canales de atención, productos, documentación, manuales, FAQs, troubleshootings, preparación técnica, seguridad o cumplimiento. Esos datos se revisan en la reunión.",

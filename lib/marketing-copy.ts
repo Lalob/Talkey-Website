@@ -216,7 +216,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       live: "Demo en vivo · Pruébala ahora",
       open: "Abrir demostración en vivo",
       minimize: "Minimizar demostración",
-      welcome: "Hola, soy Talkey. Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?",
+      welcome: "Hola, soy Talkey y estoy aquí para ayudarte. Elige un aparato cualquiera de tu casa y dime qué problema tienes con él.",
       prompts: [],
       placeholder: "Pregúntame sobre Talkey...",
       send: "Enviar mensaje",

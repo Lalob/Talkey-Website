@@ -7,7 +7,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   BadgeCheck,
-  BookOpenText,
   CalendarCheck,
   Database,
   Globe2,
@@ -174,6 +173,7 @@ const narrativeContent = {
       tertiary: "Ver precios",
       proof: ["Soporte técnico de calidad", "Menos dependencia individual", "Diagnósticos repetibles"],
       visualTitle: "Asistente virtual Talkey",
+      demoPrompt: "Prueba cómo Talkey resolvería un problema con un aparato de tu casa que elijas.",
     },
     problem: {
       kicker: "Problemas reales",
@@ -308,6 +308,7 @@ const narrativeContent = {
       tertiary: "Estimate price",
       proof: ["High-quality technical support", "Less individual dependency", "Repeatable diagnostics"],
       visualTitle: "Talkey virtual assistant",
+      demoPrompt: "Try how Talkey would solve a problem with any home appliance you choose.",
     },
     problem: {
       kicker: "Real problems",
@@ -437,6 +438,7 @@ const narrativeContent = {
       tertiary: "Stima prezzo",
       proof: ["Supporto tecnico di qualità", "Meno dipendenza individuale", "Diagnosi ripetibili"],
       visualTitle: "Assistente virtuale Talkey",
+      demoPrompt: "Prova come Talkey risolverebbe un problema con un qualsiasi apparecchio di casa tua.",
     },
     problem: {
       kicker: "Problemi reali",
@@ -580,7 +582,7 @@ function SupportPricingPackagesSection() {
     <section id="precios" className="mk-section mk-sales-pricing-section mk-support-package-pricing">
       <div className="mk-container">
         <div className="mk-section-heading">
-          <div className="mk-section-label"><span>07</span>Precios</div>
+          <div className="mk-section-label"><span>06</span>Precios</div>
           <h2>Paquetes para partir con soporte técnico estructurado.</h2>
           <p>
             Los valores son referenciales. Talkey se posiciona como una solución premium porque une asistente virtual,
@@ -751,22 +753,21 @@ export function CommercialHome({
                 </span>
               ))}
             </h1>
+            <p className="mk-hero-subtitle">{narrative.hero.body}</p>
             <div className="mk-hero-actions">
               <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("hero_request_evaluation_click")}>{narrative.hero.primary}<ArrowUpRight size={18} /></a>
-              <a className="mk-button mk-button-secondary" href="#demo" onClick={() => trackCta("hero_try_demo_click")}>{narrative.hero.secondary}<MessageSquareText size={18} /></a>
+              <a className="mk-button mk-button-secondary" href="#demo-hero" onClick={() => trackCta("hero_try_demo_click")}>{narrative.hero.secondary}<MessageSquareText size={18} /></a>
               <a className="mk-button mk-button-secondary" href="#precios" onClick={() => trackCta("hero_estimate_price_click")}>{narrative.hero.tertiary}<ArrowRight size={18} /></a>
             </div>
           </div>
           <div className="mk-hero-visual">
-            <article className="mk-hero-knowledge">
-              <div className="mk-hero-knowledge-top">
-                <span><BookOpenText size={28} /></span>
-                <div>
-                  <strong>{narrative.hero.visualTitle}</strong>
-                  <p>{narrative.hero.body}</p>
-                </div>
+            <div id="demo-hero" className="mk-hero-demo-panel">
+              <MarketingChatDemo copy={copy.chat} aiMode={aiDemo} />
+              <div className="mk-hero-demo-callout">
+                <p>{narrative.hero.demoPrompt}</p>
+                <ArrowRight size={36} aria-hidden="true" />
               </div>
-            </article>
+            </div>
           </div>
         </div>
       </section>
@@ -830,21 +831,10 @@ export function CommercialHome({
         </div>
       </section>
 
-      <section id="demo" className="mk-section mk-demo-section">
-        <div className="mk-container mk-demo-grid">
-          <div className="mk-demo-copy">
-            <div className="mk-section-label"><span>05</span>{narrative.demo.kicker}</div>
-            <h2>{narrative.demo.title}</h2>
-            <p>{narrative.demo.body}</p>
-          </div>
-          <MarketingChatDemo copy={copy.chat} aiMode={aiDemo} />
-        </div>
-      </section>
-
       <section className="mk-section mk-privacy">
         <div className="mk-container">
           <div className="mk-section-heading mk-privacy-heading">
-            <div className="mk-section-label"><span>06</span>{narrative.securityPrivacy.kicker}</div>
+            <div className="mk-section-label"><span>05</span>{narrative.securityPrivacy.kicker}</div>
             <h2>{narrative.securityPrivacy.title}</h2>
             {narrative.securityPrivacy.body ? <p>{narrative.securityPrivacy.body}</p> : null}
           </div>
@@ -871,7 +861,7 @@ export function CommercialHome({
       <section className="mk-section mk-integrations">
         <div className="mk-container">
           <div className="mk-section-heading">
-            <div className="mk-section-label"><span>08</span>{narrative.integrations.kicker}</div>
+            <div className="mk-section-label"><span>07</span>{narrative.integrations.kicker}</div>
             <h2>{narrative.integrations.title}</h2>
             <p>{narrative.integrations.body}</p>
           </div>
@@ -893,7 +883,7 @@ export function CommercialHome({
       <section className="mk-section mk-faq">
         <div className="mk-container">
           <div className="mk-section-heading">
-            <div className="mk-section-label"><span>09</span>{narrative.faq.kicker}</div>
+            <div className="mk-section-label"><span>08</span>{narrative.faq.kicker}</div>
             <h2>{narrative.faq.title}</h2>
           </div>
           <div className="mk-faq-grid">
@@ -927,7 +917,7 @@ export function CommercialHome({
       <section id="agenda" className="mk-section mk-contact">
         <div className="mk-container mk-contact-grid">
           <div className="mk-contact-copy">
-            <div className="mk-section-label"><span>10</span>{copy.scheduler.kicker}</div>
+            <div className="mk-section-label"><span>09</span>{copy.scheduler.kicker}</div>
             <h2>{copy.scheduler.title}</h2>
             <p>{copy.scheduler.body}</p>
             <div className="mk-contact-badge"><Globe2 size={18} /><span>ES · EN · IT</span></div>

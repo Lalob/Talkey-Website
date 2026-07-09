@@ -156,7 +156,7 @@ const appManuals: AppManual[] = [
     ],
     links: [
       { label: "Ver solución para soporte", href: "/soporte-tecnico" },
-      { label: "Ver demo de soporte", href: "/soporte-tecnico#demo" },
+      { label: "Ver demo de soporte", href: "/soporte-tecnico#demo-hero" },
     ],
     before: [
       "Ten a mano tu email, nombre y teléfono de contacto.",

@@ -78,6 +78,51 @@ function stripForbiddenDemoIntro(text: string) {
   return sanitized || "Puedo orientarte con lo esencial y, si quieres verlo aplicado a tu operación, puedes solicitar una evaluación.";
 }
 
+const householdAppliancePattern =
+  /(calef[oó]n|calefont|termo|caldera|estufa|calefactor|aire acondicionado|split|refrigerador|nevera|congelador|freezer|lavadora|secadora|lavavajillas|lavaplatos|horno|microondas|cocina|encimera|campana|extractor|aspiradora|televisor|tv|router|wifi|impresora|notebook|computador|pc|monitor|cafetera|hervidor|batidora|licuadora|tostadora|freidora|ventilador|purificador|aparato|electrodom[eé]stico|equipo)/i;
+
+const householdSymptomPattern =
+  /(no enciende|no prende|no funciona|no responde|no enfr[ií]a|no calienta|no carga|no centrifuga|no lava|no seca|no congela|gotea|pierde agua|pierde gas|huele a gas|hace ruido|vibra|se apaga|se reinicia|marca error|c[oó]digo|falla|problema|bloqueado|atascado|sale humo|chispa|quemado|baja presi[oó]n|sin se[nñ]al|lento|no conecta|no imprime)/i;
+
+function looksLikeHouseholdApplianceIssue(message: string) {
+  const normalized = normalizeCommand(message);
+  if (/(talkey|precio|costo|implement|integr|zendesk|intercom|elevenlabs|chatgpt|vambe|crm|software|empresa|soporte tecnico de mi empresa)/i.test(normalized)) return false;
+  return householdAppliancePattern.test(message) || (
+    householdSymptomPattern.test(message) &&
+    /(^|\b)(mi|el|la|un|una|este|esta|aparato|equipo|electrodomestico|electrodom[eé]stico)(\b|$)/i.test(message)
+  );
+}
+
+function extractApplianceName(message: string) {
+  const explicitMatch = message.match(householdAppliancePattern);
+  if (explicitMatch?.[0]) return explicitMatch[0].toLocaleLowerCase();
+
+  const genericMatch = message.match(/\b(?:mi|el|la|un|una|este|esta)\s+([a-záéíóúñ][a-záéíóúñ\s-]{2,36}?)(?:\s+(?:no|est[aá]|tiene|hace|gotea|pierde|marca|enciende|funciona|prende)|[,.]|$)/i);
+  return genericMatch?.[1]?.trim().toLocaleLowerCase() || "aparato";
+}
+
+function buildHouseholdAppliancePlan(message: string): ReplyPlan {
+  const appliance = extractApplianceName(message);
+  const risky = /(olor a gas|huele a gas|gas|humo|chispa|chispas|quemado|incendio|fuga|agua.*electric|electricidad.*agua|descarga|corto circuito|cortocircuito|sobrecalienta|muy caliente)/i.test(message);
+
+  if (risky) {
+    return {
+      replies: [{
+        danger: true,
+        text: `Trabajemos con el ${appliance}. Primero va seguridad: si hay olor a gas, humo, chispas, fuga de agua cerca de electricidad, olor a quemado o calentamiento anormal, no sigas manipulándolo. Apágalo, desconéctalo si es seguro hacerlo, corta el suministro correspondiente y contacta a un técnico autorizado.\n\nSi no hay riesgo inmediato, dime modelo o envía una foto de la etiqueta/QR/número de serie y describe el síntoma exacto. Con eso puedo guiar el siguiente paso de diagnóstico.`,
+      }],
+      mode: "idle",
+    };
+  }
+
+  return {
+    replies: [{
+      text: `Perfecto, trabajemos con el ${appliance}. Como demo, Talkey partiría levantando contexto y seguridad antes de recomendar una acción.\n\n1. Confirma si hay código de error, luz parpadeando, ruido, olor, fuga o cambio reciente.\n2. Si puedes, identifica el modelo con una foto de la etiqueta, QR o número de serie.\n3. Revisa lo básico sin abrir el equipo: alimentación eléctrica, enchufe, interruptor, configuración/modo, filtros visibles, ventilación y bloqueos externos.\n\nAhora dime qué síntoma exacto ves y desde cuándo ocurre. Con eso sigo el diagnóstico paso a paso y, si aparece riesgo o baja certeza, lo derivaría con contexto a un técnico.`,
+    }],
+    mode: "idle",
+  };
+}
+
 export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }: { copy: MarketingCopy["chat"]; aiMode?: boolean; variant?: "support" | "sales" }) {
   const [messages, setMessages] = useState<DemoMessage[]>([
     { id: "welcome", sender: "assistant", text: copy.welcome },
@@ -354,6 +399,10 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
         answers: [],
         questionIndex: 0,
       };
+    }
+
+    if (looksLikeHouseholdApplianceIssue(message)) {
+      return buildHouseholdAppliancePlan(message);
     }
 
     if (/(que problema resuelve|que resuelve talkey|para que sirve talkey|what problem does talkey solve|quale problema risolve talkey)/i.test(commandValue)) {
