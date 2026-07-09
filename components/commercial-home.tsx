@@ -198,6 +198,8 @@ const narrativeContent = {
       kicker: "Seguridad y privacidad",
       title: "Control para soporte técnico sensible",
       body: "",
+      dataOwnership:
+        "En TALKEY, tus datos son tuyos. Puedes exportar tickets, conversaciones, historial, documentos técnicos, estados, responsables y decisiones de derivación en formatos utilizables cuando quieras. No bloqueamos tu operación si decides irte.",
       items: [
         { title: "Conocimiento separado por cliente", text: "Cada empresa trabaja con su propia base de conocimiento, criterios y procedimientos, sin mezclar información con otros clientes." },
         { title: "Sin entrenamiento cruzado", text: "Las conversaciones y documentos de una empresa no se usan para entrenar respuestas de otra empresa." },
@@ -799,6 +801,12 @@ export function CommercialHome({
               </article>
             ))}
           </div>
+          {"dataOwnership" in narrative.securityPrivacy && narrative.securityPrivacy.dataOwnership ? (
+            <div className="mk-privacy-data-note">
+              <ShieldCheck size={22} />
+              <p>{narrative.securityPrivacy.dataOwnership}</p>
+            </div>
+          ) : null}
         </div>
       </section>
 

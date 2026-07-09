@@ -1006,6 +1006,27 @@ button { cursor: pointer; }
   font-size: 15px;
   line-height: 1.6;
 }
+.mk-privacy-data-note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  margin-top: 18px;
+  border: 1px solid #4a3e1e;
+  border-radius: 22px;
+  padding: 22px 24px;
+  background:
+    linear-gradient(135deg, rgba(255,198,56,.12), rgba(255,198,56,0) 38%),
+    #14120d;
+  color: var(--mk-yellow);
+}
+.mk-privacy-data-note p {
+  margin: 0;
+  color: #eee7d4;
+  font-size: 17px;
+  font-weight: 680;
+  line-height: 1.62;
+}
 
 .mk-faq { border-top: 1px solid #292929; background: #101010; }
 .mk-faq .mk-section-heading {
