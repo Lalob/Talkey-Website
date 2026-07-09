@@ -137,6 +137,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
   const [implementationAsked, setImplementationAsked] = useState(false);
   const [dockOpen, setDockOpen] = useState(false);
   const [nearPricing, setNearPricing] = useState(false);
+  const [persistentAvailable, setPersistentAvailable] = useState(false);
   const conversationRef = useRef<HTMLDivElement>(null);
   const dockConversationRef = useRef<HTMLDivElement>(null);
   const lastAssistantMessageIdRef = useRef<string | null>(null);
@@ -168,10 +169,15 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
 
   useEffect(() => {
     const updateFloatingPosition = () => {
+      const heroElement = document.getElementById("top");
+      const heroRect = heroElement?.getBoundingClientRect();
+      const nextPersistentAvailable = heroRect ? heroRect.bottom <= 0 : true;
       const pricingElement = document.getElementById("precios");
       const pricingRect = pricingElement?.getBoundingClientRect();
       const nextNearPricing = !!pricingRect && pricingRect.top < window.innerHeight && pricingRect.bottom > 0;
+      setPersistentAvailable(nextPersistentAvailable);
       setNearPricing(nextNearPricing);
+      if (!nextPersistentAvailable) setDockOpen(false);
     };
     updateFloatingPosition();
     window.addEventListener("scroll", updateFloatingPosition, { passive: true });
@@ -698,22 +704,24 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     <div className={`mk-chat-wrap ${variant === "sales" ? "is-sales-chat" : ""}`} aria-label={copy.live}>
       <div className="mk-chat-glow" />
       {renderCard("hero")}
-      <aside className={`mk-chat-persistent ${dockOpen ? "is-open" : ""} ${nearPricing ? "is-near-pricing" : ""}`} data-testid="persistent-chat" aria-label={copy.live}>
-        {dockOpen ? renderCard("dock") : (
-          <button
-            className="mk-chat-launcher"
-            type="button"
-            onClick={() => {
-              trackEvent("demo_opened", { source: "floating_launcher" });
-              setDockOpen(true);
-            }}
-            aria-label={copy.open}
-          >
-            <span><MessageCircleMore size={22} /></span>
-            <strong>{copy.live}</strong>
-          </button>
-        )}
-      </aside>
+      {persistentAvailable && (
+        <aside className={`mk-chat-persistent ${dockOpen ? "is-open" : ""} ${nearPricing ? "is-near-pricing" : ""}`} data-testid="persistent-chat" aria-label={copy.live}>
+          {dockOpen ? renderCard("dock") : (
+            <button
+              className="mk-chat-launcher"
+              type="button"
+              onClick={() => {
+                trackEvent("demo_opened", { source: "floating_launcher" });
+                setDockOpen(true);
+              }}
+              aria-label={copy.open}
+            >
+              <span><MessageCircleMore size={22} /></span>
+              <strong>{copy.live}</strong>
+            </button>
+          )}
+        </aside>
+      )}
     </div>
   );
 }
