@@ -714,7 +714,7 @@ export function SalesPage() {
             <h2>Veamos si Talkey Ventas calza con tu operación.</h2>
             <p>
               En 30 minutos revisamos canales, volumen de conversaciones, proceso comercial, criterios de calificación,
-              CRM actual y qué haría falta para implementarlo bien.
+              CRM actual y qué haría falta para implementar TALKEY.
             </p>
           </div>
           <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">
