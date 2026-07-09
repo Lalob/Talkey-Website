@@ -586,6 +586,13 @@ export function SalesPage() {
               priorizar bien y sostener seguimiento sin depender de memoria individual.
             </p>
           </div>
+          <article className="mk-sales-smart-agent-callout">
+            <strong>Smart Agent interno</strong>
+            <p>
+              Además del flujo visible, Talkey prioriza el pipeline, detecta riesgos, prepara correos de seguimiento
+              y sugiere próximos pasos para que cada ejecutivo avance oportunidades con más claridad.
+            </p>
+          </article>
           <SalesProblemTable problems={salesProblems} />
         </div>
       </section>
@@ -623,7 +630,6 @@ export function SalesPage() {
             </p>
             <div className="mk-sales-editor-points">
               <p><strong>Configurable sin desarrollo.</strong> Ajusta preguntas, objeciones, scoring y reglas comerciales cuando cambia tu operación.</p>
-              <p><strong>Smart Agent interno.</strong> Prioriza pipeline, detecta riesgos y prepara correos o próximos pasos para el ejecutivo.</p>
               <p><strong>CRM flexible.</strong> Usa el CRM inteligente de Talkey o intégralo con el CRM que ya utiliza tu empresa.</p>
               <p><strong>Implementación acompañada.</strong> Si faltan criterios, preguntas o reglas, TALKEY puede ayudar a estructurarlos.</p>
             </div>
