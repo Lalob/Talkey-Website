@@ -3456,7 +3456,7 @@ button { cursor: pointer; }
   display: block;
   min-height: 100svh;
   overflow-x: clip;
-  overflow-y: visible;
+  overflow-y: clip;
   overscroll-behavior-y: auto;
   scroll-snap-type: none;
 }
@@ -3776,7 +3776,7 @@ button { cursor: pointer; }
     height: auto;
     max-height: none;
     overflow-x: clip;
-    overflow-y: visible;
+    overflow-y: clip;
     scroll-snap-type: none;
   }
 
@@ -5308,7 +5308,7 @@ button { cursor: pointer; }
     max-height: none;
     min-height: 100dvh;
     overflow-x: clip;
-    overflow-y: visible;
+    overflow-y: clip;
     overscroll-behavior-y: auto;
     scroll-snap-type: none;
     touch-action: pan-y;
