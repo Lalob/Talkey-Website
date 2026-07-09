@@ -14,7 +14,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body {
   margin: 0;
   background: var(--background);
@@ -3457,6 +3457,8 @@ button { cursor: pointer; }
   min-height: 100svh;
   overflow-x: hidden;
   overflow-y: visible;
+  overscroll-behavior-y: auto;
+  scroll-snap-type: none;
 }
 
 .mk-platform-home-minimal .mk-platform-hero {
@@ -3464,6 +3466,8 @@ button { cursor: pointer; }
   align-items: center;
   min-height: auto;
   padding: clamp(14px, 2svh, 26px) 0;
+  scroll-snap-align: none;
+  scroll-snap-stop: normal;
 }
 
 .mk-platform-home-minimal .mk-header {
@@ -3606,6 +3610,8 @@ button { cursor: pointer; }
   background:
     radial-gradient(circle at 12% 0%, rgba(255,198,56,.12), transparent 28%),
     linear-gradient(180deg, #0a0a0a, #070707);
+  scroll-snap-align: none;
+  scroll-snap-stop: normal;
 }
 
 .mk-platform-home-how-head {
@@ -3771,6 +3777,7 @@ button { cursor: pointer; }
     max-height: none;
     overflow-x: hidden;
     overflow-y: visible;
+    scroll-snap-type: none;
   }
 
   .mk-platform-home-minimal .mk-platform-hero {
@@ -5302,6 +5309,8 @@ button { cursor: pointer; }
     min-height: 100dvh;
     overflow-x: clip;
     overflow-y: visible;
+    overscroll-behavior-y: auto;
+    scroll-snap-type: none;
     touch-action: pan-y;
   }
 
