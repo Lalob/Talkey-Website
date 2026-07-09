@@ -631,7 +631,7 @@ export function SalesPage() {
             <div className="mk-sales-editor-points">
               <p><strong>Configurable sin desarrollo.</strong> Ajusta preguntas, objeciones, scoring y reglas comerciales cuando cambia tu operación.</p>
               <p><strong>CRM flexible.</strong> Usa el CRM inteligente de Talkey o intégralo con el CRM que ya utiliza tu empresa.</p>
-              <p><strong>Implementación acompañada.</strong> Si faltan criterios, preguntas o reglas, TALKEY puede ayudar a estructurarlos.</p>
+              <p><strong>Implementación acompañada.</strong> Si faltan criterios, preguntas o reglas, TALKEY puede ayudar a crearlos y estructurarlos.</p>
             </div>
             <div className="mk-sales-data-note">
               <ShieldCheck size={22} />
