@@ -626,6 +626,10 @@ export function SalesPage() {
               prepara correos de seguimiento y sugiere próximos pasos para que el ejecutivo avance oportunidades con más claridad.
             </p>
             <p>
+              Puedes usar el CRM completo e inteligente de Talkey o integrarlo con el CRM que ya usa tu empresa,
+              manteniendo contactos, oportunidades, historial y próximos pasos conectados.
+            </p>
+            <p>
               Si la empresa todavía no tiene criterios comerciales, preguntas de calificación, objeciones frecuentes,
               reglas de seguimiento o datos mínimos para cotizar bien definidos, TALKEY puede ayudar a estructurarlos
               durante la implementación.
