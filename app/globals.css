@@ -1438,6 +1438,14 @@ button { cursor: pointer; }
   color: var(--comparison-accent);
 }
 
+.mk-comparison-showcase-sales .mk-comparison-source-list article {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.mk-comparison-showcase-sales .mk-comparison-source-list span {
+  display: none;
+}
+
 .mk-comparison-showcase-sales .mk-comparison-talkey-eyebrow {
   font-size: clamp(44px, 5.8vw, 82px);
   line-height: .9;
