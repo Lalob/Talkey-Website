@@ -66,12 +66,21 @@ const products: Array<{
 ];
 
 const platformHomeFlow = [
-  "Conversa",
-  "Identifica producto/intención",
-  "Consulta conocimiento",
-  "Clasifica",
-  "Responde o deriva",
-  "Deja el caso listo para la siguiente acción",
+  {
+    title: "Chat",
+    detail: "Captura conversaciones de ventas y soporte desde el primer contacto.",
+    icon: MessageSquare,
+  },
+  {
+    title: "CRM automatizado",
+    detail: "Ordena clientes, oportunidades, tickets, estados y próximos pasos.",
+    icon: Database,
+  },
+  {
+    title: "Soporte inteligente",
+    detail: "Resuelve, deriva con contexto y alimenta la siguiente conversación.",
+    icon: Headphones,
+  },
 ];
 
 const pricing = [
@@ -422,13 +431,30 @@ export function PlatformHome() {
             <h2 id="talkey-how-title">Cómo funciona Talkey</h2>
           </div>
 
-          <div className="mk-platform-home-flow" aria-label="Flujo de funcionamiento de Talkey">
-            {platformHomeFlow.map((step, index) => (
-              <article key={step}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <strong>{step}</strong>
-              </article>
-            ))}
+          <div className="mk-platform-home-loop" aria-label="Flujo continuo: Chat, CRM automatizado, Soporte inteligente y vuelta a Chat">
+            <svg className="mk-platform-home-loop-svg" viewBox="0 0 760 460" aria-hidden="true">
+              <path className="mk-loop-path mk-loop-path-one" d="M 420 90 C 565 80 705 145 690 230" />
+              <path className="mk-loop-path mk-loop-path-two" d="M 645 315 C 535 430 315 430 165 340" />
+              <path className="mk-loop-path mk-loop-path-three" d="M 120 300 C 24 198 104 158 260 160" />
+            </svg>
+            <ArrowRight className="mk-loop-arrow mk-loop-arrow-one" size={34} aria-hidden="true" />
+            <ArrowRight className="mk-loop-arrow mk-loop-arrow-two" size={34} aria-hidden="true" />
+            <ArrowRight className="mk-loop-arrow mk-loop-arrow-three" size={34} aria-hidden="true" />
+
+            {platformHomeFlow.map((step, index) => {
+              const Icon = step.icon;
+
+              return (
+                <article className={`mk-loop-node mk-loop-node-${index + 1}`} key={step.title}>
+                  <span>
+                    <Icon size={28} />
+                  </span>
+                  <strong>{step.title}</strong>
+                  <p>{step.detail}</p>
+                </article>
+              );
+            })}
+
           </div>
         </div>
       </section>
