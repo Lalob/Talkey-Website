@@ -18,6 +18,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
+import { ComparisonShowcase } from "@/components/comparison-showcase";
 import { MarketingChatDemo } from "@/components/marketing-chat-demo";
 import { MarketingScheduler } from "@/components/marketing-scheduler";
 import { PricingSimulator } from "@/components/pricing-simulator";
@@ -35,7 +36,60 @@ const navLineBreakLabels: Record<MarketingLocale, { cases: [string, string]; pri
 };
 
 const previewItemCount = 3;
-type ExpandableListKey = "problems" | "comparison" | "faq";
+type ExpandableListKey = "problems" | "faq";
+
+const supportComparisonShowcaseContent: Record<
+  MarketingLocale,
+  {
+    sourceTitle: string;
+    summaryTitle: string;
+    summaryBody: string;
+    advantages: string[];
+  }
+> = {
+  es: {
+    sourceTitle: "Alternativas que cubren partes del soporte",
+    summaryTitle: "TALKEY hace todo eso + diagnóstico técnico con contexto.",
+    summaryBody:
+      "No es solo tickets, voz o una base de conocimiento: une identificación de producto, conocimiento aprobado, diagnóstico guiado y derivación preparada.",
+    advantages: [
+      "Reconoce el producto por foto de etiqueta, QR o número de serie tomada con el celular.",
+      "Convierte manuales, procedimientos y troubleshootings en diagnóstico guiado.",
+      "Responde desde conocimiento aprobado e historial del cliente, no desde cero.",
+      "Ayuda al agente humano con resumen, prioridad, responsable, ETA, duplicados y respuesta inicial.",
+      "Resuelve o deriva con contexto cuando hace falta un especialista.",
+      "Puede sugerir convertir casos cerrados en artículos reutilizables de base de conocimiento.",
+    ],
+  },
+  en: {
+    sourceTitle: "Alternatives that cover parts of support",
+    summaryTitle: "TALKEY does all that + technical diagnosis with context.",
+    summaryBody:
+      "It is not only tickets, voice or a knowledge base: it connects product identification, approved knowledge, guided diagnosis and prepared handoff.",
+    advantages: [
+      "Recognizes the product from a label, QR code or serial number photo taken with a phone.",
+      "Turns manuals, procedures and troubleshootings into guided diagnosis.",
+      "Answers from approved knowledge and customer history, not from scratch.",
+      "Helps human agents with summary, priority, owner, ETA, duplicates and initial response.",
+      "Resolves or hands off with context when a specialist is needed.",
+      "Can suggest turning closed cases into reusable knowledge base articles.",
+    ],
+  },
+  it: {
+    sourceTitle: "Alternative che coprono parti del supporto",
+    summaryTitle: "TALKEY fa tutto questo + diagnosi tecnica con contesto.",
+    summaryBody:
+      "Non è solo ticket, voce o una base di conoscenza: collega identificazione del prodotto, conoscenza approvata, diagnosi guidata e passaggio preparato.",
+    advantages: [
+      "Riconosce il prodotto da una foto di etichetta, QR o numero di serie scattata con il cellulare.",
+      "Trasforma manuali, procedure e troubleshooting in diagnosi guidata.",
+      "Risponde da conoscenza approvata e storico cliente, non da zero.",
+      "Aiuta gli agenti umani con riepilogo, priorità, responsabile, ETA, duplicati e risposta iniziale.",
+      "Risolve o passa il caso con contesto quando serve uno specialista.",
+      "Può suggerire di trasformare casi chiusi in articoli riutilizzabili di knowledge base.",
+    ],
+  },
+};
 
 const supportPricingPackages = [
   {
@@ -555,7 +609,6 @@ export function CommercialHome({
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedLists, setExpandedLists] = useState<Record<ExpandableListKey, boolean>>({
     problems: false,
-    comparison: false,
     faq: false,
   });
   const expandedListOpenScrollY = useRef<Partial<Record<ExpandableListKey, number>>>({});
@@ -568,14 +621,8 @@ export function CommercialHome({
     ...narrative.problem.pairs.slice(4),
   ];
   const visibleProblemRows = expandedLists.problems ? problemRows : problemRows.slice(0, previewItemCount);
-  const visibleComparisonItems = expandedLists.comparison ? narrative.comparison.items : narrative.comparison.items.slice(0, previewItemCount);
   const visibleFaqItems = expandedLists.faq ? narrative.faq.items : narrative.faq.items.slice(0, previewItemCount);
-  const comparisonLabels: Record<MarketingLocale, { option: string; advantage: string }> = {
-    es: { option: "Opción", advantage: "Ventaja de Talkey" },
-    en: { option: "Option", advantage: "Talkey advantage" },
-    it: { option: "Opzione", advantage: "Vantaggio di Talkey" },
-  };
-  const comparisonLabel = comparisonLabels[locale];
+  const supportComparisonShowcase = supportComparisonShowcaseContent[locale];
 
   useEffect(() => {
     if (!detectClientLocale) {
@@ -629,7 +676,6 @@ export function CommercialHome({
     const isExpanded = expandedLists[key];
     const collapsedLabels: Record<ExpandableListKey, string> = {
       problems: narrative.controls.showMoreProblems,
-      comparison: narrative.controls.showMoreComparisons,
       faq: narrative.controls.showMoreFaq,
     };
 
@@ -750,27 +796,20 @@ export function CommercialHome({
       </section>
 
       <section id="comparacion" className="mk-section mk-security">
-        <div className="mk-container mk-security-grid">
-          <div className="mk-security-copy">
+        <div className="mk-container">
+          <div className="mk-section-heading mk-comparison-showcase-heading">
             <div className="mk-section-label"><span>04</span>{narrative.comparison.kicker}</div>
             <h2>{narrative.comparison.title}</h2>
             <p>{narrative.comparison.body}</p>
           </div>
-          <div className="mk-comparison-stack">
-            <div className="mk-comparison-table" role="table" aria-label={narrative.comparison.title}>
-              <div className="mk-comparison-table-head" role="row">
-                <span role="columnheader">{comparisonLabel.option}</span>
-                <span role="columnheader">{comparisonLabel.advantage}</span>
-              </div>
-              {visibleComparisonItems.map((item) => (
-                <article className="mk-comparison-table-row" key={item.title} role="row">
-                  <h3 role="cell">{item.title}</h3>
-                  <p role="cell">{item.text}</p>
-                </article>
-              ))}
-            </div>
-            {renderListToggle("comparison", narrative.comparison.items.length)}
-          </div>
+          <ComparisonShowcase
+            sourceTitle={supportComparisonShowcase.sourceTitle}
+            items={narrative.comparison.items}
+            summaryTitle={supportComparisonShowcase.summaryTitle}
+            summaryBody={supportComparisonShowcase.summaryBody}
+            advantages={supportComparisonShowcase.advantages}
+            variant="support"
+          />
         </div>
       </section>
 

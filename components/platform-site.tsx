@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ComparisonShowcase } from "@/components/comparison-showcase";
 import { MarketingChatDemo } from "@/components/marketing-chat-demo";
 import { DemoPanel, type DemoOption } from "@/components/platform-demo-panel";
-import { SalesComparisonTable } from "@/components/sales-comparison-table";
 import { SalesProblemTable } from "@/components/sales-problem-table";
 import { talkeyBookingUrl } from "@/lib/booking";
 import { marketingCopy } from "@/lib/marketing-copy";
@@ -553,6 +553,15 @@ const salesMetrics = [
   { value: "0", label: "leads duplicados tratados como nuevos" },
 ];
 
+const salesComparisonAdvantages = [
+  "Conversa, califica, prioriza, detecta riesgo y propone próximos pasos.",
+  "Une lead, oportunidad, historial y handoff hacia soporte o postventa.",
+  "Usa conocimiento de producto y operación para responder mejor y preparar cotizaciones.",
+  "Detecta leads repetidos entre canales para no partir de cero.",
+  "Puede identificar producto o modelo por foto de etiqueta, QR o número de serie cuando la venta técnica lo requiere.",
+  "Permite ajustar criterios comerciales desde Talkey Editor sin depender de desarrollo.",
+];
+
 export function SalesPage() {
   const content = suiteContent.ventas;
   const year = new Date().getUTCFullYear();
@@ -697,7 +706,14 @@ export function SalesPage() {
               necesitas que el contexto siga vivo después del cierre.
             </p>
           </div>
-          <SalesComparisonTable items={content.comparison} />
+          <ComparisonShowcase
+            sourceTitle="Alternativas que cubren partes del flujo comercial"
+            items={content.comparison}
+            summaryTitle="TALKEY hace todo eso + continuidad ventas-postventa."
+            summaryBody="No es solo CRM, automatización o agenda: conecta la conversación comercial con el contexto operativo que viene después."
+            advantages={salesComparisonAdvantages}
+            variant="sales"
+          />
         </div>
       </section>
 
