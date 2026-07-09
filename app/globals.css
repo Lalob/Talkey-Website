@@ -4081,9 +4081,8 @@ button { cursor: pointer; }
 .mk-sales-console,
 .mk-sales-card-grid article,
 .mk-sales-feature-grid article,
-.mk-sales-editor-list,
-.mk-sales-final-card,
-.mk-sales-metrics-grid article {
+.mk-sales-editor-card,
+.mk-sales-final-card {
   border: 1px solid var(--sales-line);
   background:
     radial-gradient(circle at 14% 10%, rgba(18,53,91,.18), transparent 34%),
@@ -4154,8 +4153,7 @@ button { cursor: pointer; }
 .mk-sales-pricing-section,
 .mk-sales-comparison-section,
 .mk-sales-editor-section,
-.mk-sales-final-section,
-.mk-sales-metrics-section {
+.mk-sales-final-section {
   border-top: 1px solid #222;
 }
 
@@ -4224,8 +4222,7 @@ button { cursor: pointer; }
 }
 
 .mk-sales-card-grid,
-.mk-sales-feature-grid,
-.mk-sales-metrics-grid {
+.mk-sales-feature-grid {
   display: grid;
   gap: 16px;
   margin-top: 52px;
@@ -4244,8 +4241,7 @@ button { cursor: pointer; }
 
 .mk-sales-card-grid article:hover,
 .mk-sales-feature-grid article:hover,
-.mk-sales-page .mk-comparison-grid article:hover,
-.mk-sales-metrics-grid article:hover {
+.mk-sales-page .mk-comparison-grid article:hover {
   border-color: var(--sales-petrol-hover);
   background:
     radial-gradient(circle at 14% 10%, rgba(18,53,91,.24), transparent 36%),
@@ -4444,20 +4440,24 @@ button { cursor: pointer; }
   gap: clamp(32px, 5vw, 72px);
 }
 
-.mk-sales-editor-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+.mk-sales-editor-card {
   border-radius: 24px;
-  padding: 24px;
+  padding: clamp(24px, 3vw, 36px);
 }
 
-.mk-sales-editor-list span {
-  border: 1px solid #2d2d2d;
-  border-radius: 14px;
-  padding: 14px;
-  color: var(--sales-ink);
-  font-weight: 850;
+.mk-sales-editor-card p {
+  margin: 0;
+  color: var(--sales-muted);
+  font-size: clamp(16px, 1.1vw, 18px);
+  line-height: 1.62;
+}
+
+.mk-sales-editor-card p + p {
+  margin-top: 18px;
+}
+
+.mk-sales-editor-card .mk-sales-data-note {
+  margin-top: 24px;
 }
 
 .mk-sales-page .mk-platform-demo {
@@ -4639,6 +4639,15 @@ button { cursor: pointer; }
   line-height: 1;
 }
 
+.mk-package-grid strong span {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 850;
+  letter-spacing: -.02em;
+  vertical-align: baseline;
+}
+
 .mk-sales-pricing-section .mk-package-grid small {
   margin-top: 12px;
   font-size: 15px;
@@ -4692,30 +4701,6 @@ button { cursor: pointer; }
   background:
     linear-gradient(145deg, rgba(18,53,91,.1), rgba(18,53,91,0) 36%),
     #141414;
-}
-
-.mk-sales-metrics-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: 0;
-}
-
-.mk-sales-metrics-grid article {
-  border-radius: 24px;
-  padding: 28px;
-}
-
-.mk-sales-metrics-grid strong {
-  display: block;
-  color: var(--sales-petrol-readable);
-  font-size: clamp(46px, 5vw, 72px);
-  line-height: .92;
-}
-
-.mk-sales-metrics-grid p {
-  margin: 16px 0 0;
-  color: var(--sales-muted);
-  font-size: 16px;
-  line-height: 1.45;
 }
 
 .mk-sales-final-card {
@@ -4847,7 +4832,6 @@ button { cursor: pointer; }
 
   .mk-sales-card-grid,
   .mk-sales-feature-grid,
-  .mk-sales-metrics-grid,
   .mk-package-grid,
   .mk-comparison-grid {
     grid-template-columns: 1fr;
@@ -4910,9 +4894,6 @@ button { cursor: pointer; }
     border-bottom: 1px solid #2d2d2d;
   }
 
-  .mk-sales-editor-list {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 560px) {
@@ -4923,7 +4904,7 @@ button { cursor: pointer; }
   .mk-sales-console,
   .mk-sales-card-grid article,
   .mk-sales-feature-grid article,
-  .mk-sales-editor-list,
+  .mk-sales-editor-card,
   .mk-sales-final-card {
     border-radius: 20px;
   }

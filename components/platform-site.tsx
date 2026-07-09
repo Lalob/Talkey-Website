@@ -80,8 +80,7 @@ const pricing = [
     description:
       "Para empresas que quieren ordenar conversaciones entrantes, calificar leads y empezar con automatización comercial clara.",
     price: "$650.000 CLP",
-    detail: "al mes",
-    setup: "Implementación desde $850.000 CLP",
+    setup: "Implementación desde $850.000 CLP (se paga solo una vez)",
     highlighted: false,
     features: [
       "Una solución: ventas o soporte",
@@ -96,8 +95,7 @@ const pricing = [
     description:
       "Para equipos que ya tienen más volumen, varios canales, seguimiento activo, scoring y necesidad de conectar mejor ventas con operación.",
     price: "$950.000 CLP",
-    detail: "al mes",
-    setup: "Implementación desde $1.300.000 CLP",
+    setup: "Implementación desde $1.300.000 CLP (se paga solo una vez)",
     highlighted: true,
     features: [
       "Solución para ventas + Solución para soporte",
@@ -112,8 +110,7 @@ const pricing = [
     description:
       "Para operaciones más grandes o complejas, con integraciones, múltiples equipos, permisos, control avanzado y acompañamiento más cercano.",
     price: "Desde $3.200.000 CLP",
-    detail: "al mes",
-    setup: "Implementación a medida",
+    setup: "Implementación a medida (se paga solo una vez)",
     highlighted: false,
     features: [
       "Volumen, usuarios y soluciones personalizadas",
@@ -538,21 +535,6 @@ const salesChatCopy = {
   },
 };
 
-const salesEditorItems = [
-  "Criterios de scoring",
-  "Preguntas comerciales",
-  "Objeciones frecuentes",
-  "Campos mínimos para cotizar",
-  "Reglas de seguimiento",
-  "Handoff hacia soporte",
-];
-
-const salesMetrics = [
-  { value: "24/7", label: "captura y calificación de conversaciones" },
-  { value: "1", label: "historial comercial por cliente" },
-  { value: "0", label: "leads duplicados tratados como nuevos" },
-];
-
 const salesComparisonAdvantages = [
   "Conversa, califica, prioriza, detecta riesgo y propone próximos pasos.",
   "Une lead, oportunidad, historial y handoff hacia soporte o postventa.",
@@ -633,6 +615,8 @@ export function SalesPage() {
           <div>
             <p className="mk-section-label"><span>03</span>Talkey Editor</p>
             <h2>Tu equipo define cómo Talkey vende.</h2>
+          </div>
+          <article className="mk-sales-editor-card">
             <p>
               Talkey Editor permite ajustar criterios comerciales, preguntas, objeciones, reglas de seguimiento y datos
               mínimos para cotizar sin depender de desarrollo cada vez que cambia tu operación.
@@ -640,6 +624,11 @@ export function SalesPage() {
             <p>
               Además del flujo visible, Talkey funciona como Smart Agent interno: prioriza pipeline, detecta riesgos,
               prepara correos de seguimiento y sugiere próximos pasos para que el ejecutivo avance oportunidades con más claridad.
+            </p>
+            <p>
+              Si la empresa todavía no tiene criterios comerciales, preguntas de calificación, objeciones frecuentes,
+              reglas de seguimiento o datos mínimos para cotizar bien definidos, TALKEY puede ayudar a estructurarlos
+              durante la implementación.
             </p>
             <div className="mk-sales-data-note">
               <ShieldCheck size={22} />
@@ -649,10 +638,7 @@ export function SalesPage() {
                 No bloqueamos tu operación si decides irte.
               </p>
             </div>
-          </div>
-          <div className="mk-sales-editor-list">
-            {salesEditorItems.map((item) => <span key={item}>{item}</span>)}
-          </div>
+          </article>
         </div>
       </section>
 
@@ -682,8 +668,8 @@ export function SalesPage() {
               <article className={plan.highlighted ? "is-highlighted" : ""} key={plan.name}>
                 <h3>{plan.name}</h3>
                 <p className="mk-package-description">{plan.description}</p>
-                <strong>{plan.price}</strong>
-                <small>{plan.detail} · {plan.setup}</small>
+                <strong>{plan.price} <span>al mes</span></strong>
+                <small>{plan.setup}</small>
                 <ul>
                   {plan.features.map((feature) => (
                     <li key={feature}><BadgeCheck size={17} />{feature}</li>
@@ -714,17 +700,6 @@ export function SalesPage() {
             advantages={salesComparisonAdvantages}
             variant="sales"
           />
-        </div>
-      </section>
-
-      <section className="mk-section mk-sales-metrics-section">
-        <div className="mk-container mk-sales-metrics-grid">
-          {salesMetrics.map((metric) => (
-            <article key={metric.label}>
-              <strong>{metric.value}</strong>
-              <p>{metric.label}</p>
-            </article>
-          ))}
         </div>
       </section>
 
@@ -832,7 +807,7 @@ export function SuitePage({ suite }: { suite: SuiteKey }) {
             <h2>{content.nextTitle}</h2>
             <p>{finalBody}</p>
             <small>
-              Plan recomendado: {recommendedPlan.name}, {recommendedPlan.price} {recommendedPlan.detail}.
+              Plan recomendado: {recommendedPlan.name}, {recommendedPlan.price} al mes.
               La implementación se confirma después de una evaluación técnica y comercial.
             </small>
           </div>

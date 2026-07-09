@@ -97,8 +97,7 @@ const supportPricingPackages = [
     description:
       "Para empresas que quieren ordenar soporte técnico, centralizar conocimiento y empezar con un asistente virtual claro.",
     price: "$650.000 CLP",
-    detail: "al mes",
-    setup: "Implementación desde $850.000 CLP",
+    setup: "Implementación desde $850.000 CLP (se paga solo una vez)",
     highlighted: false,
     features: [
       "Solución para soporte",
@@ -113,8 +112,7 @@ const supportPricingPackages = [
     description:
       "Para equipos con más volumen, varios canales, consola para agentes humanos y necesidad de conectar mejor soporte con operación.",
     price: "$950.000 CLP",
-    detail: "al mes",
-    setup: "Implementación desde $1.300.000 CLP",
+    setup: "Implementación desde $1.300.000 CLP (se paga solo una vez)",
     highlighted: true,
     features: [
       "Solución para soporte + continuidad con ventas",
@@ -129,8 +127,7 @@ const supportPricingPackages = [
     description:
       "Para operaciones más grandes o complejas, con múltiples equipos, integraciones, permisos, control avanzado y acompañamiento cercano.",
     price: "Desde $3.200.000 CLP",
-    detail: "al mes",
-    setup: "Implementación a medida",
+    setup: "Implementación a medida (se paga solo una vez)",
     highlighted: false,
     features: [
       "Volumen, usuarios y soluciones personalizadas",
@@ -171,7 +168,7 @@ const narrativeContent = {
         text: "Talkey convierte conocimiento disperso en una base aprobada de respuestas, criterios y procedimientos para que el cliente reciba una atención consistente desde el primer contacto.",
       },
       pairTitleProblem: "Problema",
-      pairTitleSolution: "Cómo lo resuelve el asistente virtual Talkey",
+      pairTitleSolution: "Cómo lo resuelve Talkey Soporte Técnico",
       pairs: [
         { problem: "Clientes esperando a ser atendidos", solution: "Talkey está disponible 24/7 para iniciar la atención de inmediato por chat o por voz si el cliente llama por teléfono, con respuestas pacientes, consistentes y basadas en conocimiento aprobado." },
         { problem: "El cliente vuelve a consultar por un problema ya reportado", solution: "Talkey puede usar el historial individual de ese cliente, cuando está disponible, para que la atención no parta desde cero y continúe con más contexto." },
@@ -575,8 +572,8 @@ function SupportPricingPackagesSection() {
             <article className={plan.highlighted ? "is-highlighted" : ""} key={plan.name}>
               <h3>{plan.name}</h3>
               <p className="mk-package-description">{plan.description}</p>
-              <strong>{plan.price}</strong>
-              <small>{plan.detail} · {plan.setup}</small>
+              <strong>{plan.price} <span>al mes</span></strong>
+              <small>{plan.setup}</small>
               <ul>
                 {plan.features.map((feature) => (
                   <li key={feature}><BadgeCheck size={17} />{feature}</li>
