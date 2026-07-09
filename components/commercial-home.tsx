@@ -205,7 +205,7 @@ const narrativeContent = {
     integrations: {
       kicker: "Integraciones",
       title: "Se conecta a las herramientas que la empresa ya usa.",
-      body: "Talkey puede operar con un CRM completo e inteligente para clientes, tickets e historial, pero no obliga a reemplazar el stack actual. También puede integrarse con el CRM de tu empresa, calendarios de agendamiento, portales de clientes y sistemas internos para recibir contexto y devolver tickets, eventos y trazabilidad.",
+      body: "Talkey puede operar con un CRM completo e inteligente para clientes, tickets e historial, pero no obliga a reemplazar tus herramientas actuales. También puede integrarse con el CRM de tu empresa, calendarios de agendamiento, portales de clientes y sistemas internos para recibir contexto y devolver tickets, eventos y trazabilidad.",
       items: [
         { title: "CRM e historial de clientes", text: "Usa datos existentes del cliente, producto, garantía e interacciones previas para que el soporte no parta desde cero." },
         { title: "Agenda de visitas técnicas", text: "Google Calendar es nuestro conector predilecto para agendar visitas desde un caso diagnosticado, pero nuestro flujo está preparado para integrarse con cualquier sistema de reservas." },
