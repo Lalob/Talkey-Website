@@ -690,7 +690,7 @@ export function SalesPage() {
         <div className="mk-container">
           <div className="mk-section-heading">
             <p className="mk-section-label"><span>06</span>Comparación</p>
-            <h2>Talkey compite con herramientas de ventas, pero mira más ciclo de vida.</h2>
+            <h2>Talkey hace todo lo que hacen otras herramientas y además cuida tu ciclo venta-postventa.</h2>
             <p>
               Si tu venta termina en instalación, garantía, postventa o soporte técnico, necesitas más que captar y convertir:
               necesitas que el contexto siga vivo después del cierre.
@@ -699,7 +699,7 @@ export function SalesPage() {
           <ComparisonShowcase
             sourceTitle="Alternativas que cubren partes del flujo comercial"
             items={content.comparison}
-            summaryTitle="TALKEY hace todo eso + continuidad ventas-postventa."
+            summaryTitle=""
             summaryBody="No es solo CRM, automatización o agenda: conecta la conversación comercial con el contexto operativo que viene después."
             advantages={salesComparisonAdvantages}
             variant="sales"

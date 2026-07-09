@@ -1434,6 +1434,20 @@ button { cursor: pointer; }
   --comparison-accent: var(--sales-petrol-readable);
 }
 
+.mk-comparison-showcase-sales .mk-comparison-source-card > p {
+  color: var(--comparison-accent);
+}
+
+.mk-comparison-showcase-sales .mk-comparison-talkey-eyebrow {
+  font-size: clamp(44px, 5.8vw, 82px);
+  line-height: .9;
+  letter-spacing: -.06em;
+}
+
+.mk-comparison-showcase-sales .mk-comparison-talkey-card h3:empty {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .mk-comparison-showcase {
     grid-template-columns: 1fr;
