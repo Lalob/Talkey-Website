@@ -586,13 +586,6 @@ export function SalesPage() {
               priorizar bien y sostener seguimiento sin depender de memoria individual.
             </p>
           </div>
-          <article className="mk-sales-smart-agent-callout">
-            <strong>Smart Agent interno</strong>
-            <p>
-              Además del flujo visible, Talkey prioriza el pipeline, detecta riesgos, prepara correos de seguimiento
-              y sugiere próximos pasos para que cada ejecutivo avance oportunidades con más claridad.
-            </p>
-          </article>
           <SalesProblemTable problems={salesProblems} />
         </div>
       </section>
@@ -601,6 +594,10 @@ export function SalesPage() {
         <div className="mk-container">
           <p className="mk-section-label"><span>02</span>Flujo</p>
           <h2>De conversación a oportunidad gestionada.</h2>
+          <p className="mk-sales-flow-note">
+            Además del flujo visible, Talkey actúa como Smart Agent interno: prioriza el pipeline, detecta riesgos,
+            prepara correos de seguimiento y sugiere próximos pasos para que cada ejecutivo avance oportunidades con más claridad.
+          </p>
           <div className="mk-sales-flow">
             {salesWorkflow.map((step, index) => (
               <article key={step} className={index === 6 ? "mk-sales-flow-support-step" : undefined}>
