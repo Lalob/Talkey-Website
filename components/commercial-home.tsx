@@ -11,7 +11,6 @@ import {
   Database,
   Globe2,
   Menu,
-  MessageSquareText,
   PlugZap,
   ShieldCheck,
   Sparkles,
@@ -756,7 +755,6 @@ export function CommercialHome({
             <p className="mk-hero-subtitle">{narrative.hero.body}</p>
             <div className="mk-hero-actions">
               <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("hero_request_evaluation_click")}>{narrative.hero.primary}<ArrowUpRight size={18} /></a>
-              <a className="mk-button mk-button-secondary" href="#demo-hero" onClick={() => trackCta("hero_try_demo_click")}>{narrative.hero.secondary}<MessageSquareText size={18} /></a>
               <a className="mk-button mk-button-secondary" href="#precios" onClick={() => trackCta("hero_estimate_price_click")}>{narrative.hero.tertiary}<ArrowRight size={18} /></a>
             </div>
           </div>

@@ -480,13 +480,14 @@ button { cursor: pointer; }
 .mk-hero-demo-panel {
   display: grid;
   grid-template-columns: minmax(280px, 330px) minmax(150px, 1fr);
-  align-items: center;
+  align-items: stretch;
   gap: clamp(18px, 2.5vw, 34px);
   min-width: 0;
 }
 
 .mk-hero-demo-panel .mk-chat-wrap {
   width: clamp(280px, 23vw, 330px);
+  align-self: center;
   justify-self: start;
   margin: 0;
   padding: 8px 0 20px;
@@ -531,8 +532,10 @@ button { cursor: pointer; }
   position: relative;
   display: grid;
   gap: 18px;
-  align-content: center;
+  align-self: stretch;
+  align-content: end;
   justify-items: start;
+  padding-bottom: clamp(24px, 3.2vw, 34px);
   color: #f5f1e8;
 }
 
@@ -1195,6 +1198,7 @@ button { cursor: pointer; }
   .mk-hero-subtitle { margin-top: 20px; font-size: 17px; line-height: 1.55; }
   .mk-hero-demo-panel {
     grid-template-columns: 1fr;
+    align-items: center;
     justify-items: center;
     gap: 18px;
   }
@@ -1204,7 +1208,10 @@ button { cursor: pointer; }
   }
   .mk-hero-demo-callout {
     order: -1;
+    align-self: auto;
+    align-content: center;
     justify-items: center;
+    padding-bottom: 0;
     text-align: center;
   }
   .mk-hero-demo-callout p {
