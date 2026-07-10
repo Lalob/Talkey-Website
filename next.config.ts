@@ -54,7 +54,24 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/",
-        headers: [{ key: "Content-Language", value: "es-CL" }],
+        headers: [
+          { key: "Content-Language", value: "es-CL" },
+          { key: "Cache-Control", value: "no-store, max-age=0" },
+        ],
+      },
+      {
+        source: "/ventas",
+        headers: [
+          { key: "Content-Language", value: "es-CL" },
+          { key: "Cache-Control", value: "no-store, max-age=0" },
+        ],
+      },
+      {
+        source: "/soporte-tecnico",
+        headers: [
+          { key: "Content-Language", value: "es-CL" },
+          { key: "Cache-Control", value: "no-store, max-age=0" },
+        ],
       },
       {
         source: "/es",

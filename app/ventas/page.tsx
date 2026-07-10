@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SalesPage } from "@/components/platform-site";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Solución para ventas",

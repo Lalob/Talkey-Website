@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CommercialHome } from "@/components/commercial-home";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Solución para soporte",
