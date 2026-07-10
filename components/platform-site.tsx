@@ -431,21 +431,37 @@ export function PlatformHome() {
             <h2 id="talkey-how-title">Cómo funciona Talkey</h2>
           </div>
 
-          <div className="mk-platform-home-loop" aria-label="Flujo continuo: Chat, CRM automatizado, Soporte inteligente y vuelta a Chat">
-            <svg className="mk-platform-home-loop-svg" viewBox="0 0 760 460" aria-hidden="true">
-              <path className="mk-loop-path mk-loop-path-one" d="M 420 90 C 565 80 705 145 690 230" />
-              <path className="mk-loop-path mk-loop-path-two" d="M 645 315 C 535 430 315 430 165 340" />
-              <path className="mk-loop-path mk-loop-path-three" d="M 120 300 C 24 198 104 158 260 160" />
+          <div className="mk-platform-home-orbit" aria-label="Flujo continuo: Chat, CRM automatizado, Soporte inteligente y vuelta a Chat">
+            <svg className="mk-platform-home-orbit-svg" viewBox="0 0 1000 560" aria-hidden="true">
+              <defs>
+                <linearGradient id="mk-orbit-line" x1="120" x2="880" y1="90" y2="470" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stopColor="#ffc638" stopOpacity=".88" />
+                  <stop offset=".48" stopColor="#3f83ad" stopOpacity=".72" />
+                  <stop offset="1" stopColor="#ffc638" stopOpacity=".88" />
+                </linearGradient>
+                <filter id="mk-orbit-glow" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="8" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <path id="mk-orbit-main" className="mk-orbit-track" d="M 500 112 C 735 112 870 220 796 334 C 704 472 296 472 204 334 C 130 220 265 112 500 112 Z" />
+              <path className="mk-orbit-track mk-orbit-track-soft" d="M 500 154 C 670 154 770 234 716 314 C 646 416 354 416 284 314 C 230 234 330 154 500 154 Z" />
             </svg>
-            <ArrowRight className="mk-loop-arrow mk-loop-arrow-one" size={34} aria-hidden="true" />
-            <ArrowRight className="mk-loop-arrow mk-loop-arrow-two" size={34} aria-hidden="true" />
-            <ArrowRight className="mk-loop-arrow mk-loop-arrow-three" size={34} aria-hidden="true" />
+
+            <div className="mk-orbit-core">
+              <Image src="/brand/talkey-key.svg" width={86} height={40} alt="" />
+              <strong>Talkey</strong>
+              <span>coordina el ciclo completo</span>
+            </div>
 
             {platformHomeFlow.map((step, index) => {
               const Icon = step.icon;
 
               return (
-                <article className={`mk-loop-node mk-loop-node-${index + 1}`} key={step.title}>
+                <article className={`mk-orbit-node mk-orbit-node-${index + 1}`} key={step.title}>
                   <span>
                     <Icon size={28} />
                   </span>
