@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type FormEvent } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { AlertTriangle, ArrowUp, Mail, MessageCircleMore, Minus } from "lucide-react";
 import { ClimaxMenu } from "./ClimaxMenu";
@@ -471,18 +470,30 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
             </div>
           </div>
 
-          <div className={`${styles.heroVisual} ${styles.reveal}`} data-climax-reveal="right">
-            <Image
-              src="/climax/climax-thermal-system.png"
-              width={1717}
-              height={916}
-              priority
-              alt="Render conceptual de equipos de climatización Climax con flujo térmico frío y cálido"
-            />
-            <div className={styles.heroReadout} aria-label="Lectura de clima">
-              <span>set point</span>
+          <div className={`${styles.heroSystem} ${styles.reveal}`} data-climax-reveal="right" aria-label="Señales de confort Climax">
+            <div className={styles.heroFlow} aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+            <div className={styles.heroReadout}>
+              <span>Set point</span>
               <strong>21.5 °C</strong>
               <small>flujo estable</small>
+            </div>
+            <div className={styles.heroSystemGrid}>
+              <div>
+                <span>ACS</span>
+                <strong>respuesta continua</strong>
+              </div>
+              <div>
+                <span>Calefacción</span>
+                <strong>entrega estable</strong>
+              </div>
+              <div>
+                <span>Diagnóstico</span>
+                <strong>datos precisos</strong>
+              </div>
             </div>
           </div>
 
