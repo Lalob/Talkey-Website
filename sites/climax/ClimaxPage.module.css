@@ -199,24 +199,6 @@
   transform: translateY(calc(var(--scroll) * 38px)) scale(1.02);
 }
 
-.hero::after {
-  position: absolute;
-  top: 20%;
-  right: max(24px, calc((100vw - 1160px) / 2));
-  z-index: -1;
-  width: min(46vw, 540px);
-  height: min(46vw, 440px);
-  background:
-    radial-gradient(circle at 72% 28%, rgba(125, 231, 255, 0.18), transparent 34%),
-    radial-gradient(circle at 26% 72%, rgba(217, 121, 56, 0.13), transparent 38%),
-    repeating-linear-gradient(112deg, transparent 0 24px, rgba(125, 231, 255, 0.13) 24px 25px, transparent 25px 54px);
-  clip-path: polygon(12% 8%, 100% 0, 88% 84%, 6% 100%, 0 28%);
-  content: "";
-  opacity: 0.68;
-  pointer-events: none;
-  transform: translate3d(calc(var(--scroll) * -34px), calc(var(--scroll) * 22px), 0);
-}
-
 .heroCopy {
   position: relative;
   z-index: 2;
@@ -1501,14 +1483,6 @@
     background:
       linear-gradient(180deg, rgba(6, 16, 20, 0.78), rgba(6, 16, 20, 0.94) 54%, rgba(6, 16, 20, 0.98)),
       repeating-linear-gradient(90deg, rgba(125, 231, 255, 0.05) 0 1px, transparent 1px 72px);
-  }
-
-  .hero::after {
-    top: 18%;
-    right: -18%;
-    width: 72vw;
-    height: 52vw;
-    opacity: 0.34;
   }
 
   .hero h1 {
