@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ClimaxMenu } from "../ClimaxMenu";
-import { ClimaxRevealController } from "../ClimaxRevealController";
-import styles from "../ClimaxPage.module.css";
-import { climaxProducts } from "../climaxProducts";
+import { ClimaxMenu } from "@/sites/climax/ClimaxMenu";
+import { ClimaxRevealController } from "@/sites/climax/ClimaxRevealController";
+import styles from "@/sites/climax/ClimaxPage.module.css";
+import { climaxProducts } from "@/sites/climax/climaxProducts";
 
 export const dynamic = "force-static";
 

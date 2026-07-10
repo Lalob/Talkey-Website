@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ClimaxExperience } from "./ClimaxExperience";
+import { ClimaxExperience } from "@/sites/climax/ClimaxExperience";
 
 export const dynamic = "force-static";
 

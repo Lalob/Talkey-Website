@@ -1,0 +1,23 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "davaterm-showcase",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-09",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "www.talkeyco.com/davaterm*",
+      "zone_name": "talkeyco.com"
+    }
+  ],
+  "assets": {
+    "directory": "../../sites/davaterm",
+    "binding": "ASSETS",
+    "html_handling": "none",
+    "not_found_handling": "404-page",
+    "run_worker_first": true
+  },
+  "observability": {
+    "enabled": true
+  }
+}

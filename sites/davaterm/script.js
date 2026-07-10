@@ -1,0 +1,359 @@
+(function () {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const header = document.querySelector("[data-header]");
+
+  function updateHeader() {
+    if (!header) return;
+    header.classList.toggle("is-scrolled", window.scrollY > 18);
+  }
+
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
+
+  const revealItems = Array.from(document.querySelectorAll(".reveal"));
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+  );
+
+  revealItems.forEach((item, index) => {
+    item.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
+    revealObserver.observe(item);
+  });
+
+  function animateCount(el) {
+    const target = Number(el.dataset.count);
+    if (!Number.isFinite(target)) return;
+    const duration = target > 100 ? 1200 : 850;
+    const start = target > 100 ? target - 36 : 0;
+    const startTime = performance.now();
+
+    function tick(now) {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(start + (target - start) * eased).toString();
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  const countObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.8 }
+  );
+
+  document.querySelectorAll("[data-count]").forEach((el) => countObserver.observe(el));
+
+  const networkCanvas = document.querySelector("[data-network-canvas]");
+  if (networkCanvas && !reduceMotion) initNetworkCanvas(networkCanvas);
+
+  const curveCanvas = document.querySelector("[data-curve-canvas]");
+  const curveStage = document.querySelector("[data-curve-stage]");
+  if (curveCanvas && curveStage && !reduceMotion) initCurveCanvas(curveCanvas, curveStage);
+
+  function initNetworkCanvas(canvas) {
+    const ctx = canvas.getContext("2d");
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let nodes = [];
+    let pointer = { x: 0, y: 0, active: false };
+
+    function bounds() {
+      return {
+        xMin: width * 0.02,
+        xMax: width * 0.98,
+        yMin: height * 0.06,
+        yMax: height * 0.94
+      };
+    }
+
+    function resizeCanvas() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = canvas.offsetWidth;
+      height = canvas.offsetHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const area = bounds();
+      const count = width < 700 ? 30 : Math.min(96, Math.max(58, Math.floor(width / 22)));
+      nodes = Array.from({ length: count }, (_, index) => {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 0.16 + Math.random() * 0.38;
+        return {
+          x: area.xMin + Math.random() * (area.xMax - area.xMin),
+          y: area.yMin + Math.random() * (area.yMax - area.yMin),
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          radius: 1.6 + Math.random() * 2.5,
+          phase: index * 0.7 + Math.random() * 4,
+          copper: Math.random() > 0.82
+        };
+      });
+    }
+
+    function draw(time) {
+      ctx.clearRect(0, 0, width, height);
+      const area = bounds();
+      const linkDistance = width < 700 ? 104 : 158;
+      const pointerDistance = width < 700 ? 132 : 190;
+
+      nodes.forEach((node) => {
+        node.x += node.vx + Math.sin(time * 0.0008 + node.phase) * 0.08;
+        node.y += node.vy + Math.cos(time * 0.0007 + node.phase) * 0.08;
+
+        if (node.x < area.xMin || node.x > area.xMax) node.vx *= -1;
+        if (node.y < area.yMin || node.y > area.yMax) node.vy *= -1;
+        node.x = Math.max(area.xMin, Math.min(area.xMax, node.x));
+        node.y = Math.max(area.yMin, Math.min(area.yMax, node.y));
+
+        if (pointer.active) {
+          const dx = node.x - pointer.x;
+          const dy = node.y - pointer.y;
+          const distance = Math.hypot(dx, dy) || 1;
+          if (distance < pointerDistance) {
+            const push = (1 - distance / pointerDistance) * 7;
+            node.x += (dx / distance) * push;
+            node.y += (dy / distance) * push;
+          }
+        }
+      });
+
+      for (let i = 0; i < nodes.length; i += 1) {
+        const a = nodes[i];
+        for (let j = i + 1; j < nodes.length; j += 1) {
+          const b = nodes[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const distance = Math.hypot(dx, dy);
+          if (distance < linkDistance) {
+            const strength = (1 - distance / linkDistance) * 0.28;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = `rgba(16, 89, 138, ${strength})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+
+        if (pointer.active) {
+          const dx = a.x - pointer.x;
+          const dy = a.y - pointer.y;
+          const distance = Math.hypot(dx, dy);
+          if (distance < pointerDistance) {
+            const strength = (1 - distance / pointerDistance) * 0.42;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(pointer.x, pointer.y);
+            ctx.strokeStyle = `rgba(201, 121, 59, ${strength})`;
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+          }
+        }
+      }
+
+      nodes.forEach((node) => {
+        const color = node.copper ? "201, 121, 59" : "16, 89, 138";
+        const pulse = Math.sin(time * 0.002 + node.phase) * 0.45;
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius + pulse, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${color}, 0.58)`;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius * 3.2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${color}, 0.055)`;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener(
+      "pointermove",
+      (event) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        pointer = {
+          x,
+          y,
+          active: x >= 0 && x <= rect.width && y >= 0 && y <= rect.height
+        };
+      },
+      { passive: true }
+    );
+    window.addEventListener("pointerleave", () => {
+      pointer.active = false;
+    });
+
+    resizeCanvas();
+    requestAnimationFrame(draw);
+  }
+
+  function initCurveCanvas(canvas, stage) {
+    const ctx = canvas.getContext("2d");
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let pointer = { x: 0, y: 0, active: false };
+    const routes = [
+      {
+        color: "16, 89, 138",
+        glow: "16, 89, 138",
+        speed: 0.00013,
+        points: [
+          { x: 0.18, y: 0.55 },
+          { x: 0.28, y: 0.29 },
+          { x: 0.39, y: 0.29 },
+          { x: 0.5, y: 0.42 }
+        ]
+      },
+      {
+        color: "201, 121, 59",
+        glow: "201, 121, 59",
+        speed: 0.00016,
+        points: [
+          { x: 0.5, y: 0.42 },
+          { x: 0.61, y: 0.29 },
+          { x: 0.72, y: 0.29 },
+          { x: 0.82, y: 0.55 }
+        ]
+      }
+    ];
+    const particles = routes.flatMap((route, routeIndex) =>
+      Array.from({ length: 8 }, (_, index) => ({
+        route,
+        offset: index / 8 + routeIndex * 0.07,
+        radius: 2 + ((index + routeIndex) % 3) * 0.65
+      }))
+    );
+
+    function resizeCanvas() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = canvas.offsetWidth;
+      height = canvas.offsetHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function project(point, time, index) {
+      let x = point.x * width;
+      let y = point.y * height + Math.sin(time * 0.001 + index * 1.7) * 6;
+      if (pointer.active && index > 0 && index < 3) {
+        const dx = x - pointer.x;
+        const dy = y - pointer.y;
+        const distance = Math.hypot(dx, dy) || 1;
+        if (distance < 220) {
+          const pull = (1 - distance / 220) * 30;
+          x += ((pointer.x - x) / distance) * pull;
+          y += ((pointer.y - y) / distance) * pull;
+        }
+      }
+      return { x, y };
+    }
+
+    function curvePoints(route, time) {
+      return route.points.map((point, index) => project(point, time, index));
+    }
+
+    function bezier(points, t) {
+      const [p0, p1, p2, p3] = points;
+      const inv = 1 - t;
+      return {
+        x:
+          inv * inv * inv * p0.x +
+          3 * inv * inv * t * p1.x +
+          3 * inv * t * t * p2.x +
+          t * t * t * p3.x,
+        y:
+          inv * inv * inv * p0.y +
+          3 * inv * inv * t * p1.y +
+          3 * inv * t * t * p2.y +
+          t * t * t * p3.y
+      };
+    }
+
+    function drawRoute(points, route, alpha, widthScale) {
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      ctx.bezierCurveTo(points[1].x, points[1].y, points[2].x, points[2].y, points[3].x, points[3].y);
+      ctx.strokeStyle = `rgba(${route.color}, ${alpha})`;
+      ctx.lineWidth = widthScale;
+      ctx.lineCap = "round";
+      ctx.stroke();
+    }
+
+    function draw(time) {
+      ctx.clearRect(0, 0, width, height);
+      const pointCache = new Map();
+
+      routes.forEach((route, index) => {
+        const points = curvePoints(route, time + index * 300);
+        pointCache.set(route, points);
+        drawRoute(points, route, 0.12, 12);
+        drawRoute(points, route, 0.24, 3.2);
+      });
+
+      particles.forEach((particle, index) => {
+        const route = particle.route;
+        const points = pointCache.get(route);
+        const t = (time * route.speed + particle.offset) % 1;
+        const point = bezier(points, t);
+        const pointerDistance = pointer.active ? Math.hypot(point.x - pointer.x, point.y - pointer.y) : Infinity;
+        const glow = pointerDistance < 120 ? 1 - pointerDistance / 120 : 0;
+        const pulse = Math.sin(time * 0.004 + index) * 0.4;
+        const radius = particle.radius + pulse + glow * 2.4;
+
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, radius * 4.2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${route.glow}, ${0.05 + glow * 0.08})`;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${route.glow}, ${0.64 + glow * 0.26})`;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    stage.addEventListener(
+      "pointermove",
+      (event) => {
+        const rect = canvas.getBoundingClientRect();
+        pointer = {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top,
+          active: true
+        };
+      },
+      { passive: true }
+    );
+    stage.addEventListener("pointerleave", () => {
+      pointer.active = false;
+    });
+    window.addEventListener("resize", resizeCanvas);
+
+    resizeCanvas();
+    requestAnimationFrame(draw);
+  }
+})();
