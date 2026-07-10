@@ -447,8 +447,15 @@ export function PlatformHome() {
                   </feMerge>
                 </filter>
               </defs>
-              <path id="mk-orbit-main" className="mk-orbit-track" d="M 500 112 C 735 112 870 220 796 334 C 704 472 296 472 204 334 C 130 220 265 112 500 112 Z" />
-              <path className="mk-orbit-track mk-orbit-track-soft" d="M 500 154 C 670 154 770 234 716 314 C 646 416 354 416 284 314 C 230 234 330 154 500 154 Z" />
+              <marker id="mk-orbit-arrow" markerHeight="14" markerWidth="14" orient="auto" refX="10" refY="5" viewBox="0 0 12 10">
+                <path d="M 0 0 L 12 5 L 0 10 z" fill="#ffc638" />
+              </marker>
+              <path id="mk-orbit-chat-crm" className="mk-orbit-track" d="M 348 132 C 452 74 548 74 652 132" />
+              <path id="mk-orbit-crm-support" className="mk-orbit-track" d="M 790 238 C 830 360 620 454 382 424" />
+              <path id="mk-orbit-support-chat" className="mk-orbit-track" d="M 196 366 C 54 318 56 190 196 142" />
+              <text className="mk-orbit-label" x="520" y="94">Alimenta</text>
+              <text className="mk-orbit-label" x="654" y="438">Venta</text>
+              <text className="mk-orbit-label mk-orbit-label-vertical" x="72" y="274">Satisfacción</text>
             </svg>
 
             <div className="mk-orbit-core">

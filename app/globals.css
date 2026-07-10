@@ -3672,18 +3672,38 @@ button { cursor: pointer; }
 .mk-orbit-track {
   fill: none;
   stroke: url("#mk-orbit-line");
-  stroke-width: 2.5;
+  stroke-width: 3;
   stroke-linecap: round;
-  stroke-dasharray: 1 14;
+  stroke-linejoin: round;
+  stroke-dasharray: 18 18;
   opacity: .92;
   filter: url("#mk-orbit-glow");
-  animation: mk-orbit-drift 16s linear infinite;
+  marker-end: url("#mk-orbit-arrow");
+  animation: mk-orbit-drift 5.6s linear infinite;
 }
 
 .mk-orbit-track-soft {
   stroke-width: 1.5;
   opacity: .26;
   animation-direction: reverse;
+}
+
+.mk-orbit-label {
+  fill: #f4f0e8;
+  font-size: 22px;
+  font-weight: 850;
+  letter-spacing: -.03em;
+  paint-order: stroke;
+  pointer-events: none;
+  stroke: rgba(17,17,17,.82);
+  stroke-linejoin: round;
+  stroke-width: 5px;
+}
+
+.mk-orbit-label-vertical {
+  transform: rotate(-72deg);
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 .mk-orbit-core {
@@ -3798,7 +3818,7 @@ button { cursor: pointer; }
 
 @keyframes mk-orbit-drift {
   to {
-    stroke-dashoffset: -180;
+    stroke-dashoffset: -216;
   }
 }
 
