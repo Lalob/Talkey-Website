@@ -3706,6 +3706,27 @@ button { cursor: pointer; }
   transform-origin: center;
 }
 
+.mk-orbit-core rect {
+  fill: rgba(12, 12, 12, .9);
+  stroke: rgba(255, 198, 56, .62);
+  stroke-width: 2;
+  filter: url("#mk-cycle-node-shadow");
+}
+
+.mk-orbit-core-title {
+  fill: #ffc638;
+  font-size: 24px;
+  font-weight: 880;
+  letter-spacing: -.035em;
+}
+
+.mk-orbit-core-detail {
+  fill: #f4f0e8;
+  font-size: 22px;
+  font-weight: 820;
+  letter-spacing: -.035em;
+}
+
 .mk-cycle-node circle {
   fill: url("#mk-cycle-node-fill");
   stroke: rgba(255,198,56,.72);
@@ -3715,21 +3736,21 @@ button { cursor: pointer; }
 
 .mk-cycle-node-title {
   fill: #f4f0e8;
-  font-size: 47px;
+  font-size: 40px;
   font-weight: 860;
   letter-spacing: -.055em;
 }
 
 .mk-cycle-node-subtitle {
   fill: #ffc638;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 850;
   letter-spacing: -.04em;
 }
 
 .mk-cycle-node-detail {
   fill: #c8c2b7;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: -.015em;
 }
