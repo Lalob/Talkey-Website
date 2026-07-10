@@ -446,7 +446,7 @@ export function PlatformHome() {
 
               <text className="mk-orbit-label mk-orbit-label-right" x="704" y="352" textAnchor="middle">Alimenta</text>
               <text className="mk-orbit-label" x="500" y="680" textAnchor="middle">Venta</text>
-              <text className="mk-orbit-label mk-orbit-label-left" x="296" y="352" textAnchor="middle">Satisfacción</text>
+              <text className="mk-orbit-label mk-orbit-label-left" x="344" y="360" textAnchor="middle">Satisfacción</text>
 
               <g className="mk-orbit-core">
                 <rect x="374" y="306" width="252" height="104" rx="30" />
