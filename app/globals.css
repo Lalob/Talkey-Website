@@ -3637,7 +3637,7 @@ button { cursor: pointer; }
 .mk-platform-home-orbit {
   position: relative;
   overflow: hidden;
-  min-height: clamp(460px, 48vw, 620px);
+  min-height: clamp(500px, 50vw, 660px);
   margin-top: clamp(28px, 4vw, 44px);
   border: 1px solid #2f2d28;
   border-radius: clamp(24px, 3vw, 34px);
