@@ -555,7 +555,7 @@ const salesChatCopy = {
   open: "Abrir demo de Talkey Ventas",
   minimize: "Minimizar demo de ventas",
   welcome:
-    "Hola, soy Talkey Ventas. Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?",
+    "Hola, soy Talkey Ventas. Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres saber?",
   prompts: [],
   placeholder: "Escríbele a Talkey aquí...",
   typing: "Talkey Ventas está preparando una respuesta",

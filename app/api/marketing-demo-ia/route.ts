@@ -10,7 +10,8 @@ const forbiddenDemoIntroPhrases = [
   "Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?",
   "Hola, soy Talkey. Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?",
   "Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?",
-  "Hola, soy Talkey Ventas. Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?",
+  "Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres saber?",
+  "Hola, soy Talkey Ventas. Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres saber?",
 ];
 
 type WorkersAiBinding = {
@@ -181,7 +182,7 @@ export async function POST(request: Request) {
         "Responde en español, con tono claro, directo, sobrio y comercialmente útil.",
         "No uses Markdown: no uses asteriscos, tablas ni encabezados con formato. El chat muestra texto plano.",
         "Contesta la pregunta concreta primero. No repitas el mensaje de bienvenida ni una lista genérica de temas.",
-        "Nunca escribas esta frase ni una variación literal: 'Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres probar?'",
+        "Nunca escribas esta frase ni una variación literal: 'Puedo mostrarte cómo califico leads, priorizo oportunidades, preparo próximos pasos, coordino reuniones y conecto ventas con soporte técnico. ¿Qué quieres saber?'",
         "Si la respuesta local de respaldo suena como menú o fallback, úsala solo como contexto y no la copies.",
         "Explica Talkey Ventas como una solución para convertir conversaciones en pipeline, prioridad, seguimiento, próximos pasos y continuidad con soporte.",
         "No inventes precios, integraciones cerradas, garantías ni compromisos técnicos no indicados.",
