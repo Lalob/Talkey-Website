@@ -3637,7 +3637,7 @@ button { cursor: pointer; }
 .mk-platform-home-orbit {
   position: relative;
   overflow: hidden;
-  min-height: clamp(420px, 43vw, 540px);
+  min-height: clamp(460px, 48vw, 620px);
   margin-top: clamp(28px, 4vw, 44px);
   border: 1px solid #2f2d28;
   border-radius: clamp(24px, 3vw, 34px);
@@ -3671,21 +3671,21 @@ button { cursor: pointer; }
 
 .mk-orbit-track {
   fill: none;
-  stroke: url("#mk-orbit-line");
-  stroke-width: 3;
+  stroke-width: 4;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 18 18;
   opacity: .92;
   filter: url("#mk-orbit-glow");
-  marker-end: url("#mk-orbit-arrow");
-  animation: mk-orbit-drift 3.2s linear infinite;
+  animation: mk-orbit-drift 2.25s linear infinite;
 }
 
-.mk-orbit-track-soft {
-  stroke-width: 1.5;
-  opacity: .26;
-  animation-direction: reverse;
+.mk-orbit-track-yellow {
+  stroke: #ffc638;
+}
+
+.mk-orbit-track-blue {
+  stroke: #3f83ad;
 }
 
 .mk-orbit-label {
@@ -3700,8 +3700,14 @@ button { cursor: pointer; }
   stroke-width: 5px;
 }
 
+.mk-orbit-label-right {
+  transform: rotate(38deg);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 .mk-orbit-label-left {
-  transform: rotate(-72deg);
+  transform: rotate(-58deg);
   transform-box: fill-box;
   transform-origin: center;
 }
@@ -3736,14 +3742,14 @@ button { cursor: pointer; }
 
 .mk-cycle-node-title {
   fill: #f4f0e8;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 860;
-  letter-spacing: -.055em;
+  letter-spacing: -.05em;
 }
 
 .mk-cycle-node-subtitle {
   fill: #ffc638;
-  font-size: 25px;
+  font-size: 24px;
   font-weight: 850;
   letter-spacing: -.04em;
 }

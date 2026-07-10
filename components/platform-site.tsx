@@ -414,13 +414,8 @@ export function PlatformHome() {
           </div>
 
           <div className="mk-platform-home-orbit" aria-label="Flujo continuo: Chat, CRM automatizado, Soporte inteligente y vuelta a Chat">
-            <svg className="mk-platform-home-orbit-svg" viewBox="0 0 1000 560" aria-hidden="true">
+            <svg className="mk-platform-home-orbit-svg" viewBox="0 0 1000 680" aria-hidden="true">
               <defs>
-                <linearGradient id="mk-orbit-line" x1="120" x2="880" y1="90" y2="470" gradientUnits="userSpaceOnUse">
-                  <stop offset="0" stopColor="#ffc638" stopOpacity=".88" />
-                  <stop offset=".48" stopColor="#3f83ad" stopOpacity=".72" />
-                  <stop offset="1" stopColor="#ffc638" stopOpacity=".88" />
-                </linearGradient>
                 <radialGradient id="mk-cycle-node-fill" cx="34%" cy="26%" r="72%">
                   <stop offset="0" stopColor="#24211a" />
                   <stop offset=".42" stopColor="#151515" />
@@ -437,44 +432,44 @@ export function PlatformHome() {
                   <feDropShadow dx="0" dy="24" stdDeviation="18" floodColor="#000000" floodOpacity=".42" />
                   <feDropShadow dx="0" dy="0" stdDeviation="10" floodColor="#ffc638" floodOpacity=".12" />
                 </filter>
-                <marker id="mk-orbit-arrow" markerHeight="14" markerWidth="14" orient="auto" refX="10" refY="5" viewBox="0 0 12 10">
+                <marker id="mk-orbit-arrow-yellow" markerHeight="14" markerWidth="14" orient="auto" refX="10" refY="5" viewBox="0 0 12 10">
                   <path d="M 0 0 L 12 5 L 0 10 z" fill="#ffc638" />
+                </marker>
+                <marker id="mk-orbit-arrow-blue" markerHeight="14" markerWidth="14" orient="auto" refX="10" refY="5" viewBox="0 0 12 10">
+                  <path d="M 0 0 L 12 5 L 0 10 z" fill="#3f83ad" />
                 </marker>
               </defs>
 
-              <path id="mk-orbit-chat-crm" className="mk-orbit-track" d="M 545 181 C 612 228 652 292 640 351" />
-              <path id="mk-orbit-crm-support" className="mk-orbit-track" d="M 596 448 C 540 480 460 480 404 448" />
-              <path id="mk-orbit-support-chat" className="mk-orbit-track" d="M 360 351 C 348 292 388 228 455 181" />
+              <path className="mk-orbit-track mk-orbit-track-yellow" d="M 590 242 C 662 290 714 350 708 374" markerEnd="url(#mk-orbit-arrow-yellow)" />
+              <path className="mk-orbit-track mk-orbit-track-blue" d="M 650 608 C 584 658 416 658 350 608" markerEnd="url(#mk-orbit-arrow-blue)" />
+              <path className="mk-orbit-track mk-orbit-track-yellow" d="M 292 374 C 286 350 338 290 410 242" markerEnd="url(#mk-orbit-arrow-yellow)" />
 
-              <text className="mk-orbit-label" x="648" y="282">Alimenta</text>
-              <text className="mk-orbit-label" x="500" y="492" textAnchor="middle">Venta</text>
-              <text className="mk-orbit-label mk-orbit-label-left" x="352" y="282">Satisfacción</text>
+              <text className="mk-orbit-label mk-orbit-label-right" x="688" y="316" textAnchor="middle">Alimenta</text>
+              <text className="mk-orbit-label" x="500" y="646" textAnchor="middle">Venta</text>
+              <text className="mk-orbit-label mk-orbit-label-left" x="312" y="316" textAnchor="middle">Satisfacción</text>
 
               <g className="mk-orbit-core">
-                <rect x="378" y="270" width="244" height="104" rx="30" />
-                <text className="mk-orbit-core-title" x="500" y="312" textAnchor="middle">Talkey coordina</text>
-                <text className="mk-orbit-core-detail" x="500" y="344" textAnchor="middle">tu ciclo de ventas</text>
+                <rect x="374" y="288" width="252" height="104" rx="30" />
+                <text className="mk-orbit-core-title" x="500" y="330" textAnchor="middle">Talkey coordina</text>
+                <text className="mk-orbit-core-detail" x="500" y="362" textAnchor="middle">tu ciclo de ventas</text>
               </g>
 
               <g className="mk-cycle-node">
-                <circle cx="500" cy="110" r="84" />
-                <text className="mk-cycle-node-title" x="500" y="96" textAnchor="middle">Chat</text>
-                <text className="mk-cycle-node-subtitle" x="500" y="126" textAnchor="middle">Conversación</text>
-                <text className="mk-cycle-node-detail" x="500" y="154" textAnchor="middle">comercial y soporte</text>
+                <circle cx="500" cy="140" r="130" />
+                <text className="mk-cycle-node-title" x="500" y="126" textAnchor="middle">Chat</text>
+                <text className="mk-cycle-node-subtitle" x="500" y="164" textAnchor="middle">Conversación comercial</text>
               </g>
 
               <g className="mk-cycle-node">
-                <circle cx="680" cy="422" r="84" />
-                <text className="mk-cycle-node-title" x="680" y="400" textAnchor="middle">CRM</text>
-                <text className="mk-cycle-node-subtitle" x="680" y="430" textAnchor="middle">automatizado</text>
-                <text className="mk-cycle-node-detail" x="680" y="458" textAnchor="middle">gestión de clientes</text>
+                <circle cx="710" cy="500" r="130" />
+                <text className="mk-cycle-node-title" x="710" y="486" textAnchor="middle">CRM Automatizado</text>
+                <text className="mk-cycle-node-subtitle" x="710" y="524" textAnchor="middle">Gestión de Clientes</text>
               </g>
 
               <g className="mk-cycle-node">
-                <circle cx="320" cy="422" r="84" />
-                <text className="mk-cycle-node-title" x="320" y="400" textAnchor="middle">Soporte</text>
-                <text className="mk-cycle-node-subtitle" x="320" y="430" textAnchor="middle">inteligente</text>
-                <text className="mk-cycle-node-detail" x="320" y="458" textAnchor="middle">fidelización</text>
+                <circle cx="290" cy="500" r="130" />
+                <text className="mk-cycle-node-title" x="290" y="486" textAnchor="middle">Soporte Inteligente</text>
+                <text className="mk-cycle-node-subtitle" x="290" y="524" textAnchor="middle">Fidelización</text>
               </g>
             </svg>
           </div>
