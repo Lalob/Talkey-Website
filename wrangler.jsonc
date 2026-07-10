@@ -14,13 +14,7 @@
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",
-    "run_worker_first": [
-      "/",
-      "/ventas",
-      "/soporte-tecnico",
-      "/manualesbiohertz",
-      "/manualesbiohertz/"
-    ]
+    "run_worker_first": true
   },
   "observability": {
     "enabled": true
