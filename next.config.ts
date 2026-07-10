@@ -40,9 +40,22 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/davaterm/",
+        destination: "/davaterm",
+        permanent: true,
+      },
+      {
         source: "/manualesbiohertz",
         destination: "/manualesdeuso",
         permanent: true,
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/davaterm",
+        destination: "/davaterm.html",
       },
     ];
   },
