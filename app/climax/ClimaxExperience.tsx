@@ -264,6 +264,7 @@ export function ClimaxExperience() {
       context.globalCompositeOperation = "lighter";
       const flowStrength = flow / 100;
       const shellCalm = shell / 100;
+      const horizontalFlowSpeed = 1.18;
       mouse.energy *= 0.94;
 
       particles.forEach((particle, index) => {
@@ -277,7 +278,7 @@ export function ClimaxExperience() {
         const wakeY = mouseDx / mouseDistance;
 
         particle.x +=
-          (0.38 + flowStrength * 1.45) * particle.speed +
+          (0.38 + flowStrength * 1.45) * particle.speed * horizontalFlowSpeed +
           wave * (0.42 + shellCalm * 0.34) +
           wakeX * pointerWake * 7.2 +
           mouseDx * pointerWake * 0.0052;
