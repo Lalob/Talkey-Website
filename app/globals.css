@@ -3679,7 +3679,7 @@ button { cursor: pointer; }
   opacity: .92;
   filter: url("#mk-orbit-glow");
   marker-end: url("#mk-orbit-arrow");
-  animation: mk-orbit-drift 4.8s linear infinite;
+  animation: mk-orbit-drift 3.2s linear infinite;
 }
 
 .mk-orbit-track-soft {
@@ -3706,86 +3706,37 @@ button { cursor: pointer; }
   transform-origin: center;
 }
 
-.mk-orbit-node {
-  position: absolute;
-  z-index: 5;
-  display: grid;
-  width: clamp(230px, 24vw, 320px);
-  min-height: clamp(210px, 19vw, 250px);
-  align-content: center;
-  border: 1px solid rgba(255,198,56,.28);
-  border-radius: 40px;
-  padding: clamp(18px, 2vw, 26px);
-  background:
-    radial-gradient(circle at 28% 24%, rgba(255,198,56,.18), rgba(255,198,56,0) 44%),
-    linear-gradient(145deg, rgba(255,198,56,.12), rgba(63,131,173,.04) 58%),
-    rgba(19,19,19,.94);
-  box-shadow: 0 24px 70px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.06);
-  backdrop-filter: blur(10px);
-  animation: mk-orbit-node-pulse 7.2s ease-in-out infinite;
+.mk-cycle-node circle {
+  fill: url("#mk-cycle-node-fill");
+  stroke: rgba(255,198,56,.72);
+  stroke-width: 2.5;
+  filter: url("#mk-cycle-node-shadow");
 }
 
-.mk-orbit-node-1 {
-  top: 9%;
-  left: 7%;
-}
-
-.mk-orbit-node-2 {
-  top: 9%;
-  right: 7%;
-  animation-delay: -2.4s;
-}
-
-.mk-orbit-node-3 {
-  bottom: 5%;
-  left: 7%;
-  animation-delay: -4.8s;
-}
-
-.mk-orbit-node span {
-  display: inline-grid;
-  width: 52px;
-  height: 52px;
-  place-items: center;
-  border-radius: 18px;
-  background: var(--mk-yellow);
-  color: #080808;
-  box-shadow: 0 0 0 8px rgba(255,198,56,.08);
-}
-
-.mk-orbit-node strong {
-  display: block;
-  margin-top: 16px;
-  color: #f4f0e8;
-  font-size: clamp(28px, 2.8vw, 42px);
-  font-weight: 760;
-  line-height: .92;
+.mk-cycle-node-title {
+  fill: #f4f0e8;
+  font-size: 47px;
+  font-weight: 860;
   letter-spacing: -.055em;
 }
 
-.mk-orbit-node p {
-  margin: 12px 0 0;
-  max-width: 250px;
-  color: #c8c2b7;
-  font-size: clamp(13px, 1vw, 15px);
-  line-height: 1.45;
+.mk-cycle-node-subtitle {
+  fill: #ffc638;
+  font-size: 30px;
+  font-weight: 850;
+  letter-spacing: -.04em;
+}
+
+.mk-cycle-node-detail {
+  fill: #c8c2b7;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -.015em;
 }
 
 @keyframes mk-orbit-drift {
   to {
     stroke-dashoffset: -216;
-  }
-}
-
-@keyframes mk-orbit-node-pulse {
-  0%,
-  100% {
-    border-color: rgba(255,198,56,.28);
-    box-shadow: 0 24px 70px rgba(0,0,0,.36);
-  }
-  50% {
-    border-color: rgba(255,198,56,.68);
-    box-shadow: 0 26px 80px rgba(255,198,56,.12), 0 24px 70px rgba(0,0,0,.36);
   }
 }
 
@@ -5343,47 +5294,12 @@ button { cursor: pointer; }
   }
 
   .mk-platform-home-orbit {
-    display: grid;
-    min-height: 0;
-    gap: 14px;
-    padding: 20px;
+    min-height: clamp(330px, 62vw, 480px);
+    padding: 0;
   }
 
   .mk-platform-home-orbit-svg {
-    display: none;
-  }
-
-  .mk-orbit-node,
-  .mk-orbit-node-1,
-  .mk-orbit-node-2,
-  .mk-orbit-node-3 {
-    position: relative;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
-    width: 100%;
-    transform: none;
-  }
-
-  .mk-orbit-node {
-    padding: 20px;
-  }
-
-  .mk-orbit-node-1 {
-    order: 2;
-  }
-
-  .mk-orbit-node-2 {
-    order: 3;
-  }
-
-  .mk-orbit-node-3 {
-    order: 4;
-  }
-
-  .mk-orbit-node strong {
-    font-size: clamp(30px, 8vw, 42px);
+    display: block;
   }
 
   .mk-platform-home-value-head {

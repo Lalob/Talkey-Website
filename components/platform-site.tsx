@@ -65,24 +65,6 @@ const products: Array<{
   },
 ];
 
-const platformHomeFlow = [
-  {
-    title: "Chat",
-    detail: "Captura conversaciones de ventas y soporte desde el primer contacto.",
-    icon: MessageSquare,
-  },
-  {
-    title: "CRM automatizado",
-    detail: "Ordena clientes, oportunidades, tickets, estados y próximos pasos.",
-    icon: Database,
-  },
-  {
-    title: "Soporte inteligente",
-    detail: "Resuelve, deriva con contexto y alimenta la siguiente conversación.",
-    icon: Headphones,
-  },
-];
-
 const pricing = [
   {
     name: "Talkey Base",
@@ -439,6 +421,11 @@ export function PlatformHome() {
                   <stop offset=".48" stopColor="#3f83ad" stopOpacity=".72" />
                   <stop offset="1" stopColor="#ffc638" stopOpacity=".88" />
                 </linearGradient>
+                <radialGradient id="mk-cycle-node-fill" cx="34%" cy="26%" r="72%">
+                  <stop offset="0" stopColor="#24211a" />
+                  <stop offset=".42" stopColor="#151515" />
+                  <stop offset="1" stopColor="#0d0d0d" />
+                </radialGradient>
                 <filter id="mk-orbit-glow" x="-40%" y="-40%" width="180%" height="180%">
                   <feGaussianBlur stdDeviation="8" result="blur" />
                   <feMerge>
@@ -446,32 +433,44 @@ export function PlatformHome() {
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
+                <filter id="mk-cycle-node-shadow" x="-40%" y="-40%" width="180%" height="180%">
+                  <feDropShadow dx="0" dy="24" stdDeviation="18" floodColor="#000000" floodOpacity=".42" />
+                  <feDropShadow dx="0" dy="0" stdDeviation="10" floodColor="#ffc638" floodOpacity=".12" />
+                </filter>
                 <marker id="mk-orbit-arrow" markerHeight="14" markerWidth="14" orient="auto" refX="10" refY="5" viewBox="0 0 12 10">
                   <path d="M 0 0 L 12 5 L 0 10 z" fill="#ffc638" />
                 </marker>
               </defs>
-              <path id="mk-orbit-chat-crm" className="mk-orbit-track" d="M 356 150 C 462 72 562 72 664 150" />
-              <path id="mk-orbit-crm-support" className="mk-orbit-track" d="M 804 252 C 834 374 640 464 406 424" />
-              <path id="mk-orbit-support-chat" className="mk-orbit-track" d="M 176 358 C 56 314 56 220 176 252" />
-              <text className="mk-orbit-label" x="522" y="96">Alimenta</text>
-              <text className="mk-orbit-label" x="654" y="438">Venta</text>
-              <text className="mk-orbit-label mk-orbit-label-left" x="88" y="306">Satisfacción</text>
+
+              <path id="mk-orbit-chat-crm" className="mk-orbit-track" d="M 410 150 C 504 82 612 86 676 162" />
+              <path id="mk-orbit-crm-support" className="mk-orbit-track" d="M 684 374 C 608 454 500 466 408 414" />
+              <path id="mk-orbit-support-chat" className="mk-orbit-track" d="M 210 342 C 92 304 92 230 210 208" />
+
+              <text className="mk-orbit-label" x="540" y="96">Alimenta</text>
+              <text className="mk-orbit-label" x="548" y="470">Venta</text>
+              <text className="mk-orbit-label mk-orbit-label-left" x="104" y="300">Satisfacción</text>
+
+              <g className="mk-cycle-node">
+                <circle cx="300" cy="158" r="112" />
+                <text className="mk-cycle-node-title" x="300" y="136" textAnchor="middle">Chat</text>
+                <text className="mk-cycle-node-subtitle" x="300" y="172" textAnchor="middle">Conversación</text>
+                <text className="mk-cycle-node-detail" x="300" y="204" textAnchor="middle">comercial y soporte</text>
+              </g>
+
+              <g className="mk-cycle-node">
+                <circle cx="770" cy="280" r="112" />
+                <text className="mk-cycle-node-title" x="770" y="252" textAnchor="middle">CRM</text>
+                <text className="mk-cycle-node-subtitle" x="770" y="288" textAnchor="middle">automatizado</text>
+                <text className="mk-cycle-node-detail" x="770" y="320" textAnchor="middle">gestión de clientes</text>
+              </g>
+
+              <g className="mk-cycle-node">
+                <circle cx="300" cy="390" r="112" />
+                <text className="mk-cycle-node-title" x="300" y="364" textAnchor="middle">Soporte</text>
+                <text className="mk-cycle-node-subtitle" x="300" y="400" textAnchor="middle">inteligente</text>
+                <text className="mk-cycle-node-detail" x="300" y="432" textAnchor="middle">fidelización</text>
+              </g>
             </svg>
-
-            {platformHomeFlow.map((step, index) => {
-              const Icon = step.icon;
-
-              return (
-                <article className={`mk-orbit-node mk-orbit-node-${index + 1}`} key={step.title}>
-                  <span>
-                    <Icon size={28} />
-                  </span>
-                  <strong>{step.title}</strong>
-                  <p>{step.detail}</p>
-                </article>
-              );
-            })}
-
           </div>
         </div>
       </section>
