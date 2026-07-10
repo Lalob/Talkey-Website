@@ -446,21 +446,17 @@ export function PlatformHome() {
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
+                <marker id="mk-orbit-arrow" markerHeight="14" markerWidth="14" orient="auto" refX="10" refY="5" viewBox="0 0 12 10">
+                  <path d="M 0 0 L 12 5 L 0 10 z" fill="#ffc638" />
+                </marker>
               </defs>
-              <marker id="mk-orbit-arrow" markerHeight="14" markerWidth="14" orient="auto" refX="10" refY="5" viewBox="0 0 12 10">
-                <path d="M 0 0 L 12 5 L 0 10 z" fill="#ffc638" />
-              </marker>
-              <path id="mk-orbit-chat-crm" className="mk-orbit-track" d="M 348 132 C 452 74 548 74 652 132" />
-              <path id="mk-orbit-crm-support" className="mk-orbit-track" d="M 790 238 C 830 360 620 454 382 424" />
-              <text className="mk-orbit-label" x="520" y="94">Alimenta</text>
+              <path id="mk-orbit-chat-crm" className="mk-orbit-track" d="M 356 150 C 462 72 562 72 664 150" />
+              <path id="mk-orbit-crm-support" className="mk-orbit-track" d="M 804 252 C 834 374 640 464 406 424" />
+              <path id="mk-orbit-support-chat" className="mk-orbit-track" d="M 176 358 C 56 314 56 220 176 252" />
+              <text className="mk-orbit-label" x="522" y="96">Alimenta</text>
               <text className="mk-orbit-label" x="654" y="438">Venta</text>
+              <text className="mk-orbit-label mk-orbit-label-left" x="88" y="306">Satisfacción</text>
             </svg>
-
-            <div className="mk-orbit-core">
-              <Image src="/brand/talkey-key.svg" width={86} height={40} alt="" />
-              <strong>Talkey</strong>
-              <span>coordina el ciclo completo</span>
-            </div>
 
             {platformHomeFlow.map((step, index) => {
               const Icon = step.icon;
