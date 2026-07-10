@@ -100,7 +100,7 @@ const supportPricingPackages = [
     features: [
       "Una solución: Talkey Soporte Técnico o Talkey Ventas",
       "1.500 conversaciones incluidas",
-      "3 usuarios internos",
+      "Hasta 3 usuarios internos",
       "Talkey Editor para conocimiento base",
       "CRM operativo básico: contactos, conversaciones, estados, responsables y próximos pasos",
       "Tickets básicos o pipeline básico, según la suite elegida",
@@ -119,7 +119,7 @@ const supportPricingPackages = [
     features: [
       "Talkey Ventas + Talkey Soporte Técnico",
       "4.000 conversaciones incluidas",
-      "8 usuarios internos",
+      "Hasta 8 usuarios internos",
       "Pipeline comercial",
       "Scoring de leads",
       "Seguimiento y próximos pasos",
