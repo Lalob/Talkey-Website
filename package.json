@@ -7,13 +7,14 @@
   },
   "scripts": {
     "dev": "next dev",
+    "sync:external-sites": "node scripts/sync-external-sites.mjs",
     "sync:davaterm": "node scripts/sync-davaterm-public.mjs",
-    "build": "npm run sync:davaterm && next build",
+    "build": "npm run sync:external-sites && npm run sync:davaterm && next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "preview": "npm run sync:davaterm && opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "npm run sync:davaterm && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "preview": "npm run sync:external-sites && npm run sync:davaterm && opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "npm run sync:external-sites && npm run sync:davaterm && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {

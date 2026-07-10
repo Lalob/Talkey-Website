@@ -1,4 +1,4 @@
-import { cp, mkdir, rm } from "node:fs/promises";
+import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -12,7 +12,15 @@ await rm(publicHtml, { force: true });
 await rm(legacyPublicDir, { recursive: true, force: true });
 await rm(publicAssetsDir, { recursive: true, force: true });
 
-await cp(join(sourceDir, "index.html"), publicHtml);
+const html = await readFile(join(sourceDir, "index.html"), "utf8");
+const mountedHtml = html
+  .replaceAll('content="assets/', 'content="/davaterm-assets/assets/')
+  .replaceAll('href="assets/', 'href="/davaterm-assets/assets/')
+  .replaceAll('src="assets/', 'src="/davaterm-assets/assets/')
+  .replaceAll('href="styles.css', 'href="/davaterm-assets/styles.css')
+  .replaceAll('src="script.js', 'src="/davaterm-assets/script.js');
+
+await writeFile(publicHtml, mountedHtml);
 await mkdir(publicAssetsDir, { recursive: true });
 await cp(join(sourceDir, "assets"), join(publicAssetsDir, "assets"), { recursive: true });
 await cp(join(sourceDir, "styles.css"), join(publicAssetsDir, "styles.css"));

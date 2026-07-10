@@ -1,9 +1,12 @@
 # Site boundaries
 
-This repository keeps the Talkey platform, Climax, and Davaterm as separate site surfaces:
+This repository keeps the Talkey platform as the deploy host. Climax and Davaterm are separate brands with separate source projects in `/Users/lalob/Documents`.
 
 - `app/`: Talkey platform routes for `https://www.talkeyco.com/`, `/ventas`, `/soporte`, `/manuales`, and related pages.
-- `sites/climax/`: Climax site implementation. Next.js route wrappers live in `app/climax` so the public URLs remain `https://www.talkeyco.com/climax` and `https://www.talkeyco.com/climax/productos`.
-- `sites/davaterm/`: Static Davaterm showcase copied into `public/davaterm.html` plus `public/davaterm-assets/` and served by the main Talkey deployment at `https://www.talkeyco.com/davaterm`.
+- `/Users/lalob/Documents/Climax Website`: Climax source project for future standalone export/deploy.
+- `/Users/lalob/Documents/Davaterm Website`: Davaterm source project for future standalone export/deploy.
+- `sites/climax/`: temporary deployment snapshot copied from `Climax Website` so Talkey can serve `https://www.talkeyco.com/climax`.
+- `sites/davaterm/`: temporary deployment snapshot copied from `Davaterm Website`.
+- `public/davaterm.html` and `public/davaterm-assets/`: generated temporary mount for `https://www.talkeyco.com/davaterm`.
 
-Do not merge Davaterm or Climax implementation files into the Talkey platform components unless the public route wrappers require it.
+Run `npm run sync:external-sites` before editing or deploying Talkey when Climax/Davaterm source projects changed.

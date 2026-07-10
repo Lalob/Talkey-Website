@@ -179,7 +179,11 @@ function colorFor(particle: Particle, temperature: number) {
   return `rgba(125, 231, 255, ${0.16 + (1 - heat) * 0.24})`;
 }
 
-export function ClimaxExperience() {
+type ClimaxExperienceProps = {
+  standalone?: boolean;
+};
+
+export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const chatRef = useRef<HTMLDivElement | null>(null);
@@ -198,6 +202,7 @@ export function ClimaxExperience() {
   const [temperature, setTemperature] = useState(22);
   const [flow, setFlow] = useState(64);
   const [shell, setShell] = useState(76);
+  const productsHref = standalone ? "/productos" : "/climax/productos";
 
   const comfort = useMemo(() => {
     const tempComfort = 100 - Math.abs(temperature - 21.5) * 9;
@@ -443,7 +448,7 @@ export function ClimaxExperience() {
       <div className={styles.scrollMeter} aria-hidden="true">
         <span />
       </div>
-      <ClimaxMenu />
+      <ClimaxMenu standalone={standalone} />
 
       <main id="inicio">
         <section className={styles.hero}>
@@ -564,7 +569,7 @@ export function ClimaxExperience() {
               <Link
                 className={`${styles.productCard} ${styles.reveal}`}
                 data-climax-reveal="up"
-                href={`/climax/productos#${product.slug}`}
+                href={`${productsHref}#${product.slug}`}
                 key={product.slug}
               >
                 <h3>{product.name}</h3>
@@ -574,7 +579,7 @@ export function ClimaxExperience() {
             ))}
           </div>
           <div className={`${styles.productActions} ${styles.reveal}`} data-climax-reveal="up">
-            <Link className={`${styles.button} ${styles.buttonSecondary}`} href="/climax/productos">
+            <Link className={`${styles.button} ${styles.buttonSecondary}`} href={productsHref}>
               Ver productos
             </Link>
           </div>

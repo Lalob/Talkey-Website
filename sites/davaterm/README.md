@@ -1,6 +1,8 @@
 # Davaterm Website
 
-Static website for Davaterm's English corporate showcase.
+Proyecto independiente del sitio Davaterm.
+
+Este proyecto es la fuente exportable de Davaterm como empresa separada de Talkey y Climax. Mientras Davaterm no tenga dominio propio, Talkey mantiene una copia temporal para publicar `https://www.talkeyco.com/davaterm`.
 
 ## Edit content
 
@@ -14,11 +16,13 @@ Static website for Davaterm's English corporate showcase.
 Open `index.html` directly in a browser, or serve the folder with:
 
 ```bash
-python3 -m http.server 8080
+python3 -m http.server 4174
 ```
 
-Then visit `http://localhost:8080`.
+Then visit `http://localhost:4174`.
 
 ## Deployment
 
 This folder is ready for Cloudflare Pages as a static site. No build command is required.
+
+When Davaterm has its own domain, update the temporary URLs in `index.html`, `robots.txt`, and `sitemap.xml`.
