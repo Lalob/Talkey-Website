@@ -3700,12 +3700,6 @@ button { cursor: pointer; }
   stroke-width: 5px;
 }
 
-.mk-orbit-label-vertical {
-  transform: rotate(-72deg);
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
 .mk-orbit-core {
   position: absolute;
   z-index: 4;

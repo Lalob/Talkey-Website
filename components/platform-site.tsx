@@ -452,10 +452,8 @@ export function PlatformHome() {
               </marker>
               <path id="mk-orbit-chat-crm" className="mk-orbit-track" d="M 348 132 C 452 74 548 74 652 132" />
               <path id="mk-orbit-crm-support" className="mk-orbit-track" d="M 790 238 C 830 360 620 454 382 424" />
-              <path id="mk-orbit-support-chat" className="mk-orbit-track" d="M 196 366 C 54 318 56 190 196 142" />
               <text className="mk-orbit-label" x="520" y="94">Alimenta</text>
               <text className="mk-orbit-label" x="654" y="438">Venta</text>
-              <text className="mk-orbit-label mk-orbit-label-vertical" x="72" y="274">Satisfacción</text>
             </svg>
 
             <div className="mk-orbit-core">
