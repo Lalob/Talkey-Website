@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     "guías Talkey ventas",
   ],
   alternates: {
-    canonical: absoluteUrl("/manualesdeuso"),
+    canonical: absoluteUrl("/manuales"),
   },
   robots: {
     index: true,
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     title: "Manuales Talkey",
     description:
       "Guías paso a paso para usar las apps Talkey en soporte técnico, ventas y operación asistida por IA.",
-    url: absoluteUrl("/manualesdeuso"),
+    url: absoluteUrl("/manuales"),
     siteName: "Talkey",
     locale: "es_CL",
     images: [
@@ -155,8 +155,8 @@ const appManuals: AppManual[] = [
       },
     ],
     links: [
-      { label: "Ver solución para soporte", href: "/soporte-tecnico" },
-      { label: "Ver demo de soporte", href: "/soporte-tecnico#demo-hero" },
+      { label: "Ver solución para soporte", href: "/soporte" },
+      { label: "Ver demo de soporte", href: "/soporte#demo-hero" },
     ],
     before: [
       "Ten a mano tu email, nombre y teléfono de contacto.",
@@ -214,8 +214,8 @@ const appManuals: AppManual[] = [
       },
     ],
     links: [
-      { label: "Ver solución para soporte", href: "/soporte-tecnico" },
-      { label: "Ver problemas/soluciones", href: "/soporte-tecnico#problema" },
+      { label: "Ver solución para soporte", href: "/soporte" },
+      { label: "Ver problemas/soluciones", href: "/soporte#problema" },
     ],
     before: [
       "Revisa primero la lista de tickets y usa el buscador por email, serie, ticket o modelo.",
@@ -478,7 +478,7 @@ export default function ManualsPage() {
             <Link className="mk-nav-cta mk-nav-cta-sales" href="/ventas">
               Ver Talkey Ventas <ArrowUpRight size={16} />
             </Link>
-            <Link className="mk-nav-cta" href="/soporte-tecnico">
+            <Link className="mk-nav-cta" href="/soporte">
               Ver Talkey Soporte <ArrowUpRight size={16} />
             </Link>
           </div>

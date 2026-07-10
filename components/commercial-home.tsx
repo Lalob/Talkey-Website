@@ -724,7 +724,7 @@ export function CommercialHome({
                 <span className="mk-nav-break"><span>{navLineBreaks.pricing[0]}</span><span>{navLineBreaks.pricing[1]}</span></span>
               ) : narrative.nav.pricing}
             </a>
-            <Link href="/manualesdeuso" onClick={() => setMenuOpen(false)}>{narrative.nav.manuals}</Link>
+            <Link href="/manuales" onClick={() => setMenuOpen(false)}>{narrative.nav.manuals}</Link>
             <a className="mk-mobile-quote" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => { setMenuOpen(false); trackCta("agenda_click"); }}>{narrative.nav.quote}<ArrowRight size={16} /></a>
           </nav>
           <div className="mk-nav-actions">

@@ -55,7 +55,7 @@ const products: Array<{
   {
     key: "soporte",
     name: "Talkey Soporte Técnico",
-    href: "/soporte-tecnico",
+    href: "/soporte",
     kicker: "Soporte que fideliza",
     value:
       "Soporte técnico que no parte de cero: diagnóstico guiado, respuestas consistentes y derivación con contexto.",
@@ -306,7 +306,7 @@ function PlatformHeader({ minimal = false, sales = false, ctaHref = talkeyBookin
           {sales ? (
             <>
               <Link href="/">Inicio</Link>
-              <Link href="/manualesdeuso">Manuales</Link>
+              <Link href="/manuales">Manuales</Link>
               <a href="#problema">Problemas/Soluciones</a>
               <a href="#precios">Precios</a>
               <a href="#comparacion">Comparación</a>
@@ -315,7 +315,7 @@ function PlatformHeader({ minimal = false, sales = false, ctaHref = talkeyBookin
             <>
               <Link href="/#suites">Soluciones</Link>
               <Link href="/ventas">Ventas</Link>
-              <Link href="/soporte-tecnico">Soporte técnico</Link>
+              <Link href="/soporte">Soporte técnico</Link>
               <Link href="/#precios">Precios</Link>
               <Link href="/#comparacion">Comparación</Link>
             </>
@@ -357,7 +357,7 @@ function Footer({ currentYear, ctaHref = talkeyBookingUrl, line }: { currentYear
         <span>© {currentYear} Talkey</span>
         <div>
           <Link href="/ventas">Solución para ventas</Link>
-          <Link href="/soporte-tecnico">Solución para soporte</Link>
+          <Link href="/soporte">Solución para soporte</Link>
           <a href={ctaHref} target={ctaExternal ? "_blank" : undefined} rel={ctaExternal ? "noopener noreferrer" : undefined}>{diagnosisCtaLabel}</a>
         </div>
       </div>
@@ -676,7 +676,7 @@ export function SalesPage() {
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <strong>{step}</strong>
                 {index === 6 ? (
-                  <Link className="mk-sales-flow-card-cta" href="/soporte-tecnico">
+                  <Link className="mk-sales-flow-card-cta" href="/soporte">
                     Ver Talkey Soporte <ArrowRight size={15} />
                   </Link>
                 ) : null}

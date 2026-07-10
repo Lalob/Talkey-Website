@@ -24,10 +24,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     })),
     {
-      url: absoluteUrl("/manualesdeuso"),
+      url: absoluteUrl("/manuales"),
       lastModified,
       changeFrequency: "monthly",
       priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/ventas"),
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/soporte"),
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/climax"),
+      lastModified: new Date("2026-07-10"),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: absoluteUrl("/climax/productos"),
+      lastModified: new Date("2026-07-10"),
+      changeFrequency: "monthly",
+      priority: 0.65,
     },
   ];
 }
