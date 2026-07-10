@@ -1013,10 +1013,13 @@
 }
 
 .footerContact {
+  display: inline-grid;
+  grid-template-columns: 34px minmax(0, auto) 42px;
+  column-gap: 10px;
+  align-items: center;
   min-height: 52px;
-  gap: 10px;
   border-color: rgba(125, 231, 255, 0.28);
-  padding: 12px 16px 12px 13px;
+  padding: 8px 14px 8px 8px;
   background:
     linear-gradient(135deg, rgba(125, 231, 255, 0.12), rgba(217, 121, 56, 0.08)),
     rgba(5, 15, 18, 0.72);
@@ -1026,24 +1029,31 @@
 
 .footerContact::before {
   position: absolute;
-  inset: 7px auto 7px 7px;
-  width: 36px;
+  top: 50%;
+  left: 8px;
+  width: 34px;
+  height: 34px;
   border: 1px solid rgba(125, 231, 255, 0.32);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(125, 231, 255, 0.2), rgba(5, 15, 18, 0.58) 68%);
   content: "";
   z-index: 0;
+  transform: translateY(-50%);
 }
 
 .footerContact::after {
+  display: block;
+  justify-self: end;
   width: 42px;
   height: 1px;
-  margin-left: 4px;
+  margin-left: 0;
   background: linear-gradient(90deg, rgba(125, 231, 255, 0.78), rgba(217, 121, 56, 0.58));
   content: "";
 }
 
 .footerContact svg {
+  grid-column: 1;
+  justify-self: center;
   flex: 0 0 auto;
   color: var(--cold);
   position: relative;
@@ -1051,9 +1061,12 @@
 }
 
 .footerContact span {
+  grid-column: 2;
   min-width: 0;
   position: relative;
   z-index: 1;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .footerContact:hover,
@@ -1632,6 +1645,14 @@
 
   .button {
     width: 100%;
+  }
+
+  .footerContact {
+    grid-template-columns: 34px minmax(0, 1fr);
+  }
+
+  .footerContact::after {
+    display: none;
   }
 
   .supportDock {
