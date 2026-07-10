@@ -444,10 +444,6 @@ export function PlatformHome() {
               <path className="mk-orbit-track mk-orbit-track-blue" d="M 676 635 C 600 690 400 690 324 635" markerEnd="url(#mk-orbit-arrow-blue)" />
               <path className="mk-orbit-track mk-orbit-track-yellow" d="M 280 406 C 270 388 330 318 400 270" markerEnd="url(#mk-orbit-arrow-yellow)" />
 
-              <text className="mk-orbit-label mk-orbit-label-right" x="704" y="352" textAnchor="middle">Alimenta</text>
-              <text className="mk-orbit-label" x="500" y="680" textAnchor="middle">Venta</text>
-              <text className="mk-orbit-label mk-orbit-label-left" x="344" y="360" textAnchor="middle">Satisfacción</text>
-
               <g className="mk-orbit-core">
                 <rect x="374" y="306" width="252" height="104" rx="30" />
                 <text className="mk-orbit-core-title" x="500" y="348" textAnchor="middle">Talkey coordina</text>
@@ -471,6 +467,10 @@ export function PlatformHome() {
                 <text className="mk-cycle-node-title" x="275" y="506" textAnchor="middle">Soporte Inteligente</text>
                 <text className="mk-cycle-node-subtitle" x="275" y="544" textAnchor="middle">Fidelización</text>
               </g>
+
+              <text className="mk-orbit-label mk-orbit-label-right" x="704" y="352" textAnchor="middle">Alimenta</text>
+              <text className="mk-orbit-label" x="500" y="680" textAnchor="middle">Venta</text>
+              <text className="mk-orbit-label mk-orbit-label-left" x="344" y="360" textAnchor="middle">Satisfacción</text>
             </svg>
           </div>
         </div>
