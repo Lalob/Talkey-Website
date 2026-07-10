@@ -574,8 +574,8 @@ export function ClimaxExperience() {
             ))}
           </div>
           <div className={`${styles.productActions} ${styles.reveal}`} data-climax-reveal="up">
-            <Link className={`${styles.button} ${styles.buttonPrimary}`} href="/climax/productos">
-              Abrir página de productos
+            <Link className={`${styles.button} ${styles.productPageButton}`} href="/climax/productos">
+              Ver productos
             </Link>
           </div>
         </section>
