@@ -24,10 +24,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     })),
     {
-      url: absoluteUrl("/manualesdeuso"),
+      url: absoluteUrl("/manuales"),
       lastModified,
       changeFrequency: "monthly",
       priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/soporte"),
+      lastModified: new Date("2026-07-10"),
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     {
       url: absoluteUrl("/ventas"),

@@ -4,24 +4,19 @@ const CANONICAL_HOST = "www.talkeyco.com";
 const ROOT_HOST = "talkeyco.com";
 const CLIMAX_PUBLIC_PREFIX = "/climax";
 const CLIMAX_INTERNAL_PREFIX = "/climax-route";
-const VENTAS_PUBLIC_PREFIX = "/ventas";
-const VENTAS_INTERNAL_PREFIX = "/ventas-route";
-const LOCALE_INTERNAL_ROUTES: Record<string, string> = {
+const CANONICAL_INTERNAL_ROUTES: Record<string, string> = {
+  "/": "/inicio-route",
+  "/ventas": "/ventas-route",
+  "/soporte": "/soporte-route",
+  "/manuales": "/manuales-route",
   "/es": "/locale-es-route",
   "/en": "/locale-en-route",
   "/it": "/locale-it-route",
 };
-
-function redirectRootToVentas(request: NextRequest) {
-  if (request.nextUrl.pathname !== "/") {
-    return null;
-  }
-
-  const url = request.nextUrl.clone();
-  url.pathname = VENTAS_PUBLIC_PREFIX;
-
-  return NextResponse.redirect(url, 307);
-}
+const LEGACY_REDIRECTS: Record<string, string> = {
+  "/IA": "/soporte",
+  "/manualesdeuso": "/manuales",
+};
 
 function rewriteClimaxRoute(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -36,21 +31,21 @@ function rewriteClimaxRoute(request: NextRequest) {
   return NextResponse.rewrite(url);
 }
 
-function rewriteVentasRoute(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+function redirectLegacyRoute(request: NextRequest) {
+  const destination = LEGACY_REDIRECTS[request.nextUrl.pathname];
 
-  if (pathname !== VENTAS_PUBLIC_PREFIX && !pathname.startsWith(`${VENTAS_PUBLIC_PREFIX}/`)) {
+  if (!destination) {
     return null;
   }
 
   const url = request.nextUrl.clone();
-  url.pathname = `${VENTAS_INTERNAL_PREFIX}${pathname.slice(VENTAS_PUBLIC_PREFIX.length)}`;
+  url.pathname = destination;
 
-  return NextResponse.rewrite(url);
+  return NextResponse.redirect(url, 308);
 }
 
-function rewriteLocaleRoute(request: NextRequest) {
-  const internalPath = LOCALE_INTERNAL_ROUTES[request.nextUrl.pathname];
+function rewriteCanonicalRoute(request: NextRequest) {
+  const internalPath = CANONICAL_INTERNAL_ROUTES[request.nextUrl.pathname];
 
   if (!internalPath) {
     return null;
@@ -73,24 +68,19 @@ export function middleware(request: NextRequest) {
   const protocol = forwardedProto ?? request.nextUrl.protocol.replace(":", "");
 
   if (host === CANONICAL_HOST && protocol === "https") {
-    const ventasRedirect = redirectRootToVentas(request);
-    if (ventasRedirect) {
-      return ventasRedirect;
+    const legacyRedirect = redirectLegacyRoute(request);
+    if (legacyRedirect) {
+      return legacyRedirect;
     }
 
-    const localeRewrite = rewriteLocaleRoute(request);
-    if (localeRewrite) {
-      return localeRewrite;
+    const canonicalRewrite = rewriteCanonicalRoute(request);
+    if (canonicalRewrite) {
+      return canonicalRewrite;
     }
 
     const climaxRewrite = rewriteClimaxRoute(request);
     if (climaxRewrite) {
       return climaxRewrite;
-    }
-
-    const ventasRewrite = rewriteVentasRoute(request);
-    if (ventasRewrite) {
-      return ventasRewrite;
     }
 
     return NextResponse.next();

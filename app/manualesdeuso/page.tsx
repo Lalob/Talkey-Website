@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "guías soporte técnico Talkey",
   ],
   alternates: {
-    canonical: absoluteUrl("/manualesdeuso"),
+    canonical: absoluteUrl("/manuales"),
   },
   robots: {
     index: true,
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     title: "Manuales de uso Talkey",
     description:
       "Guías rápidas para usar las apps de Talkey en soporte técnico, ventas y operación asistida por IA.",
-    url: absoluteUrl("/manualesdeuso"),
+    url: absoluteUrl("/manuales"),
     siteName: "Talkey",
     locale: "es_CL",
     images: [

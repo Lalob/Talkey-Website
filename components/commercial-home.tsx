@@ -585,7 +585,7 @@ export function CommercialHome({
           </a>
           <nav className={`mk-nav-links ${menuOpen ? "is-open" : ""}`} aria-label="Main navigation">
             <a href="#demo" onClick={() => setMenuOpen(false)}>{narrative.nav.demo}</a>
-            <Link href="/manualesdeuso" onClick={() => setMenuOpen(false)}>{narrative.nav.manuals}</Link>
+            <Link href="/manuales" onClick={() => setMenuOpen(false)}>{narrative.nav.manuals}</Link>
             <a href="#problema" onClick={() => setMenuOpen(false)}>{narrative.nav.problem}</a>
             <a href="#casos" onClick={() => setMenuOpen(false)}><span className="mk-nav-break"><span>{navLineBreaks.cases[0]}</span><span>{navLineBreaks.cases[1]}</span></span></a>
             <a href="#precios" onClick={() => setMenuOpen(false)}><span className="mk-nav-break"><span>{navLineBreaks.pricing[0]}</span><span>{navLineBreaks.pricing[1]}</span></span></a>
