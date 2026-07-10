@@ -470,33 +470,6 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
             </div>
           </div>
 
-          <div className={`${styles.heroSystem} ${styles.reveal}`} data-climax-reveal="right" aria-label="Señales de confort Climax">
-            <div className={styles.heroFlow} aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </div>
-            <div className={styles.heroReadout}>
-              <span>Set point</span>
-              <strong>21.5 °C</strong>
-              <small>flujo estable</small>
-            </div>
-            <div className={styles.heroSystemGrid}>
-              <div>
-                <span>ACS</span>
-                <strong>respuesta continua</strong>
-              </div>
-              <div>
-                <span>Calefacción</span>
-                <strong>entrega estable</strong>
-              </div>
-              <div>
-                <span>Diagnóstico</span>
-                <strong>datos precisos</strong>
-              </div>
-            </div>
-          </div>
-
           <a className={styles.scrollCue} href="#direccion" aria-label="Ir a dirección de diseño">
             <span />
           </a>
