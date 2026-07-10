@@ -495,7 +495,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
             Dirección propia de marca
           </div>
           <div className={`${styles.sectionHeading} ${styles.reveal}`} data-climax-reveal="up">
-            <h2>Una identidad construida como un campo térmico.</h2>
+            <h2>Una identidad construida como un campo térmico</h2>
             <p>
               Climax toma distancia del lenguaje pesado de maquinaria y se mueve hacia una estética de precisión:
               superficies oscuras, luz fría, cobre funcional y capas de aire visible.
@@ -573,7 +573,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         <section className={styles.comfortLab} id="precision">
           <div className={`${styles.labCopy} ${styles.reveal}`} data-climax-reveal="left">
             <div className={styles.sectionKicker}>Precisión interactiva</div>
-            <h2>El confort se calibra, no se improvisa.</h2>
+            <h2>El confort se calibra, no se improvisa</h2>
             <p>
               Cambia las variables y mira cómo responde el campo visual de Climax. La marca se expresa como una mezcla
               viva entre temperatura, aire y envolvente.
@@ -629,7 +629,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
 
         <section className={styles.applications} id="aplicaciones">
           <div className={`${styles.sectionHeading} ${styles.reveal}`} data-climax-reveal="left">
-            <h2>Un lenguaje para espacios con ritmos distintos.</h2>
+            <h2>Un lenguaje para espacios con ritmos distintos</h2>
             <p>
               Climax se presenta como una marca de especificación clara: menos ruido comercial, más lectura técnica para
               decidir rápido.
