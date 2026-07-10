@@ -460,14 +460,15 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
               Sistemas térmicos para edificios, locales y hogares que necesitan frío, calor y control estable sin
               perder eficiencia ni presencia arquitectónica.
             </p>
-            <div className={styles.heroActions} aria-label="Acciones principales">
-              <a className={`${styles.button} ${styles.buttonPrimary}`} href="#sistemas">
-                Ver sistemas
-              </a>
-              <a className={`${styles.button} ${styles.buttonSecondary}`} href="#productos">
-                Ver productos
-              </a>
-            </div>
+          </div>
+
+          <div className={`${styles.heroActions} ${styles.reveal}`} aria-label="Acciones principales" data-climax-reveal="right">
+            <a className={`${styles.button} ${styles.buttonPrimary}`} href="#sistemas">
+              Ver sistemas
+            </a>
+            <a className={`${styles.button} ${styles.buttonSecondary}`} href="#productos">
+              Ver productos
+            </a>
           </div>
 
           <a className={styles.scrollCue} href="#direccion" aria-label="Ir a dirección de diseño">

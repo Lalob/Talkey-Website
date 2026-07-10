@@ -178,7 +178,8 @@
 .hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr);
+  gap: clamp(34px, 6vw, 86px);
   align-items: center;
   min-height: 86svh;
   padding: 112px max(24px, calc((100vw - 1160px) / 2)) 70px;
@@ -219,7 +220,7 @@
 .heroCopy {
   position: relative;
   z-index: 2;
-  width: min(880px, 100%);
+  width: min(780px, 100%);
   padding-top: 18px;
 }
 
@@ -284,10 +285,25 @@
 }
 
 .heroActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 32px;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: min(360px, 100%);
+  justify-self: end;
+  gap: 14px;
+}
+
+.heroActions .button {
+  min-height: clamp(76px, 7vw, 102px);
+  justify-content: space-between;
+  padding: 22px 24px;
+  border-radius: 8px;
+  font-size: clamp(1.02rem, 1.35vw, 1.18rem);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.2);
+}
+
+.heroActions .button::after {
+  font-size: 1.15rem;
 }
 
 .button {
@@ -1487,6 +1503,16 @@
     line-height: 0.9;
   }
 
+  .heroActions {
+    width: min(620px, 100%);
+    justify-self: start;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .heroActions .button {
+    min-height: 68px;
+  }
+
   .productHero h1 {
     font-size: clamp(2.35rem, 8vw, 4.35rem);
     line-height: 1;
@@ -1596,6 +1622,12 @@
 
   .heroActions {
     display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .heroActions .button {
+    min-height: 60px;
+    padding: 16px 18px;
   }
 
   .button {
