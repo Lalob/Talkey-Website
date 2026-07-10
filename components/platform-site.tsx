@@ -432,17 +432,11 @@ export function PlatformHome() {
                   <feDropShadow dx="0" dy="24" stdDeviation="18" floodColor="#000000" floodOpacity=".42" />
                   <feDropShadow dx="0" dy="0" stdDeviation="10" floodColor="#ffc638" floodOpacity=".12" />
                 </filter>
-                <marker id="mk-orbit-arrow-yellow" markerHeight="14" markerWidth="14" orient="auto" refX="10" refY="5" viewBox="0 0 12 10">
-                  <path d="M 0 0 L 12 5 L 0 10 z" fill="#ffc638" />
-                </marker>
-                <marker id="mk-orbit-arrow-blue" markerHeight="14" markerWidth="14" orient="auto" refX="10" refY="5" viewBox="0 0 12 10">
-                  <path d="M 0 0 L 12 5 L 0 10 z" fill="#3f83ad" />
-                </marker>
               </defs>
 
-              <path className="mk-orbit-track mk-orbit-track-yellow" d="M 600 270 C 670 318 730 388 720 406" markerEnd="url(#mk-orbit-arrow-yellow)" />
-              <path className="mk-orbit-track mk-orbit-track-blue" d="M 676 635 C 600 690 400 690 324 635" markerEnd="url(#mk-orbit-arrow-blue)" />
-              <path className="mk-orbit-track mk-orbit-track-yellow" d="M 280 406 C 270 388 330 318 400 270" markerEnd="url(#mk-orbit-arrow-yellow)" />
+              <path className="mk-orbit-track" d="M 600 270 C 670 318 730 388 720 406" />
+              <path className="mk-orbit-track" d="M 676 635 C 600 690 400 690 324 635" />
+              <path className="mk-orbit-track" d="M 280 406 C 270 388 330 318 400 270" />
 
               <g className="mk-orbit-core">
                 <rect x="374" y="306" width="252" height="104" rx="30" />
@@ -453,19 +447,28 @@ export function PlatformHome() {
               <g className="mk-cycle-node">
                 <circle cx="500" cy="155" r="145" />
                 <text className="mk-cycle-node-title" x="500" y="141" textAnchor="middle">Chat</text>
-                <text className="mk-cycle-node-subtitle" x="500" y="179" textAnchor="middle">Conversación comercial</text>
+                <text className="mk-cycle-node-subtitle" x="500" y="178" textAnchor="middle">
+                  <tspan x="500">Conversación</tspan>
+                  <tspan x="500" dy="28">comercial</tspan>
+                </text>
               </g>
 
               <g className="mk-cycle-node">
                 <circle cx="725" cy="520" r="145" />
-                <text className="mk-cycle-node-title" x="725" y="506" textAnchor="middle">CRM Automatizado</text>
-                <text className="mk-cycle-node-subtitle" x="725" y="544" textAnchor="middle">Gestión de Clientes</text>
+                <text className="mk-cycle-node-title" x="725" y="485" textAnchor="middle">
+                  <tspan x="725">CRM</tspan>
+                  <tspan x="725" dy="34">Automatizado</tspan>
+                </text>
+                <text className="mk-cycle-node-subtitle" x="725" y="558" textAnchor="middle">Gestión de Clientes</text>
               </g>
 
               <g className="mk-cycle-node">
                 <circle cx="275" cy="520" r="145" />
-                <text className="mk-cycle-node-title" x="275" y="506" textAnchor="middle">Soporte Inteligente</text>
-                <text className="mk-cycle-node-subtitle" x="275" y="544" textAnchor="middle">Fidelización</text>
+                <text className="mk-cycle-node-title" x="275" y="485" textAnchor="middle">
+                  <tspan x="275">Soporte</tspan>
+                  <tspan x="275" dy="34">Inteligente</tspan>
+                </text>
+                <text className="mk-cycle-node-subtitle" x="275" y="558" textAnchor="middle">Fidelización</text>
               </g>
 
               <text className="mk-orbit-label mk-orbit-label-right" x="704" y="352" textAnchor="middle">Alimenta</text>

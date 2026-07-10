@@ -3671,6 +3671,7 @@ button { cursor: pointer; }
 
 .mk-orbit-track {
   fill: none;
+  stroke: #ffc638;
   stroke-width: 4;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -3678,14 +3679,6 @@ button { cursor: pointer; }
   opacity: .92;
   filter: url("#mk-orbit-glow");
   animation: mk-orbit-drift 2.25s linear infinite;
-}
-
-.mk-orbit-track-yellow {
-  stroke: #ffc638;
-}
-
-.mk-orbit-track-blue {
-  stroke: #3f83ad;
 }
 
 .mk-orbit-label {
