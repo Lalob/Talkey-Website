@@ -9,6 +9,11 @@
   --copper: #d97938;
   --amber: #f0ad4e;
   --mint: #75d6a7;
+  --read-size: clamp(1.05rem, 1rem + 0.16vw, 1.16rem);
+  --read-large-size: clamp(1.1rem, 1.04rem + 0.22vw, 1.26rem);
+  --read-compact-size: clamp(1rem, 0.96rem + 0.14vw, 1.1rem);
+  --read-small-size: clamp(0.94rem, 0.9rem + 0.12vw, 1rem);
+  --read-line: 1.72;
   position: relative;
   min-width: 320px;
   min-height: 100vh;
@@ -34,6 +39,11 @@
 .climaxSite img {
   display: block;
   max-width: 100%;
+}
+
+.climaxSite p,
+.climaxSite li {
+  text-wrap: pretty;
 }
 
 .climaxSite button,
@@ -287,8 +297,8 @@
   width: min(620px, 100%);
   margin-bottom: 0;
   color: rgba(245, 251, 249, 0.78);
-  font-size: clamp(1rem, 1.42vw, 1.2rem);
-  line-height: 1.68;
+  font-size: var(--read-large-size);
+  line-height: 1.72;
 }
 
 .heroActions {
@@ -321,7 +331,7 @@
   border: 1px solid var(--line);
   border-radius: 6px;
   overflow: hidden;
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: 740;
   isolation: isolate;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
@@ -415,7 +425,8 @@
 
 .signalStrip span {
   color: var(--muted);
-  line-height: 1.45;
+  font-size: var(--read-compact-size);
+  line-height: 1.55;
 }
 
 .designDirection,
@@ -454,8 +465,8 @@
 .sectionHeading p,
 .labCopy p {
   color: rgba(245, 251, 249, 0.68);
-  font-size: clamp(0.98rem, 1.4vw, 1.1rem);
-  line-height: 1.75;
+  font-size: var(--read-size);
+  line-height: var(--read-line);
 }
 
 .directionGrid {
@@ -524,7 +535,8 @@
 .directionTile p,
 .systemItem p {
   color: rgba(245, 251, 249, 0.68);
-  line-height: 1.66;
+  font-size: var(--read-compact-size);
+  line-height: var(--read-line);
 }
 
 .systemStage {
@@ -686,7 +698,8 @@
 .productDetail p,
 .sourceList p {
   color: rgba(245, 251, 249, 0.7);
-  line-height: 1.66;
+  font-size: var(--read-size);
+  line-height: var(--read-line);
 }
 
 .productStatus {
@@ -697,7 +710,7 @@
   border: 1px solid rgba(117, 214, 167, 0.28);
   border-radius: 999px;
   color: var(--mint);
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   font-weight: 820;
   line-height: 1.2;
   text-transform: uppercase;
@@ -706,8 +719,8 @@
 .productEvidence {
   display: block;
   color: rgba(245, 251, 249, 0.58);
-  font-size: 0.92rem;
-  line-height: 1.58;
+  font-size: var(--read-small-size);
+  line-height: 1.62;
 }
 
 .productCardCta {
@@ -754,8 +767,8 @@
 .productHero > p {
   margin: 0;
   color: rgba(245, 251, 249, 0.74);
-  font-size: clamp(1rem, 1.4vw, 1.14rem);
-  line-height: 1.75;
+  font-size: var(--read-large-size);
+  line-height: var(--read-line);
 }
 
 .productCatalog {
@@ -805,7 +818,8 @@
   position: relative;
   padding-left: 18px;
   color: rgba(245, 251, 249, 0.72);
-  line-height: 1.45;
+  font-size: var(--read-compact-size);
+  line-height: 1.58;
 }
 
 .productDetailGrid li::before {
@@ -957,7 +971,9 @@
   gap: 10px;
   align-items: center;
   color: rgba(245, 251, 249, 0.86);
+  font-size: var(--read-compact-size);
   font-weight: 720;
+  line-height: 1.35;
 }
 
 .controls input {
@@ -968,6 +984,7 @@
 
 .controls span {
   color: var(--cold);
+  font-size: var(--read-compact-size);
 }
 
 .applicationGrid {
@@ -1007,7 +1024,7 @@
   display: inline-flex;
   margin-bottom: 0;
   color: var(--copper);
-  font-size: 0.82rem;
+  font-size: 0.92rem;
   font-weight: 760;
   text-transform: uppercase;
 }
@@ -1099,7 +1116,7 @@
   right: 22px;
   bottom: 22px;
   z-index: 90;
-  width: min(430px, calc(100vw - 44px));
+  width: min(460px, calc(100vw - 44px));
   filter: drop-shadow(0 28px 60px rgba(0, 0, 0, 0.55));
 }
 
@@ -1120,7 +1137,7 @@
   border-bottom: 1px solid #d99f0b;
   background: var(--amber);
   color: #090909;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 850;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -1174,17 +1191,17 @@
 
 .supportHead strong {
   color: var(--paper);
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .supportHead small {
   color: #b0aca4;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .supportConversation {
   display: flex;
-  height: 244px;
+  height: 270px;
   flex-direction: column;
   gap: 13px;
   overflow-y: auto;
@@ -1205,8 +1222,8 @@
   padding: 13px 15px;
   background: #1b1b1b;
   color: #eeeae1;
-  font-size: 14px;
-  line-height: 1.55;
+  font-size: 16px;
+  line-height: 1.62;
 }
 
 .visitorMessage {
@@ -1233,7 +1250,7 @@
   gap: 5px;
   margin-bottom: 7px;
   color: var(--amber);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -1268,7 +1285,7 @@
 .supportTyping small {
   margin-left: 5px;
   color: #aaa69d;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .supportPrompts {
@@ -1279,13 +1296,13 @@
 }
 
 .supportPrompts button {
-  min-height: 38px;
+  min-height: 42px;
   border: 1px solid #3b3934;
   border-radius: 999px;
   padding: 8px 12px;
   background: #171717;
   color: #d0ccc3;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 720;
 }
 
@@ -1316,7 +1333,7 @@
   background: transparent;
   color: #f4f0e8;
   padding: 0 8px;
-  font-size: 14px;
+  font-size: 16px;
   outline: 0;
 }
 
@@ -1366,8 +1383,8 @@
 
 .supportLauncher strong {
   max-width: 230px;
-  font-size: 14px;
-  line-height: 1.3;
+  font-size: 16px;
+  line-height: 1.35;
   text-align: left;
 }
 
@@ -1375,7 +1392,8 @@
   max-width: 520px;
   margin: 16px 0 0;
   color: var(--muted);
-  line-height: 1.6;
+  font-size: var(--read-compact-size);
+  line-height: 1.62;
 }
 
 .footerBrand {
