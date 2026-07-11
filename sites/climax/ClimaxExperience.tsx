@@ -201,11 +201,16 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
   const [temperature, setTemperature] = useState(22);
   const [flow, setFlow] = useState(64);
   const [shell, setShell] = useState(76);
+  const controlsRef = useRef({ temperature, flow, shell });
   const productsHref = standalone ? "/productos" : "/climax/productos";
 
   const comfort = useMemo(() => {
     const tempComfort = 100 - Math.abs(temperature - 21.5) * 9;
     return Math.min(99, Math.max(24, Math.round(tempComfort * 0.42 + flow * 0.23 + shell * 0.35)));
+  }, [flow, shell, temperature]);
+
+  useEffect(() => {
+    controlsRef.current = { temperature, flow, shell };
   }, [flow, shell, temperature]);
 
   useEffect(() => {
@@ -299,8 +304,9 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     };
 
     const renderParticles = (seconds: number, flowTime: number) => {
-      const flowStrength = flow / 100;
-      const shellCalm = shell / 100;
+      const controls = controlsRef.current;
+      const flowStrength = controls.flow / 100;
+      const shellCalm = controls.shell / 100;
       const travelWidth = width + 96;
       const pointerAge = Math.max(0, seconds - mouse.lastMoveAt);
       const pointerEnergy = mouse.energy * Math.exp(-pointerAge * 2.25);
@@ -323,7 +329,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         const x = baseX + wave * (8 + shellCalm * 7) + wakeX * pointerWake * 18 + mouseDx * pointerWake * 0.011;
         const y = ((baseY + wakeY * pointerWake * 13 + mouseDy * pointerWake * 0.007 + 40) % (height + 80)) - 40;
         const length = 28 + flowStrength * 86 + particle.base * 42;
-        context.strokeStyle = colorFor(particle, temperature);
+        context.strokeStyle = colorFor(particle, controls.temperature);
         context.lineWidth = particle.size;
         context.globalAlpha = 0.46 + shellCalm * 0.2;
         context.beginPath();
@@ -426,7 +432,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
       window.removeEventListener("blur", onPointerLeave);
       document.removeEventListener("visibilitychange", onVisibilityChange);
     };
-  }, [flow, shell, temperature]);
+  }, []);
 
   const rootStyle: ClimaxStyle = {
     "--scroll": scroll.toFixed(4),
