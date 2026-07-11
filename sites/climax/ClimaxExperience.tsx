@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type FormEvent } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { AlertTriangle, ArrowRight, ArrowUp, Mail, MessageCircleMore, Minus } from "lucide-react";
 import { ClimaxMenu } from "./ClimaxMenu";
@@ -464,7 +465,17 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
             </p>
           </div>
 
-          <div className={`${styles.heroActions} ${styles.reveal}`} aria-label="Acciones principales" data-climax-reveal="right">
+          <div className={`${styles.heroVisual} ${styles.reveal}`} data-climax-reveal="right">
+            <Image
+              src="/climax/climax-thermal-system.png"
+              width={1717}
+              height={916}
+              priority
+              alt="Render conceptual de equipos de climatización Climax con flujo térmico frío y cálido"
+            />
+          </div>
+
+          <div className={`${styles.heroActions} ${styles.reveal}`} aria-label="Acciones principales" data-climax-reveal="up">
             <a className={`${styles.button} ${styles.buttonSecondary}`} href="#sistemas">
               <span>Ver sistemas</span>
               <ArrowRight className={styles.buttonArrow} size={20} strokeWidth={1.9} aria-hidden="true" />
