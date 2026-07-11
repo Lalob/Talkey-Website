@@ -233,10 +233,16 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     let height = 0;
     let frame = 0;
     let lastTime = 0;
+    let accumulatedMs = 0;
+    let simulationTime = 0;
     let particles: Particle[] = [];
     const mouse = { x: 0.74, y: 0.36, active: false, energy: 0 };
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const supportsPointer = "PointerEvent" in window;
+    const simulationStepMs = 1000 / 60;
+    const maxAccumulatedMs = simulationStepMs * 5;
+    const lineSpeedMultiplier = 2.8;
+    const horizontalFlowSpeed = 1.18 * lineSpeedMultiplier;
 
     const seedParticles = () => {
       const baseCount = Math.round(Math.min(170, Math.max(64, width / 9)));
@@ -262,6 +268,9 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
       canvas.style.height = height + "px";
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
       context.lineCap = "round";
+      lastTime = 0;
+      accumulatedMs = 0;
+      simulationTime = 0;
       seedParticles();
     };
 
@@ -288,26 +297,13 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
       }
     };
 
-    const draw = (time: number) => {
-      const elapsed = lastTime ? time - lastTime : 16.67;
-      lastTime = time;
-      // Keep motion consistent across 60, 120 and 144 Hz displays.
-      const frameScale = Math.min(2, Math.max(0.25, elapsed / 16.67));
-      const reducedMotion = prefersReduced.matches;
-      const movementScale = reducedMotion ? Math.min(frameScale, 0.18) : frameScale;
-      const t = time * 0.001;
-      const lineSpeedMultiplier = 2.8;
-      const flowTime = t * (reducedMotion ? 0.34 : lineSpeedMultiplier);
-      context.clearRect(0, 0, width, height);
-      context.globalCompositeOperation = "source-over";
+    const advanceParticles = (flowTime: number, reducedMotion: boolean) => {
       const flowStrength = flow / 100;
       const shellCalm = shell / 100;
-      const horizontalFlowSpeed = 1.18 * lineSpeedMultiplier;
+      const movementScale = reducedMotion ? 0.18 : 1;
       mouse.energy *= Math.pow(0.94, movementScale);
 
-      drawAmbientBands(flowTime, reducedMotion);
-
-      particles.forEach((particle, index) => {
+      particles.forEach((particle) => {
         const wave = Math.sin(flowTime * particle.speed + particle.phase + particle.y * 0.006);
         const mouseDx = mouse.x * width - particle.x;
         const mouseDy = mouse.y * height - particle.y;
@@ -335,7 +331,15 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         if (particle.x > width + 40) particle.x = -40;
         if (particle.y > height + 40) particle.y = -40;
         if (particle.y < -40) particle.y = height + 40;
+      });
+    };
 
+    const renderParticles = (flowTime: number, reducedMotion: boolean) => {
+      const flowStrength = flow / 100;
+      const shellCalm = shell / 100;
+
+      particles.forEach((particle, index) => {
+        const wave = Math.sin(flowTime * particle.speed + particle.phase + particle.y * 0.006);
         const length = 28 + flowStrength * 86 + particle.base * 42;
         context.strokeStyle = colorFor(particle, temperature);
         context.lineWidth = particle.size;
@@ -352,6 +356,29 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         );
         context.stroke();
       });
+    };
+
+    const draw = (time: number) => {
+      const elapsed = lastTime ? Math.min(time - lastTime, maxAccumulatedMs) : simulationStepMs;
+      lastTime = time;
+      const reducedMotion = prefersReduced.matches;
+      accumulatedMs = Math.min(accumulatedMs + elapsed, maxAccumulatedMs);
+
+      // Advance the particle simulation at a fixed 60 Hz clock. Browser refresh rate
+      // only controls how often we render, not how fast particles travel.
+      while (accumulatedMs >= simulationStepMs) {
+        simulationTime += simulationStepMs * 0.001;
+        advanceParticles(simulationTime * (reducedMotion ? 0.34 : lineSpeedMultiplier), reducedMotion);
+        accumulatedMs -= simulationStepMs;
+      }
+
+      const t = simulationTime;
+      const flowTime = t * (reducedMotion ? 0.34 : lineSpeedMultiplier);
+      context.clearRect(0, 0, width, height);
+      context.globalCompositeOperation = "source-over";
+
+      drawAmbientBands(flowTime, reducedMotion);
+      renderParticles(flowTime, reducedMotion);
 
       if (mouse.active || mouse.energy > 0.04) {
         const x = mouse.x * width;
@@ -396,6 +423,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     };
     const onVisibilityChange = () => {
       lastTime = 0;
+      accumulatedMs = 0;
       if (document.hidden) mouse.active = false;
     };
 
