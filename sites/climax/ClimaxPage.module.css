@@ -126,16 +126,17 @@
   justify-self: end;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .siteNav a {
-  min-height: 40px;
-  padding: 12px 14px;
+  min-height: 42px;
+  padding: 12px 15px;
   border: 1px solid transparent;
   border-radius: 6px;
   color: rgba(245, 251, 249, 0.78);
-  font-size: 0.84rem;
+  font-size: clamp(0.94rem, 1.05vw, 1.03rem);
+  font-weight: 760;
   transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
@@ -288,26 +289,6 @@
   box-shadow: 0 22px 70px rgba(0, 0, 0, 0.2);
 }
 
-.heroVisual {
-  position: relative;
-  z-index: 1;
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  justify-self: end;
-  width: min(710px, 100%);
-  min-width: 0;
-  opacity: 0.88;
-  transform: translate3d(0, calc(var(--scroll) * -22px), 0);
-}
-
-.heroVisual img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.44);
-  clip-path: polygon(7% 0, 100% 0, 100% 88%, 93% 100%, 0 100%, 0 12%);
-}
 
 .button {
   position: relative;
@@ -1526,13 +1507,6 @@
     line-height: 0.9;
   }
 
-  .heroVisual {
-    grid-column: 1;
-    grid-row: auto;
-    justify-self: start;
-    width: min(720px, 100%);
-    opacity: 0.84;
-  }
 
   .heroActions {
     width: min(620px, 100%);
@@ -1645,10 +1619,6 @@
     font-size: clamp(1rem, 6vw, 1.42rem);
   }
 
-  .heroVisual img {
-    max-height: 300px;
-    object-fit: cover;
-  }
 
   .climaxSite h2,
   .productHero h1 {

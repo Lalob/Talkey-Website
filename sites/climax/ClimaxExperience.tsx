@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type FormEvent } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { AlertTriangle, ArrowRight, ArrowUp, Mail, MessageCircleMore, Minus } from "lucide-react";
 import { ClimaxMenu } from "./ClimaxMenu";
@@ -463,16 +462,6 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
               Sistemas térmicos para edificios, locales y hogares que necesitan frío, calor y control estable sin
               perder eficiencia ni presencia arquitectónica.
             </p>
-          </div>
-
-          <div className={`${styles.heroVisual} ${styles.reveal}`} data-climax-reveal="right">
-            <Image
-              src="/climax/climax-thermal-system.png"
-              width={1717}
-              height={916}
-              priority
-              alt="Render conceptual de equipos de climatización Climax con flujo térmico frío y cálido"
-            />
           </div>
 
           <div className={`${styles.heroActions} ${styles.reveal}`} aria-label="Acciones principales" data-climax-reveal="up">
