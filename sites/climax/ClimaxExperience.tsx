@@ -12,7 +12,6 @@ type Particle = {
   x: number;
   y: number;
   base: number;
-  heat: number;
   speed: number;
   phase: number;
   size: number;
@@ -170,12 +169,28 @@ function buildIssueGuidance(issue: ReturnType<typeof detectSupportIssue>, produc
   return "Entendido. Para no repetir preguntas, partamos por el síntoma principal: dime qué dejó de hacer el equipo, cuándo ocurre y si aparece algún código o señal visible.";
 }
 
-function colorFor(particle: Particle, temperature: number) {
-  const tempBias = (temperature - 16) / 12;
-  const heat = Math.min(1, Math.max(0, particle.heat * 0.58 + tempBias * 0.42));
-  if (heat > 0.68) return `rgba(240, 173, 78, ${0.12 + heat * 0.28})`;
-  if (heat > 0.38) return `rgba(117, 214, 167, ${0.12 + heat * 0.22})`;
-  return `rgba(125, 231, 255, ${0.16 + (1 - heat) * 0.24})`;
+function clamp01(value: number) {
+  return Math.min(1, Math.max(0, value));
+}
+
+function mixChannel(from: number, to: number, amount: number) {
+  return Math.round(from + (to - from) * amount);
+}
+
+function colorFor(temperature: number) {
+  const temperatureMix = clamp01((temperature - 16) / 12);
+  const cold = [125, 231, 255];
+  const neutral = [117, 214, 167];
+  const warm = [240, 173, 78];
+  const from = temperatureMix < 0.5 ? cold : neutral;
+  const to = temperatureMix < 0.5 ? neutral : warm;
+  const amount = temperatureMix < 0.5 ? temperatureMix * 2 : (temperatureMix - 0.5) * 2;
+
+  return `rgb(${mixChannel(from[0], to[0], amount)}, ${mixChannel(from[1], to[1], amount)}, ${mixChannel(
+    from[2],
+    to[2],
+    amount,
+  )})`;
 }
 
 type ClimaxExperienceProps = {
@@ -258,7 +273,6 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         x: deterministicValue(index, 1) * width,
         y: deterministicValue(index, 2) * height,
         base: deterministicValue(index, 3),
-        heat: index % 3 === 0 ? 1 : deterministicValue(index, 4) > 0.52 ? 0.55 : 0,
         speed: 0.28 + deterministicValue(index, 5) * 0.84,
         phase: deterministicValue(index, 6) * Math.PI * 2,
         size: 0.8 + deterministicValue(index, 7) * 2.6,
@@ -281,23 +295,28 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     };
 
     const drawAmbientBands = (flowTime: number) => {
+      const controls = controlsRef.current;
+      const shellStrength = clamp01((controls.shell - 20) / 80);
+      const looseness = 1 - shellStrength;
       const bandCount = 5;
       for (let index = 0; index < bandCount; index += 1) {
-        const y = ((index + 1) / (bandCount + 1)) * height + Math.sin(flowTime * 0.72 + index) * 28;
-        const startX = (flowTime * 54 + index * width * 0.23) % (width + 260) - 130;
-        const length = Math.max(240, width * 0.32);
-        context.globalAlpha = 0.12;
-        context.strokeStyle = index % 2 === 0 ? "rgba(125, 231, 255, 0.72)" : "rgba(217, 121, 56, 0.56)";
-        context.lineWidth = 1.25;
+        const y =
+          ((index + 1) / (bandCount + 1)) * height +
+          Math.sin(flowTime * (0.64 + looseness * 0.18) + index) * (18 + looseness * 42);
+        const startX = (flowTime * (50 + looseness * 18) + index * width * 0.23) % (width + 260) - 130;
+        const length = Math.max(250, width * (0.3 + shellStrength * 0.1));
+        context.globalAlpha = 0.08 + shellStrength * 0.08;
+        context.strokeStyle = colorFor(controls.temperature);
+        context.lineWidth = 1 + shellStrength * 0.8;
         context.beginPath();
         context.moveTo(startX, y);
         context.bezierCurveTo(
           startX + length * 0.28,
-          y - 28,
+          y - (18 + looseness * 34),
           startX + length * 0.68,
-          y + 34,
+          y + (22 + looseness * 38),
           startX + length,
-          y + Math.sin(flowTime + index) * 18,
+          y + Math.sin(flowTime + index) * (10 + looseness * 26),
         );
         context.stroke();
       }
@@ -306,18 +325,26 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     const renderParticles = (seconds: number, flowTime: number) => {
       const controls = controlsRef.current;
       const flowStrength = controls.flow / 100;
-      const shellCalm = controls.shell / 100;
+      const shellStrength = clamp01((controls.shell - 20) / 80);
+      const looseness = 1 - shellStrength;
       const travelWidth = width + 96;
       const pointerAge = Math.max(0, seconds - mouse.lastMoveAt);
       const pointerEnergy = mouse.energy * Math.exp(-pointerAge * 2.25);
+      const envelopeDrift = 7 + looseness * 46;
+      const envelopeWave = 7 + looseness * 30;
+      const lineStretch = 0.82 + shellStrength * 0.56;
+      const particleAlpha = 0.38 + shellStrength * 0.3;
+      const particleColor = colorFor(controls.temperature);
 
       particles.forEach((particle, index) => {
         const baseVelocity = (0.38 + flowStrength * 1.45) * particle.speed * horizontalFlowSpeed * 60;
         const baseX = ((particle.x + seconds * baseVelocity) % travelWidth) - 48;
+        const turbulence = Math.sin(seconds * (1.08 + particle.speed * 0.86) + particle.phase * 1.7) * looseness * 26;
         const baseY =
           particle.y +
-          Math.sin(seconds * 0.44 + particle.phase) * (8 + shellCalm * 12) +
-          Math.cos(flowTime * 0.9 + particle.phase) * (6 + flowStrength * 8);
+          Math.sin(seconds * 0.44 + particle.phase) * envelopeDrift +
+          Math.cos(flowTime * 0.9 + particle.phase) * (5 + flowStrength * 7 + looseness * 15) +
+          turbulence;
         const wave = Math.sin(flowTime * particle.speed + particle.phase + baseY * 0.006);
         const mouseDx = mouse.x * width - baseX;
         const mouseDy = mouse.y * height - baseY;
@@ -326,21 +353,26 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         const pointerWake = pointerInfluence * (0.52 + pointerEnergy * 0.36);
         const wakeX = -mouseDy / mouseDistance;
         const wakeY = mouseDx / mouseDistance;
-        const x = baseX + wave * (8 + shellCalm * 7) + wakeX * pointerWake * 18 + mouseDx * pointerWake * 0.011;
+        const x =
+          baseX +
+          wave * envelopeWave +
+          Math.sin(seconds * 1.7 + particle.phase) * looseness * 14 +
+          wakeX * pointerWake * 18 +
+          mouseDx * pointerWake * 0.011;
         const y = ((baseY + wakeY * pointerWake * 13 + mouseDy * pointerWake * 0.007 + 40) % (height + 80)) - 40;
-        const length = 28 + flowStrength * 86 + particle.base * 42;
-        context.strokeStyle = colorFor(particle, controls.temperature);
-        context.lineWidth = particle.size;
-        context.globalAlpha = 0.46 + shellCalm * 0.2;
+        const length = (28 + flowStrength * 86 + particle.base * 42) * lineStretch;
+        context.strokeStyle = particleColor;
+        context.lineWidth = particle.size * (0.82 + shellStrength * 0.58);
+        context.globalAlpha = particleAlpha + particle.base * 0.04;
         context.beginPath();
         context.moveTo(x, y);
         context.bezierCurveTo(
           x - length * 0.28,
-          y + wave * 12,
+          y + wave * (8 + looseness * 18),
           x - length * 0.72,
-          y - wave * 18,
+          y - wave * (12 + looseness * 24),
           x - length,
-          y + Math.sin(flowTime + index) * 16,
+          y + Math.sin(flowTime + index) * (8 + looseness * 24),
         );
         context.stroke();
       });
