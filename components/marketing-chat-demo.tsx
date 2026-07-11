@@ -175,7 +175,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
       const nextPersistentAvailable = heroRect ? heroRect.bottom <= 0 : true;
       const pricingElement = document.getElementById("precios");
       const pricingRect = pricingElement?.getBoundingClientRect();
-      const nextNearPricing = !!pricingRect && pricingRect.top < window.innerHeight && pricingRect.bottom > 0;
+      const nextNearPricing = variant !== "sales" && !!pricingRect && pricingRect.top < window.innerHeight && pricingRect.bottom > 0;
       setPersistentAvailable(nextPersistentAvailable);
       setNearPricing(nextNearPricing);
       if (!nextPersistentAvailable) setDockOpen(false);
@@ -187,7 +187,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
       window.removeEventListener("scroll", updateFloatingPosition);
       window.removeEventListener("resize", updateFloatingPosition);
     };
-  }, []);
+  }, [variant]);
 
   function getFlowPickerPlan(): ReplyPlan {
     return {
