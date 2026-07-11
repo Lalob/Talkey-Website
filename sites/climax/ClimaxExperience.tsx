@@ -232,29 +232,31 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     let width = 0;
     let height = 0;
     let frame = 0;
-    let lastTime = 0;
-    let accumulatedMs = 0;
-    let simulationTime = 0;
+    let animationStartTime = 0;
+    let animationTime = 0;
     let particles: Particle[] = [];
-    const mouse = { x: 0.74, y: 0.36, active: false, energy: 0 };
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mouse = { x: 0.74, y: 0.36, active: false, energy: 0, lastMoveAt: -20 };
     const supportsPointer = "PointerEvent" in window;
-    const simulationStepMs = 1000 / 60;
-    const maxAccumulatedMs = simulationStepMs * 5;
     const lineSpeedMultiplier = 2.8;
     const horizontalFlowSpeed = 1.18 * lineSpeedMultiplier;
 
+    const deterministicValue = (index: number, salt: number) => {
+      let value = Math.imul(index + 1, 0x9e3779b1) ^ Math.imul(salt + 1, 0x85ebca6b);
+      value = Math.imul(value ^ (value >>> 16), 0x7feb352d);
+      value = Math.imul(value ^ (value >>> 15), 0x846ca68b);
+      return ((value ^ (value >>> 16)) >>> 0) / 4294967295;
+    };
+
     const seedParticles = () => {
       const baseCount = Math.round(Math.min(170, Math.max(64, width / 9)));
-      const count = prefersReduced.matches ? Math.round(baseCount * 0.58) : baseCount;
-      particles = Array.from({ length: count }, (_, index) => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        base: Math.random(),
-        heat: index % 3 === 0 ? 1 : Math.random() > 0.52 ? 0.55 : 0,
-        speed: 0.28 + Math.random() * 0.84,
-        phase: Math.random() * Math.PI * 2,
-        size: 0.8 + Math.random() * 2.6,
+      particles = Array.from({ length: baseCount }, (_, index) => ({
+        x: deterministicValue(index, 1) * width,
+        y: deterministicValue(index, 2) * height,
+        base: deterministicValue(index, 3),
+        heat: index % 3 === 0 ? 1 : deterministicValue(index, 4) > 0.52 ? 0.55 : 0,
+        speed: 0.28 + deterministicValue(index, 5) * 0.84,
+        phase: deterministicValue(index, 6) * Math.PI * 2,
+        size: 0.8 + deterministicValue(index, 7) * 2.6,
       }));
     };
 
@@ -268,21 +270,20 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
       canvas.style.height = height + "px";
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
       context.lineCap = "round";
-      lastTime = 0;
-      accumulatedMs = 0;
-      simulationTime = 0;
+      animationStartTime = 0;
+      animationTime = 0;
       seedParticles();
     };
 
-    const drawAmbientBands = (flowTime: number, reducedMotion: boolean) => {
-      const bandCount = reducedMotion ? 3 : 5;
+    const drawAmbientBands = (flowTime: number) => {
+      const bandCount = 5;
       for (let index = 0; index < bandCount; index += 1) {
         const y = ((index + 1) / (bandCount + 1)) * height + Math.sin(flowTime * 0.72 + index) * 28;
         const startX = (flowTime * 54 + index * width * 0.23) % (width + 260) - 130;
         const length = Math.max(240, width * 0.32);
-        context.globalAlpha = reducedMotion ? 0.08 : 0.12;
+        context.globalAlpha = 0.12;
         context.strokeStyle = index % 2 === 0 ? "rgba(125, 231, 255, 0.72)" : "rgba(217, 121, 56, 0.56)";
-        context.lineWidth = reducedMotion ? 1 : 1.25;
+        context.lineWidth = 1.25;
         context.beginPath();
         context.moveTo(startX, y);
         context.bezierCurveTo(
@@ -297,96 +298,67 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
       }
     };
 
-    const advanceParticles = (flowTime: number, reducedMotion: boolean) => {
+    const renderParticles = (seconds: number, flowTime: number) => {
       const flowStrength = flow / 100;
       const shellCalm = shell / 100;
-      const movementScale = reducedMotion ? 0.18 : 1;
-      mouse.energy *= Math.pow(0.94, movementScale);
-
-      particles.forEach((particle) => {
-        const wave = Math.sin(flowTime * particle.speed + particle.phase + particle.y * 0.006);
-        const mouseDx = mouse.x * width - particle.x;
-        const mouseDy = mouse.y * height - particle.y;
-        const mouseDistance = Math.max(24, Math.hypot(mouseDx, mouseDy));
-        const pointerInfluence = mouse.active ? Math.max(0, 1 - mouseDistance / 460) : 0;
-        const pointerWake = reducedMotion
-          ? pointerInfluence * 0.22
-          : pointerInfluence * (0.52 + mouse.energy * 0.36);
-        const wakeX = -mouseDy / mouseDistance;
-        const wakeY = mouseDx / mouseDistance;
-
-        const moveX =
-          (0.38 + flowStrength * 1.45) * particle.speed * horizontalFlowSpeed +
-          wave * (0.42 + shellCalm * 0.34) +
-          wakeX * pointerWake * 7.2 +
-          mouseDx * pointerWake * 0.0052;
-        const moveY =
-          Math.cos(flowTime * 0.9 + particle.phase) * (0.34 + flowStrength * 0.42) +
-          wakeY * pointerWake * 4.7 +
-          mouseDy * pointerWake * 0.0037;
-
-        particle.x += moveX * movementScale;
-        particle.y += moveY * movementScale;
-
-        if (particle.x > width + 40) particle.x = -40;
-        if (particle.y > height + 40) particle.y = -40;
-        if (particle.y < -40) particle.y = height + 40;
-      });
-    };
-
-    const renderParticles = (flowTime: number, reducedMotion: boolean) => {
-      const flowStrength = flow / 100;
-      const shellCalm = shell / 100;
+      const travelWidth = width + 96;
+      const pointerAge = Math.max(0, seconds - mouse.lastMoveAt);
+      const pointerEnergy = mouse.energy * Math.exp(-pointerAge * 2.25);
 
       particles.forEach((particle, index) => {
-        const wave = Math.sin(flowTime * particle.speed + particle.phase + particle.y * 0.006);
+        const baseVelocity = (0.38 + flowStrength * 1.45) * particle.speed * horizontalFlowSpeed * 60;
+        const baseX = ((particle.x + seconds * baseVelocity) % travelWidth) - 48;
+        const baseY =
+          particle.y +
+          Math.sin(seconds * 0.44 + particle.phase) * (8 + shellCalm * 12) +
+          Math.cos(flowTime * 0.9 + particle.phase) * (6 + flowStrength * 8);
+        const wave = Math.sin(flowTime * particle.speed + particle.phase + baseY * 0.006);
+        const mouseDx = mouse.x * width - baseX;
+        const mouseDy = mouse.y * height - baseY;
+        const mouseDistance = Math.max(24, Math.hypot(mouseDx, mouseDy));
+        const pointerInfluence = mouse.active ? Math.max(0, 1 - mouseDistance / 460) : 0;
+        const pointerWake = pointerInfluence * (0.52 + pointerEnergy * 0.36);
+        const wakeX = -mouseDy / mouseDistance;
+        const wakeY = mouseDx / mouseDistance;
+        const x = baseX + wave * (8 + shellCalm * 7) + wakeX * pointerWake * 18 + mouseDx * pointerWake * 0.011;
+        const y = ((baseY + wakeY * pointerWake * 13 + mouseDy * pointerWake * 0.007 + 40) % (height + 80)) - 40;
         const length = 28 + flowStrength * 86 + particle.base * 42;
         context.strokeStyle = colorFor(particle, temperature);
         context.lineWidth = particle.size;
-        context.globalAlpha = (0.46 + shellCalm * 0.2) * (reducedMotion ? 0.72 : 1);
+        context.globalAlpha = 0.46 + shellCalm * 0.2;
         context.beginPath();
-        context.moveTo(particle.x, particle.y);
+        context.moveTo(x, y);
         context.bezierCurveTo(
-          particle.x - length * 0.28,
-          particle.y + wave * 12,
-          particle.x - length * 0.72,
-          particle.y - wave * 18,
-          particle.x - length,
-          particle.y + Math.sin(flowTime + index) * 16,
+          x - length * 0.28,
+          y + wave * 12,
+          x - length * 0.72,
+          y - wave * 18,
+          x - length,
+          y + Math.sin(flowTime + index) * 16,
         );
         context.stroke();
       });
     };
 
     const draw = (time: number) => {
-      const elapsed = lastTime ? Math.min(time - lastTime, maxAccumulatedMs) : simulationStepMs;
-      lastTime = time;
-      const reducedMotion = prefersReduced.matches;
-      accumulatedMs = Math.min(accumulatedMs + elapsed, maxAccumulatedMs);
-
-      // Advance the particle simulation at a fixed 60 Hz clock. Browser refresh rate
-      // only controls how often we render, not how fast particles travel.
-      while (accumulatedMs >= simulationStepMs) {
-        simulationTime += simulationStepMs * 0.001;
-        advanceParticles(simulationTime * (reducedMotion ? 0.34 : lineSpeedMultiplier), reducedMotion);
-        accumulatedMs -= simulationStepMs;
-      }
-
-      const t = simulationTime;
-      const flowTime = t * (reducedMotion ? 0.34 : lineSpeedMultiplier);
+      if (!animationStartTime) animationStartTime = time;
+      animationTime = (time - animationStartTime) * 0.001;
+      const flowTime = animationTime * lineSpeedMultiplier;
       context.clearRect(0, 0, width, height);
       context.globalCompositeOperation = "source-over";
 
-      drawAmbientBands(flowTime, reducedMotion);
-      renderParticles(flowTime, reducedMotion);
+      drawAmbientBands(flowTime);
+      renderParticles(animationTime, flowTime);
 
       if (mouse.active || mouse.energy > 0.04) {
         const x = mouse.x * width;
         const y = mouse.y * height;
-        const radius = 102 + mouse.energy * 32;
+        const pointerAge = Math.max(0, animationTime - mouse.lastMoveAt);
+        const pointerEnergy = mouse.energy * Math.exp(-pointerAge * 2.25);
+        const radius = 102 + pointerEnergy * 32;
         const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
-        gradient.addColorStop(0, reducedMotion ? "rgba(125, 231, 255, 0.14)" : "rgba(125, 231, 255, 0.24)");
-        gradient.addColorStop(0.48, reducedMotion ? "rgba(217, 121, 56, 0.08)" : "rgba(217, 121, 56, 0.13)");
+        gradient.addColorStop(0, "rgba(125, 231, 255, 0.24)");
+        gradient.addColorStop(0.48, "rgba(217, 121, 56, 0.13)");
         gradient.addColorStop(1, "rgba(125, 231, 255, 0)");
         context.fillStyle = gradient;
         context.globalAlpha = 1;
@@ -396,7 +368,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         context.strokeStyle = "rgba(125, 231, 255, 0.26)";
         context.lineWidth = 1;
         context.beginPath();
-        context.arc(x, y, 25 + Math.sin(t * 5) * 4.5, 0, Math.PI * 2);
+        context.arc(x, y, 25 + Math.sin(animationTime * 5) * 4.5, 0, Math.PI * 2);
         context.stroke();
       }
 
@@ -409,7 +381,8 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
       mouse.x = clientX / Math.max(1, width);
       mouse.y = clientY / Math.max(1, height);
       mouse.active = true;
-      mouse.energy = Math.min(1.45, mouse.energy + boost);
+      mouse.energy = Math.min(1.45, 1 + boost);
+      mouse.lastMoveAt = animationTime;
     };
 
     const onPointerMove = (event: PointerEvent) => updatePointer(event.clientX, event.clientY);
@@ -422,8 +395,8 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
       mouse.active = false;
     };
     const onVisibilityChange = () => {
-      lastTime = 0;
-      accumulatedMs = 0;
+      animationStartTime = 0;
+      animationTime = 0;
       if (document.hidden) mouse.active = false;
     };
 
