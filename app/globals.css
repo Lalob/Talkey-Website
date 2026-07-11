@@ -5714,23 +5714,25 @@ button { cursor: pointer; }
 }
 
 
+/* Support page desktop header: keep navigation from colliding with language selector. */
 @media (min-width: 1061px) {
   .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-header .mk-container {
-    width: min(100% - 32px, 1480px);
+    width: min(100% - 24px, 1580px);
   }
 
   .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav {
-    grid-template-columns: minmax(170px, .72fr) minmax(560px, 1.8fr) minmax(380px, .98fr);
-    gap: clamp(18px, 2vw, 42px);
+    grid-template-columns: minmax(172px, auto) minmax(0, 1fr) minmax(410px, auto);
+    gap: clamp(18px, 2.35vw, 48px);
   }
 
   .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-links {
     width: 100%;
-    justify-content: space-evenly;
-    gap: clamp(12px, 1.15vw, 24px);
+    justify-content: space-between;
+    gap: clamp(10px, 1vw, 22px);
   }
 
   .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-links > a:not(.mk-mobile-quote) {
+    flex: 0 1 auto;
     white-space: nowrap;
   }
 
@@ -5743,15 +5745,15 @@ button { cursor: pointer; }
   .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-cta {
     flex: 0 0 auto;
     white-space: nowrap;
-    padding-right: clamp(14px, 1.2vw, 20px);
-    padding-left: clamp(14px, 1.2vw, 20px);
+    padding-right: clamp(14px, 1vw, 18px);
+    padding-left: clamp(14px, 1vw, 18px);
   }
 }
 
-@media (min-width: 1061px) and (max-width: 1280px) {
+@media (min-width: 1061px) and (max-width: 1360px) {
   .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav {
-    grid-template-columns: minmax(150px, .64fr) minmax(500px, 1.9fr) minmax(330px, .9fr);
-    gap: 18px;
+    grid-template-columns: minmax(146px, auto) minmax(0, 1fr) minmax(292px, auto);
+    gap: 16px;
   }
 
   .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-brand {
@@ -5759,19 +5761,167 @@ button { cursor: pointer; }
   }
 
   .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-brand img:first-child {
-    width: 64px;
+    width: 60px;
   }
 
   .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-brand img:last-child {
-    width: 98px;
+    width: 92px;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-links {
+    gap: clamp(8px, .72vw, 12px);
   }
 
   .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-links > a:not(.mk-mobile-quote) {
-    font-size: clamp(14px, 1.18vw, 16px);
+    font-size: clamp(13px, 1.05vw, 15px);
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-language button {
+    min-width: 32px;
+    min-height: 32px;
+    font-size: 11px;
   }
 
   .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-cta {
-    min-height: 42px;
-    font-size: clamp(13.5px, 1.05vw, 15px);
+    min-height: 40px;
+    padding-right: 12px;
+    padding-left: 12px;
+    font-size: clamp(12px, .94vw, 14px);
   }
+}
+
+@media (min-width: 1061px) and (max-width: 1180px) {
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav {
+    grid-template-columns: minmax(136px, auto) minmax(0, 1fr) minmax(128px, auto);
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-cta {
+    display: none;
+  }
+}
+
+/* Hero demo sizing and callout alignment for support and sales pages. */
+@media (min-width: 1061px) {
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero,
+  .mk-sales-page .mk-sales-hero {
+    min-height: 100svh;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero {
+    display: grid;
+    align-items: center;
+    padding-top: 112px;
+    padding-bottom: clamp(28px, 4vh, 58px);
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-grid {
+    width: min(100% - 48px, 1440px);
+    grid-template-columns: minmax(0, .95fr) minmax(620px, 1.05fr);
+    align-items: center;
+    gap: clamp(42px, 5vw, 88px);
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-copy {
+    padding-bottom: 0;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-visual {
+    transform: none;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-demo-panel,
+  .mk-sales-page .mk-sales-hero-demo-panel {
+    grid-template-columns: minmax(330px, 390px) minmax(190px, 1fr);
+    align-items: stretch;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-demo-panel .mk-chat-wrap,
+  .mk-sales-page .mk-sales-hero-demo-panel .mk-chat-wrap {
+    width: clamp(290px, 39vh, 390px);
+    width: clamp(290px, 39svh, 390px);
+    padding-bottom: 0;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-demo-callout,
+  .mk-sales-page .mk-hero-demo-callout {
+    align-self: stretch;
+    align-content: end;
+    padding-bottom: clamp(18px, 2.8vw, 34px);
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-demo-callout svg,
+  .mk-sales-page .mk-hero-demo-callout svg {
+    margin-left: -6px;
+  }
+
+  .mk-sales-page .mk-sales-hero {
+    display: grid;
+    align-items: center;
+    padding-top: 104px;
+    padding-bottom: clamp(28px, 4vh, 58px);
+  }
+
+  .mk-sales-page .mk-sales-hero-grid {
+    width: min(100% - 48px, 1440px);
+    grid-template-columns: minmax(0, .95fr) minmax(620px, 1.05fr);
+    align-items: center;
+    gap: clamp(42px, 5vw, 88px);
+  }
+}
+
+@media (min-width: 821px) and (max-width: 1060px) {
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero,
+  .mk-sales-page .mk-sales-hero {
+    min-height: auto;
+    padding-top: 96px;
+    padding-bottom: 64px;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-demo-panel,
+  .mk-sales-page .mk-sales-hero-demo-panel {
+    grid-template-columns: minmax(320px, 360px) minmax(180px, 1fr);
+    align-items: stretch;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-demo-panel .mk-chat-wrap,
+  .mk-sales-page .mk-sales-hero-demo-panel .mk-chat-wrap {
+    width: min(360px, 100%);
+    padding-bottom: 0;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-demo-callout,
+  .mk-sales-page .mk-hero-demo-callout {
+    align-content: end;
+    padding-bottom: 56px;
+  }
+}
+
+@media (max-width: 820px) {
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero,
+  .mk-sales-page .mk-sales-hero {
+    min-height: 100svh;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-demo-panel .mk-chat-wrap,
+  .mk-sales-page .mk-sales-hero-demo-panel .mk-chat-wrap {
+    width: min(390px, 100%);
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-demo-callout,
+  .mk-sales-page .mk-hero-demo-callout {
+    order: 2;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-hero-demo-callout svg,
+  .mk-sales-page .mk-hero-demo-callout svg {
+    transform: rotate(-90deg);
+    animation: mk-arrow-up-to-demo 1.25s ease-in-out infinite;
+  }
+}
+
+@keyframes mk-arrow-up-to-demo {
+  0%, 100% { transform: translateY(0) rotate(-90deg); }
+  50% { transform: translateY(-8px) rotate(-90deg); }
 }
