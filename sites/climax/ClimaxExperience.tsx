@@ -232,12 +232,15 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     let width = 0;
     let height = 0;
     let frame = 0;
+    let lastTime = 0;
     let particles: Particle[] = [];
     const mouse = { x: 0.74, y: 0.36, active: false, energy: 0 };
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const supportsPointer = "PointerEvent" in window;
 
     const seedParticles = () => {
-      const count = Math.round(Math.min(170, Math.max(64, width / 9)));
+      const baseCount = Math.round(Math.min(170, Math.max(64, width / 9)));
+      const count = prefersReduced.matches ? Math.round(baseCount * 0.58) : baseCount;
       particles = Array.from({ length: count }, (_, index) => ({
         x: Math.random() * width,
         y: Math.random() * height,
@@ -245,7 +248,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         heat: index % 3 === 0 ? 1 : Math.random() > 0.52 ? 0.55 : 0,
         speed: 0.28 + Math.random() * 0.84,
         phase: Math.random() * Math.PI * 2,
-        size: 0.7 + Math.random() * 2.4,
+        size: 0.8 + Math.random() * 2.6,
       }));
     };
 
@@ -255,23 +258,54 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
       height = window.innerHeight;
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      context.lineCap = "round";
       seedParticles();
     };
 
+    const drawAmbientBands = (flowTime: number, reducedMotion: boolean) => {
+      const bandCount = reducedMotion ? 3 : 5;
+      for (let index = 0; index < bandCount; index += 1) {
+        const y = ((index + 1) / (bandCount + 1)) * height + Math.sin(flowTime * 0.72 + index) * 28;
+        const startX = (flowTime * 54 + index * width * 0.23) % (width + 260) - 130;
+        const length = Math.max(240, width * 0.32);
+        context.globalAlpha = reducedMotion ? 0.08 : 0.12;
+        context.strokeStyle = index % 2 === 0 ? "rgba(125, 231, 255, 0.72)" : "rgba(217, 121, 56, 0.56)";
+        context.lineWidth = reducedMotion ? 1 : 1.25;
+        context.beginPath();
+        context.moveTo(startX, y);
+        context.bezierCurveTo(
+          startX + length * 0.28,
+          y - 28,
+          startX + length * 0.68,
+          y + 34,
+          startX + length,
+          y + Math.sin(flowTime + index) * 18,
+        );
+        context.stroke();
+      }
+    };
+
     const draw = (time: number) => {
-      if (prefersReduced.matches) return;
+      const elapsed = lastTime ? time - lastTime : 16.67;
+      lastTime = time;
+      // Keep motion consistent across 60, 120 and 144 Hz displays.
+      const frameScale = Math.min(2, Math.max(0.25, elapsed / 16.67));
+      const reducedMotion = prefersReduced.matches;
+      const movementScale = reducedMotion ? Math.min(frameScale, 0.18) : frameScale;
       const t = time * 0.001;
       const lineSpeedMultiplier = 2.8;
-      const flowTime = t * lineSpeedMultiplier;
+      const flowTime = t * (reducedMotion ? 0.34 : lineSpeedMultiplier);
       context.clearRect(0, 0, width, height);
-      context.globalCompositeOperation = "lighter";
+      context.globalCompositeOperation = "source-over";
       const flowStrength = flow / 100;
       const shellCalm = shell / 100;
       const horizontalFlowSpeed = 1.18 * lineSpeedMultiplier;
-      mouse.energy *= 0.94;
+      mouse.energy *= Math.pow(0.94, movementScale);
+
+      drawAmbientBands(flowTime, reducedMotion);
 
       particles.forEach((particle, index) => {
         const wave = Math.sin(flowTime * particle.speed + particle.phase + particle.y * 0.006);
@@ -279,19 +313,24 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         const mouseDy = mouse.y * height - particle.y;
         const mouseDistance = Math.max(24, Math.hypot(mouseDx, mouseDy));
         const pointerInfluence = mouse.active ? Math.max(0, 1 - mouseDistance / 460) : 0;
-        const pointerWake = pointerInfluence * (0.52 + mouse.energy * 0.36);
+        const pointerWake = reducedMotion
+          ? pointerInfluence * 0.22
+          : pointerInfluence * (0.52 + mouse.energy * 0.36);
         const wakeX = -mouseDy / mouseDistance;
         const wakeY = mouseDx / mouseDistance;
 
-        particle.x +=
+        const moveX =
           (0.38 + flowStrength * 1.45) * particle.speed * horizontalFlowSpeed +
           wave * (0.42 + shellCalm * 0.34) +
           wakeX * pointerWake * 7.2 +
           mouseDx * pointerWake * 0.0052;
-        particle.y +=
+        const moveY =
           Math.cos(flowTime * 0.9 + particle.phase) * (0.34 + flowStrength * 0.42) +
           wakeY * pointerWake * 4.7 +
           mouseDy * pointerWake * 0.0037;
+
+        particle.x += moveX * movementScale;
+        particle.y += moveY * movementScale;
 
         if (particle.x > width + 40) particle.x = -40;
         if (particle.y > height + 40) particle.y = -40;
@@ -300,7 +339,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         const length = 28 + flowStrength * 86 + particle.base * 42;
         context.strokeStyle = colorFor(particle, temperature);
         context.lineWidth = particle.size;
-        context.globalAlpha = 0.32 + shellCalm * 0.18;
+        context.globalAlpha = (0.46 + shellCalm * 0.2) * (reducedMotion ? 0.72 : 1);
         context.beginPath();
         context.moveTo(particle.x, particle.y);
         context.bezierCurveTo(
@@ -319,15 +358,15 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         const y = mouse.y * height;
         const radius = 102 + mouse.energy * 32;
         const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
-        gradient.addColorStop(0, "rgba(125, 231, 255, 0.22)");
-        gradient.addColorStop(0.48, "rgba(217, 121, 56, 0.11)");
+        gradient.addColorStop(0, reducedMotion ? "rgba(125, 231, 255, 0.14)" : "rgba(125, 231, 255, 0.24)");
+        gradient.addColorStop(0.48, reducedMotion ? "rgba(217, 121, 56, 0.08)" : "rgba(217, 121, 56, 0.13)");
         gradient.addColorStop(1, "rgba(125, 231, 255, 0)");
-        context.globalCompositeOperation = "lighter";
         context.fillStyle = gradient;
+        context.globalAlpha = 1;
         context.beginPath();
         context.arc(x, y, radius, 0, Math.PI * 2);
         context.fill();
-        context.strokeStyle = "rgba(125, 231, 255, 0.21)";
+        context.strokeStyle = "rgba(125, 231, 255, 0.26)";
         context.lineWidth = 1;
         context.beginPath();
         context.arc(x, y, 25 + Math.sin(t * 5) * 4.5, 0, Math.PI * 2);
@@ -339,27 +378,52 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
       frame = requestAnimationFrame(draw);
     };
 
-    const onPointerMove = (event: PointerEvent) => {
-      mouse.x = event.clientX / Math.max(1, width);
-      mouse.y = event.clientY / Math.max(1, height);
+    const updatePointer = (clientX: number, clientY: number, boost = 0.12) => {
+      mouse.x = clientX / Math.max(1, width);
+      mouse.y = clientY / Math.max(1, height);
       mouse.active = true;
-      mouse.energy = Math.min(1.45, mouse.energy + 0.12);
+      mouse.energy = Math.min(1.45, mouse.energy + boost);
+    };
+
+    const onPointerMove = (event: PointerEvent) => updatePointer(event.clientX, event.clientY);
+    const onMouseMove = (event: MouseEvent) => updatePointer(event.clientX, event.clientY);
+    const onTouchMove = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (touch) updatePointer(touch.clientX, touch.clientY, 0.18);
     };
     const onPointerLeave = () => {
       mouse.active = false;
+    };
+    const onVisibilityChange = () => {
+      lastTime = 0;
+      if (document.hidden) mouse.active = false;
     };
 
     resize();
     frame = requestAnimationFrame(draw);
     window.addEventListener("resize", resize);
-    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    if (supportsPointer) {
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+    } else {
+      window.addEventListener("mousemove", onMouseMove, { passive: true });
+    }
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("pointerleave", onPointerLeave);
+    window.addEventListener("blur", onPointerLeave);
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("pointermove", onPointerMove);
+      if (supportsPointer) {
+        window.removeEventListener("pointermove", onPointerMove);
+      } else {
+        window.removeEventListener("mousemove", onMouseMove);
+      }
+      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("pointerleave", onPointerLeave);
+      window.removeEventListener("blur", onPointerLeave);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, [flow, shell, temperature]);
 
