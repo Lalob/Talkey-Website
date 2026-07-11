@@ -410,7 +410,7 @@ export function PlatformHome() {
       <section className="mk-platform-home-how" aria-labelledby="talkey-how-title">
         <div className="mk-container">
           <div className="mk-platform-home-how-head is-simple">
-            <h2 id="talkey-how-title">Cómo funciona Talkey</h2>
+            <h2 id="talkey-how-title">Cómo Talkey cuida tu ciclo de ventas</h2>
           </div>
 
           <div className="mk-platform-home-orbit" aria-label="Flujo continuo: Chat, CRM automatizado, Soporte inteligente y vuelta a Chat">
@@ -438,18 +438,13 @@ export function PlatformHome() {
               <path className="mk-orbit-track" d="M 676 635 C 600 690 400 690 324 635" />
               <path className="mk-orbit-track" d="M 280 406 C 270 388 330 318 400 270" />
 
-              <g className="mk-orbit-core">
-                <rect x="374" y="306" width="252" height="104" rx="30" />
-                <text className="mk-orbit-core-title" x="500" y="348" textAnchor="middle">Talkey coordina</text>
-                <text className="mk-orbit-core-detail" x="500" y="380" textAnchor="middle">tu ciclo de ventas</text>
-              </g>
 
               <g className="mk-cycle-node">
-                <circle cx="500" cy="155" r="145" />
-                <text className="mk-cycle-node-title" x="500" y="141" textAnchor="middle">Chat</text>
-                <text className="mk-cycle-node-subtitle" x="500" y="178" textAnchor="middle">
-                  <tspan x="500">Conversación</tspan>
-                  <tspan x="500" dy="28">comercial</tspan>
+                <circle cx="494" cy="155" r="145" />
+                <text className="mk-cycle-node-title" x="494" y="141" textAnchor="middle">Chat</text>
+                <text className="mk-cycle-node-subtitle" x="494" y="178" textAnchor="middle">
+                  <tspan x="494">Conversación</tspan>
+                  <tspan x="494" dy="28">comercial</tspan>
                 </text>
               </g>
 
@@ -471,9 +466,9 @@ export function PlatformHome() {
                 <text className="mk-cycle-node-subtitle" x="275" y="558" textAnchor="middle">Fidelización</text>
               </g>
 
-              <text className="mk-orbit-label mk-orbit-label-right" x="704" y="352" textAnchor="middle">Alimenta</text>
-              <text className="mk-orbit-label" x="500" y="680" textAnchor="middle">Venta</text>
-              <text className="mk-orbit-label mk-orbit-label-left" x="344" y="360" textAnchor="middle">Satisfacción</text>
+              <text className="mk-orbit-label mk-orbit-label-right" x="768" y="328" textAnchor="middle">Alimenta</text>
+              <text className="mk-orbit-label" x="500" y="712" textAnchor="middle">Venta</text>
+              <text className="mk-orbit-label mk-orbit-label-left" x="220" y="328" textAnchor="middle">Satisfacción</text>
             </svg>
           </div>
         </div>

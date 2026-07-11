@@ -23,9 +23,49 @@
     { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
   );
 
-  revealItems.forEach((item, index) => {
-    item.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
-    revealObserver.observe(item);
+  function revealMotionFor(item) {
+    if (
+      item.matches(
+        ".hero-copy, .section-kicker, .intro-title, .proof-content, .values-head, .brands-visual, .operations-copy"
+      )
+    ) {
+      return "left";
+    }
+
+    if (
+      item.matches(
+        ".signal-board, .company-card, .proof-card, .value-item, .brand-card, .operation-step, .contact-panel"
+      )
+    ) {
+      return "pop";
+    }
+
+    return "up";
+  }
+
+  function revealGroupFor(item) {
+    return (
+      item.closest(".hero-grid, .intro-copy, .intro-layout, .proof-grid, .values-grid, .brands-content, .brand-cards, .operations-list") ||
+      item.closest("section") ||
+      document.body
+    );
+  }
+
+  const revealGroupCounts = new Map();
+
+  revealItems.forEach((item) => {
+    const group = revealGroupFor(item);
+    const groupIndex = revealGroupCounts.get(group) || 0;
+    revealGroupCounts.set(group, groupIndex + 1);
+
+    item.dataset.revealMotion = revealMotionFor(item);
+    item.style.setProperty("--reveal-delay", `${Math.min(groupIndex * 85, 425)}ms`);
+
+    if (reduceMotion) {
+      item.classList.add("is-visible");
+    } else {
+      revealObserver.observe(item);
+    }
   });
 
   function animateCount(el) {
