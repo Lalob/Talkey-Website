@@ -5712,3 +5712,66 @@ button { cursor: pointer; }
     font-size: 15px;
   }
 }
+
+
+@media (min-width: 1061px) {
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-header .mk-container {
+    width: min(100% - 32px, 1480px);
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav {
+    grid-template-columns: minmax(170px, .72fr) minmax(560px, 1.8fr) minmax(380px, .98fr);
+    gap: clamp(18px, 2vw, 42px);
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-links {
+    width: 100%;
+    justify-content: space-evenly;
+    gap: clamp(12px, 1.15vw, 24px);
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-links > a:not(.mk-mobile-quote) {
+    white-space: nowrap;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-actions {
+    width: 100%;
+    justify-content: flex-end;
+    gap: clamp(10px, 1vw, 16px);
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-cta {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding-right: clamp(14px, 1.2vw, 20px);
+    padding-left: clamp(14px, 1.2vw, 20px);
+  }
+}
+
+@media (min-width: 1061px) and (max-width: 1280px) {
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav {
+    grid-template-columns: minmax(150px, .64fr) minmax(500px, 1.9fr) minmax(330px, .9fr);
+    gap: 18px;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-brand {
+    gap: 6px;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-brand img:first-child {
+    width: 64px;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-brand img:last-child {
+    width: 98px;
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-links > a:not(.mk-mobile-quote) {
+    font-size: clamp(14px, 1.18vw, 16px);
+  }
+
+  .mk-site:not(.mk-platform-site):not(.mk-manuals-site) .mk-nav-cta {
+    min-height: 42px;
+    font-size: clamp(13.5px, 1.05vw, 15px);
+  }
+}
