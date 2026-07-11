@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import Link from "next/link";
-import { AlertTriangle, ArrowUp, Mail, MessageCircleMore, Minus } from "lucide-react";
+import { AlertTriangle, ArrowRight, ArrowUp, Mail, MessageCircleMore, Minus } from "lucide-react";
 import { ClimaxMenu } from "./ClimaxMenu";
 import styles from "./ClimaxPage.module.css";
 import { climaxProducts } from "./climaxProducts";
@@ -465,11 +465,13 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
           </div>
 
           <div className={`${styles.heroActions} ${styles.reveal}`} aria-label="Acciones principales" data-climax-reveal="right">
-            <a className={`${styles.button} ${styles.buttonPrimary}`} href="#sistemas">
-              Ver sistemas
+            <a className={`${styles.button} ${styles.buttonSecondary}`} href="#sistemas">
+              <span>Ver sistemas</span>
+              <ArrowRight className={styles.buttonArrow} size={20} strokeWidth={1.9} aria-hidden="true" />
             </a>
             <a className={`${styles.button} ${styles.buttonSecondary}`} href="#productos">
-              Ver productos
+              <span>Ver productos</span>
+              <ArrowRight className={styles.buttonArrow} size={20} strokeWidth={1.9} aria-hidden="true" />
             </a>
           </div>
 

@@ -284,10 +284,6 @@
   box-shadow: 0 22px 70px rgba(0, 0, 0, 0.2);
 }
 
-.heroActions .button::after {
-  font-size: 1.15rem;
-}
-
 .button {
   position: relative;
   display: inline-flex;
@@ -304,9 +300,21 @@
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
-.button::after {
-  margin-left: 12px;
-  content: "->";
+.buttonArrow {
+  flex: 0 0 auto;
+  width: 1.14em;
+  height: 1.14em;
+  margin-left: 14px;
+  color: currentColor;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 10px rgba(125, 231, 255, 0.22));
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.button:hover .buttonArrow,
+.button:focus-visible .buttonArrow {
+  opacity: 1;
+  transform: translateX(4px);
 }
 
 .button:hover,
