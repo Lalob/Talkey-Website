@@ -163,6 +163,7 @@ h3 {
 
 .main-nav a {
   color: var(--gray-900);
+  font-size: clamp(0.9rem, 0.86rem + 0.16vw, 1rem);
   position: relative;
 }
 
@@ -471,6 +472,7 @@ h3 {
 }
 
 .intro-title h2 {
+  font-size: clamp(3rem, 5.15vw, 5.75rem);
   max-width: 14ch;
 }
 
@@ -1377,11 +1379,11 @@ h3 {
   }
 
   .network-canvas {
-    display: none;
+    opacity: 0.52;
   }
 
   .curve-canvas {
-    display: none;
+    opacity: 0.62;
   }
 
   .reveal {
@@ -1524,6 +1526,7 @@ h3 {
   }
 
   .intro-title h2 {
+    font-size: clamp(2.55rem, 12.4vw, 3.85rem);
     max-width: none;
   }
 

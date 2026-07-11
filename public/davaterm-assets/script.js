@@ -100,19 +100,22 @@
   document.querySelectorAll("[data-count]").forEach((el) => countObserver.observe(el));
 
   const networkCanvas = document.querySelector("[data-network-canvas]");
-  if (networkCanvas && !reduceMotion) initNetworkCanvas(networkCanvas);
+  if (networkCanvas) initNetworkCanvas(networkCanvas);
 
   const curveCanvas = document.querySelector("[data-curve-canvas]");
   const curveStage = document.querySelector("[data-curve-stage]");
-  if (curveCanvas && curveStage && !reduceMotion) initCurveCanvas(curveCanvas, curveStage);
+  if (curveCanvas && curveStage) initCurveCanvas(curveCanvas, curveStage);
 
   function initNetworkCanvas(canvas) {
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
     let width = 0;
     let height = 0;
     let dpr = 1;
     let nodes = [];
     let pointer = { x: 0, y: 0, active: false };
+    let lastTime = 0;
+    const supportsPointer = "PointerEvent" in window;
 
     function bounds() {
       return {
@@ -132,7 +135,8 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const area = bounds();
-      const count = width < 700 ? 30 : Math.min(96, Math.max(58, Math.floor(width / 22)));
+      const baseCount = width < 700 ? 30 : Math.min(96, Math.max(58, Math.floor(width / 22)));
+      const count = reduceMotion ? Math.round(baseCount * 0.64) : baseCount;
       nodes = Array.from({ length: count }, (_, index) => {
         const angle = Math.random() * Math.PI * 2;
         const speed = 0.16 + Math.random() * 0.38;
@@ -149,14 +153,21 @@
     }
 
     function draw(time) {
+      const elapsed = lastTime ? time - lastTime : 16.67;
+      lastTime = time;
+      const frameScale = Math.min(2, Math.max(0.25, elapsed / 16.67));
+      const movementScale = reduceMotion ? Math.min(frameScale, 0.18) : frameScale;
+      const renderTime = reduceMotion ? time * 0.26 : time;
       ctx.clearRect(0, 0, width, height);
       const area = bounds();
       const linkDistance = width < 700 ? 104 : 158;
       const pointerDistance = width < 700 ? 132 : 190;
 
       nodes.forEach((node) => {
-        node.x += node.vx + Math.sin(time * 0.0008 + node.phase) * 0.08;
-        node.y += node.vy + Math.cos(time * 0.0007 + node.phase) * 0.08;
+        const waveX = Math.sin(renderTime * 0.0008 + node.phase) * 0.08;
+        const waveY = Math.cos(renderTime * 0.0007 + node.phase) * 0.08;
+        node.x += (node.vx + waveX) * movementScale;
+        node.y += (node.vy + waveY) * movementScale;
 
         if (node.x < area.xMin || node.x > area.xMax) node.vx *= -1;
         if (node.y < area.yMin || node.y > area.yMax) node.vy *= -1;
@@ -168,9 +179,9 @@
           const dy = node.y - pointer.y;
           const distance = Math.hypot(dx, dy) || 1;
           if (distance < pointerDistance) {
-            const push = (1 - distance / pointerDistance) * 7;
-            node.x += (dx / distance) * push;
-            node.y += (dy / distance) * push;
+            const push = (1 - distance / pointerDistance) * (reduceMotion ? 2.6 : 7);
+            node.x += (dx / distance) * push * movementScale;
+            node.y += (dy / distance) * push * movementScale;
           }
         }
       });
@@ -183,7 +194,7 @@
           const dy = a.y - b.y;
           const distance = Math.hypot(dx, dy);
           if (distance < linkDistance) {
-            const strength = (1 - distance / linkDistance) * 0.28;
+            const strength = (1 - distance / linkDistance) * (reduceMotion ? 0.2 : 0.28);
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -198,7 +209,7 @@
           const dy = a.y - pointer.y;
           const distance = Math.hypot(dx, dy);
           if (distance < pointerDistance) {
-            const strength = (1 - distance / pointerDistance) * 0.42;
+            const strength = (1 - distance / pointerDistance) * (reduceMotion ? 0.26 : 0.42);
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(pointer.x, pointer.y);
@@ -211,38 +222,57 @@
 
       nodes.forEach((node) => {
         const color = node.copper ? "201, 121, 59" : "16, 89, 138";
-        const pulse = Math.sin(time * 0.002 + node.phase) * 0.45;
+        const pulse = Math.sin(renderTime * 0.002 + node.phase) * (reduceMotion ? 0.14 : 0.45);
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius + pulse, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color}, 0.58)`;
+        ctx.fillStyle = `rgba(${color}, ${reduceMotion ? 0.46 : 0.58})`;
         ctx.fill();
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius * 3.2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color}, 0.055)`;
+        ctx.fillStyle = `rgba(${color}, ${reduceMotion ? 0.038 : 0.055})`;
         ctx.fill();
       });
 
       requestAnimationFrame(draw);
     }
 
-    window.addEventListener("resize", resizeCanvas);
-    window.addEventListener(
-      "pointermove",
-      (event) => {
-        const rect = canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        pointer = {
-          x,
-          y,
-          active: x >= 0 && x <= rect.width && y >= 0 && y <= rect.height
-        };
-      },
-      { passive: true }
-    );
-    window.addEventListener("pointerleave", () => {
+    function updatePointer(clientX, clientY) {
+      const rect = canvas.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      pointer = {
+        x,
+        y,
+        active: x >= 0 && x <= rect.width && y >= 0 && y <= rect.height
+      };
+    }
+
+    function resetPointer() {
       pointer.active = false;
-    });
+    }
+
+    function resetTiming() {
+      lastTime = 0;
+      if (document.hidden) resetPointer();
+    }
+
+    const onPointerMove = (event) => updatePointer(event.clientX, event.clientY);
+    const onMouseMove = (event) => updatePointer(event.clientX, event.clientY);
+    const onTouchMove = (event) => {
+      const touch = event.touches[0];
+      if (touch) updatePointer(touch.clientX, touch.clientY);
+    };
+
+    window.addEventListener("resize", resizeCanvas);
+    if (supportsPointer) {
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+    } else {
+      window.addEventListener("mousemove", onMouseMove, { passive: true });
+    }
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("pointerleave", resetPointer);
+    window.addEventListener("blur", resetPointer);
+    document.addEventListener("visibilitychange", resetTiming);
 
     resizeCanvas();
     requestAnimationFrame(draw);
@@ -250,6 +280,7 @@
 
   function initCurveCanvas(canvas, stage) {
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
     let width = 0;
     let height = 0;
     let dpr = 1;
@@ -343,54 +374,69 @@
     }
 
     function draw(time) {
+      const renderTime = reduceMotion ? time * 0.2 : time;
       ctx.clearRect(0, 0, width, height);
       const pointCache = new Map();
 
       routes.forEach((route, index) => {
-        const points = curvePoints(route, time + index * 300);
+        const points = curvePoints(route, renderTime + index * 300);
         pointCache.set(route, points);
-        drawRoute(points, route, 0.12, 12);
-        drawRoute(points, route, 0.24, 3.2);
+        drawRoute(points, route, reduceMotion ? 0.09 : 0.12, 12);
+        drawRoute(points, route, reduceMotion ? 0.18 : 0.24, 3.2);
       });
 
       particles.forEach((particle, index) => {
         const route = particle.route;
         const points = pointCache.get(route);
-        const t = (time * route.speed + particle.offset) % 1;
+        const t = (renderTime * route.speed + particle.offset) % 1;
         const point = bezier(points, t);
         const pointerDistance = pointer.active ? Math.hypot(point.x - pointer.x, point.y - pointer.y) : Infinity;
         const glow = pointerDistance < 120 ? 1 - pointerDistance / 120 : 0;
-        const pulse = Math.sin(time * 0.004 + index) * 0.4;
-        const radius = particle.radius + pulse + glow * 2.4;
+        const pulse = Math.sin(renderTime * 0.004 + index) * (reduceMotion ? 0.14 : 0.4);
+        const radius = particle.radius + pulse + glow * (reduceMotion ? 1.1 : 2.4);
 
         ctx.beginPath();
         ctx.arc(point.x, point.y, radius * 4.2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${route.glow}, ${0.05 + glow * 0.08})`;
+        ctx.fillStyle = `rgba(${route.glow}, ${0.05 + glow * (reduceMotion ? 0.045 : 0.08)})`;
         ctx.fill();
         ctx.beginPath();
         ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${route.glow}, ${0.64 + glow * 0.26})`;
+        ctx.fillStyle = `rgba(${route.glow}, ${0.58 + glow * (reduceMotion ? 0.14 : 0.26)})`;
         ctx.fill();
       });
 
       requestAnimationFrame(draw);
     }
 
-    stage.addEventListener(
-      "pointermove",
-      (event) => {
-        const rect = canvas.getBoundingClientRect();
-        pointer = {
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top,
-          active: true
-        };
-      },
-      { passive: true }
-    );
-    stage.addEventListener("pointerleave", () => {
+    function updatePointer(clientX, clientY) {
+      const rect = canvas.getBoundingClientRect();
+      pointer = {
+        x: clientX - rect.left,
+        y: clientY - rect.top,
+        active: true
+      };
+    }
+
+    function resetPointer() {
       pointer.active = false;
-    });
+    }
+
+    const supportsPointer = "PointerEvent" in window;
+    const onPointerMove = (event) => updatePointer(event.clientX, event.clientY);
+    const onMouseMove = (event) => updatePointer(event.clientX, event.clientY);
+    const onTouchMove = (event) => {
+      const touch = event.touches[0];
+      if (touch) updatePointer(touch.clientX, touch.clientY);
+    };
+
+    if (supportsPointer) {
+      stage.addEventListener("pointermove", onPointerMove, { passive: true });
+    } else {
+      stage.addEventListener("mousemove", onMouseMove, { passive: true });
+    }
+    stage.addEventListener("touchmove", onTouchMove, { passive: true });
+    stage.addEventListener("pointerleave", resetPointer);
+    stage.addEventListener("mouseleave", resetPointer);
     window.addEventListener("resize", resizeCanvas);
 
     resizeCanvas();
