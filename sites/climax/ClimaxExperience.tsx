@@ -264,15 +264,17 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     const draw = (time: number) => {
       if (prefersReduced.matches) return;
       const t = time * 0.001;
+      const lineSpeedMultiplier = 1.3;
+      const flowTime = t * lineSpeedMultiplier;
       context.clearRect(0, 0, width, height);
       context.globalCompositeOperation = "lighter";
       const flowStrength = flow / 100;
       const shellCalm = shell / 100;
-      const horizontalFlowSpeed = 1.18;
+      const horizontalFlowSpeed = 1.18 * lineSpeedMultiplier;
       mouse.energy *= 0.94;
 
       particles.forEach((particle, index) => {
-        const wave = Math.sin(t * particle.speed + particle.phase + particle.y * 0.006);
+        const wave = Math.sin(flowTime * particle.speed + particle.phase + particle.y * 0.006);
         const mouseDx = mouse.x * width - particle.x;
         const mouseDy = mouse.y * height - particle.y;
         const mouseDistance = Math.max(24, Math.hypot(mouseDx, mouseDy));
@@ -287,7 +289,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
           wakeX * pointerWake * 7.2 +
           mouseDx * pointerWake * 0.0052;
         particle.y +=
-          Math.cos(t * 0.9 + particle.phase) * (0.34 + flowStrength * 0.42) +
+          Math.cos(flowTime * 0.9 + particle.phase) * (0.34 + flowStrength * 0.42) +
           wakeY * pointerWake * 4.7 +
           mouseDy * pointerWake * 0.0037;
 
@@ -307,7 +309,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
           particle.x - length * 0.72,
           particle.y - wave * 18,
           particle.x - length,
-          particle.y + Math.sin(t + index) * 16,
+          particle.y + Math.sin(flowTime + index) * 16,
         );
         context.stroke();
       });
