@@ -466,9 +466,9 @@ export function PlatformHome() {
                 <text className="mk-cycle-node-subtitle" x="275" y="558" textAnchor="middle">Fidelización</text>
               </g>
 
-              <text className="mk-orbit-label mk-orbit-label-right" x="768" y="316" textAnchor="middle">Alimenta</text>
+              <text className="mk-orbit-label mk-orbit-label-right" x="756" y="316" textAnchor="middle">Alimenta</text>
               <text className="mk-orbit-label" x="500" y="712" textAnchor="middle">Venta</text>
-              <text className="mk-orbit-label mk-orbit-label-left" x="220" y="316" textAnchor="middle">Satisfacción</text>
+              <text className="mk-orbit-label mk-orbit-label-left" x="232" y="316" textAnchor="middle">Satisfacción</text>
             </svg>
           </div>
         </div>
