@@ -5666,3 +5666,48 @@ button { cursor: pointer; }
   font-size: clamp(15.5px, 1.05vw, 17px);
   line-height: 1.55;
 }
+
+/* Navigation and section label readability */
+.mk-site .mk-nav-links > a:not(.mk-mobile-quote),
+.mk-manuals-site .mk-manual-nav-links a {
+  font-size: clamp(16px, 1.08vw, 18px);
+  line-height: 1.22;
+}
+
+.mk-site .mk-nav-cta,
+.mk-site .mk-mobile-quote,
+.mk-manuals-site .mk-nav-cta,
+.mk-manuals-site .mk-nav-cta-sales {
+  font-size: clamp(15px, .98vw, 17px);
+}
+
+.mk-site .mk-section-label {
+  gap: 14px;
+  font-size: clamp(15px, 1vw, 17px);
+  line-height: 1.35;
+}
+
+.mk-site .mk-section-label > span {
+  min-width: 44px;
+  width: auto;
+  height: 34px;
+  padding: 0 10px;
+  font-size: clamp(14px, .92vw, 16px);
+}
+
+@media (max-width: 820px) {
+  .mk-site .mk-nav-links > a:not(.mk-mobile-quote),
+  .mk-manuals-site .mk-manual-nav-links a {
+    font-size: 17px;
+  }
+
+  .mk-site .mk-section-label {
+    font-size: 16px;
+  }
+
+  .mk-site .mk-section-label > span {
+    min-width: 42px;
+    height: 32px;
+    font-size: 15px;
+  }
+}

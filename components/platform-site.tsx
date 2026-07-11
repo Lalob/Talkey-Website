@@ -308,8 +308,8 @@ function PlatformHeader({ minimal = false, sales = false, ctaHref = talkeyBookin
               <Link href="/">Inicio</Link>
               <Link href="/manuales">Manuales</Link>
               <a href="#problema">Problemas/Soluciones</a>
-              <a href="#precios">Precios</a>
               <a href="#comparacion">Comparación</a>
+              <a href="#precios">Precios</a>
             </>
           ) : (
             <>
@@ -708,10 +708,31 @@ export function SalesPage() {
         </div>
       </section>
 
+      <section id="comparacion" className="mk-section mk-sales-comparison-section">
+        <div className="mk-container">
+          <div className="mk-section-heading">
+            <p className="mk-section-label"><span>04</span>Comparación</p>
+            <h2>Talkey hace todo lo que hacen otras herramientas y además cuida tu ciclo venta-postventa.</h2>
+            <p>
+              Si tu venta termina en instalación, garantía, postventa o soporte técnico, necesitas más que captar y convertir:
+              necesitas que el contexto siga vivo después del cierre.
+            </p>
+          </div>
+          <ComparisonShowcase
+            sourceTitle="Alternativas que cubren partes del flujo comercial"
+            items={content.comparison}
+            summaryTitle=""
+            summaryBody="No es solo CRM, automatización o agenda: conecta la conversación comercial con el contexto operativo que viene después."
+            advantages={salesComparisonAdvantages}
+            variant="sales"
+          />
+        </div>
+      </section>
+
       <section id="precios" className="mk-section mk-sales-pricing-section">
         <div className="mk-container">
           <div className="mk-section-heading">
-            <p className="mk-section-label"><span>04</span>Precios</p>
+            <p className="mk-section-label"><span>05</span>Precios</p>
             <h2>Paquetes para partir con una conversación seria.</h2>
             <p>
               Los valores son referenciales. Talkey se posiciona como una solución premium porque une conversación,
@@ -734,27 +755,6 @@ export function SalesPage() {
               </article>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section id="comparacion" className="mk-section mk-sales-comparison-section">
-        <div className="mk-container">
-          <div className="mk-section-heading">
-            <p className="mk-section-label"><span>05</span>Comparación</p>
-            <h2>Talkey hace todo lo que hacen otras herramientas y además cuida tu ciclo venta-postventa.</h2>
-            <p>
-              Si tu venta termina en instalación, garantía, postventa o soporte técnico, necesitas más que captar y convertir:
-              necesitas que el contexto siga vivo después del cierre.
-            </p>
-          </div>
-          <ComparisonShowcase
-            sourceTitle="Alternativas que cubren partes del flujo comercial"
-            items={content.comparison}
-            summaryTitle=""
-            summaryBody="No es solo CRM, automatización o agenda: conecta la conversación comercial con el contexto operativo que viene después."
-            advantages={salesComparisonAdvantages}
-            variant="sales"
-          />
         </div>
       </section>
 

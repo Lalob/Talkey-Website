@@ -581,7 +581,7 @@ function SupportPricingPackagesSection() {
     <section id="precios" className="mk-section mk-sales-pricing-section mk-support-package-pricing">
       <div className="mk-container">
         <div className="mk-section-heading">
-          <div className="mk-section-label"><span>06</span>Precios</div>
+          <div className="mk-section-label"><span>08</span>Precios</div>
           <h2>Paquetes para partir con soporte técnico estructurado.</h2>
           <p>
             Los valores son referenciales. Talkey se posiciona como una solución premium porque une asistente virtual,
@@ -854,12 +854,10 @@ export function CommercialHome({
         </div>
       </section>
 
-      {locale === "es" ? <SupportPricingPackagesSection /> : <ArchivedSupportPricingSimulator copy={copy.pricing} />}
-
       <section className="mk-section mk-integrations">
         <div className="mk-container">
           <div className="mk-section-heading">
-            <div className="mk-section-label"><span>07</span>{narrative.integrations.kicker}</div>
+            <div className="mk-section-label"><span>06</span>{narrative.integrations.kicker}</div>
             <h2>{narrative.integrations.title}</h2>
             <p>{narrative.integrations.body}</p>
           </div>
@@ -881,7 +879,7 @@ export function CommercialHome({
       <section className="mk-section mk-faq">
         <div className="mk-container">
           <div className="mk-section-heading">
-            <div className="mk-section-label"><span>08</span>{narrative.faq.kicker}</div>
+            <div className="mk-section-label"><span>07</span>{narrative.faq.kicker}</div>
             <h2>{narrative.faq.title}</h2>
           </div>
           <div className="mk-faq-grid">
@@ -911,6 +909,8 @@ export function CommercialHome({
           {renderListToggle("faq", narrative.faq.items.length)}
         </div>
       </section>
+
+      {locale === "es" ? <SupportPricingPackagesSection /> : <ArchivedSupportPricingSimulator copy={copy.pricing} />}
 
       <section id="agenda" className="mk-section mk-contact">
         <div className="mk-container mk-contact-grid">
