@@ -5637,3 +5637,32 @@ button { cursor: pointer; }
     border-radius: 16px;
   }
 }
+
+/* Readability pass for body copy */
+.mk-site.mk-platform-site :where(p:not(.mk-eyebrow):not(.mk-section-label), li, figcaption),
+.mk-site.mk-manuals-site :where(p:not(.mk-eyebrow):not(.mk-section-label), li, figcaption),
+.mk-site:not(.mk-platform-site):not(.mk-manuals-site) :where(p:not(.mk-eyebrow):not(.mk-section-label), li, figcaption) {
+  font-size: clamp(17px, 1.22vw, 19.5px);
+  line-height: 1.68;
+  text-wrap: pretty;
+}
+
+.mk-site .mk-demo-message p,
+.mk-site .mk-chat-form input {
+  font-size: clamp(15.5px, 1vw, 17px);
+  line-height: 1.6;
+}
+
+.mk-site :where(.mk-chat-prompts button, .mk-chat-typing small) {
+  font-size: clamp(13.5px, .95vw, 15px);
+  line-height: 1.35;
+}
+
+.mk-site.mk-platform-site :where(.mk-problem-pair-head span, .mk-sales-problem-table-head span) {
+  font-size: clamp(17px, 1.18vw, 19px);
+}
+
+.mk-site.mk-manuals-site :where(.mk-manual-shot-callout, .mk-manual-preview-secondary, .mk-manual-preview-rows p) {
+  font-size: clamp(15.5px, 1.05vw, 17px);
+  line-height: 1.55;
+}
