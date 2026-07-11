@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Climax">
+  <defs>
+    <radialGradient id="climax-core" cx="34%" cy="28%" r="74%">
+      <stop offset="0" stop-color="#7de7ff" stop-opacity="0.36" />
+      <stop offset="0.52" stop-color="#0b252b" />
+      <stop offset="1" stop-color="#061014" />
+    </radialGradient>
+    <linearGradient id="climax-ring" x1="10" y1="10" x2="54" y2="54">
+      <stop offset="0" stop-color="#7de7ff" />
+      <stop offset="0.52" stop-color="#75d6a7" />
+      <stop offset="1" stop-color="#d97938" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="#061014" />
+  <circle cx="32" cy="32" r="22" fill="url(#climax-core)" stroke="#7de7ff" stroke-opacity="0.68" stroke-width="2" />
+  <circle
+    cx="32"
+    cy="32"
+    r="27"
+    fill="none"
+    stroke="url(#climax-ring)"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-dasharray="118 52"
+    transform="rotate(-24 32 32)"
+  />
+  <path
+    d="M43 22.5a14 14 0 1 0 0 19"
+    fill="none"
+    stroke="#7de7ff"
+    stroke-width="7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
