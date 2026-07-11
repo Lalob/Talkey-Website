@@ -264,7 +264,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     const draw = (time: number) => {
       if (prefersReduced.matches) return;
       const t = time * 0.001;
-      const lineSpeedMultiplier = 1.3;
+      const lineSpeedMultiplier = 2.8;
       const flowTime = t * lineSpeedMultiplier;
       context.clearRect(0, 0, width, height);
       context.globalCompositeOperation = "lighter";
