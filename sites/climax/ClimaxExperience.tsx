@@ -12,6 +12,7 @@ type Particle = {
   x: number;
   y: number;
   base: number;
+  thermal: number;
   speed: number;
   phase: number;
   size: number;
@@ -173,24 +174,35 @@ function clamp01(value: number) {
   return Math.min(1, Math.max(0, value));
 }
 
+function smoothstep(edge0: number, edge1: number, value: number) {
+  const amount = clamp01((value - edge0) / (edge1 - edge0));
+  return amount * amount * (3 - 2 * amount);
+}
+
 function mixChannel(from: number, to: number, amount: number) {
   return Math.round(from + (to - from) * amount);
 }
 
-function colorFor(temperature: number) {
+function thermalColorFor(temperature: number, thermalSeed: number) {
   const temperatureMix = clamp01((temperature - 16) / 12);
-  const cold = [125, 231, 255];
-  const neutral = [117, 214, 167];
-  const warm = [240, 173, 78];
-  const from = temperatureMix < 0.5 ? cold : neutral;
-  const to = temperatureMix < 0.5 ? neutral : warm;
-  const amount = temperatureMix < 0.5 ? temperatureMix * 2 : (temperatureMix - 0.5) * 2;
+  const cold: [number, number, number] = [125, 231, 255];
+  const warm: [number, number, number] = [240, 173, 78];
 
-  return `rgb(${mixChannel(from[0], to[0], amount)}, ${mixChannel(from[1], to[1], amount)}, ${mixChannel(
-    from[2],
-    to[2],
-    amount,
+  if (temperatureMix <= 0.001) return `rgb(${cold[0]}, ${cold[1]}, ${cold[2]})`;
+  if (temperatureMix >= 0.999) return `rgb(${warm[0]}, ${warm[1]}, ${warm[2]})`;
+
+  const transitionWidth = 0.08;
+  const warmAmount = smoothstep(thermalSeed - transitionWidth, thermalSeed + transitionWidth, temperatureMix);
+
+  return `rgb(${mixChannel(cold[0], warm[0], warmAmount)}, ${mixChannel(cold[1], warm[1], warmAmount)}, ${mixChannel(
+    cold[2],
+    warm[2],
+    warmAmount,
   )})`;
+}
+
+function colorFor(particle: Particle, temperature: number) {
+  return thermalColorFor(temperature, particle.thermal);
 }
 
 type ClimaxExperienceProps = {
@@ -273,6 +285,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         x: deterministicValue(index, 1) * width,
         y: deterministicValue(index, 2) * height,
         base: deterministicValue(index, 3),
+        thermal: deterministicValue(index, 4),
         speed: 0.28 + deterministicValue(index, 5) * 0.84,
         phase: deterministicValue(index, 6) * Math.PI * 2,
         size: 0.8 + deterministicValue(index, 7) * 2.6,
@@ -306,7 +319,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         const startX = (flowTime * (50 + looseness * 18) + index * width * 0.23) % (width + 260) - 130;
         const length = Math.max(250, width * (0.3 + shellStrength * 0.1));
         context.globalAlpha = 0.08 + shellStrength * 0.08;
-        context.strokeStyle = colorFor(controls.temperature);
+        context.strokeStyle = thermalColorFor(controls.temperature, (index + 0.35) / bandCount);
         context.lineWidth = 1 + shellStrength * 0.8;
         context.beginPath();
         context.moveTo(startX, y);
@@ -334,7 +347,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
       const envelopeWave = 7 + looseness * 30;
       const lineStretch = 0.82 + shellStrength * 0.56;
       const particleAlpha = 0.38 + shellStrength * 0.3;
-      const particleColor = colorFor(controls.temperature);
+      const particleColorFor = (particle: Particle) => colorFor(particle, controls.temperature);
 
       particles.forEach((particle, index) => {
         const baseVelocity = (0.38 + flowStrength * 1.45) * particle.speed * horizontalFlowSpeed * 60;
@@ -361,7 +374,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
           mouseDx * pointerWake * 0.011;
         const y = ((baseY + wakeY * pointerWake * 13 + mouseDy * pointerWake * 0.007 + 40) % (height + 80)) - 40;
         const length = (28 + flowStrength * 86 + particle.base * 42) * lineStretch;
-        context.strokeStyle = particleColor;
+        context.strokeStyle = particleColorFor(particle);
         context.lineWidth = particle.size * (0.82 + shellStrength * 0.58);
         context.globalAlpha = particleAlpha + particle.base * 0.04;
         context.beginPath();
