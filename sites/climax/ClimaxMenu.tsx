@@ -18,7 +18,6 @@ function buildNavItems(standalone: boolean) {
     { href: `${root}#direccion`, label: "Dirección", key: "direccion" },
     { href: `${root}#sistemas`, label: "Sistemas", key: "sistemas" },
     { href: products, label: "Productos", key: "productos" },
-    { href: `${root}#precision`, label: "Precisión", key: "precision" },
     { href: `${root}#contacto`, label: "Contacto", key: "contacto" },
   ];
 }

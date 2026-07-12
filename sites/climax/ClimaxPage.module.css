@@ -301,6 +301,38 @@
   line-height: 1.72;
 }
 
+
+.heroControlPanel {
+  grid-column: 1;
+  width: min(620px, 100%);
+  justify-self: start;
+  grid-template-columns: minmax(118px, 0.34fr) minmax(0, 1fr);
+  gap: clamp(18px, 3vw, 28px);
+  padding: clamp(16px, 2.4vw, 22px);
+  background: linear-gradient(135deg, rgba(125, 231, 255, 0.1), rgba(217, 121, 56, 0.08)), rgba(5, 15, 18, 0.56);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.22);
+}
+
+.heroControlPanel .dialWrap {
+  min-height: 150px;
+}
+
+.heroControlPanel .climateDial {
+  width: min(150px, 28vw);
+}
+
+.heroControlPanel .climateDial strong {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.heroControlPanel .controls {
+  gap: 12px;
+}
+
+.heroControlPanel .controls label {
+  font-size: clamp(0.94rem, 0.9rem + 0.12vw, 1.02rem);
+}
+
 .heroActions {
   position: relative;
   z-index: 2;
@@ -432,7 +464,6 @@
 .designDirection,
 .systems,
 .products,
-.comfortLab,
 .applications {
   padding: clamp(76px, 10vw, 132px) max(24px, calc((100vw - 1160px) / 2));
 }
@@ -462,8 +493,7 @@
   line-height: 1.08;
 }
 
-.sectionHeading p,
-.labCopy p {
+.sectionHeading p {
   color: rgba(245, 251, 249, 0.68);
   font-size: var(--read-size);
   line-height: var(--read-line);
@@ -872,18 +902,6 @@
 
 .productReturn {
   padding: 36px max(24px, calc((100vw - 1160px) / 2)) 72px;
-}
-
-.comfortLab {
-  display: grid;
-  grid-template-columns: minmax(0, 0.72fr) minmax(340px, 0.9fr);
-  gap: clamp(32px, 7vw, 86px);
-  align-items: center;
-  background: linear-gradient(180deg, rgba(125, 231, 255, 0.055), rgba(217, 121, 56, 0.04)), rgba(4, 12, 15, 0.24);
-}
-
-.labCopy h2 {
-  margin-bottom: 24px;
 }
 
 .labPanel {
@@ -1558,6 +1576,15 @@
     line-height: 0.9;
   }
 
+  .heroControlPanel {
+    width: min(620px, 100%);
+    grid-template-columns: minmax(112px, 0.3fr) minmax(0, 1fr);
+  }
+
+  .heroControlPanel .dialWrap {
+    min-height: 132px;
+  }
+
   .heroActions {
     width: min(620px, 100%);
     justify-self: start;
@@ -1586,7 +1613,6 @@
   }
 
   .sectionHeading,
-  .comfortLab,
   .productHero,
   .researchPanel {
     grid-template-columns: 1fr;
@@ -1675,6 +1701,19 @@
     line-height: 1.04;
   }
 
+  .heroControlPanel {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .heroControlPanel .dialWrap {
+    min-height: 120px;
+  }
+
+  .heroControlPanel .climateDial {
+    width: min(138px, 48vw);
+  }
+
   .heroActions {
     display: grid;
     grid-template-columns: 1fr;
@@ -1757,7 +1796,6 @@
   .designDirection,
   .systems,
   .products,
-  .comfortLab,
   .applications {
     padding-left: 18px;
     padding-right: 18px;

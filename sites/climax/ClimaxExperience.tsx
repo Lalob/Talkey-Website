@@ -580,6 +580,56 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
             </p>
           </div>
 
+          <div
+            className={`${styles.labPanel} ${styles.heroControlPanel} ${styles.reveal}`}
+            aria-label="Ajustes de animación Climax"
+            data-climax-reveal="up"
+          >
+            <div className={styles.dialWrap} aria-hidden="true">
+              <div className={styles.climateDial}>
+                <span className={styles.dialCore} />
+                <span className={`${styles.dialRing} ${styles.ringCold}`} />
+                <span className={`${styles.dialRing} ${styles.ringWarm}`} />
+                <strong>{comfort}</strong>
+              </div>
+            </div>
+            <form className={styles.controls} aria-label="Ajustes de animación Climax">
+              <label>
+                Temperatura
+                <input
+                  type="range"
+                  min="16"
+                  max="28"
+                  value={temperature}
+                  onChange={(event) => setTemperature(Number(event.currentTarget.value))}
+                />
+                <span>{temperature} °C</span>
+              </label>
+              <label>
+                Flujo de aire
+                <input
+                  type="range"
+                  min="10"
+                  max="100"
+                  value={flow}
+                  onChange={(event) => setFlow(Number(event.currentTarget.value))}
+                />
+                <span>{flow}%</span>
+              </label>
+              <label>
+                Envolvente
+                <input
+                  type="range"
+                  min="20"
+                  max="100"
+                  value={shell}
+                  onChange={(event) => setShell(Number(event.currentTarget.value))}
+                />
+                <span>{shell}%</span>
+              </label>
+            </form>
+          </div>
+
           <div className={`${styles.heroActions} ${styles.reveal}`} aria-label="Acciones principales" data-climax-reveal="up">
             <a className={`${styles.button} ${styles.buttonSecondary}`} href="#sistemas">
               <span>Ver sistemas</span>
@@ -687,63 +737,6 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
             <Link className={`${styles.button} ${styles.buttonSecondary}`} href={productsHref}>
               Ver productos
             </Link>
-          </div>
-        </section>
-
-        <section className={styles.comfortLab} id="precision">
-          <div className={`${styles.labCopy} ${styles.reveal}`} data-climax-reveal="left">
-            <div className={styles.sectionKicker}>Precisión interactiva</div>
-            <h2>El confort se calibra, no se improvisa</h2>
-            <p>
-              Cambia las variables y mira cómo responde el campo visual de Climax. La marca se expresa como una mezcla
-              viva entre temperatura, aire y envolvente.
-            </p>
-          </div>
-
-          <div className={`${styles.labPanel} ${styles.reveal}`} data-climax-reveal="right">
-            <div className={styles.dialWrap} aria-hidden="true">
-              <div className={styles.climateDial}>
-                <span className={styles.dialCore} />
-                <span className={`${styles.dialRing} ${styles.ringCold}`} />
-                <span className={`${styles.dialRing} ${styles.ringWarm}`} />
-                <strong>{comfort}</strong>
-              </div>
-            </div>
-            <form className={styles.controls} aria-label="Ajustes de confort Climax">
-              <label>
-                Temperatura
-                <input
-                  type="range"
-                  min="16"
-                  max="28"
-                  value={temperature}
-                  onChange={(event) => setTemperature(Number(event.currentTarget.value))}
-                />
-                <span>{temperature} °C</span>
-              </label>
-              <label>
-                Flujo de aire
-                <input
-                  type="range"
-                  min="10"
-                  max="100"
-                  value={flow}
-                  onChange={(event) => setFlow(Number(event.currentTarget.value))}
-                />
-                <span>{flow}%</span>
-              </label>
-              <label>
-                Envolvente
-                <input
-                  type="range"
-                  min="20"
-                  max="100"
-                  value={shell}
-                  onChange={(event) => setShell(Number(event.currentTarget.value))}
-                />
-                <span>{shell}%</span>
-              </label>
-            </form>
           </div>
         </section>
 
