@@ -1824,7 +1824,8 @@
 
   .supportLauncher {
     min-height: 58px;
-    padding: 6px;
+    gap: 9px;
+    padding: 6px 14px 6px 6px;
   }
 
   .supportLauncher span {
@@ -1833,7 +1834,10 @@
   }
 
   .supportLauncher strong {
-    display: none;
+    display: block;
+    max-width: 92px;
+    font-size: 0.86rem;
+    line-height: 1.12;
   }
 
   .signalStrip {
