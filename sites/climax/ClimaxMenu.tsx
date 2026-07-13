@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./ClimaxPage.module.css";
 
@@ -24,11 +24,25 @@ function buildNavItems(standalone: boolean) {
 
 export function ClimaxMenu({ active = "inicio", standalone = false }: ClimaxMenuProps) {
   const [open, setOpen] = useState(false);
+  const [ready, setReady] = useState(false);
   const rootHref = standalone ? "/#inicio" : "/climax#inicio";
   const navItems = buildNavItems(standalone);
+  const headerClassName = [
+    styles.siteHeader,
+    styles.reveal,
+    ready ? styles.visible : "",
+    open ? styles.menuOpen : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setReady(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   return (
-    <header className={`${styles.siteHeader} ${styles.reveal} ${open ? styles.menuOpen : ""}`} data-climax-reveal="down">
+    <header className={headerClassName} data-climax-reveal="down">
       <Link className={styles.brandMark} href={rootHref} aria-label="Climax inicio">
         <span className={styles.brandGlyph}>C</span>
         <span>CLIMAX</span>
