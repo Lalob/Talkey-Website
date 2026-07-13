@@ -641,10 +641,6 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
               <ArrowRight className={styles.buttonArrow} size={20} strokeWidth={1.9} aria-hidden="true" />
             </a>
           </div>
-
-          <a className={styles.scrollCue} href="#direccion" aria-label="Ir a dirección de diseño">
-            <span />
-          </a>
         </section>
 
         <section className={`${styles.signalStrip} ${styles.reveal}`} aria-label="Señales de marca" data-climax-reveal="scale">

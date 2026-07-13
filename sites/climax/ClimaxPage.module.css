@@ -416,26 +416,6 @@
   color: var(--paper) !important;
 }
 
-.scrollCue {
-  position: absolute;
-  right: max(24px, calc((100vw - 1160px) / 2));
-  bottom: 28px;
-  display: grid;
-  width: 42px;
-  height: 62px;
-  place-items: center;
-  border: 1px solid rgba(245, 251, 249, 0.28);
-  border-radius: 99px;
-  background: rgba(245, 251, 249, 0.04);
-}
-
-.scrollCue span {
-  width: 6px;
-  height: 16px;
-  border-radius: 99px;
-  background: var(--cold);
-  animation: cue 1.6s ease-in-out infinite;
-}
 
 .signalStrip {
   display: grid;
@@ -1500,17 +1480,6 @@
   }
 }
 
-@keyframes cue {
-  0%,
-  100% {
-    transform: translateY(-9px);
-    opacity: 0.42;
-  }
-  50% {
-    transform: translateY(9px);
-    opacity: 1;
-  }
-}
 
 @keyframes breathe {
   0%,
