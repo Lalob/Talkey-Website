@@ -561,6 +561,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
   return (
     <div ref={rootRef} className={styles.climaxSite} style={rootStyle}>
       <ClimaxRevealController />
+      <div className={styles.heroImageLayer} aria-hidden="true" />
       <canvas ref={canvasRef} className={styles.climateField} aria-hidden="true" />
       <div className={styles.scrollMeter} aria-hidden="true">
         <span />

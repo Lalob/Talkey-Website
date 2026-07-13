@@ -66,10 +66,31 @@
   animation: climateFallback 28s linear infinite;
 }
 
+.heroImageLayer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 0;
+  height: max(820px, 100svh);
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(6, 16, 20, 0.98) 0%, rgba(6, 16, 20, 0.72) 36%, rgba(6, 16, 20, 0.18) 70%),
+    linear-gradient(180deg, rgba(6, 16, 20, 0.18) 0%, rgba(6, 16, 20, 0.92) 100%),
+    url("/climax/climax-thermal-system.png");
+  background-position: center right;
+  background-size: cover;
+  opacity: 0.78;
+  transform: translateY(calc(var(--scroll) * 38px)) scale(1.02);
+  transform-origin: center top;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 84%, transparent 100%);
+}
+
 .climateField {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
@@ -79,7 +100,7 @@
 .climaxSite > main,
 .siteFooter {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .scrollMeter {
@@ -218,24 +239,9 @@
   overflow: clip;
 }
 
-.hero::before {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  content: "";
-  background:
-    linear-gradient(90deg, rgba(6, 16, 20, 0.98) 0%, rgba(6, 16, 20, 0.72) 36%, rgba(6, 16, 20, 0.18) 70%),
-    linear-gradient(180deg, rgba(6, 16, 20, 0.18) 0%, rgba(6, 16, 20, 0.92) 100%),
-    url("/climax/climax-thermal-system.png");
-  background-position: center right;
-  background-size: cover;
-  opacity: 0.78;
-  transform: translateY(calc(var(--scroll) * 38px)) scale(1.02);
-}
-
 .heroCopy {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: min(560px, 100%);
   padding-top: 18px;
 }
@@ -303,6 +309,8 @@
 
 
 .heroControlPanel {
+  position: relative;
+  z-index: 3;
   grid-column: 1;
   width: min(620px, 100%);
   max-width: 100%;
@@ -336,7 +344,7 @@
 
 .heroActions {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: grid;
   grid-column: 1;
   width: min(620px, 100%);
@@ -1566,7 +1574,8 @@
     padding-top: 72px;
   }
 
-  .hero::before {
+  .heroImageLayer {
+    height: max(940px, 112svh);
     background:
       linear-gradient(180deg, rgba(6, 16, 20, 0.7), rgba(6, 16, 20, 0.94) 54%, rgba(6, 16, 20, 0.98)),
       linear-gradient(90deg, rgba(6, 16, 20, 0.92), rgba(6, 16, 20, 0.34)),
@@ -1725,6 +1734,10 @@
   .productHero h1 {
     font-size: clamp(1.95rem, 9vw, 3.25rem);
     line-height: 1.04;
+  }
+
+  .heroImageLayer {
+    height: max(1040px, 132svh);
   }
 
   .heroControlPanel {
