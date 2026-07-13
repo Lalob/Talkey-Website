@@ -1823,21 +1823,22 @@
   }
 
   .supportLauncher {
-    min-height: 58px;
-    gap: 9px;
-    padding: 6px 14px 6px 6px;
+    min-height: 50px;
+    gap: 6px;
+    padding: 4px 8px 4px 4px;
   }
 
   .supportLauncher span {
-    width: 46px;
-    height: 46px;
+    width: 42px;
+    height: 42px;
   }
 
   .supportLauncher strong {
     display: block;
-    max-width: 92px;
-    font-size: 0.86rem;
-    line-height: 1.12;
+    inline-size: min-content;
+    max-width: min-content;
+    font-size: 0.78rem;
+    line-height: 1.05;
   }
 
   .signalStrip {
