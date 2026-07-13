@@ -226,8 +226,8 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
   ]);
   const [scroll, setScroll] = useState(0);
   const [temperature, setTemperature] = useState(22);
-  const [flow, setFlow] = useState(64);
-  const [shell, setShell] = useState(76);
+  const [flow, setFlow] = useState(54);
+  const [shell, setShell] = useState(78);
   const controlsRef = useRef({ temperature, flow, shell });
   const productsHref = standalone ? "/productos" : "/climax/productos";
 
