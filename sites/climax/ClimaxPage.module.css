@@ -305,8 +305,9 @@
 .heroControlPanel {
   grid-column: 1;
   width: min(620px, 100%);
+  max-width: 100%;
   justify-self: start;
-  grid-template-columns: minmax(118px, 0.34fr) minmax(0, 1fr);
+  grid-template-columns: minmax(112px, 0.3fr) minmax(0, 1fr);
   gap: clamp(18px, 3vw, 28px);
   padding: clamp(16px, 2.4vw, 22px);
   background: linear-gradient(135deg, rgba(125, 231, 255, 0.1), rgba(217, 121, 56, 0.08)), rgba(5, 15, 18, 0.56);
@@ -985,7 +986,8 @@
 
 .controls label {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
+  min-width: 0;
   gap: 10px;
   align-items: center;
   color: rgba(245, 251, 249, 0.86);
@@ -997,6 +999,8 @@
 .controls input {
   grid-column: 1 / -1;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   accent-color: var(--cold);
 }
 
@@ -1577,8 +1581,14 @@
   }
 
   .heroControlPanel {
-    width: min(620px, 100%);
-    grid-template-columns: minmax(112px, 0.3fr) minmax(0, 1fr);
+    width: min(560px, 100%);
+    grid-template-columns: minmax(96px, 0.28fr) minmax(0, 1fr);
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .heroControlPanel .controls {
+    min-width: 0;
   }
 
   .heroControlPanel .dialWrap {
@@ -1670,6 +1680,22 @@
   }
 }
 
+@media (max-width: 820px) {
+  .heroControlPanel {
+    grid-template-columns: 1fr;
+    width: min(560px, 100%);
+    gap: 16px;
+  }
+
+  .heroControlPanel .dialWrap {
+    min-height: 108px;
+  }
+
+  .heroControlPanel .climateDial {
+    width: min(128px, 34vw);
+  }
+}
+
 @media (max-width: 620px) {
   .siteHeader {
     top: 10px;
@@ -1703,15 +1729,23 @@
 
   .heroControlPanel {
     grid-template-columns: 1fr;
-    padding: 16px;
+    padding: 14px;
   }
 
   .heroControlPanel .dialWrap {
-    min-height: 120px;
+    min-height: 104px;
   }
 
   .heroControlPanel .climateDial {
-    width: min(138px, 48vw);
+    width: min(118px, 42vw);
+  }
+
+  .heroControlPanel .controls {
+    gap: 10px;
+  }
+
+  .heroControlPanel .controls label {
+    gap: 8px;
   }
 
   .heroActions {
