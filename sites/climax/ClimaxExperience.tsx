@@ -235,6 +235,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
   const productsHref = standalone ? "/productos" : "/climax/productos";
   const dialValue =
     activeControl === "temperature" ? temperature : activeControl === "flow" ? flow : shell;
+  const dialUnit = activeControl === "temperature" ? "°C" : "%";
 
   useEffect(() => {
     controlsRef.current = { temperature, flow, shell };
@@ -591,7 +592,10 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
                 <span className={styles.dialCore} />
                 <span className={`${styles.dialRing} ${styles.ringCold}`} />
                 <span className={`${styles.dialRing} ${styles.ringWarm}`} />
-                <strong>{dialValue}</strong>
+                <strong>
+                  <span>{dialValue}</span>
+                  <small>{dialUnit}</small>
+                </strong>
               </div>
             </div>
             <form className={styles.controls} aria-label="Ajustes de animación Climax">
@@ -608,6 +612,10 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
                     setActiveControl("temperature");
                   }}
                 />
+                <span className={styles.sliderCue} aria-hidden="true">
+                  <ArrowLeft className={styles.sliderCueArrow} size={17} strokeWidth={2.2} />
+                  <span>Juega</span>
+                </span>
               </label>
               <label>
                 <span className={styles.controlName}>Flujo de aire</span>
@@ -622,6 +630,10 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
                     setActiveControl("flow");
                   }}
                 />
+                <span className={styles.sliderCue} aria-hidden="true">
+                  <ArrowLeft className={styles.sliderCueArrow} size={17} strokeWidth={2.2} />
+                  <span>Ajusta</span>
+                </span>
               </label>
               <label>
                 <span className={styles.controlName}>Envolvente</span>
@@ -636,24 +648,14 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
                     setActiveControl("shell");
                   }}
                 />
+                <span className={styles.sliderCue} aria-hidden="true">
+                  <ArrowLeft className={styles.sliderCueArrow} size={17} strokeWidth={2.2} />
+                  <span>Siente</span>
+                </span>
               </label>
             </form>
           </div>
 
-          <div className={styles.sliderCueRail} aria-hidden="true">
-            <span className={styles.sliderCue}>
-              <ArrowLeft className={styles.sliderCueArrow} size={17} strokeWidth={2.2} />
-              <span>Juega</span>
-            </span>
-            <span className={styles.sliderCue}>
-              <ArrowLeft className={styles.sliderCueArrow} size={17} strokeWidth={2.2} />
-              <span>Ajusta</span>
-            </span>
-            <span className={styles.sliderCue}>
-              <ArrowLeft className={styles.sliderCueArrow} size={17} strokeWidth={2.2} />
-              <span>Siente</span>
-            </span>
-          </div>
 
           <div className={`${styles.heroActions} ${styles.reveal}`} aria-label="Acciones principales" data-climax-reveal="up">
             <a className={`${styles.button} ${styles.buttonSecondary}`} href="#sistemas">
