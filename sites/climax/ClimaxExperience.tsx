@@ -596,37 +596,55 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
             </div>
             <form className={styles.controls} aria-label="Ajustes de animación Climax">
               <label>
-                Temperatura
-                <input
-                  type="range"
-                  min="16"
-                  max="28"
-                  value={temperature}
-                  onChange={(event) => setTemperature(Number(event.currentTarget.value))}
-                />
-                <span>{temperature} °C</span>
+                <span className={styles.controlName}>Temperatura</span>
+                <span className={styles.controlValue}>{temperature} °C</span>
+                <span className={styles.sliderCueRow}>
+                  <input
+                    type="range"
+                    min="16"
+                    max="28"
+                    value={temperature}
+                    onChange={(event) => setTemperature(Number(event.currentTarget.value))}
+                  />
+                  <span className={styles.sliderPrompt}>
+                    <ArrowRight className={styles.sliderPromptArrow} size={16} strokeWidth={2.2} aria-hidden="true" />
+                    <span>Juega</span>
+                  </span>
+                </span>
               </label>
               <label>
-                Flujo de aire
-                <input
-                  type="range"
-                  min="10"
-                  max="100"
-                  value={flow}
-                  onChange={(event) => setFlow(Number(event.currentTarget.value))}
-                />
-                <span>{flow}%</span>
+                <span className={styles.controlName}>Flujo de aire</span>
+                <span className={styles.controlValue}>{flow}%</span>
+                <span className={styles.sliderCueRow}>
+                  <input
+                    type="range"
+                    min="10"
+                    max="100"
+                    value={flow}
+                    onChange={(event) => setFlow(Number(event.currentTarget.value))}
+                  />
+                  <span className={styles.sliderPrompt}>
+                    <ArrowRight className={styles.sliderPromptArrow} size={16} strokeWidth={2.2} aria-hidden="true" />
+                    <span>Ajusta</span>
+                  </span>
+                </span>
               </label>
               <label>
-                Envolvente
-                <input
-                  type="range"
-                  min="20"
-                  max="100"
-                  value={shell}
-                  onChange={(event) => setShell(Number(event.currentTarget.value))}
-                />
-                <span>{shell}%</span>
+                <span className={styles.controlName}>Envolvente</span>
+                <span className={styles.controlValue}>{shell}%</span>
+                <span className={styles.sliderCueRow}>
+                  <input
+                    type="range"
+                    min="20"
+                    max="100"
+                    value={shell}
+                    onChange={(event) => setShell(Number(event.currentTarget.value))}
+                  />
+                  <span className={styles.sliderPrompt}>
+                    <ArrowRight className={styles.sliderPromptArrow} size={16} strokeWidth={2.2} aria-hidden="true" />
+                    <span>Siente</span>
+                  </span>
+                </span>
               </label>
             </form>
           </div>

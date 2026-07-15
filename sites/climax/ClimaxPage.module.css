@@ -988,17 +988,49 @@
   line-height: 1.35;
 }
 
-.controls input {
+.controlName {
+  color: rgba(245, 251, 249, 0.86);
+}
+
+.controlValue {
+  color: var(--cold);
+  font-size: var(--read-compact-size);
+}
+
+.sliderCueRow {
+  display: grid;
   grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.controls input {
   width: 100%;
   max-width: 100%;
   min-width: 0;
   accent-color: var(--cold);
 }
 
-.controls span {
-  color: var(--cold);
-  font-size: var(--read-compact-size);
+.sliderPrompt {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: max-content;
+  color: rgba(245, 251, 249, 0.72);
+  font-size: 0.74rem;
+  font-weight: 820;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sliderPromptArrow {
+  flex: 0 0 auto;
+  color: var(--copper);
+  filter: drop-shadow(0 0 8px rgba(217, 121, 56, 0.45));
+  animation: sliderPromptNudge 1.18s ease-in-out infinite;
 }
 
 .applicationGrid {
@@ -1481,6 +1513,18 @@
 }
 
 
+@keyframes sliderPromptNudge {
+  0%,
+  100% {
+    transform: translateX(-2px);
+    opacity: 0.52;
+  }
+  50% {
+    transform: translateX(4px);
+    opacity: 1;
+  }
+}
+
 @keyframes breathe {
   0%,
   100% {
@@ -1732,6 +1776,20 @@
 
   .heroControlPanel .controls label {
     gap: 8px;
+  }
+
+  .sliderCueRow {
+    gap: 8px;
+  }
+
+  .sliderPrompt {
+    gap: 4px;
+    font-size: 0.68rem;
+  }
+
+  .sliderPromptArrow {
+    width: 14px;
+    height: 14px;
   }
 
   .heroActions {
