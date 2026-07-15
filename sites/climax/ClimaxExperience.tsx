@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import Link from "next/link";
-import { AlertTriangle, ArrowRight, ArrowUp, Mail, MessageCircleMore, Minus } from "lucide-react";
+import { AlertTriangle, ArrowLeft, ArrowRight, ArrowUp, Mail, MessageCircleMore, Minus } from "lucide-react";
 import { ClimaxMenu } from "./ClimaxMenu";
 import styles from "./ClimaxPage.module.css";
 import { climaxProducts } from "./climaxProducts";
@@ -598,55 +598,52 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
               <label>
                 <span className={styles.controlName}>Temperatura</span>
                 <span className={styles.controlValue}>{temperature} °C</span>
-                <span className={styles.sliderCueRow}>
-                  <input
-                    type="range"
-                    min="16"
-                    max="28"
-                    value={temperature}
-                    onChange={(event) => setTemperature(Number(event.currentTarget.value))}
-                  />
-                  <span className={styles.sliderPrompt}>
-                    <ArrowRight className={styles.sliderPromptArrow} size={16} strokeWidth={2.2} aria-hidden="true" />
-                    <span>Juega</span>
-                  </span>
-                </span>
+                <input
+                  type="range"
+                  min="16"
+                  max="28"
+                  value={temperature}
+                  onChange={(event) => setTemperature(Number(event.currentTarget.value))}
+                />
               </label>
               <label>
                 <span className={styles.controlName}>Flujo de aire</span>
                 <span className={styles.controlValue}>{flow}%</span>
-                <span className={styles.sliderCueRow}>
-                  <input
-                    type="range"
-                    min="10"
-                    max="100"
-                    value={flow}
-                    onChange={(event) => setFlow(Number(event.currentTarget.value))}
-                  />
-                  <span className={styles.sliderPrompt}>
-                    <ArrowRight className={styles.sliderPromptArrow} size={16} strokeWidth={2.2} aria-hidden="true" />
-                    <span>Ajusta</span>
-                  </span>
-                </span>
+                <input
+                  type="range"
+                  min="10"
+                  max="100"
+                  value={flow}
+                  onChange={(event) => setFlow(Number(event.currentTarget.value))}
+                />
               </label>
               <label>
                 <span className={styles.controlName}>Envolvente</span>
                 <span className={styles.controlValue}>{shell}%</span>
-                <span className={styles.sliderCueRow}>
-                  <input
-                    type="range"
-                    min="20"
-                    max="100"
-                    value={shell}
-                    onChange={(event) => setShell(Number(event.currentTarget.value))}
-                  />
-                  <span className={styles.sliderPrompt}>
-                    <ArrowRight className={styles.sliderPromptArrow} size={16} strokeWidth={2.2} aria-hidden="true" />
-                    <span>Siente</span>
-                  </span>
-                </span>
+                <input
+                  type="range"
+                  min="20"
+                  max="100"
+                  value={shell}
+                  onChange={(event) => setShell(Number(event.currentTarget.value))}
+                />
               </label>
             </form>
+          </div>
+
+          <div className={styles.sliderCueRail} aria-hidden="true">
+            <span className={styles.sliderCue}>
+              <ArrowLeft className={styles.sliderCueArrow} size={17} strokeWidth={2.2} />
+              <span>Juega</span>
+            </span>
+            <span className={styles.sliderCue}>
+              <ArrowLeft className={styles.sliderCueArrow} size={17} strokeWidth={2.2} />
+              <span>Ajusta</span>
+            </span>
+            <span className={styles.sliderCue}>
+              <ArrowLeft className={styles.sliderCueArrow} size={17} strokeWidth={2.2} />
+              <span>Siente</span>
+            </span>
           </div>
 
           <div className={`${styles.heroActions} ${styles.reveal}`} aria-label="Acciones principales" data-climax-reveal="up">
