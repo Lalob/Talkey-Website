@@ -1022,14 +1022,14 @@
 
 .sliderCue {
   position: absolute;
-  left: calc(100% + clamp(28px, 3.2vw, 54px));
+  left: calc(100% + clamp(16px, calc(3.2vw - 12px), 42px));
   bottom: 12px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: max-content;
   color: rgba(245, 251, 249, 0.68);
-  font-size: clamp(0.78rem, 0.74rem + 0.14vw, 0.9rem);
+  font-size: clamp(1.56rem, 1.48rem + 0.28vw, 1.8rem);
   font-weight: 780;
   letter-spacing: 0;
   line-height: 1;
@@ -1039,6 +1039,8 @@
 
 .sliderCueArrow {
   flex: 0 0 auto;
+  width: 1em;
+  height: 1em;
   color: var(--copper);
   filter: drop-shadow(0 0 8px rgba(217, 121, 56, 0.45));
   animation: sliderCuePoint 1.18s ease-in-out infinite;
