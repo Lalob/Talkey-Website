@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type FormEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import Link from "next/link";
 import { AlertTriangle, ArrowLeft, ArrowRight, ArrowUp, Mail, MessageCircleMore, Minus } from "lucide-react";
 import { ClimaxMenu } from "./ClimaxMenu";
@@ -225,16 +225,16 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     },
   ]);
   const [scroll, setScroll] = useState(0);
+  type ActiveControl = "temperature" | "flow" | "shell";
+
   const [temperature, setTemperature] = useState(22);
   const [flow, setFlow] = useState(54);
   const [shell, setShell] = useState(78);
+  const [activeControl, setActiveControl] = useState<ActiveControl>("temperature");
   const controlsRef = useRef({ temperature, flow, shell });
   const productsHref = standalone ? "/productos" : "/climax/productos";
-
-  const comfort = useMemo(() => {
-    const tempComfort = 100 - Math.abs(temperature - 21.5) * 9;
-    return Math.min(99, Math.max(24, Math.round(tempComfort * 0.42 + flow * 0.23 + shell * 0.35)));
-  }, [flow, shell, temperature]);
+  const dialValue =
+    activeControl === "temperature" ? temperature : activeControl === "flow" ? flow : shell;
 
   useEffect(() => {
     controlsRef.current = { temperature, flow, shell };
@@ -591,7 +591,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
                 <span className={styles.dialCore} />
                 <span className={`${styles.dialRing} ${styles.ringCold}`} />
                 <span className={`${styles.dialRing} ${styles.ringWarm}`} />
-                <strong>{comfort}</strong>
+                <strong>{dialValue}</strong>
               </div>
             </div>
             <form className={styles.controls} aria-label="Ajustes de animación Climax">
@@ -603,7 +603,10 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
                   min="16"
                   max="28"
                   value={temperature}
-                  onChange={(event) => setTemperature(Number(event.currentTarget.value))}
+                  onChange={(event) => {
+                    setTemperature(Number(event.currentTarget.value));
+                    setActiveControl("temperature");
+                  }}
                 />
               </label>
               <label>
@@ -614,7 +617,10 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
                   min="10"
                   max="100"
                   value={flow}
-                  onChange={(event) => setFlow(Number(event.currentTarget.value))}
+                  onChange={(event) => {
+                    setFlow(Number(event.currentTarget.value));
+                    setActiveControl("flow");
+                  }}
                 />
               </label>
               <label>
@@ -625,7 +631,10 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
                   min="20"
                   max="100"
                   value={shell}
-                  onChange={(event) => setShell(Number(event.currentTarget.value))}
+                  onChange={(event) => {
+                    setShell(Number(event.currentTarget.value));
+                    setActiveControl("shell");
+                  }}
                 />
               </label>
             </form>
