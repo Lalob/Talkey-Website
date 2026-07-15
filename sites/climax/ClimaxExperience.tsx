@@ -574,7 +574,13 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
           <div className={`${styles.heroCopy} ${styles.reveal}`} data-climax-reveal="left">
             <h1>
               <span>Climax</span>
-              <em>clima al punto exacto.</em>
+              <em className={styles.heroFormula} aria-label="Frío más calor más control estable">
+                <span>Frío</span>
+                <span aria-hidden="true">+</span>
+                <span>Calor</span>
+                <span aria-hidden="true">+</span>
+                <span>Control estable</span>
+              </em>
             </h1>
             <p className={styles.heroLede}>
               Sistemas térmicos para edificios, locales y hogares que necesitan frío, calor y control estable sin
