@@ -414,7 +414,7 @@ export function PlatformHome() {
           </div>
 
           <div className="mk-platform-home-orbit" aria-label="Flujo continuo: Chat, CRM automatizado, Soporte inteligente y vuelta a Chat">
-            <svg className="mk-platform-home-orbit-svg" viewBox="0 0 1000 720" aria-hidden="true">
+            <svg className="mk-platform-home-orbit-svg" viewBox="0 0 1000 760" aria-hidden="true">
               <defs>
                 <radialGradient id="mk-cycle-node-fill" cx="34%" cy="26%" r="72%">
                   <stop offset="0" stopColor="#24211a" />
