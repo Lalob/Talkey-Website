@@ -618,7 +618,7 @@ export function SalesPage() {
         <div className="mk-container mk-sales-hero-grid">
           <div className="mk-sales-hero-copy">
             <h1 id="talkey-sales-title">
-              Conversaciones comerciales que no quedan sin seguimiento
+              Nunca más pierdas una venta <span className="mk-sales-hero-highlight">por no hacerle seguimiento</span> de principio a fin
             </h1>
             <p>
               Talkey atiende, califica, prioriza y prepara próximos pasos para que tu equipo venda con más contexto.
