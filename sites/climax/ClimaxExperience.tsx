@@ -30,9 +30,32 @@ type SupportMessage = {
   danger?: boolean;
 };
 
+type InstallationQuestion = {
+  prompt: string;
+  calendarLabel: string;
+};
+
+const installationPrompt = "Agendar instalación";
+
 const supportPrompts = [
   "Tengo un problema con ACS",
   "La calefacción no calienta",
+  installationPrompt,
+];
+
+const installationQuestions: InstallationQuestion[] = [
+  {
+    prompt: "¿Qué sistema Climax quieres instalar? Indica Agua Caliente Sanitaria (ACS), calefacción o ambos.",
+    calendarLabel: "Sistema Climax",
+  },
+  {
+    prompt: "¿Qué tipo de instalación necesitas? Puede ser equipo nuevo, reemplazo de equipo existente o ampliación/mejora de sistema.",
+    calendarLabel: "Tipo de instalación",
+  },
+  {
+    prompt: "¿Qué condiciones tiene el lugar? Indica tipo de inmueble y conexiones disponibles: agua, gas, electricidad, evacuación/ducto o sala técnica.",
+    calendarLabel: "Condiciones del lugar",
+  },
 ];
 
 const systems = [
@@ -144,6 +167,27 @@ function detectSupportIssue(message: string) {
   return null;
 }
 
+function buildInstallationCalendarUrl(answers: string[]) {
+  const details = [
+    "Solicitud de instalación Climax generada desde Talkey Soporte.",
+    "",
+    ...installationQuestions.map((question, index) => {
+      const answer = answers[index]?.trim() || "Por definir";
+      return question.calendarLabel + ": " + answer;
+    }),
+    "",
+    "Fecha y hora: completar directamente en Google Calendar.",
+  ].join("\n");
+
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: "Instalación Climax",
+    details,
+  });
+
+  return "https://calendar.google.com/calendar/render?" + params.toString();
+}
+
 function buildIssueGuidance(issue: ReturnType<typeof detectSupportIssue>, productName: string) {
   if (issue === "heat") {
     return productName.includes("ACS")
@@ -216,6 +260,8 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [assistantInput, setAssistantInput] = useState("");
   const [assistantTyping, setAssistantTyping] = useState(false);
+  const [installationStep, setInstallationStep] = useState<number | null>(null);
+  const [installationAnswers, setInstallationAnswers] = useState<string[]>([]);
   const [supportMessages, setSupportMessages] = useState<SupportMessage[]>([
     {
       id: "welcome",
@@ -539,9 +585,77 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     };
   }
 
+  function startInstallationFlow() {
+    if (assistantTyping) return;
+    setAssistantOpen(true);
+    setAssistantInput("");
+    setAssistantTyping(false);
+    setInstallationAnswers([]);
+    setInstallationStep(0);
+    setSupportMessages((current) => [
+      ...current,
+      { id: crypto.randomUUID(), sender: "visitor", text: installationPrompt },
+      {
+        id: crypto.randomUUID(),
+        sender: "assistant",
+        text:
+          "Perfecto. Te haré 3 preguntas para preparar la instalación Climax antes de abrir Google Calendar.\n\n1/3 " +
+          installationQuestions[0].prompt,
+      },
+    ]);
+  }
+
+  function advanceInstallationFlow(content: string) {
+    if (installationStep === null) return false;
+
+    const nextAnswers = [...installationAnswers, content];
+    const nextStep = installationStep + 1;
+
+    setAssistantInput("");
+
+    if (nextStep < installationQuestions.length) {
+      setInstallationAnswers(nextAnswers);
+      setInstallationStep(nextStep);
+      setSupportMessages((current) => [
+        ...current,
+        { id: crypto.randomUUID(), sender: "visitor", text: content },
+        {
+          id: crypto.randomUUID(),
+          sender: "assistant",
+          text: nextStep + 1 + "/3 " + installationQuestions[nextStep].prompt,
+        },
+      ]);
+      return true;
+    }
+
+    setInstallationAnswers([]);
+    setInstallationStep(null);
+    const calendarUrl = buildInstallationCalendarUrl(nextAnswers);
+    window.open(calendarUrl, "_blank", "noopener,noreferrer");
+    setSupportMessages((current) => [
+      ...current,
+      { id: crypto.randomUUID(), sender: "visitor", text: content },
+      {
+        id: crypto.randomUUID(),
+        sender: "assistant",
+        text:
+          "Listo. Abrí Google Calendar en una pestaña nueva para que elijas fecha y hora. Dejé las respuestas técnicas en la descripción del evento de instalación Climax.",
+      },
+    ]);
+    return true;
+  }
+
   function sendSupportMessage(message: string) {
     const content = message.trim();
     if (!content || assistantTyping) return;
+
+    if (advanceInstallationFlow(content)) return;
+
+    if (normalizeSupportText(content) === normalizeSupportText(installationPrompt)) {
+      startInstallationFlow();
+      return;
+    }
+
     setSupportMessages((current) => [
       ...current,
       { id: crypto.randomUUID(), sender: "visitor", text: content },
@@ -834,7 +948,12 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
             </div>
             <div className={styles.supportPrompts}>
               {supportPrompts.map((prompt) => (
-                <button type="button" disabled={assistantTyping} onClick={() => sendSupportMessage(prompt)} key={prompt}>
+                <button
+                  type="button"
+                  disabled={assistantTyping || installationStep !== null}
+                  onClick={() => (prompt === installationPrompt ? startInstallationFlow() : sendSupportMessage(prompt))}
+                  key={prompt}
+                >
                   {prompt}
                 </button>
               ))}
@@ -843,8 +962,8 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
               <input
                 value={assistantInput}
                 onChange={(event) => setAssistantInput(event.currentTarget.value)}
-                placeholder="Describe el síntoma o modelo"
-                aria-label="Describe el síntoma o modelo"
+                placeholder={installationStep !== null ? "Responde esta pregunta" : "Describe el síntoma o modelo"}
+                aria-label={installationStep !== null ? "Responde la pregunta de instalación" : "Describe el síntoma o modelo"}
               />
               <button type="submit" disabled={!assistantInput.trim() || assistantTyping} aria-label="Enviar">
                 <ArrowUp size={18} />
