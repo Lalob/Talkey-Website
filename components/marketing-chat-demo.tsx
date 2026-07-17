@@ -61,6 +61,49 @@ function normalizeCommand(value: string) {
   return value.toLocaleLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+function boundedPromptOptions(options: string[]) {
+  return options.length > 0 && options.length <= 3 ? options : [];
+}
+
+function cleanCalendarSnippet(value: string | undefined, fallback = "") {
+  const snippet = value?.replace(/\s+/g, " ").trim() || fallback;
+  return snippet.length > 64 ? `${snippet.slice(0, 61).trim()}...` : snippet;
+}
+
+function buildTalkeyCalendarTitle(messages: DemoMessage[], variant: "support" | "sales") {
+  const visitorMessages = messages.filter((message) => message.sender === "visitor" && message.text.trim());
+  const latestMessage = visitorMessages[visitorMessages.length - 1]?.text;
+  const topic = cleanCalendarSnippet(latestMessage, "diagnóstico de 30 min");
+  const prefix = variant === "sales" ? "Talkey Ventas" : "Talkey Soporte";
+  return `${prefix}: ${topic}`;
+}
+
+function buildTalkeyCalendarDetails(messages: DemoMessage[], variant: "support" | "sales") {
+  const visitorMessages = messages
+    .filter((message) => message.sender === "visitor" && message.text.trim())
+    .slice(-5)
+    .map((message, index) => `${index + 1}. ${message.text.trim()}`);
+
+  return [
+    `Solicitud generada desde el demo de ${variant === "sales" ? "Talkey Ventas" : "Talkey Soporte"}.`,
+    "",
+    "Información entregada por el usuario:",
+    visitorMessages.length > 0 ? visitorMessages.join("\n") : "Por definir durante la reunión.",
+    "",
+    "Fecha y hora: completar directamente en Google Calendar.",
+  ].join("\n");
+}
+
+function buildTalkeyCalendarUrl(messages: DemoMessage[], variant: "support" | "sales") {
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: buildTalkeyCalendarTitle(messages, variant),
+    details: buildTalkeyCalendarDetails(messages, variant),
+  });
+
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
 function stripForbiddenDemoIntro(text: string) {
   let sanitized = text;
 
@@ -136,6 +179,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
   const [answers, setAnswers] = useState<string[]>([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [implementationAsked, setImplementationAsked] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const [dockOpen, setDockOpen] = useState(false);
   const [nearPricing, setNearPricing] = useState(false);
   const [persistentAvailable, setPersistentAvailable] = useState(false);
@@ -152,6 +196,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     setAnswers([]);
     setQuestionIndex(0);
     setImplementationAsked(false);
+    setHasInteracted(false);
   }, [copy]);
 
   useEffect(() => {
@@ -273,6 +318,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
         `Solución recomendada:\n${result.solution}`,
         `Severidad:\n${result.severity}`,
         `Próximo paso:\n${result.nextStep}`,
+        "¿Puedo ayudarte con algo más?",
       ].join("\n\n"),
       danger: isHighSeverity,
       actions,
@@ -590,6 +636,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     if (!content || typing) return;
     const visitorMessage: DemoMessage = { id: crypto.randomUUID(), sender: "visitor", text: content };
     lastAssistantMessageIdRef.current = null;
+    setHasInteracted(true);
     setMessages((current) => [...current, visitorMessage]);
     setInput("");
     setTyping(true);
@@ -603,14 +650,14 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
   }
 
   function getPromptOptions() {
-    if (mode === "choosingFlow") return talkeyTroubleshootingFlows.map((flow) => flow.title);
+    if (mode === "choosingFlow") return boundedPromptOptions(talkeyTroubleshootingFlows.map((flow) => flow.title));
 
     if (mode === "inFlow" && activeFlowId) {
       const activeFlow = talkeyTroubleshootingFlows.find((flow) => flow.id === activeFlowId);
-      return activeFlow?.questions[questionIndex]?.options ?? [];
+      return boundedPromptOptions(activeFlow?.questions[questionIndex]?.options ?? []);
     }
 
-    if (mode === "completedFlow") return [copy.actions.tryAnotherCase, ...copy.prompts];
+    if (mode === "completedFlow" || hasInteracted) return [];
 
     return copy.prompts;
   }
@@ -618,6 +665,11 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     send(input);
+  }
+
+  function updateInput(value: string) {
+    setInput(value);
+    if (value.trim()) setHasInteracted(true);
   }
 
   function renderCard(mode: "hero" | "dock") {
@@ -639,13 +691,16 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
               {message.actions && (
                 <div className="mk-demo-actions">
                   {message.actions.map((action) => {
-                    const isExternalAction = action.href?.startsWith("http") ?? false;
+                    const actionHref = action.href === talkeyBookingUrl
+                      ? buildTalkeyCalendarUrl(messages, variant)
+                      : action.href;
+                    const isExternalAction = actionHref?.startsWith("http") ?? false;
 
-                    return action.href ? (
+                    return actionHref ? (
                       <a
                         key={action.label}
                         className="mk-demo-action"
-                        href={action.href}
+                        href={actionHref}
                         target={isExternalAction ? "_blank" : undefined}
                         rel={isExternalAction ? "noopener noreferrer" : undefined}
                         onClick={() => trackEvent(action.href === "#precios" ? "hero_estimate_price_click" : "agenda_click", { source: "demo_action" })}
@@ -691,7 +746,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
             data-testid="marketing-chat-input"
             className={input ? "has-value" : "is-empty"}
             value={input}
-            onChange={(event) => setInput(event.target.value)}
+            onChange={(event) => updateInput(event.target.value)}
             placeholder={copy.placeholder}
             aria-label={copy.placeholder}
           />

@@ -47,7 +47,7 @@ const products: Array<{
     href: "/ventas",
     kicker: "Conversaciones que venden",
     value:
-      "Conversaciones comerciales que no quedan sin seguimiento: calificación, scoring, pipeline y próximos pasos.",
+      "Nunca más pierdas una venta por no atenderla a tiempo y hacerle seguimiento hasta el final.",
     proof: ["Pipeline vivo", "Scoring comercial", "Seguimiento automático"],
     metric: "Ventas",
     icon: Briefcase,
