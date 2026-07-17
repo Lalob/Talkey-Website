@@ -49,6 +49,8 @@ const supportPrompts = [
   installationPrompt,
 ];
 
+const supportFamilyOptions = ["Agua Caliente Sanitaria (ACS)", "Calefacción"] as const;
+
 const installationQuestions: InstallationQuestion[] = [
   {
     prompt: "¿Qué sistema Climax quieres instalar? Indica Agua Caliente Sanitaria (ACS), calefacción o ambos.",
@@ -95,6 +97,14 @@ function normalizeSupportText(value: string) {
     .toLocaleLowerCase("es-CL")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
+}
+
+function optionsForSupportReply(reply: SupportMessage) {
+  if (reply.sender !== "assistant" || reply.danger) return [];
+
+  return /¿Es Agua Caliente Sanitaria \(ACS\) o calefacción\?/i.test(reply.text)
+    ? [...supportFamilyOptions]
+    : [];
 }
 
 function includesAny(value: string, terms: string[]) {
@@ -181,6 +191,18 @@ function detectSupportIssue(message: string) {
   return null;
 }
 
+function cleanCalendarSnippet(value: string | undefined, fallback = "") {
+  const snippet = value?.replace(/\s+/g, " ").trim() || fallback;
+  return snippet.length > 58 ? `${snippet.slice(0, 55).trim()}...` : snippet;
+}
+
+function buildInstallationCalendarTitle(answers: string[]) {
+  const system = cleanCalendarSnippet(answers[0], "instalación");
+  const installationType = cleanCalendarSnippet(answers[1]);
+  const context = [system, installationType].filter(Boolean).join(" · ");
+  return `Climax: ${context}`;
+}
+
 function buildInstallationCalendarUrl(answers: string[]) {
   const details = [
     "Solicitud de instalación Climax generada desde Talkey Soporte.",
@@ -195,7 +217,7 @@ function buildInstallationCalendarUrl(answers: string[]) {
 
   const params = new URLSearchParams({
     action: "TEMPLATE",
-    text: "Instalación Climax",
+    text: buildInstallationCalendarTitle(answers),
     details,
   });
 
@@ -276,6 +298,8 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
   const [assistantTyping, setAssistantTyping] = useState(false);
   const [installationStep, setInstallationStep] = useState<number | null>(null);
   const [installationAnswers, setInstallationAnswers] = useState<string[]>([]);
+  const [supportHasInteracted, setSupportHasInteracted] = useState(false);
+  const [supportChoiceOptions, setSupportChoiceOptions] = useState<string[]>([]);
   const [supportMessages, setSupportMessages] = useState<SupportMessage[]>([
     {
       id: "welcome",
@@ -285,6 +309,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     },
   ]);
   const [scroll, setScroll] = useState(0);
+  const supportMessagesRef = useRef<SupportMessage[]>(supportMessages);
   type ActiveControl = "temperature" | "flow" | "shell";
 
   const [temperature, setTemperature] = useState(22);
@@ -315,6 +340,10 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     if (!chatRef.current) return;
     chatRef.current.scrollTo({ top: chatRef.current.scrollHeight, behavior: "smooth" });
   }, [supportMessages, assistantTyping, assistantOpen]);
+
+  useEffect(() => {
+    supportMessagesRef.current = supportMessages;
+  }, [supportMessages]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -619,6 +648,8 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
 
   function startInstallationFlow() {
     if (assistantTyping) return;
+    setSupportHasInteracted(true);
+    setSupportChoiceOptions([]);
     setAssistantOpen(true);
     setAssistantInput("");
     setAssistantTyping(false);
@@ -671,7 +702,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         id: crypto.randomUUID(),
         sender: "assistant",
         text:
-          "Listo. Abrí Google Calendar en una pestaña nueva para que elijas fecha y hora. Dejé las respuestas técnicas en la descripción del evento de instalación Climax.",
+          "Perfecto. Abrí Google Calendar en una nueva pestaña con la cita prellenada. Elige allí la fecha y hora que más te acomode. ¿Puedo ayudarte con algo más?",
       },
     ]);
     return true;
@@ -680,6 +711,8 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
   function sendSupportMessage(message: string) {
     const content = message.trim();
     if (!content || assistantTyping) return;
+    setSupportHasInteracted(true);
+    setSupportChoiceOptions([]);
 
     if (advanceInstallationFlow(content)) return;
 
@@ -695,7 +728,9 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     setAssistantInput("");
     setAssistantTyping(true);
     window.setTimeout(() => {
-      setSupportMessages((current) => [...current, resolveSupportReply(content, current)]);
+      const reply = resolveSupportReply(content, supportMessagesRef.current);
+      setSupportMessages((current) => [...current, reply]);
+      setSupportChoiceOptions(optionsForSupportReply(reply));
       setAssistantTyping(false);
     }, 520);
   }
@@ -703,6 +738,13 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
   function submitSupport(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     sendSupportMessage(assistantInput);
+  }
+
+  function updateAssistantInput(value: string) {
+    setAssistantInput(value);
+    if (!value.trim()) return;
+    setSupportHasInteracted(true);
+    if (!supportHasInteracted) setSupportChoiceOptions([]);
   }
 
   return (
@@ -978,22 +1020,37 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
                 </div>
               )}
             </div>
-            <div className={styles.supportPrompts}>
-              {supportPrompts.map((prompt) => (
-                <button
-                  type="button"
-                  disabled={assistantTyping || installationStep !== null}
-                  onClick={() => (prompt === installationPrompt ? startInstallationFlow() : sendSupportMessage(prompt))}
-                  key={prompt}
-                >
-                  {prompt}
-                </button>
-              ))}
-            </div>
+            {!supportHasInteracted ? (
+              <div className={styles.supportPrompts}>
+                {supportPrompts.map((prompt) => (
+                  <button
+                    type="button"
+                    disabled={assistantTyping || installationStep !== null}
+                    onClick={() => (prompt === installationPrompt ? startInstallationFlow() : sendSupportMessage(prompt))}
+                    key={prompt}
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+            ) : supportChoiceOptions.length > 0 && supportChoiceOptions.length <= 3 ? (
+              <div className={styles.supportPrompts}>
+                {supportChoiceOptions.map((option) => (
+                  <button
+                    type="button"
+                    disabled={assistantTyping || installationStep !== null}
+                    onClick={() => sendSupportMessage(option)}
+                    key={option}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            ) : null}
             <form className={styles.supportForm} onSubmit={submitSupport}>
               <input
                 value={assistantInput}
-                onChange={(event) => setAssistantInput(event.currentTarget.value)}
+                onChange={(event) => updateAssistantInput(event.currentTarget.value)}
                 placeholder={installationStep !== null ? "Responde esta pregunta" : "Describe el síntoma o modelo"}
                 aria-label={installationStep !== null ? "Responde la pregunta de instalación" : "Describe el síntoma o modelo"}
               />
