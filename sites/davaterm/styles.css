@@ -80,6 +80,7 @@ h1 {
   font-size: clamp(3rem, 6.2vw, 5.8rem);
   line-height: 0.94;
   max-width: 12ch;
+  text-wrap: balance;
   text-transform: uppercase;
 }
 
@@ -213,9 +214,9 @@ h3 {
 }
 
 .hero {
-  min-height: 100svh;
+  min-height: calc(100svh - clamp(1.5rem, 4svh, 3rem));
   overflow: hidden;
-  padding: 8.5rem clamp(1.2rem, 4vw, 4rem) 2rem;
+  padding: clamp(7rem, 11svh, 8.75rem) clamp(1.2rem, 4vw, 4rem) clamp(3rem, 7svh, 5rem);
 }
 
 .network-canvas,
@@ -253,12 +254,13 @@ h3 {
 }
 
 .hero-grid {
+  align-items: center;
   display: grid;
-  gap: 2rem;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+  gap: clamp(2.4rem, 5.4vw, 5.25rem);
+  grid-template-columns: minmax(0, 0.98fr) minmax(300px, 0.48fr);
   margin: 0 auto;
   max-width: var(--max);
-  min-height: calc(100svh - 13rem);
+  min-height: calc(100svh - clamp(13rem, 24svh, 17rem));
   position: relative;
   z-index: 3;
 }
@@ -266,7 +268,8 @@ h3 {
 .hero-copy {
   align-self: center;
   display: grid;
-  gap: 1.7rem;
+  gap: clamp(1.2rem, 2.2vw, 1.75rem);
+  max-width: 700px;
 }
 
 .eyebrow {
@@ -292,6 +295,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.85rem;
+  padding-top: 0.25rem;
 }
 
 .button {
@@ -342,15 +346,16 @@ h3 {
 }
 
 .signal-board {
-  align-self: end;
+  align-self: center;
   background: rgba(247, 251, 254, 0.74);
   border: 1px solid rgba(16, 89, 138, 0.18);
   box-shadow: var(--shadow);
   display: grid;
-  gap: 1rem;
-  margin-bottom: 3.5rem;
-  padding: 1rem;
+  gap: clamp(0.85rem, 1.4vw, 1.05rem);
+  margin-top: clamp(1.25rem, 7svh, 4rem);
+  padding: clamp(1rem, 1.8vw, 1.25rem);
   position: relative;
+  width: 100%;
 }
 
 .signal-line {
@@ -385,25 +390,6 @@ h3 {
   color: var(--gray-900);
   font-size: var(--microcopy-size);
   font-weight: 700;
-  text-transform: uppercase;
-}
-
-.hero-strip {
-  border-top: 1px solid rgba(16, 89, 138, 0.14);
-  display: grid;
-  gap: 0.7rem;
-  grid-template-columns: repeat(4, 1fr);
-  margin: 1.5rem auto 0;
-  max-width: var(--max);
-  position: relative;
-  z-index: 3;
-}
-
-.hero-strip span {
-  color: var(--gray-900);
-  font-size: var(--microcopy-size);
-  font-weight: 700;
-  padding-top: 1rem;
   text-transform: uppercase;
 }
 
@@ -1431,12 +1417,34 @@ h3 {
   }
 
   .hero-grid {
+    gap: 2.2rem;
     min-height: auto;
   }
 
   .signal-board {
-    margin-bottom: 0;
-    max-width: 420px;
+    gap: 0.8rem;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 0;
+    max-width: none;
+  }
+
+  .signal-line {
+    bottom: auto;
+    height: 3px;
+    left: 1rem;
+    right: 1rem;
+    top: 1rem;
+    width: auto;
+  }
+
+  .metric {
+    border-bottom: 0;
+    border-right: 1px solid rgba(16, 89, 138, 0.13);
+    padding: 1rem 0.85rem 0.35rem;
+  }
+
+  .metric:last-child {
+    border-right: 0;
   }
 
   .values-grid {
@@ -1468,7 +1476,7 @@ h3 {
 
 @media (max-width: 680px) {
   h1 {
-    font-size: clamp(2.6rem, 16vw, 4.5rem);
+    font-size: clamp(2.6rem, 13vw, 3.6rem);
   }
 
   h2 {
@@ -1494,6 +1502,8 @@ h3 {
   }
 
   .hero {
+    min-height: auto;
+    padding-bottom: 4rem;
     padding-top: 7rem;
   }
 
@@ -1507,13 +1517,35 @@ h3 {
       linear-gradient(90deg, rgba(237, 246, 251, 0.94), rgba(237, 246, 251, 0.66));
   }
 
-  .hero-strip,
   .values-grid {
     grid-template-columns: 1fr;
   }
 
   .button {
     width: 100%;
+  }
+
+  .signal-board {
+    grid-template-columns: 1fr;
+  }
+
+  .signal-line {
+    bottom: 1rem;
+    height: auto;
+    left: 1rem;
+    right: auto;
+    top: 1rem;
+    width: 3px;
+  }
+
+  .metric {
+    border-bottom: 1px solid rgba(16, 89, 138, 0.13);
+    border-right: 0;
+    padding: 0.8rem 0 0.8rem 1.15rem;
+  }
+
+  .metric:last-child {
+    border-bottom: 0;
   }
 
   .intro-section,
