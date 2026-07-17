@@ -5925,3 +5925,47 @@ button { cursor: pointer; }
   0%, 100% { transform: translateY(0) rotate(-90deg); }
   50% { transform: translateY(-8px) rotate(-90deg); }
 }
+
+
+/* Mobile home cycle: larger and faster first render. */
+@media (max-width: 820px) {
+  .mk-platform-home-orbit {
+    display: grid;
+    min-height: min(82svh, 660px);
+    width: 100vw;
+    margin-right: calc(50% - 50vw);
+    margin-left: calc(50% - 50vw);
+    place-items: center;
+    overflow: visible;
+  }
+
+  .mk-platform-home-orbit-svg {
+    position: relative;
+    inset: auto;
+    width: min(156vw, 680px);
+    height: auto;
+    aspect-ratio: 1000 / 760;
+    overflow: visible;
+    transform: translateZ(0);
+  }
+
+  .mk-platform-home-orbit .mk-orbit-track,
+  .mk-platform-home-orbit .mk-cycle-node circle {
+    filter: none;
+  }
+
+  .mk-platform-home-orbit .mk-orbit-track {
+    animation-duration: 1.55s;
+    will-change: stroke-dashoffset;
+  }
+}
+
+@media (max-width: 480px) {
+  .mk-platform-home-orbit {
+    min-height: min(76svh, 610px);
+  }
+
+  .mk-platform-home-orbit-svg {
+    width: 164vw;
+  }
+}
