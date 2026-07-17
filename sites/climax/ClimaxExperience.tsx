@@ -6,6 +6,12 @@ import { AlertTriangle, ArrowLeft, ArrowRight, ArrowUp, Mail, MessageCircleMore,
 import { ClimaxMenu } from "./ClimaxMenu";
 import styles from "./ClimaxPage.module.css";
 import { climaxProducts } from "./climaxProducts";
+import {
+  buildClimaxAcsModelPrompt,
+  buildClimaxKnowledgeOverview,
+  buildClimaxModelSupportReply,
+  findClimaxTechnicalModel,
+} from "./climaxTechnicalKnowledge";
 import { ClimaxRevealController } from "./ClimaxRevealController";
 
 type Particle = {
@@ -117,6 +123,14 @@ function findProductInHistory(history: SupportMessage[]) {
     .reverse()
     .filter((message) => message.sender === "visitor")
     .map((message) => findProductInText(message.text))
+    .find(Boolean);
+}
+
+function findTechnicalModelInHistory(history: SupportMessage[]) {
+  return [...history]
+    .reverse()
+    .filter((message) => message.sender === "visitor")
+    .map((message) => findClimaxTechnicalModel(message.text))
     .find(Boolean);
 }
 
@@ -533,6 +547,8 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
 
   function resolveSupportReply(message: string, history: SupportMessage[]): SupportMessage {
     const normalized = normalizeSupportText(message);
+    const issue = detectSupportIssue(message);
+    const currentTechnicalModel = findClimaxTechnicalModel(message);
 
     if (/(gas|olor|humo|chispa|fuga|quemado|incendio|cortocircuito|electrico|seguridad|bypass|puentear)/i.test(normalized)) {
       return {
@@ -544,26 +560,42 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
       };
     }
 
+    if (currentTechnicalModel) {
+      return {
+        id: crypto.randomUUID(),
+        sender: "assistant",
+        text: buildClimaxModelSupportReply(currentTechnicalModel, issue),
+      };
+    }
+
     if (/(producto|productos|catalogo|cubre|kb|base|conocimiento|real|reales)/i.test(normalized)) {
       return {
         id: crypto.randomUUID(),
         sender: "assistant",
-        text: `La base de conocimiento usa las familias reales confirmadas para Davaterm/Climax:\n\n${climaxProducts
+        text: `${buildClimaxKnowledgeOverview()}\n\nFamilias de soporte activo:\n${climaxProducts
           .map((product, index) => `${index + 1}. ${product.name}: ${product.summary}`)
-          .join(
-            "\n",
-          )}\n\nNo tengo modelos públicos verificables de Climax, así que no invento códigos de producto. Si me das modelo, etiqueta, manual o código de error, puedo guiar el caso con más precisión.`,
+          .join("\n")}`,
       };
     }
 
     const matched = findProductInText(message) ?? findProductInHistory(history);
-    const issue = detectSupportIssue(message);
+    const historyTechnicalModel = findTechnicalModelInHistory(history);
 
-    if (matched) {
+    if (historyTechnicalModel && issue) {
       return {
         id: crypto.randomUUID(),
         sender: "assistant",
-        text: `${matched.name}\n\n${buildIssueGuidance(issue, matched.name)}\n\nSi todavía no lo enviaste, agrega modelo o foto de etiqueta. Con eso intento acotar la causa probable antes de cualquier escalamiento.`,
+        text: buildClimaxModelSupportReply(historyTechnicalModel, issue),
+      };
+    }
+
+    if (matched) {
+      const acsModelPrompt =
+        matched.slug === "agua-caliente-sanitaria-acs" ? "\n\n" + buildClimaxAcsModelPrompt() : "";
+      return {
+        id: crypto.randomUUID(),
+        sender: "assistant",
+        text: `${matched.name}\n\n${buildIssueGuidance(issue, matched.name)}${acsModelPrompt}\n\nSi todavía no lo enviaste, agrega modelo o foto de etiqueta. Con eso intento acotar la causa probable antes de cualquier escalamiento.`,
       };
     }
 
