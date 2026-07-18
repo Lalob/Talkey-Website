@@ -955,8 +955,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
           <div className={`${styles.sectionHeading} ${styles.reveal}`} data-climax-reveal="left">
             <h2>Un lenguaje para espacios con ritmos distintos</h2>
             <p>
-              Climax se presenta como una marca de especificación clara: menos ruido comercial, más lectura técnica para
-              decidir rápido.
+              Menos ruido comercial, más lectura técnica para decidir rápido.
             </p>
           </div>
           <div className={styles.applicationGrid}>
