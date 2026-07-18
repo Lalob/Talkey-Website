@@ -370,7 +370,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     };
 
     const seedParticles = () => {
-      const baseCount = Math.round(Math.min(170, Math.max(64, width / 9)));
+      const baseCount = Math.round(Math.min(140, Math.max(56, width / 12)));
       particles = Array.from({ length: baseCount }, (_, index) => ({
         x: deterministicValue(index, 1) * width,
         y: deterministicValue(index, 2) * height,
@@ -383,7 +383,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     };
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, width < 760 ? 1.25 : 1.5);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.floor(width * dpr);
@@ -542,7 +542,9 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     };
 
     resize();
-    frame = requestAnimationFrame(draw);
+    const animationDelay = window.setTimeout(() => {
+      frame = requestAnimationFrame(draw);
+    }, 80);
     window.addEventListener("resize", resize);
     if (supportsPointer) {
       window.addEventListener("pointermove", onPointerMove, { passive: true });
@@ -555,6 +557,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
     document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
+      window.clearTimeout(animationDelay);
       cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
       if (supportsPointer) {

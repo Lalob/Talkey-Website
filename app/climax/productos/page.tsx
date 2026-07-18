@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { preload } from "react-dom";
 import Link from "next/link";
 import { ClimaxMenu } from "@/sites/climax/ClimaxMenu";
 import { ClimaxRevealController } from "@/sites/climax/ClimaxRevealController";
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     siteName: "Climax",
     images: [
       {
-        url: "/climax/climax-thermal-system.png",
+        url: "/climax/climax-thermal-system.jpg",
         width: 1717,
         height: 916,
         alt: "Render conceptual de equipos de climatización Climax",
@@ -34,6 +35,7 @@ export const metadata: Metadata = {
 };
 
 export default function ClimaxProductsPage() {
+  preload("/climax/climax-thermal-system.jpg", { as: "image" });
   return (
     <div className={`${styles.climaxSite} ${styles.productPage}`}>
       <ClimaxRevealController />

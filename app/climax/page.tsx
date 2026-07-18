@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { preload } from "react-dom";
 import { ClimaxExperience } from "@/sites/climax/ClimaxExperience";
 
 export const dynamic = "force-static";
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     siteName: "Climax",
     images: [
       {
-        url: "/climax/climax-thermal-system.png",
+        url: "/climax/climax-thermal-system.jpg",
         width: 1717,
         height: 916,
         alt: "Render conceptual de equipos de climatización Climax",
@@ -30,5 +31,6 @@ export const metadata: Metadata = {
 };
 
 export default function ClimaxPage() {
+  preload("/climax/climax-thermal-system.jpg", { as: "image" });
   return <ClimaxExperience />;
 }
