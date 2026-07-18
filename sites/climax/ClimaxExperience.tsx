@@ -77,11 +77,11 @@ const systems = [
   },
   {
     title: "Diagnóstico",
-    body: "La marca se apoya en datos concretos: etiqueta, síntoma, código de error y contexto de uso.",
+    body: "Nos apoyamos en datos concretos: etiqueta, síntoma, código de error y contexto de uso.",
   },
   {
     title: "Postventa",
-    body: "Talkey organiza el caso para resolver primero y escalar solo cuando hay riesgo o falta información.",
+    body: "Nuestro sistema de soporte inteligente organiza el caso para resolver primero y escalar solo cuando hay riesgo o falta información.",
   },
 ];
 
