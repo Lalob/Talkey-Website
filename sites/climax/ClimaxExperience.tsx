@@ -86,10 +86,10 @@ const systems = [
 ];
 
 const applications = [
-  ["Residencial", "Confort estable para ciclos diarios."],
-  ["Retail", "Respuesta rápida ante puertas, flujo y carga variable."],
-  ["Oficinas", "Zonas legibles para equipos que trabajan muchas horas."],
-  ["Proyectos", "Argumentos técnicos para arquitectura e instalación."],
+  ["Residencial", "Agua caliente y calefacción estables para duchas, cocina y rutinas diarias del hogar."],
+  ["Retail", "Temperatura estable en locales con puertas que se abren seguido, horarios intensos y demanda variable."],
+  ["Oficinas", "Control por áreas para mantener confort durante jornadas largas sin exigir de más al sistema."],
+  ["Proyectos", "Información técnica clara para especificar equipos, coordinar instalación y planificar mantenimiento."],
 ];
 
 function normalizeSupportText(value: string) {
