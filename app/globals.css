@@ -3465,7 +3465,7 @@ button { cursor: pointer; }
   display: flex;
   align-items: center;
   min-height: auto;
-  padding: clamp(14px, 2svh, 26px) 0;
+  padding: clamp(28px, 4svh, 52px) 0 clamp(14px, 2.5svh, 28px);
   scroll-snap-align: none;
   scroll-snap-stop: normal;
 }
@@ -3850,7 +3850,7 @@ button { cursor: pointer; }
 
   .mk-platform-home-minimal .mk-platform-hero {
     min-height: 0;
-    padding: clamp(10px, 1.5svh, 18px) 0;
+    padding: clamp(34px, 4.6svh, 58px) 0 clamp(14px, 2svh, 24px);
   }
 
   .mk-platform-home-hero-box {
@@ -5369,7 +5369,7 @@ button { cursor: pointer; }
   }
 
   .mk-platform-home-minimal .mk-platform-hero {
-    padding: 42px 0 24px;
+    padding: 58px 0 28px;
   }
 
   .mk-platform-home-minimal .mk-nav {
@@ -5942,11 +5942,12 @@ button { cursor: pointer; }
   .mk-platform-home-orbit-svg {
     position: relative;
     inset: auto;
-    width: min(124vw, 760px);
+    width: min(108vw, 680px);
+    max-width: none;
     height: auto;
     aspect-ratio: 1000 / 760;
     overflow: visible;
-    transform: translateZ(0);
+    transform: translateX(-12px) translateZ(0);
   }
 
   .mk-platform-home-orbit .mk-cycle-node-title {
@@ -5979,6 +5980,6 @@ button { cursor: pointer; }
   }
 
   .mk-platform-home-orbit-svg {
-    width: 130vw;
+    width: 108vw;
   }
 }
