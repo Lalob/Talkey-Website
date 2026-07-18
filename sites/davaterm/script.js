@@ -26,7 +26,7 @@
   function revealMotionFor(item) {
     if (
       item.matches(
-        ".hero-copy, .section-kicker, .intro-title, .proof-content, .values-head, .brands-visual, .operations-copy"
+        ".hero-copy, .section-kicker, .intro-title, .values-head, .brands-visual, .operations-copy"
       )
     ) {
       return "left";
@@ -34,7 +34,7 @@
 
     if (
       item.matches(
-        ".signal-board, .company-card, .proof-card, .value-item, .brand-card, .operation-step, .contact-panel"
+        ".signal-board, .company-card, .value-item, .brand-card, .operation-step, .contact-panel"
       )
     ) {
       return "pop";
@@ -45,7 +45,7 @@
 
   function revealGroupFor(item) {
     return (
-      item.closest(".hero-grid, .intro-copy, .intro-layout, .proof-grid, .values-grid, .brands-content, .brand-cards, .operations-list") ||
+      item.closest(".hero-grid, .intro-copy, .intro-layout, .values-grid, .brands-content, .brand-cards, .operations-list") ||
       item.closest("section") ||
       document.body
     );
@@ -99,8 +99,109 @@
 
   document.querySelectorAll("[data-count]").forEach((el) => countObserver.observe(el));
 
+  const cursorYellow = "246, 194, 65";
+  const cursorOrange = "201, 121, 59";
+  const cursorTomato = "221, 68, 52";
+  const heatColorInner = cursorYellow;
+  const heatColorMiddle = cursorOrange;
+  const heatColorOuter = cursorTomato;
+  const particleBlue = "16, 89, 138";
+  const particleBlueLight = "159, 216, 255";
+  const densityScale = 0.75;
+  const colorReachScale = 0.7;
+  const coloredNodeThreshold = 0.08;
+  const reducedMotionNodeScale = 0.64;
+  let siteParticleDensity = 0;
+
+  function displayArea(width, height) {
+    return Math.max(width * height, 1);
+  }
+
+  function heroReferenceCount(width) {
+    return width < 700 ? 92 : Math.min(276, Math.max(164, Math.floor(width / 8)));
+  }
+
+  function motionAdjustedCount(count) {
+    return reduceMotion ? Math.max(1, Math.round(count * reducedMotionNodeScale)) : count;
+  }
+
+  function setSiteParticleDensity(width, height) {
+    const targetCount = Math.max(1, Math.round(heroReferenceCount(width) * densityScale));
+    siteParticleDensity = targetCount / displayArea(width, height);
+    return targetCount;
+  }
+
+  function targetCountForArea(width, height) {
+    const density = siteParticleDensity || (heroReferenceCount(width) * densityScale) / displayArea(width, height);
+    return Math.max(1, Math.round(displayArea(width, height) * density));
+  }
+
+  function cursorHeat(distance, maxDistance) {
+    if (distance >= maxDistance) {
+      return { intensity: 0, color: heatColorInner };
+    }
+
+    const intensity = 1 - distance / maxDistance;
+    if (distance < maxDistance * 0.34) {
+      return { intensity, color: heatColorInner };
+    }
+
+    if (distance < maxDistance * 0.67) {
+      return { intensity, color: heatColorMiddle };
+    }
+
+    return { intensity, color: heatColorOuter };
+  }
+
+  function drawPointerEdges(ctx, pointer, nodes, dark = false) {
+    if (!pointer.active) return;
+
+    nodes.forEach((node) => {
+      const warm = node.cursorWarm || 0;
+      if (warm <= coloredNodeThreshold) return;
+
+      ctx.beginPath();
+      ctx.moveTo(pointer.x, pointer.y);
+      ctx.lineTo(node.x, node.y);
+      ctx.strokeStyle = `rgba(${node.cursorColor || heatColorInner}, ${Math.min(dark ? 0.62 : 0.56, warm * (reduceMotion ? 0.34 : 0.5))})`;
+      ctx.lineWidth = (dark ? 1.25 : 1.15) + warm * 0.9;
+      ctx.stroke();
+    });
+  }
+
+  function drawParticleNode(ctx, node, color, warm, pulse, dark = false) {
+    const baseRadius = Math.max(1.4, node.radius + pulse * 0.18);
+    const radius = baseRadius * (1 + warm);
+    const alpha = Math.min(0.95, (dark ? 0.72 : 0.78) + warm * 0.18);
+
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${color}, ${alpha})`;
+    ctx.fill();
+  }
+
+  function distributedPoint(index, count, bounds) {
+    const areaWidth = Math.max(bounds.xMax - bounds.xMin, 1);
+    const areaHeight = Math.max(bounds.yMax - bounds.yMin, 1);
+    const columns = Math.max(1, Math.ceil(Math.sqrt(count * (areaWidth / areaHeight))));
+    const rows = Math.max(1, Math.ceil(count / columns));
+    const column = index % columns;
+    const row = Math.floor(index / columns);
+    const cellWidth = areaWidth / columns;
+    const cellHeight = areaHeight / rows;
+    const jitter = 0.54;
+
+    return {
+      x: bounds.xMin + (column + 0.5 + (Math.random() - 0.5) * jitter) * cellWidth,
+      y: bounds.yMin + (row + 0.5 + (Math.random() - 0.5) * jitter) * cellHeight
+    };
+  }
+
   const networkCanvas = document.querySelector("[data-network-canvas]");
   if (networkCanvas) initNetworkCanvas(networkCanvas);
+
+  const sectionParticleCanvases = Array.from(document.querySelectorAll("[data-section-particles]"));
+  if (sectionParticleCanvases.length) initSectionParticles(sectionParticleCanvases);
 
   const curveCanvas = document.querySelector("[data-curve-canvas]");
   const curveStage = document.querySelector("[data-curve-stage]");
@@ -135,19 +236,23 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const area = bounds();
-      const baseCount = width < 700 ? 30 : Math.min(96, Math.max(58, Math.floor(width / 22)));
-      const count = reduceMotion ? Math.round(baseCount * 0.64) : baseCount;
+      const targetCount = setSiteParticleDensity(width, height);
+      const count = motionAdjustedCount(targetCount);
       nodes = Array.from({ length: count }, (_, index) => {
         const angle = Math.random() * Math.PI * 2;
-        const speed = 0.16 + Math.random() * 0.38;
+        const speed = reduceMotion ? 0.18 + Math.random() * 0.28 : 0.42 + Math.random() * 0.82;
+        const point = distributedPoint(index, count, area);
         return {
-          x: area.xMin + Math.random() * (area.xMax - area.xMin),
-          y: area.yMin + Math.random() * (area.yMax - area.yMin),
+          x: point.x,
+          y: point.y,
+          homeX: point.x,
+          homeY: point.y,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          radius: 1.6 + Math.random() * 2.5,
+          radius: 2.2 + Math.random() * 3.3,
           phase: index * 0.7 + Math.random() * 4,
-          copper: Math.random() > 0.82
+          cursorWarm: 0,
+          cursorColor: heatColorInner
         };
       });
     }
@@ -160,14 +265,17 @@
       const renderTime = reduceMotion ? time * 0.26 : time;
       ctx.clearRect(0, 0, width, height);
       const area = bounds();
-      const linkDistance = width < 700 ? 104 : 158;
-      const pointerDistance = width < 700 ? 132 : 190;
+      const pointerDistance = width < 700 ? 146 : 210;
+      const warmDistance = (width < 700 ? 220 : 320) * colorReachScale;
+      const homePull = reduceMotion ? 0.001 : 0.0016;
 
       nodes.forEach((node) => {
-        const waveX = Math.sin(renderTime * 0.0008 + node.phase) * 0.08;
-        const waveY = Math.cos(renderTime * 0.0007 + node.phase) * 0.08;
+        const waveX = Math.sin(renderTime * 0.0014 + node.phase) * 0.22;
+        const waveY = Math.cos(renderTime * 0.0012 + node.phase) * 0.2;
         node.x += (node.vx + waveX) * movementScale;
         node.y += (node.vy + waveY) * movementScale;
+        node.x += (node.homeX - node.x) * homePull * movementScale;
+        node.y += (node.homeY - node.y) * homePull * movementScale;
 
         if (node.x < area.xMin || node.x > area.xMax) node.vx *= -1;
         if (node.y < area.yMin || node.y > area.yMax) node.vy *= -1;
@@ -178,59 +286,26 @@
           const dx = node.x - pointer.x;
           const dy = node.y - pointer.y;
           const distance = Math.hypot(dx, dy) || 1;
+          const heat = cursorHeat(distance, warmDistance);
+          node.cursorWarm = heat.intensity;
+          node.cursorColor = heat.color;
           if (distance < pointerDistance) {
-            const push = (1 - distance / pointerDistance) * (reduceMotion ? 2.6 : 7);
-            node.x += (dx / distance) * push * movementScale;
-            node.y += (dy / distance) * push * movementScale;
+            const pull = Math.pow(1 - distance / pointerDistance, 1.35) * (reduceMotion ? 0.45 : 1.55);
+            node.x -= (dx / distance) * pull * movementScale;
+            node.y -= (dy / distance) * pull * movementScale;
           }
+        } else {
+          node.cursorWarm *= 0.88;
         }
       });
 
-      for (let i = 0; i < nodes.length; i += 1) {
-        const a = nodes[i];
-        for (let j = i + 1; j < nodes.length; j += 1) {
-          const b = nodes[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const distance = Math.hypot(dx, dy);
-          if (distance < linkDistance) {
-            const strength = (1 - distance / linkDistance) * (reduceMotion ? 0.2 : 0.28);
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(16, 89, 138, ${strength})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-        }
-
-        if (pointer.active) {
-          const dx = a.x - pointer.x;
-          const dy = a.y - pointer.y;
-          const distance = Math.hypot(dx, dy);
-          if (distance < pointerDistance) {
-            const strength = (1 - distance / pointerDistance) * (reduceMotion ? 0.26 : 0.42);
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(pointer.x, pointer.y);
-            ctx.strokeStyle = `rgba(201, 121, 59, ${strength})`;
-            ctx.lineWidth = 1.2;
-            ctx.stroke();
-          }
-        }
-      }
+      drawPointerEdges(ctx, pointer, nodes);
 
       nodes.forEach((node) => {
-        const color = node.copper ? "201, 121, 59" : "16, 89, 138";
-        const pulse = Math.sin(renderTime * 0.002 + node.phase) * (reduceMotion ? 0.14 : 0.45);
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius + pulse, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color}, ${reduceMotion ? 0.46 : 0.58})`;
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius * 3.2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color}, ${reduceMotion ? 0.038 : 0.055})`;
-        ctx.fill();
+        const warm = node.cursorWarm || 0;
+        const color = warm > 0.08 ? node.cursorColor : particleBlue;
+        const pulse = Math.sin(renderTime * 0.0032 + node.phase) * (reduceMotion ? 0.14 : 0.62);
+        drawParticleNode(ctx, node, color, warm, pulse);
       });
 
       requestAnimationFrame(draw);
@@ -278,6 +353,187 @@
     requestAnimationFrame(draw);
   }
 
+  function initSectionParticles(canvases) {
+    const pointer = { x: 0, y: 0, active: false };
+    const supportsPointer = "PointerEvent" in window;
+    const fieldByCanvas = new Map();
+    const fields = canvases.map((canvas) => {
+      const ctx = canvas.getContext("2d");
+      const field = {
+        canvas,
+        ctx,
+        dark: canvas.dataset.particleTheme === "dark",
+        width: 0,
+        height: 0,
+        dpr: 1,
+        nodes: [],
+        visible: true,
+        lastTime: 0
+      };
+      fieldByCanvas.set(canvas, field);
+      return field;
+    }).filter((field) => field.ctx);
+
+    if (!fields.length) return;
+
+    function createNodes(field) {
+      const count = motionAdjustedCount(targetCountForArea(field.width, field.height));
+      const fieldBounds = { xMin: 0, xMax: field.width, yMin: 0, yMax: field.height };
+      field.nodes = Array.from({ length: count }, (_, index) => {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = reduceMotion ? 0.08 + Math.random() * 0.16 : 0.24 + Math.random() * 0.58;
+        const point = distributedPoint(index, count, fieldBounds);
+        return {
+          x: point.x,
+          y: point.y,
+          homeX: point.x,
+          homeY: point.y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          radius: 1.8 + Math.random() * 2.6,
+          phase: index * 0.9 + Math.random() * 4,
+          cursorWarm: 0,
+          cursorColor: heatColorInner
+        };
+      });
+    }
+
+    function resizeField(field) {
+      field.dpr = Math.min(window.devicePixelRatio || 1, 2);
+      field.width = field.canvas.offsetWidth;
+      field.height = field.canvas.offsetHeight;
+      field.canvas.width = Math.floor(field.width * field.dpr);
+      field.canvas.height = Math.floor(field.height * field.dpr);
+      field.ctx.setTransform(field.dpr, 0, 0, field.dpr, 0, 0);
+      createNodes(field);
+    }
+
+    function resizeAll() {
+      fields.forEach(resizeField);
+    }
+
+    function palette(field) {
+      return field.dark ? particleBlueLight : particleBlue;
+    }
+
+    function drawField(field, time) {
+      const { ctx, width, height } = field;
+      if (!field.visible || !width || !height) return;
+
+      const elapsed = field.lastTime ? time - field.lastTime : 16.67;
+      field.lastTime = time;
+      const frameScale = Math.min(2, Math.max(0.25, elapsed / 16.67));
+      const movementScale = reduceMotion ? Math.min(frameScale, 0.12) : frameScale;
+      const renderTime = reduceMotion ? time * 0.18 : time;
+      const rect = field.canvas.getBoundingClientRect();
+      const localPointer = {
+        active: pointer.active && pointer.x >= rect.left && pointer.x <= rect.right && pointer.y >= rect.top && pointer.y <= rect.bottom,
+        x: pointer.x - rect.left,
+        y: pointer.y - rect.top
+      };
+      const pointerDistance = width < 700 ? 136 : 190;
+      const warmDistance = (width < 700 ? 200 : 280) * colorReachScale;
+      const homePull = reduceMotion ? 0.0008 : 0.0014;
+
+      ctx.clearRect(0, 0, width, height);
+
+      field.nodes.forEach((node) => {
+        const driftX = Math.sin(renderTime * 0.0012 + node.phase) * 0.18;
+        const driftY = Math.cos(renderTime * 0.00135 + node.phase) * 0.18;
+        node.x += (node.vx + driftX) * movementScale;
+        node.y += (node.vy + driftY) * movementScale;
+        node.x += (node.homeX - node.x) * homePull * movementScale;
+        node.y += (node.homeY - node.y) * homePull * movementScale;
+
+        if (node.x < 0 || node.x > width) node.vx *= -1;
+        if (node.y < 0 || node.y > height) node.vy *= -1;
+        node.x = Math.max(0, Math.min(width, node.x));
+        node.y = Math.max(0, Math.min(height, node.y));
+
+        if (localPointer.active) {
+          const dx = node.x - localPointer.x;
+          const dy = node.y - localPointer.y;
+          const distance = Math.hypot(dx, dy) || 1;
+          const heat = cursorHeat(distance, warmDistance);
+          node.cursorWarm = heat.intensity;
+          node.cursorColor = heat.color;
+          if (distance < pointerDistance) {
+            const pull = Math.pow(1 - distance / pointerDistance, 1.35) * (reduceMotion ? 0.32 : 1.12);
+            node.x -= (dx / distance) * pull * movementScale;
+            node.y -= (dy / distance) * pull * movementScale;
+          }
+        } else {
+          node.cursorWarm *= 0.88;
+        }
+      });
+
+      drawPointerEdges(ctx, localPointer, field.nodes, field.dark);
+
+      field.nodes.forEach((node) => {
+        const warm = node.cursorWarm || 0;
+        const color = warm > 0.08 ? node.cursorColor : palette(field);
+        const pulse = Math.sin(renderTime * 0.003 + node.phase) * (reduceMotion ? 0.08 : 0.42);
+        drawParticleNode(ctx, node, color, warm, pulse, field.dark);
+      });
+    }
+
+    function draw(time) {
+      fields.forEach((field) => drawField(field, time));
+      requestAnimationFrame(draw);
+    }
+
+    function updatePointer(clientX, clientY) {
+      pointer.x = clientX;
+      pointer.y = clientY;
+      pointer.active = true;
+    }
+
+    function resetPointer() {
+      pointer.active = false;
+    }
+
+    const onPointerMove = (event) => updatePointer(event.clientX, event.clientY);
+    const onMouseMove = (event) => updatePointer(event.clientX, event.clientY);
+    const onTouchMove = (event) => {
+      const touch = event.touches[0];
+      if (touch) updatePointer(touch.clientX, touch.clientY);
+    };
+
+    if ("IntersectionObserver" in window) {
+      const visibilityObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const field = fieldByCanvas.get(entry.target);
+            if (!field) return;
+            field.visible = entry.isIntersecting;
+            if (field.visible) field.lastTime = 0;
+          });
+        },
+        { rootMargin: "240px 0px" }
+      );
+      fields.forEach((field) => visibilityObserver.observe(field.canvas));
+    }
+
+    window.addEventListener("resize", resizeAll);
+    if (supportsPointer) {
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+    } else {
+      window.addEventListener("mousemove", onMouseMove, { passive: true });
+    }
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("pointerleave", resetPointer);
+    window.addEventListener("blur", resetPointer);
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) resetPointer();
+      fields.forEach((field) => {
+        field.lastTime = 0;
+      });
+    });
+
+    resizeAll();
+    requestAnimationFrame(draw);
+  }
+
   function initCurveCanvas(canvas, stage) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -287,8 +543,8 @@
     let pointer = { x: 0, y: 0, active: false };
     const routes = [
       {
-        color: "16, 89, 138",
-        glow: "16, 89, 138",
+        color: particleBlue,
+        glow: particleBlue,
         speed: 0.00013,
         points: [
           { x: 0.18, y: 0.55 },
@@ -298,8 +554,8 @@
         ]
       },
       {
-        color: "201, 121, 59",
-        glow: "201, 121, 59",
+        color: particleBlue,
+        glow: particleBlue,
         speed: 0.00016,
         points: [
           { x: 0.5, y: 0.42 },
