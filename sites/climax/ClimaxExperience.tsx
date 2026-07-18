@@ -452,17 +452,22 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
         const mouseDx = mouse.x * width - baseX;
         const mouseDy = mouse.y * height - baseY;
         const mouseDistance = Math.max(24, Math.hypot(mouseDx, mouseDy));
-        const pointerInfluence = mouse.active ? Math.max(0, 1 - mouseDistance / 460) : 0;
-        const pointerWake = pointerInfluence * (0.52 + pointerEnergy * 0.36);
-        const wakeX = -mouseDy / mouseDistance;
-        const wakeY = mouseDx / mouseDistance;
+        const pointerInfluence = mouse.active ? smoothstep(0, 1, Math.max(0, 1 - mouseDistance / 560)) : 0;
+        const pointerWake = pointerInfluence * (0.78 + pointerEnergy * 0.72);
+        const repelX = -mouseDx / mouseDistance;
+        const repelY = -mouseDy / mouseDistance;
+        const slipX = -mouseDy / mouseDistance;
+        const slipY = mouseDx / mouseDistance;
+        const repelDistance = pointerWake * (34 + particle.base * 22);
+        const slipDistance = pointerWake * (10 + flowStrength * 10);
         const x =
           baseX +
           wave * envelopeWave +
           Math.sin(seconds * 1.7 + particle.phase) * looseness * 14 +
-          wakeX * pointerWake * 18 +
-          mouseDx * pointerWake * 0.011;
-        const y = ((baseY + wakeY * pointerWake * 13 + mouseDy * pointerWake * 0.007 + 40) % (height + 80)) - 40;
+          repelX * repelDistance +
+          slipX * slipDistance;
+        const y =
+          ((baseY + repelY * repelDistance + slipY * slipDistance * 0.65 + 40) % (height + 80)) - 40;
         const length = (28 + flowStrength * 86 + particle.base * 42) * lineStretch;
         context.strokeStyle = particleColorFor(particle);
         context.lineWidth = particle.size * (0.82 + shellStrength * 0.58);
