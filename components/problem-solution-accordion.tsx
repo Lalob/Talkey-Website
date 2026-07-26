@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 
 type ProblemSolutionItem = {
@@ -66,8 +66,11 @@ export function ProblemSolutionAccordion({
                 aria-controls={panelId}
                 onClick={() => setOpenTitle(isOpen ? null : item.title)}
               >
-                <span>{item.title}</span>
-                <ChevronDown aria-hidden="true" size={22} strokeWidth={2.4} />
+                <span className="mk-problem-accordion-title">{item.title}</span>
+                <span className="mk-problem-accordion-affordance" aria-hidden="true">
+                  <span>{isOpen ? "Ocultar solución" : "Ver solución"}</span>
+                  {isOpen ? <Minus size={16} strokeWidth={2.6} /> : <Plus size={16} strokeWidth={2.6} />}
+                </span>
               </button>
             </h3>
             <div

@@ -846,12 +846,13 @@ button { cursor: pointer; }
 .mk-problem-accordion-trigger {
   display: flex;
   width: 100%;
-  min-height: 104px;
-  align-items: center;
+  min-height: 142px;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 20px;
+  gap: 18px;
   border: 0;
-  padding: 17px 22px;
+  padding: 20px 22px;
   background: transparent;
   color: #f2eee6;
   cursor: pointer;
@@ -862,13 +863,28 @@ button { cursor: pointer; }
   letter-spacing: -.025em;
   text-align: left;
 }
-.mk-problem-accordion-trigger svg {
-  flex: 0 0 auto;
-  color: var(--mk-yellow);
-  transition: transform .2s ease;
+.mk-problem-accordion-title {
+  display: block;
 }
-.mk-problem-accordion-item.is-open .mk-problem-accordion-trigger svg {
-  transform: rotate(180deg);
+.mk-problem-accordion-affordance {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(255, 195, 51, .58);
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: rgba(255, 195, 51, .08);
+  color: var(--mk-yellow);
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: 0;
+  transition: border-color .2s ease, background-color .2s ease, color .2s ease;
+}
+.mk-problem-accordion-affordance svg {
+  flex: 0 0 auto;
+  color: currentColor;
 }
 .mk-problem-accordion-trigger:focus-visible {
   outline: 3px solid var(--mk-yellow);
@@ -878,6 +894,12 @@ button { cursor: pointer; }
 .mk-problem-accordion-item.is-open {
   border-color: rgba(255, 195, 51, .72);
   background: #181710;
+}
+.mk-problem-accordion-item:hover .mk-problem-accordion-affordance,
+.mk-problem-accordion-item.is-open .mk-problem-accordion-affordance {
+  border-color: var(--mk-yellow);
+  background: var(--mk-yellow);
+  color: #080808;
 }
 .mk-problem-accordion-panel {
   position: absolute;
@@ -932,9 +954,19 @@ button { cursor: pointer; }
     radial-gradient(circle at 12% 0%, rgba(47, 111, 153, .18), transparent 40%),
     #14191e;
 }
-.mk-problem-accordion-sales .mk-problem-accordion-trigger svg,
+.mk-problem-accordion-sales .mk-problem-accordion-affordance,
 .mk-problem-accordion-sales .mk-problem-accordion-panel > span {
   color: var(--sales-petrol-readable);
+}
+.mk-problem-accordion-sales .mk-problem-accordion-affordance {
+  border-color: rgba(168, 218, 220, .55);
+  background: rgba(168, 218, 220, .08);
+}
+.mk-problem-accordion-sales .mk-problem-accordion-item:hover .mk-problem-accordion-affordance,
+.mk-problem-accordion-sales .mk-problem-accordion-item.is-open .mk-problem-accordion-affordance {
+  border-color: var(--sales-petrol-readable);
+  background: var(--sales-petrol-readable);
+  color: #081014;
 }
 .mk-problem-accordion-sales .mk-problem-accordion-trigger:focus-visible {
   outline-color: var(--sales-petrol-readable);
@@ -6990,9 +7022,9 @@ button { cursor: pointer; }
   }
 
   .mk-problem-accordion-trigger {
-    min-height: 86px;
-    gap: 14px;
-    padding: 15px 17px;
+    min-height: 122px;
+    gap: 16px;
+    padding: 17px;
     font-size: 20px;
   }
 
@@ -7049,7 +7081,7 @@ button { cursor: pointer; }
 
 @media (prefers-reduced-motion: reduce) {
   .mk-problem-accordion-item,
-  .mk-problem-accordion-trigger svg,
+  .mk-problem-accordion-affordance,
   .mk-problem-accordion-panel {
     animation: none;
     transition: none;
