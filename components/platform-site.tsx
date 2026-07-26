@@ -411,7 +411,7 @@ export function PlatformHome() {
               La plataforma de IA que convierte conversaciones en <span className="mk-hero-highlight">ventas</span> y soporte técnico en <span className="mk-hero-highlight">fidelización</span>
             </h1>
             <p className="mk-platform-home-hero-subtitle">
-              Ideal para empresas que venden y soportan productos técnicos.
+              Talkey es IA para empresas que venden y soportan productos técnicos: responde, diagnostica, prioriza y deja el próximo paso claro.
             </p>
           </div>
 

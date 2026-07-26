@@ -49,7 +49,7 @@ const supportComparisonShowcaseContent: Record<
     sourceTitle: "Lo que otras opciones resuelven por separado",
     summaryTitle: "Talkey conecta el ciclo técnico.",
     summaryBody:
-      "Identifica el producto, consulta conocimiento aprobado, guía el diagnóstico y deja el caso listo para resolver o derivar.",
+      "Talkey identifica el producto, consulta conocimiento aprobado y guía el diagnóstico. Cuando el caso necesita un especialista, se lo entrega mejor levantado, con contexto y criterios aprobados.",
     advantages: [
       "Reconoce el producto por foto de etiqueta, QR o número de serie.",
       "Responde desde manuales, procedimientos e historial del cliente.",
@@ -189,7 +189,7 @@ const narrativeContent = {
       titleParts: [
         { text: "Soporte técnico que no parte de cero" },
       ],
-      body: "Talkey convierte manuales, procedimientos e historial en respuestas consistentes, diagnóstico guiado y derivación con contexto.",
+      body: "Talkey convierte manuales, procedimientos y experiencia interna en soporte técnico consistente.",
       audienceNote: "Para empresas donde el soporte al cliente es una ventaja competitiva",
       primary: "Agenda tu diagnóstico gratis",
       secondary: "Ver demo de caso técnico",
