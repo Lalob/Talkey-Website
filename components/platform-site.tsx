@@ -413,6 +413,9 @@ export function PlatformHome() {
             <h1 id="talkey-home-title">
               La plataforma de IA que convierte conversaciones en <span className="mk-hero-highlight">ventas</span> y soporte técnico en <span className="mk-hero-highlight">fidelización</span>
             </h1>
+            <p className="mk-platform-home-hero-subtitle">
+              Ideal para empresas que venden y soportan productos técnicos.
+            </p>
           </div>
 
           <div id="suites" className="mk-platform-home-suite-grid" aria-label="Soluciones Talkey">

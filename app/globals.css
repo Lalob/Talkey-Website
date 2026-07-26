@@ -3914,6 +3914,16 @@ button { cursor: pointer; }
   color: var(--mk-yellow);
 }
 
+.mk-platform-home-hero-subtitle {
+  max-width: 720px;
+  margin: clamp(16px, 2vw, 24px) auto 0;
+  color: #d5d0c7;
+  font-size: clamp(18px, 1.5vw, 22px);
+  font-weight: 520;
+  line-height: 1.45;
+  text-align: center;
+}
+
 .mk-platform-home-suite-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
