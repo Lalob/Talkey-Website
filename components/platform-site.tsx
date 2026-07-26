@@ -755,8 +755,10 @@ export function SalesPage() {
                   ))}
                 </ul>
                 <a href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">{diagnosisCtaLabel} <ArrowRight size={16} /></a>
-                <p className="mk-package-channel-note">El plan incluye chat de texto e imágenes. No incluye conversaciones de voz.</p>
-                <a className="mk-package-voice-link" href="#planes-con-voz">Ver planes con voz <ArrowRight size={15} /></a>
+                <div className="mk-package-channel-card">
+                  <p className="mk-package-channel-note">El plan incluye chat de texto e imágenes. No incluye conversaciones de voz.</p>
+                  <a className="mk-package-voice-link" href="#planes-con-voz">Ver planes con voz <ArrowRight size={15} /></a>
+                </div>
               </article>
             ))}
           </div>
