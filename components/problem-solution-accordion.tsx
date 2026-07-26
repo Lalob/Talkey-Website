@@ -25,7 +25,7 @@ type ProblemSolutionAccordionProps = {
 export function ProblemSolutionAccordion({
   items,
   variant,
-  panelLabel = "Solución Talkey",
+  panelLabel,
   openLabel = "Ver solución",
   closeLabel = "Ocultar solución",
   onAction,
@@ -93,7 +93,7 @@ export function ProblemSolutionAccordion({
               aria-labelledby={triggerId}
               hidden={!isOpen}
             >
-              <span>{panelLabel}</span>
+              {panelLabel ? <span>{panelLabel}</span> : null}
               <p>{item.solution}</p>
               {item.action ? (
                 <a

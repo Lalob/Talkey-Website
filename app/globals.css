@@ -945,6 +945,9 @@ button { cursor: pointer; }
   font-size: 21px;
   line-height: 1.62;
 }
+.mk-problem-accordion-panel > p:first-child {
+  margin-top: 0;
+}
 .mk-problem-accordion-sales .mk-problem-accordion-item:hover,
 .mk-problem-accordion-sales .mk-problem-accordion-item.is-open {
   border-color: var(--sales-petrol-readable);
