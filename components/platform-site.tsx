@@ -519,7 +519,7 @@ const salesProblems = [
   },
   {
     title: "Cotizaciones demoradas por datos incompletos",
-    solution: "Talkey Ventas solicita y ordena los datos mínimos para cotizar, evita intercambios innecesarios y deja preparada la base para la cotización o propuesta.",
+    solution: "Talkey Ventas puede identificar el producto o modelo desde una foto de la etiqueta, QR o número de serie; luego solicita y ordena los datos mínimos para cotizar, evita intercambios innecesarios y deja preparada la base para la cotización o propuesta.",
   },
   {
     title: "Compradores interesados que no deciden",

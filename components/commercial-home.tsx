@@ -224,7 +224,7 @@ const narrativeContent = {
         { problem: "Dificultad para ampliar equipos humanos", solution: "Talkey absorbe demanda repetitiva y funciona como copiloto para los agentes humanos: resume el ticket y sugiere prioridad, responsable, ETA y una respuesta inicial para ampliar la capacidad sin depender únicamente de nuevas contrataciones." },
         { problem: "Contexto perdido entre canales", solution: "Talkey conserva el historial individual del cliente, producto y caso para continuar la atención por distintos canales sin partir de cero ni volver a preguntar lo mismo." },
         { problem: "Respuestas distintas para el mismo problema", solution: "Talkey responde desde conocimiento aprobado y aplica criterios consistentes para que casos equivalentes reciban la misma calidad de atención." },
-        { problem: "Clientes que no identifican su producto", solution: "Talkey reconoce el producto o modelo desde una foto de la etiqueta, QR o número de serie, guía el diagnóstico y resuelve o deriva el caso con contexto." },
+        { problem: "Clientes que no identifican su producto", solution: "Talkey reconoce el producto o modelo a partir de una foto que el cliente toma con su celular de la etiqueta, QR o número de serie; luego guía el diagnóstico y resuelve o deriva el caso con contexto." },
         { problem: "Especialistas ocupados en casos repetitivos", solution: "Talkey aplica criterios comunes, resuelve casos frecuentes y deriva solo cuando hay riesgo, baja certeza o complejidad real. Mejora el diagnóstico remoto antes de enviar un técnico y entrega los casos complejos ya resumidos y con la información necesaria." },
       ],
     },
