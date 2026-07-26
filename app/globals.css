@@ -865,6 +865,10 @@ button { cursor: pointer; }
 }
 .mk-problem-accordion-title {
   display: block;
+  font-size: clamp(24px, 1.8vw, 28px);
+  font-weight: 850;
+  line-height: 1.22;
+  letter-spacing: -.025em;
 }
 .mk-problem-accordion-affordance {
   display: inline-flex;
@@ -7036,6 +7040,11 @@ button { cursor: pointer; }
     gap: 16px;
     padding: 17px;
     font-size: 22px;
+  }
+
+  .mk-problem-accordion-title {
+    font-size: 23px;
+    line-height: 1.24;
   }
 
   .mk-problem-accordion-panel {
