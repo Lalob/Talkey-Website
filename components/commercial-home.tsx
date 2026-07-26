@@ -301,15 +301,38 @@ const narrativeContent = {
     },
     faq: {
       kicker: "Preguntas frecuentes",
-      title: "Respuestas rápidas antes de una evaluación.",
+      title: "Lo que conviene definir antes de iniciar un piloto.",
       items: [
-        { question: "¿Cuánto demora una implementación?", answer: "Depende del volumen de productos, documentos, canales y validación técnica. Lo correcto es revisarlo en una evaluación.", cta: "Agenda tu diagnóstico gratis", ctaHref: talkeyBookingUrl },
-        { question: "¿Cuánto cuesta?", answer: "El precio depende del volumen, canales, documentación, integraciones y nivel de acompañamiento requerido. Revisa los paquetes referenciales y luego solicita una evaluación para ajustar alcance y precio final.", cta: "Ver paquetes de precios" },
-        { question: "¿Talkey ayuda también al equipo interno?", answer: "Sí. Además de asistir al cliente, Talkey puede actuar como copiloto operativo para agentes: resume tickets, sugiere prioridad, responsable, próximos pasos y respuestas iniciales." },
-        { question: "¿Talkey es un chatbot?", answer: "No solamente. La interfaz puede parecer un chat, pero el valor está en organizar conocimiento técnico, aplicar procedimientos y mantener criterios de soporte." },
-        { question: "¿Talkey reemplaza a mis agentes?", answer: "No necesariamente. Puede complementar a tus agentes; si tu objetivo es reducir dotación o evitar seguir ampliándola, Talkey puede absorber carga repetitiva y entregar más contexto para casos complejos." },
-        { question: "¿Talkey puede mejorar la satisfacción de mis clientes?", answer: "Sí, puede ayudar. La satisfacción del cliente suele mejorar cuando recibe respuestas claras, consistentes y oportunas, y cuando los casos complejos se derivan con buen contexto. Talkey no promete eliminar todos los problemas de soporte, pero sí ayuda a reducir respuestas contradictorias, esperas innecesarias y derivaciones mal preparadas." },
-        { question: "¿En qué canales puede funcionar?", answer: "Puede evaluarse para web, WhatsApp, email, voz y portales de clientes. También puede integrarse al CRM, calendario o sistema de agendamiento que ya use la empresa. Para visitas técnicas, Google Calendar es el primer conector previsto, con una arquitectura preparada para otros agendadores." },
+        {
+          question: "¿Puede Talkey responder incorrectamente y cómo se controla?",
+          answer:
+            "Puede ocurrir si el conocimiento está incompleto, ambiguo o mal configurado. Se controla usando fuentes aprobadas, casos de prueba, umbrales de confianza, trazabilidad y reglas de derivación. Los casos sensibles o de baja certeza se entregan a una persona autorizada en vez de responder como si hubiera certeza.",
+        },
+        {
+          question: "¿Tenemos que automatizar todo el soporte desde el comienzo?",
+          answer:
+            "No. Recomendamos comenzar con un piloto acotado: un producto o familia, los motivos de contacto más frecuentes, canales definidos y reglas claras de derivación. Solo se amplía cuando los resultados cumplen los criterios acordados.",
+        },
+        {
+          question: "¿Qué documentación necesitamos para iniciar un piloto?",
+          answer:
+            "Manuales, procedimientos, preguntas frecuentes, criterios de garantía, reglas de derivación y algunos casos reales son un buen punto de partida. No tienen que estar perfectos: Talkey puede ayudar a ordenar, completar y estructurar los insumos que falten, con validación de los expertos de tu empresa.",
+        },
+        {
+          question: "¿Cómo se mide si el piloto funciona?",
+          answer:
+            "Antes de comenzar se acuerdan una línea base y criterios de éxito. El piloto puede medir precisión, resolución, derivación, tiempo de respuesta, satisfacción, uso y brechas de conocimiento; así la decisión de ampliar se basa en evidencia.",
+        },
+        {
+          question: "¿Qué ocurre si los resultados no cumplen los criterios acordados?",
+          answer:
+            "No se amplía automáticamente. Se revisan errores, conocimiento faltante, alcance y reglas; luego se decide ajustar, repetir con un alcance distinto o detener el piloto. Los criterios de salida quedan definidos desde el inicio.",
+        },
+        {
+          question: "¿Cuánto trabajo requiere de nuestro equipo?",
+          answer:
+            "Necesitamos responsables que aporten insumos y validen criterios, respuestas y casos de prueba. Talkey se encarga de estructurar y configurar la solución; el equipo del cliente revisa muestras e hitos, sin tener que reescribir toda su documentación.",
+        },
       ],
     },
   },
@@ -603,7 +626,7 @@ function SupportPricingPackagesSection() {
     <section id="precios" className="mk-section mk-sales-pricing-section mk-support-package-pricing">
       <div className="mk-container">
         <div className="mk-section-heading">
-          <div className="mk-section-label"><span>08</span>Precios</div>
+          <div className="mk-section-label"><span>07</span>Precios</div>
           <h2>Paquetes para adaptarnos a tus necesidades</h2>
         </div>
         <div className="mk-package-grid">
@@ -925,10 +948,12 @@ export function CommercialHome({
         </div>
       </section>
 
-      <section className="mk-section mk-faq">
+      {locale === "es" ? <SupportPricingPackagesSection /> : <ArchivedSupportPricingSimulator copy={copy.pricing} />}
+
+      <section className="mk-section mk-faq mk-faq-six">
         <div className="mk-container">
           <div className="mk-section-heading">
-            <div className="mk-section-label"><span>07</span>{narrative.faq.kicker}</div>
+            <div className="mk-section-label"><span>08</span>{narrative.faq.kicker}</div>
             <h2>{narrative.faq.title}</h2>
           </div>
           <ProblemSolutionAccordion
@@ -944,8 +969,6 @@ export function CommercialHome({
           />
         </div>
       </section>
-
-      {locale === "es" ? <SupportPricingPackagesSection /> : <ArchivedSupportPricingSimulator copy={copy.pricing} />}
 
       <section id="agenda" className="mk-section mk-contact">
         <div className="mk-container mk-contact-grid">

@@ -978,6 +978,30 @@ button { cursor: pointer; }
 .mk-problem-accordion-sales .mk-problem-accordion-trigger:focus-visible {
   outline-color: var(--sales-petrol-readable);
 }
+.mk-faq-six .mk-problem-accordion {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.mk-faq-six .mk-problem-accordion-item {
+  align-self: stretch;
+}
+.mk-faq-six .mk-problem-accordion-trigger {
+  height: 100%;
+}
+.mk-faq-six .mk-problem-accordion-item:nth-child(n) .mk-problem-accordion-panel {
+  right: auto;
+  left: 0;
+  transform: none;
+}
+.mk-faq-six .mk-problem-accordion-item:nth-child(3n + 2) .mk-problem-accordion-panel {
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.mk-faq-six .mk-problem-accordion-item:nth-child(3n) .mk-problem-accordion-panel {
+  right: 0;
+  left: auto;
+  transform: none;
+}
 @keyframes mk-problem-panel-in {
   from {
     opacity: 0;
@@ -997,6 +1021,18 @@ button { cursor: pointer; }
     transform: none;
   }
   .mk-problem-accordion-item:nth-child(even) .mk-problem-accordion-panel {
+    right: 0;
+    left: auto;
+  }
+  .mk-faq-six .mk-problem-accordion {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mk-faq-six .mk-problem-accordion-item:nth-child(n) .mk-problem-accordion-panel {
+    right: auto;
+    left: 0;
+    transform: none;
+  }
+  .mk-faq-six .mk-problem-accordion-item:nth-child(even) .mk-problem-accordion-panel {
     right: 0;
     left: auto;
   }
@@ -4832,6 +4868,28 @@ button { cursor: pointer; }
     linear-gradient(180deg, #0b2034 0%, #071725 100%);
 }
 
+.mk-sales-page .mk-sales-faq-section {
+  border-top-color: #222;
+  background:
+    radial-gradient(circle at 82% 8%, rgba(18,53,91,.18), transparent 32%),
+    radial-gradient(circle at 12% 72%, rgba(18,53,91,.1), transparent 30%),
+    #070707;
+  color: var(--sales-ink);
+}
+
+.mk-sales-page .mk-sales-faq-section h2 {
+  color: var(--sales-ink);
+}
+
+.mk-sales-page .mk-sales-faq-section .mk-section-label {
+  color: var(--sales-muted);
+}
+
+.mk-sales-page .mk-sales-faq-section .mk-section-label > span {
+  border-color: var(--sales-line);
+  color: var(--sales-petrol-readable);
+}
+
 .mk-sales-page .mk-section-heading h2,
 .mk-sales-flow-section h2,
 .mk-sales-editor-grid h2,
@@ -7019,6 +7077,10 @@ button { cursor: pointer; }
     grid-template-columns: 1fr;
     gap: 10px;
     margin-top: 32px;
+  }
+
+  .mk-faq-six .mk-problem-accordion {
+    grid-template-columns: 1fr;
   }
 
   .mk-problem-accordion-item {

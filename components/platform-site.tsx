@@ -5,6 +5,7 @@ import { MarketingChatDemo } from "@/components/marketing-chat-demo";
 import { DemoPanel, type DemoOption } from "@/components/platform-demo-panel";
 import { LegalFooter } from "@/components/legal-footer";
 import { MobileSuiteHeader } from "@/components/mobile-suite-header";
+import { ProblemSolutionAccordion } from "@/components/problem-solution-accordion";
 import { SalesProblemTable } from "@/components/sales-problem-table";
 import { talkeyBookingUrl } from "@/lib/booking";
 import { marketingCopy } from "@/lib/marketing-copy";
@@ -608,6 +609,39 @@ const salesComparisonAdvantages = [
   "Lleva el contexto a instalación, postventa o soporte y permite ajustar criterios desde Talkey Editor.",
 ];
 
+const salesFaqItems = [
+  {
+    title: "¿Puede Talkey priorizar mal una oportunidad y cómo se controla?",
+    solution:
+      "Puede ocurrir si los criterios comerciales o los datos de entrada están incompletos. Se controla definiendo señales de intención, urgencia y encaje, probando casos reales, manteniendo trazabilidad y dejando revisión humana en decisiones sensibles. Talkey Editor permite ajustar esos criterios sin depender de cambios en el software.",
+  },
+  {
+    title: "¿Tenemos que automatizar todo el proceso comercial desde el comienzo?",
+    solution:
+      "No. Conviene iniciar con un segmento, uno o dos canales y etapas concretas como captura, calificación, scoring y siguiente acción. El alcance se amplía solo después de validar que el flujo produce información útil y oportunidades mejor gestionadas.",
+  },
+  {
+    title: "¿Qué información necesitamos para iniciar un piloto de ventas?",
+    solution:
+      "Necesitamos el perfil de cliente ideal, etapas del proceso, preguntas de calificación, criterios de scoring, datos mínimos para cotizar, reglas de seguimiento y ejemplos de conversaciones. Si esos criterios no están definidos, Talkey puede ayudar a crearlos y estructurarlos durante la implementación.",
+  },
+  {
+    title: "¿Cómo se mide si el piloto comercial funciona?",
+    solution:
+      "Se acuerdan una línea base y métricas antes de empezar: tiempo de respuesta, contactos útiles, oportunidades calificadas, reuniones realizadas, seguimiento cumplido, avance entre etapas y razones de pérdida. El ingreso puede medirse, pero no es la única señal temprana de que el sistema funciona.",
+  },
+  {
+    title: "¿Qué ocurre si los resultados no cumplen los criterios acordados?",
+    solution:
+      "No se aumenta el volumen automáticamente. Se identifica si el problema está en el segmento, los datos, el mensaje, los canales o las reglas de calificación; después se ajusta, se repite con otro alcance o se detiene el piloto según los criterios acordados.",
+  },
+  {
+    title: "¿Cuánto trabajo requiere de nuestro equipo comercial?",
+    solution:
+      "El equipo aporta contexto y valida cliente ideal, etapas, preguntas, scoring y muestras de conversación. Talkey estructura el flujo, configura la automatización y presenta resultados para revisión. Se necesita participación real, pero no que los vendedores diseñen ni mantengan el sistema por su cuenta.",
+  },
+];
+
 export function SalesPage() {
   const content = suiteContent.ventas;
   const year = new Date().getUTCFullYear();
@@ -787,10 +821,25 @@ export function SalesPage() {
         </div>
       </section>
 
+      <section className="mk-section mk-faq mk-faq-six mk-sales-faq-section">
+        <div className="mk-container">
+          <div className="mk-section-heading">
+            <p className="mk-section-label"><span>06</span>Preguntas frecuentes</p>
+            <h2>Lo que conviene definir antes de iniciar un piloto comercial.</h2>
+          </div>
+          <ProblemSolutionAccordion
+            items={salesFaqItems}
+            variant="sales"
+            openLabel="Ver respuesta"
+            closeLabel="Ocultar respuesta"
+          />
+        </div>
+      </section>
+
       <section id="agenda" className="mk-section mk-sales-final-section">
         <div className="mk-container mk-sales-final-card">
           <div>
-            <p className="mk-section-label"><span>06</span>Evaluación</p>
+            <p className="mk-section-label"><span>07</span>Evaluación</p>
             <h2>Veamos si Talkey Ventas calza con tu operación.</h2>
             <p>
               En 30 minutos revisamos canales, volumen de conversaciones, proceso comercial, criterios de calificación,
