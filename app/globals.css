@@ -5049,7 +5049,7 @@ button { cursor: pointer; }
 
 .mk-sales-flow span {
   color: var(--sales-petrol-readable);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 900;
 }
 
@@ -5745,8 +5745,8 @@ button { cursor: pointer; }
 
   .mk-sales-flow span {
     display: grid;
-    flex: 0 0 36px;
-    width: 36px;
+    flex: 0 0 58px;
+    width: 58px;
     height: 32px;
     place-items: center;
     border: 1px solid rgba(47, 111, 153, .45);
@@ -5762,7 +5762,7 @@ button { cursor: pointer; }
 
   .mk-sales-flow-support-step {
     display: grid;
-    grid-template-columns: 36px 1fr;
+    grid-template-columns: 58px 1fr;
     align-items: center;
   }
 

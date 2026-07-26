@@ -678,7 +678,7 @@ export function SalesPage() {
           <div className="mk-sales-flow">
             {salesWorkflow.map((step, index) => (
               <article key={step} className={index === 6 ? "mk-sales-flow-support-step" : undefined}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>Paso {index + 1}</span>
                 <strong>{step}</strong>
                 {index === 6 ? (
                   <Link className="mk-sales-flow-card-cta" href="/soporte">
