@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ComparisonShowcase } from "@/components/comparison-showcase";
 import { MarketingChatDemo } from "@/components/marketing-chat-demo";
 import { DemoPanel, type DemoOption } from "@/components/platform-demo-panel";
+import { LegalFooter } from "@/components/legal-footer";
+import { MobileSuiteHeader } from "@/components/mobile-suite-header";
 import { SalesProblemTable } from "@/components/sales-problem-table";
 import { talkeyBookingUrl } from "@/lib/booking";
 import { marketingCopy } from "@/lib/marketing-copy";
@@ -29,7 +31,8 @@ import type { LucideIcon } from "lucide-react";
 
 type SuiteKey = "ventas" | "soporte";
 
-const diagnosisCtaLabel = "Agendar diagnóstico de 30 min";
+const diagnosisCtaLabel = "Agenda tu diagnóstico gratis";
+const diagnosisCtaDetail = "30 minutos · Sin compromiso";
 
 const products: Array<{
   key: SuiteKey;
@@ -108,6 +111,7 @@ const pricing = [
       "Detección de duplicados",
       "Integración CRM/calendario/API estándar",
       "Dashboard operacional",
+      "Soporte preferente",
     ],
   },
   {
@@ -130,6 +134,30 @@ const pricing = [
       "Revisión operacional mensual",
       "Acompañamiento ejecutivo",
     ],
+  },
+];
+
+const voiceAddOnPricing = [
+  {
+    plan: "Base",
+    price: "+$290.000 CLP",
+    included: "Hasta 1.000 min/mes",
+    overage: "$390 CLP/min adicional",
+    note: "Para activar atención por voz en consultas frecuentes, diagnóstico inicial y derivación con contexto.",
+  },
+  {
+    plan: "Pro",
+    price: "+$590.000 CLP",
+    included: "Hasta 3.000 min/mes",
+    overage: "$320 CLP/min adicional",
+    note: "Para operaciones con más volumen, varios canales y continuidad entre ventas, soporte y CRM.",
+  },
+  {
+    plan: "Enterprise",
+    price: "Desde +$1.490.000 CLP",
+    included: "Desde 10.000 min/mes",
+    overage: "Desde $240 CLP/min adicional",
+    note: "Para alto volumen, múltiples equipos, reglas avanzadas e integraciones específicas de voz.",
   },
 ];
 
@@ -214,7 +242,7 @@ const suiteContent: Record<
     ],
     comparison: [
       { title: "Equipo comercial solamente", text: "Talkey mantiene seguimiento, priorización y contexto incluso cuando el ejecutivo está ocupado o cambia el responsable." },
-      { title: "CRM tradicional", text: "Talkey no solo almacena oportunidades: conversa, califica, prioriza, detecta riesgo, propone próximos pasos y ayuda al ejecutivo a dar seguimiento." },
+      { title: "CRM tradicional", text: "Talkey no solo almacena oportunidades: conversa, califica, prioriza, detecta riesgos y guía al vendedor con próximos pasos automatizados para sostener el seguimiento." },
       { title: "Automatizadores tipo Vambe", text: "Talkey hace captación, calificación y seguimiento, pero además conecta ventas con soporte técnico y postventa." },
       { title: "Chatbots comerciales genéricos", text: "Talkey no se queda en responder preguntas: transforma conversaciones en oportunidades gestionables." },
       { title: "Herramientas de agendamiento", text: "Talkey agenda reuniones, pero con contexto comercial previo, intención detectada y datos mínimos levantados." },
@@ -299,7 +327,7 @@ function PlatformHeader({ minimal = false, sales = false, ctaHref = talkeyBookin
   const ctaExternal = ctaHref.startsWith("http");
 
   return (
-    <header className={`mk-header${minimal ? " is-minimal" : ""}`}>
+    <header className={`mk-header mk-desktop-suite-header${minimal ? " is-minimal" : ""}`}>
       <nav className="mk-container mk-nav" aria-label="Navegación principal">
         <Brand />
         <div className="mk-nav-links">
@@ -333,22 +361,7 @@ function Footer({ currentYear, ctaHref = talkeyBookingUrl, line }: { currentYear
   const ctaExternal = ctaHref.startsWith("http");
 
   if (line) {
-    return (
-      <footer className="mk-footer">
-        <div className="mk-container">
-          <div className="mk-footer-top">
-            <a className="mk-brand mk-brand-footer" href="#top">
-              <Image src="/brand/talkey-key.svg" width={345} height={158} alt="" />
-              <Image src="/brand/talkey-wordmark.svg" width={442} height={140} alt="Talkey" />
-            </a>
-            <p>{line}</p>
-          </div>
-          <div className="mk-footer-bottom">
-            <span>© {currentYear} Talkey</span>
-          </div>
-        </div>
-      </footer>
-    );
+    return <LegalFooter currentYear={currentYear} />;
   }
 
   return (
@@ -359,6 +372,7 @@ function Footer({ currentYear, ctaHref = talkeyBookingUrl, line }: { currentYear
           <Link href="/ventas">Solución para ventas</Link>
           <Link href="/soporte">Solución para soporte</Link>
           <a href={ctaHref} target={ctaExternal ? "_blank" : undefined} rel={ctaExternal ? "noopener noreferrer" : undefined}>{diagnosisCtaLabel}</a>
+          <Link href="/privacidad">Política de privacidad</Link>
         </div>
       </div>
     </footer>
@@ -481,44 +495,36 @@ export function PlatformHome() {
 
 const salesProblems = [
   {
-    title: "Leads que se enfrían",
-    problem: "La empresa responde tarde o pierde continuidad después del primer contacto.",
-    solution: "Talkey Ventas mantiene seguimiento comercial, recordatorios y próximos pasos claros para que la oportunidad no se enfríe después del primer contacto.",
+    title: "Leads que se enfrían sin seguimiento",
+    solution: "Talkey Ventas mantiene la continuidad, recuerda compromisos, activa recordatorios y recomienda cuándo y cómo volver a contactar para que cada conversación avance.",
   },
   {
-    title: "Oportunidades sin prioridad",
-    problem: "El equipo trata consultas de bajo valor y oportunidades urgentes casi con el mismo criterio.",
-    solution: "Talkey Ventas aplica scoring por intención, urgencia, fit, presupuesto y potencial comercial para priorizar mejor el trabajo del equipo.",
+    title: "Oportunidades sin prioridad clara",
+    solution: "Talkey Ventas aplica scoring por intención, urgencia, encaje, presupuesto y potencial para que el equipo concentre su tiempo en las oportunidades correctas.",
   },
   {
-    title: "Ejecutivos sin próximo paso claro",
-    problem: "Después de una conversación, no siempre queda claro qué objeción resolver o qué acción tomar.",
-    solution: "Talkey Ventas actúa como asistente comercial y sugiere próximos pasos, objeciones a resolver y acciones concretas.",
+    title: "Vendedores sin un próximo paso claro",
+    solution: "Talkey Ventas guía a cada vendedor: qué responder, qué dato pedir, qué objeción resolver y cuándo realizar el siguiente seguimiento. Si el próximo paso es una reunión, puede coordinarla según disponibilidad.",
   },
   {
-    title: "Pipeline incompleto",
-    problem: "Las conversaciones quedan dispersas entre canales y no siempre pasan a una etapa comercial clara.",
-    solution: "Talkey Ventas convierte conversaciones en oportunidades trazables, con estado, origen, contexto y próximo paso dentro del pipeline.",
+    title: "Conversaciones dispersas entre canales",
+    solution: "Talkey Ventas reúne el historial comercial y convierte cada conversación en una oportunidad trazable, con estado, origen, contexto y próximo paso. Si el mismo lead vuelve por otro canal, detecta la repetición, recupera su historial y evita duplicar esfuerzos.",
   },
   {
-    title: "Leads duplicados",
-    problem: "El mismo cliente vuelve por otro canal y el equipo lo trata como si partiera desde cero.",
-    solution: "Talkey Ventas detecta repeticiones antes de tratarlas como casos nuevos, recupera historial y evita duplicar esfuerzos comerciales.",
+    title: "Calificación comercial inconsistente",
+    solution: "Talkey Ventas usa preguntas y criterios compartidos para calificar intención, necesidad y encaje sin depender del criterio individual de cada vendedor.",
   },
   {
-    title: "Handoff débil a soporte",
-    problem: "Cuando el cliente compra, postventa recibe poco contexto y la experiencia se quiebra.",
-    solution: "Talkey Ventas mantiene contexto después del cierre: producto, necesidad, historial y próximos pasos pueden llegar preparados a soporte o postventa.",
+    title: "Cotizaciones demoradas por datos incompletos",
+    solution: "Talkey Ventas solicita y ordena los datos mínimos para cotizar, evita intercambios innecesarios y deja preparada la base para la cotización o propuesta.",
   },
   {
-    title: "Cotizaciones lentas",
-    problem: "Faltan datos básicos para cotizar y el ejecutivo debe pedir información que pudo levantarse antes.",
-    solution: "Talkey Ventas pide los datos mínimos, ordena la información y deja preparada la base para cotizaciones o propuestas.",
+    title: "Compradores interesados que no deciden",
+    solution: "Talkey Ventas ayuda a detectar la indecisión, aclarar el riesgo que bloquea la compra y recomendar una acción concreta y proporcionada.",
   },
   {
-    title: "Reuniones difíciles de coordinar",
-    problem: "Agendar demos, evaluaciones o llamadas puede depender de demasiado ida y vuelta manual.",
-    solution: "Talkey Ventas puede coordinar reuniones comerciales según disponibilidad y dejar la conversación lista para avanzar.",
+    title: "Contexto perdido después de la venta",
+    solution: "Talkey Ventas entrega a soporte o postventa el producto, la necesidad, los acuerdos, el historial y los próximos pasos para que la relación continúe sin partir de cero.",
   },
 ];
 
@@ -528,7 +534,7 @@ const salesWorkflow = [
   "Prioriza oportunidad",
   "Detecta riesgo",
   "Prepara email o agenda",
-  "Ayuda al ejecutivo a avanzar",
+  "Guía al vendedor con próximos pasos",
   "Pasa contexto a soporte",
 ];
 
@@ -596,7 +602,7 @@ const salesChatCopy = {
 };
 
 const salesComparisonAdvantages = [
-  "Conversa, califica, prioriza, detecta riesgo y propone próximos pasos.",
+  "Talkey no solo almacena oportunidades: conversa, califica, prioriza, detecta riesgos y guía al vendedor con próximos pasos automatizados para sostener el seguimiento.",
   "Une lead, oportunidad, historial y handoff hacia soporte o postventa.",
   "Puede identificar producto o modelo por foto de etiqueta, QR o número de serie cuando la venta técnica lo requiere.",
   "Usa conocimiento de producto y operación para responder mejor y preparar cotizaciones.",
@@ -612,22 +618,28 @@ export function SalesPage() {
     <main className="mk-site mk-platform-site mk-sales-page">
       <div className="mk-sales-ambient mk-sales-ambient-one" />
       <div className="mk-sales-ambient mk-sales-ambient-two" />
+      <MobileSuiteHeader suite="sales" />
       <PlatformHeader sales />
 
       <section id="top" className="mk-section mk-sales-hero" aria-labelledby="talkey-sales-title">
         <div className="mk-container mk-sales-hero-grid">
           <div className="mk-sales-hero-copy">
             <h1 id="talkey-sales-title">
-              Nunca más pierdas una venta <span className="mk-sales-hero-highlight">por no hacerle seguimiento</span> de principio a fin
+              Nunca más pierdas una venta <span className="mk-sales-hero-highlight">por no hacerle seguimiento</span>
             </h1>
             <p>
-              Talkey atiende, califica, prioriza y prepara próximos pasos para que tu equipo venda con más contexto.
+              Talkey atiende, califica, prioriza y guía a cada vendedor con próximos pasos automatizados.
             </p>
             <p className="mk-sales-hero-note">
               Ideal para empresas donde cada venta puede terminar en instalación, garantía, postventa o soporte técnico.
             </p>
             <div className="mk-hero-actions">
-              <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">{diagnosisCtaLabel} <ArrowRight size={18} /></a>
+              <div className="mk-diagnosis-cta">
+                <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">
+                  {diagnosisCtaLabel} <ArrowRight size={18} />
+                </a>
+                <span>{diagnosisCtaDetail}</span>
+              </div>
               <a className="mk-button mk-button-secondary" href="#precios">Ver precios <ArrowRight size={18} /></a>
             </div>
           </div>
@@ -636,7 +648,7 @@ export function SalesPage() {
               <MarketingChatDemo copy={salesChatCopy} variant="sales" aiMode />
               <div className="mk-hero-demo-callout">
                 <p>Prueba cómo Talkey convierte una conversación comercial en oportunidad, prioridad y próximo paso.</p>
-                <ArrowRight size={36} aria-hidden="true" />
+                <ArrowRight size={52} aria-hidden="true" />
               </div>
             </div>
           </div>
@@ -662,8 +674,8 @@ export function SalesPage() {
           <p className="mk-section-label"><span>02</span>Flujo</p>
           <h2>De conversación a oportunidad gestionada.</h2>
           <p className="mk-sales-flow-note">
-            Además del flujo visible, Talkey actúa como Smart Agent interno: prioriza el pipeline, detecta riesgos,
-            prepara correos de seguimiento y sugiere próximos pasos para que cada ejecutivo avance oportunidades con más claridad.
+            Además del flujo visible, Talkey funciona como una guía comercial interna: prioriza el pipeline, detecta riesgos,
+            prepara correos de seguimiento y recomienda la siguiente mejor acción para que cada vendedor avance oportunidades con claridad.
           </p>
           <div className="mk-sales-flow">
             {salesWorkflow.map((step, index) => (
@@ -689,8 +701,8 @@ export function SalesPage() {
           </div>
           <article className="mk-sales-editor-card">
             <p className="mk-sales-editor-lead">
-              Talkey Editor deja tu operación comercial bajo control: criterios, seguimiento, próximos pasos y datos
-              conectados en un sistema editable.
+              Talkey Editor permite definir los criterios que guían al equipo comercial: preguntas, scoring,
+              seguimiento, próximos pasos y datos mínimos para avanzar cada oportunidad.
             </p>
             <div className="mk-sales-editor-points">
               <p><strong>Configurable sin desarrollo.</strong> Ajusta preguntas, objeciones, scoring y reglas comerciales cuando cambia tu operación.</p>
@@ -733,11 +745,7 @@ export function SalesPage() {
         <div className="mk-container">
           <div className="mk-section-heading">
             <p className="mk-section-label"><span>05</span>Precios</p>
-            <h2>Paquetes para partir con una conversación seria.</h2>
-            <p>
-              Los valores son referenciales. Talkey se posiciona como una solución premium porque une conversación,
-              pipeline, seguimiento, Talkey Editor y continuidad hacia soporte.
-            </p>
+            <h2>Paquetes para adaptarnos a tus necesidades</h2>
           </div>
           <div className="mk-package-grid">
             {pricing.map((plan) => (
@@ -752,8 +760,32 @@ export function SalesPage() {
                   ))}
                 </ul>
                 <a href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">{diagnosisCtaLabel} <ArrowRight size={16} /></a>
+                <p className="mk-package-channel-note">El plan incluye chat de texto e imágenes. No incluye conversaciones de voz.</p>
+                <a className="mk-package-voice-link" href="#planes-con-voz">Ver planes con voz <ArrowRight size={15} /></a>
               </article>
             ))}
+          </div>
+
+          <div id="planes-con-voz" className="mk-voice-addon" aria-labelledby="voice-addon-title-sales">
+            <div className="mk-voice-addon-copy">
+              <p className="mk-voice-addon-kicker">Add-on opcional</p>
+              <h3 id="voice-addon-title-sales">Voz IA para atender llamadas</h3>
+              <p>
+                Se suma al plan mensual solo si quieres que tus clientes hablen con Talkey por teléfono: atención inmediata,
+                respuestas consistentes y derivación con contexto cuando corresponde.
+              </p>
+            </div>
+            <div className="mk-voice-addon-grid">
+              {voiceAddOnPricing.map((option) => (
+                <article key={option.plan}>
+                  <span>{option.plan}</span>
+                  <strong>{option.price} <em>al mes</em></strong>
+                  <p>{option.included}</p>
+                  <small>{option.overage}</small>
+                  <p className="mk-voice-addon-note">{option.note}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -768,9 +800,12 @@ export function SalesPage() {
               CRM actual y qué haría falta para implementar Talkey.
             </p>
           </div>
-          <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">
-            {diagnosisCtaLabel} <ArrowRight size={18} />
-          </a>
+          <div className="mk-diagnosis-cta">
+            <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">
+              {diagnosisCtaLabel} <ArrowRight size={18} />
+            </a>
+            <span>{diagnosisCtaDetail}</span>
+          </div>
         </div>
       </section>
 
@@ -813,7 +848,12 @@ export function SuitePage({ suite }: { suite: SuiteKey }) {
             <p>{pageBody}</p>
             <div className="mk-hero-actions">
               <a className="mk-button mk-button-primary" href="#demo">Ver demo <ArrowRight size={18} /></a>
-              <a className="mk-button mk-button-secondary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">{diagnosisCtaLabel} <ArrowRight size={18} /></a>
+              <div className="mk-diagnosis-cta">
+                <a className="mk-button mk-button-secondary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">
+                  {diagnosisCtaLabel} <ArrowRight size={18} />
+                </a>
+                <span>{diagnosisCtaDetail}</span>
+              </div>
             </div>
           </div>
           <article className="mk-suite-simple-panel">
@@ -866,9 +906,12 @@ export function SuitePage({ suite }: { suite: SuiteKey }) {
               La implementación se confirma después de una evaluación técnica y comercial.
             </small>
           </div>
-          <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">
-            {diagnosisCtaLabel} <ArrowRight size={18} />
-          </a>
+          <div className="mk-diagnosis-cta">
+            <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">
+              {diagnosisCtaLabel} <ArrowRight size={18} />
+            </a>
+            <span>{diagnosisCtaDetail}</span>
+          </div>
         </div>
       </section>
 
