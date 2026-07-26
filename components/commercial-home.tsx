@@ -49,17 +49,15 @@ const supportComparisonShowcaseContent: Record<
   }
 > = {
   es: {
-    sourceTitle: "Alternativas que cubren partes del soporte",
-    summaryTitle: "Talkey hace todo eso + diagnóstico técnico con contexto.",
+    sourceTitle: "Lo que otras opciones resuelven por separado",
+    summaryTitle: "Talkey conecta el ciclo técnico.",
     summaryBody:
-      "No es solo tickets, voz o una base de conocimiento: une identificación de producto, conocimiento aprobado, diagnóstico guiado y derivación preparada.",
+      "Identifica el producto, consulta conocimiento aprobado, guía el diagnóstico y deja el caso listo para resolver o derivar.",
     advantages: [
-      "Reconoce el producto por foto de etiqueta, QR o número de serie tomada con el celular.",
-      "Convierte manuales, procedimientos y troubleshootings en diagnóstico guiado.",
-      "Responde desde conocimiento aprobado e historial del cliente, no desde cero.",
-      "Ayuda al agente humano con resumen, prioridad, responsable, ETA, duplicados y respuesta inicial.",
-      "Resuelve o deriva con contexto cuando hace falta un especialista.",
-      "Puede sugerir convertir casos cerrados en artículos reutilizables de base de conocimiento.",
+      "Reconoce el producto por foto de etiqueta, QR o número de serie.",
+      "Responde desde manuales, procedimientos e historial del cliente.",
+      "Guía el diagnóstico y ayuda al agente con resumen, prioridad, ETA y respuesta inicial.",
+      "Resuelve o deriva con contexto y reutiliza lo aprendido para mejorar la base de conocimiento.",
     ],
   },
   en: {
@@ -282,15 +280,13 @@ const narrativeContent = {
       body: "Este demo muestra cómo Talkey puede responder preguntas comerciales, técnicas y de implementación usando conocimiento estructurado. También puedes abrir el asistente flotante en cualquier parte del sitio.",
     },
     comparison: {
-      kicker: "Comparación conceptual",
-      title: "Por qué Talkey es diferente.",
-      body: "Resuelve una categoría distinta: convertir conocimiento técnico en soporte operativo consistente.",
+      kicker: "Por qué Talkey",
+      title: "Soporte técnico que entiende antes de responder.",
+      body: "Un helpdesk ordena tickets. Un chatbot responde. Una base de conocimiento almacena contenido. Talkey conecta producto, conocimiento, diagnóstico e historial.",
       items: [
-        { title: "Equipo humano solamente", text: "Talkey reduce la dependencia de personas específicas y mantiene criterios consistentes incluso cuando cambia el agente." },
-        { title: "Software de tickets / helpdesk", text: "Talkey no solo ordena casos: ayuda al agente con resumen automático, prioridad, responsable sugerido, ETA, duplicados y respuesta inicial." },
-        { title: "Chatbot genérico", text: "Talkey responde desde conocimiento aprobado de la empresa, no desde respuestas genéricas o improvisadas." },
-        { title: "Herramientas de voz", text: "Talkey puede operar por voz, pero además entiende productos, manuales, síntomas, procedimientos e historial del cliente." },
-        { title: "Base de conocimiento tradicional", text: "Talkey convierte documentación en respuestas operativas, no solo en artículos que el cliente debe buscar por su cuenta." },
+        { title: "Equipo humano + helpdesk", text: "El criterio y el seguimiento dependen de la disponibilidad del equipo." },
+        { title: "Chatbot o voz genérica", text: "Responde, pero no necesariamente comprende el producto, el procedimiento o el historial." },
+        { title: "Base de conocimiento", text: "Almacena contenido, pero no guía el diagnóstico ni prepara la derivación." },
       ],
     },
     securityPrivacy: {

@@ -241,12 +241,9 @@ const suiteContent: Record<
       },
     ],
     comparison: [
-      { title: "Equipo comercial solamente", text: "Talkey mantiene seguimiento, priorización y contexto incluso cuando el ejecutivo está ocupado o cambia el responsable." },
-      { title: "CRM tradicional", text: "Talkey no solo almacena oportunidades: conversa, califica, prioriza, detecta riesgos y guía al vendedor con próximos pasos automatizados para sostener el seguimiento." },
-      { title: "Automatizadores tipo Vambe", text: "Talkey hace captación, calificación y seguimiento, pero además conecta ventas con soporte técnico y postventa." },
-      { title: "Chatbots comerciales genéricos", text: "Talkey no se queda en responder preguntas: transforma conversaciones en oportunidades gestionables." },
-      { title: "Herramientas de agendamiento", text: "Talkey agenda reuniones, pero con contexto comercial previo, intención detectada y datos mínimos levantados." },
-      { title: "Planillas o seguimiento manual", text: "Talkey evita oportunidades perdidas por olvido, duplicación de leads o falta de continuidad entre canales." },
+      { title: "Equipo comercial + seguimiento manual", text: "El avance depende del tiempo y la memoria de cada vendedor." },
+      { title: "CRM tradicional", text: "Ordena oportunidades, pero no conduce la conversación ni recomienda cómo avanzar." },
+      { title: "Chatbot, automatizador o agenda", text: "Resuelve una tarea, pero no conecta el ciclo comercial completo." },
     ],
     nextTitle: "Convierte conversación en pipeline.",
     nextBody:
@@ -605,12 +602,10 @@ const salesChatCopy = {
 };
 
 const salesComparisonAdvantages = [
-  "Talkey no solo almacena oportunidades: conversa, califica, prioriza, detecta riesgos y guía al vendedor con próximos pasos automatizados para sostener el seguimiento.",
-  "Une lead, oportunidad, historial y handoff hacia soporte o postventa.",
-  "Puede identificar producto o modelo por foto de etiqueta, QR o número de serie cuando la venta técnica lo requiere.",
-  "Usa conocimiento de producto y operación para responder mejor y preparar cotizaciones.",
-  "Detecta leads repetidos entre canales para no partir de cero.",
-  "Permite ajustar criterios comerciales desde Talkey Editor sin depender de cambios en el software.",
+  "Convierte conversaciones en oportunidades priorizadas y recomienda la siguiente acción.",
+  "Unifica el historial entre canales, detecta duplicados y mantiene activo el pipeline.",
+  "Usa conocimiento de producto y puede identificar el modelo por foto para calificar y cotizar.",
+  "Lleva el contexto a instalación, postventa o soporte y permite ajustar criterios desde Talkey Editor.",
 ];
 
 export function SalesPage() {
@@ -726,18 +721,15 @@ export function SalesPage() {
       <section id="comparacion" className="mk-section mk-sales-comparison-section">
         <div className="mk-container">
           <div className="mk-section-heading">
-            <p className="mk-section-label"><span>04</span>Comparación</p>
-            <h2>Talkey hace todo lo que hacen otras herramientas y además cuida tu ciclo venta-postventa.</h2>
-            <p>
-              Si tu venta termina en instalación, garantía, postventa o soporte técnico, necesitas más que captar y convertir:
-              necesitas que el contexto siga vivo después del cierre.
-            </p>
+            <p className="mk-section-label"><span>04</span>Por qué Talkey</p>
+            <h2>No solo registra oportunidades: guía cómo avanzarlas.</h2>
+            <p>Un CRM ordena datos. Un chatbot responde. Un automatizador ejecuta tareas. Talkey conecta conversación, pipeline y siguiente acción hasta la postventa.</p>
           </div>
           <ComparisonShowcase
-            sourceTitle="Alternativas que cubren partes del flujo comercial"
+            sourceTitle="Lo que otras opciones resuelven por separado"
             items={content.comparison}
-            summaryTitle=""
-            summaryBody="No es solo CRM, automatización o agenda: conecta la conversación comercial con el contexto operativo que viene después."
+            summaryTitle="Talkey conecta el ciclo comercial."
+            summaryBody="Califica la conversación, guía al vendedor y conserva el contexto después del cierre."
             advantages={salesComparisonAdvantages}
             variant="sales"
           />
