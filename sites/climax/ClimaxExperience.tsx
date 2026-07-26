@@ -191,34 +191,11 @@ function detectSupportIssue(message: string) {
   return null;
 }
 
-function cleanCalendarSnippet(value: string | undefined, fallback = "") {
-  const snippet = value?.replace(/\s+/g, " ").trim() || fallback;
-  return snippet.length > 58 ? `${snippet.slice(0, 55).trim()}...` : snippet;
-}
-
-function buildInstallationCalendarTitle(answers: string[]) {
-  const system = cleanCalendarSnippet(answers[0], "instalación");
-  const installationType = cleanCalendarSnippet(answers[1]);
-  const context = [system, installationType].filter(Boolean).join(" · ");
-  return `Climax: ${context}`;
-}
-
-function buildInstallationCalendarUrl(answers: string[]) {
-  const details = [
-    "Solicitud de instalación Climax generada desde Talkey Soporte.",
-    "",
-    ...installationQuestions.map((question, index) => {
-      const answer = answers[index]?.trim() || "Por definir";
-      return question.calendarLabel + ": " + answer;
-    }),
-    "",
-    "Fecha y hora: completar directamente en Google Calendar.",
-  ].join("\n");
-
+function buildInstallationCalendarUrl() {
   const params = new URLSearchParams({
     action: "TEMPLATE",
-    text: buildInstallationCalendarTitle(answers),
-    details,
+    text: "Climax: evaluación de instalación",
+    details: "Solicitud de instalación generada desde Talkey Soporte. Los detalles se revisarán de forma privada durante la reunión.",
   });
 
   return "https://calendar.google.com/calendar/render?" + params.toString();
@@ -701,7 +678,7 @@ export function ClimaxExperience({ standalone = false }: ClimaxExperienceProps) 
 
     setInstallationAnswers([]);
     setInstallationStep(null);
-    const calendarUrl = buildInstallationCalendarUrl(nextAnswers);
+    const calendarUrl = buildInstallationCalendarUrl();
     window.open(calendarUrl, "_blank", "noopener,noreferrer");
     setSupportMessages((current) => [
       ...current,
