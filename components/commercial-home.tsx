@@ -676,9 +676,9 @@ export function CommercialHome({
   const problemRows = narrative.problem.pairs;
   const supportComparisonShowcase = supportComparisonShowcaseContent[locale];
   const faqLabels = {
-    es: { panel: "Respuesta", open: "Ver respuesta", close: "Ocultar respuesta" },
-    en: { panel: "Answer", open: "View answer", close: "Hide answer" },
-    it: { panel: "Risposta", open: "Vedi risposta", close: "Nascondi risposta" },
+    es: { open: "Ver respuesta", close: "Ocultar respuesta" },
+    en: { open: "View answer", close: "Hide answer" },
+    it: { open: "Vedi risposta", close: "Nascondi risposta" },
   }[locale];
   const faqItems = narrative.faq.items.map((item) => {
     const actionLabel = "cta" in item ? item.cta : undefined;
@@ -934,7 +934,6 @@ export function CommercialHome({
           <ProblemSolutionAccordion
             items={faqItems}
             variant="support"
-            panelLabel={faqLabels.panel}
             openLabel={faqLabels.open}
             closeLabel={faqLabels.close}
             onAction={(href) => trackCta(
