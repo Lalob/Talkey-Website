@@ -797,10 +797,10 @@ export function CommercialHome({
 
       <header ref={desktopHeaderRef} className="mk-header mk-desktop-suite-header">
         <div className="mk-container mk-nav">
-          <a className="mk-brand" href="#top" aria-label="Talkey home">
+          <Link className="mk-brand" href={platformHomeHref ?? "/"} aria-label="Ir al inicio de Talkey">
             <Image src="/brand/talkey-key.svg" width={345} height={158} alt="" priority />
             <Image src="/brand/talkey-wordmark.svg" width={442} height={140} alt="Talkey" priority />
-          </a>
+          </Link>
           <nav className={`mk-nav-links ${menuOpen ? "is-open" : ""}`} aria-label="Main navigation">
             {platformHomeHref && <Link href={platformHomeHref} onClick={() => setMenuOpen(false)}>Inicio</Link>}
             <a href="#problema" onClick={() => setMenuOpen(false)}>{narrative.nav.problem}</a>
