@@ -6,6 +6,9 @@ import { talkeyTroubleshootingFlows } from "@/lib/talkey-troubleshooting-flows";
 const OPENAI_RESPONSES_URL = "https://api.openai.com/v1/responses";
 const DEFAULT_MODEL = "gpt-5.5";
 const DEFAULT_CF_MODEL = "@cf/openai/gpt-oss-20b";
+const MAX_REQUEST_BODY_BYTES = 32_768;
+const MAX_HISTORY_ITEMS = 8;
+const RATE_LIMIT_RETRY_SECONDS = 60;
 const forbiddenDemoIntroPhrases = [
   "Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?",
   "Hola, soy Talkey. Puedo explicarte qué problema resuelve Talkey, cómo se diferencia de otras herramientas, cómo se implementa o mostrarte un caso simulado de soporte técnico. ¿Qué quieres saber?",
@@ -18,9 +21,20 @@ type WorkersAiBinding = {
   run: (model: string, input: unknown) => Promise<{ response?: string }>;
 };
 
+type RateLimitBinding = {
+  limit: (input: { key: string }) => Promise<{ success: boolean }>;
+};
+
+type ServiceBinding = {
+  fetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+};
+
 type WorkersAiEnv = {
   AI?: WorkersAiBinding;
   CF_AI_MODEL?: string;
+  DEMO_RATE_LIMITER?: RateLimitBinding;
+  DEMO_GLOBAL_RATE_LIMITER?: RateLimitBinding;
+  TALKEY_APPS?: ServiceBinding;
 };
 
 type OpenAIResponsePayload = {
@@ -56,6 +70,82 @@ function extractCloudflareAiText(result: unknown) {
 
 function trimText(value: unknown, maxLength: number) {
   return String(value || "").slice(0, maxLength);
+}
+
+function jsonResponse(data: unknown, init: ResponseInit = {}) {
+  const headers = new Headers(init.headers);
+  headers.set("Cache-Control", "no-store");
+  return NextResponse.json(data, { ...init, headers });
+}
+
+async function readBoundedJson(request: Request) {
+  const contentType = request.headers.get("content-type")?.toLowerCase() || "";
+  if (!contentType.startsWith("application/json")) throw new Error("UNSUPPORTED_MEDIA_TYPE");
+
+  const declaredLength = Number(request.headers.get("content-length"));
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_REQUEST_BODY_BYTES) {
+    throw new Error("PAYLOAD_TOO_LARGE");
+  }
+
+  if (!request.body) return {};
+  const reader = request.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let byteLength = 0;
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    byteLength += value.byteLength;
+    if (byteLength > MAX_REQUEST_BODY_BYTES) {
+      await reader.cancel();
+      throw new Error("PAYLOAD_TOO_LARGE");
+    }
+    chunks.push(value);
+  }
+
+  const bytes = new Uint8Array(byteLength);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+
+  try {
+    return JSON.parse(new TextDecoder().decode(bytes));
+  } catch {
+    throw new Error("INVALID_JSON");
+  }
+}
+
+function sanitizeHistory(value: unknown) {
+  if (!Array.isArray(value)) return [];
+  return value.slice(-MAX_HISTORY_ITEMS).flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const candidate = item as { sender?: unknown; text?: unknown };
+    const sender = candidate.sender === "visitor" ? "visitor" : candidate.sender === "assistant" ? "assistant" : null;
+    const text = trimText(candidate.text, 800).trim();
+    return sender && text ? [{ sender, text }] : [];
+  });
+}
+
+async function enforceRateLimits(env: WorkersAiEnv, request: Request) {
+  const actorKey = request.headers.get("cf-connecting-ip") || "unknown";
+
+  try {
+    const globalResult = env.DEMO_GLOBAL_RATE_LIMITER
+      ? await env.DEMO_GLOBAL_RATE_LIMITER.limit({ key: "marketing-demo" })
+      : { success: true };
+    if (!globalResult.success) return "global" as const;
+
+    const actorResult = env.DEMO_RATE_LIMITER
+      ? await env.DEMO_RATE_LIMITER.limit({ key: actorKey })
+      : { success: true };
+    if (!actorResult.success) return "actor" as const;
+  } catch {
+    return "unavailable" as const;
+  }
+
+  return null;
 }
 
 function escapeRegExp(value: string) {
@@ -115,14 +205,93 @@ async function runWorkersAi(env: WorkersAiEnv, instructions: string, input: stri
   return reply ? { reply, model, provider: "cloudflare-workers-ai" } : null;
 }
 
+async function runTalkeyAppsIntelligence(
+  env: WorkersAiEnv,
+  input: {
+    message: string;
+    localReply: string;
+    history: ReturnType<typeof sanitizeHistory>;
+    variant: "sales" | "support";
+  },
+) {
+  if (!env.TALKEY_APPS) return null;
+
+  const response = await env.TALKEY_APPS.fetch("https://talkey-apps.internal/internal/marketing-demo", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-talkey-internal-demo": "website-service-binding",
+    },
+    body: JSON.stringify(input),
+  });
+
+  if (!response.ok) return null;
+  const payload = await response.json().catch(() => null) as {
+    reply?: unknown;
+    model?: unknown;
+    provider?: unknown;
+  } | null;
+  const reply = trimText(payload?.reply, 4_000).trim();
+  if (!reply) return null;
+  const upstreamProvider = trimText(payload?.provider, 100) || "intelligence";
+  const normalizedProvider = upstreamProvider.replace(/^(talkey-apps:)+/, "") || "intelligence";
+
+  return {
+    reply,
+    model: trimText(payload?.model, 120) || "talkey-apps",
+    provider: `talkey-apps:${normalizedProvider}`,
+  };
+}
+
 export async function POST(request: Request) {
-  const body = await request.json().catch(() => ({}));
+  const workersAiEnv = await getWorkersAiEnv();
+  const rateLimitResult = await enforceRateLimits(workersAiEnv, request);
+  if (rateLimitResult === "actor" || rateLimitResult === "global") {
+    return jsonResponse(
+      { error: "Has realizado demasiadas consultas. Inténtalo nuevamente en un minuto." },
+      { status: 429, headers: { "Retry-After": String(RATE_LIMIT_RETRY_SECONDS) } },
+    );
+  }
+  if (rateLimitResult === "unavailable") {
+    return jsonResponse({ error: "El demo no está disponible temporalmente." }, { status: 503 });
+  }
+
+  let body: Record<string, unknown>;
+  try {
+    const parsed = await readBoundedJson(request);
+    body = parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed as Record<string, unknown> : {};
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : "INVALID_JSON";
+    if (reason === "PAYLOAD_TOO_LARGE") {
+      return jsonResponse({ error: "La solicitud es demasiado grande." }, { status: 413 });
+    }
+    if (reason === "UNSUPPORTED_MEDIA_TYPE") {
+      return jsonResponse({ error: "El contenido debe enviarse como JSON." }, { status: 415 });
+    }
+    return jsonResponse({ error: "JSON no válido." }, { status: 400 });
+  }
+
   const message = trimText(body.message, 1600);
   const localReply = trimText(body.localReply, 2500);
-  const history = trimText(JSON.stringify(body.history || []), 4000);
+  const sanitizedHistory = sanitizeHistory(body.history);
+  const history = JSON.stringify(sanitizedHistory);
   const variant = body.variant === "sales" ? "sales" : "support";
 
-  if (!message) return NextResponse.json({ error: "Falta el mensaje." }, { status: 400 });
+  if (!message) return jsonResponse({ error: "Falta el mensaje." }, { status: 400 });
+
+  const talkeyAppsResult = await runTalkeyAppsIntelligence(workersAiEnv, {
+    message,
+    localReply,
+    history: sanitizedHistory,
+    variant,
+  }).catch(() => null);
+  if (talkeyAppsResult) {
+    return jsonResponse({
+      ...talkeyAppsResult,
+      reply: stripForbiddenDemoIntro(talkeyAppsResult.reply),
+    });
+  }
+
   const copy = marketingCopy.es.chat;
   const supportKnowledge = {
     product: "Talkey Soporte",
@@ -226,37 +395,42 @@ export async function POST(request: Request) {
     localReply
   ].join("\n");
 
-  const workersAiEnv = await getWorkersAiEnv();
   const workersAiResult = await runWorkersAi(workersAiEnv, instructions, input).catch(() => null);
   if (workersAiResult) {
-    return NextResponse.json({ ...workersAiResult, reply: stripForbiddenDemoIntro(workersAiResult.reply) });
+    return jsonResponse({ ...workersAiResult, reply: stripForbiddenDemoIntro(workersAiResult.reply) });
   }
 
-  if (!process.env.OPENAI_API_KEY) return NextResponse.json({ error: "OPENAI_API_KEY no configurada." }, { status: 503 });
+  if (!process.env.OPENAI_API_KEY) return jsonResponse({ error: "El demo no está disponible temporalmente." }, { status: 503 });
 
   const model = process.env.OPENAI_MODEL || DEFAULT_MODEL;
-  const response = await fetch(OPENAI_RESPONSES_URL, {
-    method: "POST",
-    headers: {
-      Authorization: "Bearer " + process.env.OPENAI_API_KEY,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      model,
-      instructions,
-      input,
-      max_output_tokens: 650,
-      store: false
-    })
-  });
+  let response: Response;
+  try {
+    response = await fetch(OPENAI_RESPONSES_URL, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + process.env.OPENAI_API_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model,
+        instructions,
+        input,
+        max_output_tokens: 650,
+        store: false
+      }),
+      signal: AbortSignal.timeout(15_000),
+    });
+  } catch {
+    return jsonResponse({ error: "No se pudo generar la respuesta IA." }, { status: 502 });
+  }
 
   const payload = await response.json().catch(() => ({} as OpenAIResponsePayload)) as OpenAIResponsePayload;
   if (!response.ok) {
-    return NextResponse.json({ error: payload.error?.message || "No se pudo generar la respuesta IA." }, { status: response.status });
+    return jsonResponse({ error: "No se pudo generar la respuesta IA." }, { status: 502 });
   }
 
   const reply = stripForbiddenDemoIntro(extractOutputText(payload));
-  if (!reply) return NextResponse.json({ error: "La IA no devolvió texto." }, { status: 502 });
+  if (!reply) return jsonResponse({ error: "La IA no devolvió texto." }, { status: 502 });
 
-  return NextResponse.json({ reply, model: payload.model || model, provider: "openai-responses" });
+  return jsonResponse({ reply, model: payload.model || model, provider: "openai-responses" });
 }

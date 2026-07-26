@@ -7,6 +7,30 @@
   "ai": {
     "binding": "AI"
   },
+  "services": [
+    {
+      "binding": "TALKEY_APPS",
+      "service": "talkey-para-talkey-subpaths"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "DEMO_RATE_LIMITER",
+      "namespace_id": "2847301",
+      "simple": {
+        "limit": 12,
+        "period": 60
+      }
+    },
+    {
+      "name": "DEMO_GLOBAL_RATE_LIMITER",
+      "namespace_id": "2847302",
+      "simple": {
+        "limit": 120,
+        "period": 60
+      }
+    }
+  ],
   "vars": {
     "CF_AI_MODEL": "@cf/openai/gpt-oss-20b",
     "NEXT_PRIVATE_MINIMAL_MODE": "1"
