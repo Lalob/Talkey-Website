@@ -41,7 +41,7 @@ type ReplyPlan = {
 };
 
 const supportEvaluationAction: DemoAction = {
-  label: "Agendar diagnóstico de 30 min",
+  label: "Agenda tu diagnóstico gratis",
   href: talkeyBookingUrl,
 };
 
@@ -65,40 +65,12 @@ function boundedPromptOptions(options: string[]) {
   return options.length > 0 && options.length <= 3 ? options : [];
 }
 
-function cleanCalendarSnippet(value: string | undefined, fallback = "") {
-  const snippet = value?.replace(/\s+/g, " ").trim() || fallback;
-  return snippet.length > 64 ? `${snippet.slice(0, 61).trim()}...` : snippet;
-}
-
-function buildTalkeyCalendarTitle(messages: DemoMessage[], variant: "support" | "sales") {
-  const visitorMessages = messages.filter((message) => message.sender === "visitor" && message.text.trim());
-  const latestMessage = visitorMessages[visitorMessages.length - 1]?.text;
-  const topic = cleanCalendarSnippet(latestMessage, "diagnóstico de 30 min");
-  const prefix = variant === "sales" ? "Talkey Ventas" : "Talkey Soporte";
-  return `${prefix}: ${topic}`;
-}
-
-function buildTalkeyCalendarDetails(messages: DemoMessage[], variant: "support" | "sales") {
-  const visitorMessages = messages
-    .filter((message) => message.sender === "visitor" && message.text.trim())
-    .slice(-5)
-    .map((message, index) => `${index + 1}. ${message.text.trim()}`);
-
-  return [
-    `Solicitud generada desde el demo de ${variant === "sales" ? "Talkey Ventas" : "Talkey Soporte"}.`,
-    "",
-    "Información entregada por el usuario:",
-    visitorMessages.length > 0 ? visitorMessages.join("\n") : "Por definir durante la reunión.",
-    "",
-    "Fecha y hora: completar directamente en Google Calendar.",
-  ].join("\n");
-}
-
-function buildTalkeyCalendarUrl(messages: DemoMessage[], variant: "support" | "sales") {
+function buildTalkeyCalendarUrl(variant: "support" | "sales") {
+  const product = variant === "sales" ? "Talkey Ventas" : "Talkey Soporte";
   const params = new URLSearchParams({
     action: "TEMPLATE",
-    text: buildTalkeyCalendarTitle(messages, variant),
-    details: buildTalkeyCalendarDetails(messages, variant),
+    text: `${product}: diagnóstico de 30 min`,
+    details: `Solicitud generada desde ${product}. El contexto se revisará de forma privada durante la reunión.`,
   });
 
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
@@ -185,6 +157,9 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
   const [persistentAvailable, setPersistentAvailable] = useState(false);
   const conversationRef = useRef<HTMLDivElement>(null);
   const dockConversationRef = useRef<HTMLDivElement>(null);
+  const heroInputRef = useRef<HTMLInputElement>(null);
+  const dockInputRef = useRef<HTMLInputElement>(null);
+  const persistentChatRef = useRef<HTMLElement>(null);
   const lastAssistantMessageIdRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -233,6 +208,27 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
       window.removeEventListener("resize", updateFloatingPosition);
     };
   }, [variant]);
+
+  useEffect(() => {
+    if (!dockOpen) return;
+
+    function closeOutside(event: PointerEvent) {
+      const target = event.target;
+      if (!(target instanceof Node) || persistentChatRef.current?.contains(target)) return;
+      setDockOpen(false);
+    }
+
+    function closeWithEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setDockOpen(false);
+    }
+
+    document.addEventListener("pointerdown", closeOutside, true);
+    document.addEventListener("keydown", closeWithEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside, true);
+      document.removeEventListener("keydown", closeWithEscape);
+    };
+  }, [dockOpen]);
 
   function getFlowPickerPlan(): ReplyPlan {
     return {
@@ -589,6 +585,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
 
   async function resolveAiPlan(content: string, localPlan: ReplyPlan): Promise<ReplyPlan> {
     if (!aiMode || mode === "inFlow" || mode === "choosingFlow") return localPlan;
+    if (localPlan.replies.some((reply) => reply.danger)) return localPlan;
 
     const response = await fetch("/api/marketing-demo-ia", {
       method: "POST",
@@ -667,6 +664,11 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
     send(input);
   }
 
+  function focusChatInput(mode: "hero" | "dock") {
+    const inputElement = mode === "hero" ? heroInputRef.current : dockInputRef.current;
+    inputElement?.focus({ preventScroll: true });
+  }
+
   function updateInput(value: string) {
     setInput(value);
     if (value.trim()) setHasInteracted(true);
@@ -692,7 +694,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
                 <div className="mk-demo-actions">
                   {message.actions.map((action) => {
                     const actionHref = action.href === talkeyBookingUrl
-                      ? buildTalkeyCalendarUrl(messages, variant)
+                      ? buildTalkeyCalendarUrl(variant)
                       : action.href;
                     const isExternalAction = actionHref?.startsWith("http") ?? false;
 
@@ -741,8 +743,16 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
             ))}
           </div>
         )}
-        <form className="mk-chat-form" onSubmit={submit}>
+        <form
+          className="mk-chat-form"
+          onClick={(event) => {
+            if ((event.target as HTMLElement).closest("button")) return;
+            focusChatInput(mode);
+          }}
+          onSubmit={submit}
+        >
           <input
+            ref={mode === "hero" ? heroInputRef : dockInputRef}
             data-testid="marketing-chat-input"
             className={input ? "has-value" : "is-empty"}
             value={input}
@@ -761,7 +771,7 @@ export function MarketingChatDemo({ copy, aiMode = false, variant = "support" }:
       <div className="mk-chat-glow" />
       {renderCard("hero")}
       {persistentAvailable && (
-        <aside className={`mk-chat-persistent ${dockOpen ? "is-open" : ""} ${nearPricing ? "is-near-pricing" : ""}`} data-testid="persistent-chat" aria-label={copy.live}>
+        <aside ref={persistentChatRef} className={`mk-chat-persistent ${dockOpen ? "is-open" : ""} ${nearPricing ? "is-near-pricing" : ""}`} data-testid="persistent-chat" aria-label={copy.live}>
           {dockOpen ? renderCard("dock") : (
             <button
               className="mk-chat-launcher"

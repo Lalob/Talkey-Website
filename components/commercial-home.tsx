@@ -677,6 +677,8 @@ export function CommercialHome({
   const [expandedLists, setExpandedLists] = useState<Record<ExpandableListKey, boolean>>({
     faq: false,
   });
+  const desktopHeaderRef = useRef<HTMLElement>(null);
+  const faqExpandableRef = useRef<HTMLDivElement>(null);
   const expandedListOpenScrollY = useRef<Partial<Record<ExpandableListKey, number>>>({});
   const copy = marketingCopy[locale];
   const narrative = narrativeContent[locale];
@@ -702,6 +704,36 @@ export function CommercialHome({
     if (!clientLocaleReady) return;
     document.cookie = `talkey-locale=${locale}; path=/; max-age=31536000; samesite=lax`;
   }, [clientLocaleReady, locale]);
+
+  useEffect(() => {
+    if (!menuOpen && !expandedLists.faq) return;
+
+    function closeOutside(event: PointerEvent) {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+
+      if (menuOpen && !desktopHeaderRef.current?.contains(target)) {
+        setMenuOpen(false);
+      }
+
+      if (expandedLists.faq && !faqExpandableRef.current?.contains(target)) {
+        setExpandedLists((current) => ({ ...current, faq: false }));
+      }
+    }
+
+    function closeWithEscape(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      setMenuOpen(false);
+      setExpandedLists((current) => ({ ...current, faq: false }));
+    }
+
+    document.addEventListener("pointerdown", closeOutside, true);
+    document.addEventListener("keydown", closeWithEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside, true);
+      document.removeEventListener("keydown", closeWithEscape);
+    };
+  }, [expandedLists.faq, menuOpen]);
 
   function selectLocale(nextLocale: MarketingLocale) {
     setLocale(nextLocale);
@@ -767,7 +799,7 @@ export function CommercialHome({
         }}
       />
 
-      <header className="mk-header mk-desktop-suite-header">
+      <header ref={desktopHeaderRef} className="mk-header mk-desktop-suite-header">
         <div className="mk-container mk-nav">
           <a className="mk-brand" href="#top" aria-label="Talkey home">
             <Image src="/brand/talkey-key.svg" width={345} height={158} alt="" priority />
@@ -942,34 +974,36 @@ export function CommercialHome({
             <div className="mk-section-label"><span>07</span>{narrative.faq.kicker}</div>
             <h2>{narrative.faq.title}</h2>
           </div>
-          <div id="faq-expandable-list" className="mk-faq-grid">
-            {narrative.faq.items.map((item, index) => {
-              const ctaHref = "ctaHref" in item && item.ctaHref ? item.ctaHref : "#precios";
-              const ctaExternal = ctaHref.startsWith("http");
+          <div ref={faqExpandableRef}>
+            <div id="faq-expandable-list" className="mk-faq-grid">
+              {narrative.faq.items.map((item, index) => {
+                const ctaHref = "ctaHref" in item && item.ctaHref ? item.ctaHref : "#precios";
+                const ctaExternal = ctaHref.startsWith("http");
 
-              return (
-                <article
-                  key={item.question}
-                  hidden={!expandedLists.faq && index >= previewItemCount}
-                >
-                  <h3>{item.question}</h3>
-                  <p>{item.answer}</p>
-                  {"cta" in item && item.cta && (
-                    <a
-                      className="mk-faq-cta"
-                      href={ctaHref}
-                      target={ctaExternal ? "_blank" : undefined}
-                      rel={ctaExternal ? "noopener noreferrer" : undefined}
-                      onClick={() => trackCta(ctaHref === talkeyBookingUrl ? "faq_request_evaluation_click" : "faq_pricing_packages_click")}
-                    >
-                      {item.cta}<ArrowRight size={16} />
-                    </a>
-                  )}
-                </article>
-              );
-            })}
+                return (
+                  <article
+                    key={item.question}
+                    hidden={!expandedLists.faq && index >= previewItemCount}
+                  >
+                    <h3>{item.question}</h3>
+                    <p>{item.answer}</p>
+                    {"cta" in item && item.cta && (
+                      <a
+                        className="mk-faq-cta"
+                        href={ctaHref}
+                        target={ctaExternal ? "_blank" : undefined}
+                        rel={ctaExternal ? "noopener noreferrer" : undefined}
+                        onClick={() => trackCta(ctaHref === talkeyBookingUrl ? "faq_request_evaluation_click" : "faq_pricing_packages_click")}
+                      >
+                        {item.cta}<ArrowRight size={16} />
+                      </a>
+                    )}
+                  </article>
+                );
+              })}
+            </div>
+            {renderListToggle("faq", narrative.faq.items.length)}
           </div>
-          {renderListToggle("faq", narrative.faq.items.length)}
         </div>
       </section>
 

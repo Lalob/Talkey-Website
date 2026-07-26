@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 type ProblemSolutionItem = {
   title: string;
@@ -19,9 +19,34 @@ export function ProblemSolutionAccordion({
 }: ProblemSolutionAccordionProps) {
   const [openTitle, setOpenTitle] = useState<string | null>(null);
   const baseId = useId();
+  const accordionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!openTitle) return;
+
+    function closeOutside(event: PointerEvent) {
+      const target = event.target;
+      if (!(target instanceof Node) || accordionRef.current?.contains(target)) return;
+      setOpenTitle(null);
+    }
+
+    function closeWithEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpenTitle(null);
+    }
+
+    document.addEventListener("pointerdown", closeOutside, true);
+    document.addEventListener("keydown", closeWithEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside, true);
+      document.removeEventListener("keydown", closeWithEscape);
+    };
+  }, [openTitle]);
 
   return (
-    <div className={`mk-problem-accordion mk-problem-accordion-${variant}`}>
+    <div
+      ref={accordionRef}
+      className={`mk-problem-accordion mk-problem-accordion-${variant}`}
+    >
       {items.map((item, index) => {
         const isOpen = openTitle === item.title;
         const triggerId = `${baseId}-trigger-${index}`;
