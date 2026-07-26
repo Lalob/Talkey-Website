@@ -1,21 +1,34 @@
 "use client";
 
-import { Minus, Plus } from "lucide-react";
+import { ArrowRight, Minus, Plus } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 
 type ProblemSolutionItem = {
   title: string;
   solution: string;
+  action?: {
+    label: string;
+    href: string;
+    external?: boolean;
+  };
 };
 
 type ProblemSolutionAccordionProps = {
   items: ProblemSolutionItem[];
   variant: "sales" | "support";
+  panelLabel?: string;
+  openLabel?: string;
+  closeLabel?: string;
+  onAction?: (href: string) => void;
 };
 
 export function ProblemSolutionAccordion({
   items,
   variant,
+  panelLabel = "Solución Talkey",
+  openLabel = "Ver solución",
+  closeLabel = "Ocultar solución",
+  onAction,
 }: ProblemSolutionAccordionProps) {
   const [openTitle, setOpenTitle] = useState<string | null>(null);
   const baseId = useId();
@@ -68,7 +81,7 @@ export function ProblemSolutionAccordion({
               >
                 <span className="mk-problem-accordion-title">{item.title}</span>
                 <span className="mk-problem-accordion-affordance" aria-hidden="true">
-                  <span>{isOpen ? "Ocultar solución" : "Ver solución"}</span>
+                  <span>{isOpen ? closeLabel : openLabel}</span>
                   {isOpen ? <Minus size={16} strokeWidth={2.6} /> : <Plus size={16} strokeWidth={2.6} />}
                 </span>
               </button>
@@ -80,8 +93,20 @@ export function ProblemSolutionAccordion({
               aria-labelledby={triggerId}
               hidden={!isOpen}
             >
-              <span>Solución Talkey</span>
+              <span>{panelLabel}</span>
               <p>{item.solution}</p>
+              {item.action ? (
+                <a
+                  className="mk-faq-cta"
+                  href={item.action.href}
+                  target={item.action.external ? "_blank" : undefined}
+                  rel={item.action.external ? "noopener noreferrer" : undefined}
+                  onClick={() => onAction?.(item.action?.href ?? "")}
+                >
+                  {item.action.label}
+                  <ArrowRight size={16} />
+                </a>
+              ) : null}
             </div>
           </article>
         );

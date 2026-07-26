@@ -36,9 +36,6 @@ const navLineBreakLabels: Record<MarketingLocale, { cases: [string, string]; pri
   it: { cases: ["Casi", "d'uso"], pricing: ["Simulatore", "prezzi"] },
 };
 
-const previewItemCount = 3;
-type ExpandableListKey = "faq";
-
 const supportComparisonShowcaseContent: Record<
   MarketingLocale,
   {
@@ -670,17 +667,33 @@ export function CommercialHome({
   const [locale, setLocale] = useState<MarketingLocale>(initialLocale);
   const [clientLocaleReady, setClientLocaleReady] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [expandedLists, setExpandedLists] = useState<Record<ExpandableListKey, boolean>>({
-    faq: false,
-  });
   const desktopHeaderRef = useRef<HTMLElement>(null);
-  const faqExpandableRef = useRef<HTMLDivElement>(null);
-  const expandedListOpenScrollY = useRef<Partial<Record<ExpandableListKey, number>>>({});
   const copy = marketingCopy[locale];
   const narrative = narrativeContent[locale];
   const navLineBreaks = navLineBreakLabels[locale];
   const problemRows = narrative.problem.pairs;
   const supportComparisonShowcase = supportComparisonShowcaseContent[locale];
+  const faqLabels = {
+    es: { panel: "Respuesta", open: "Ver respuesta", close: "Ocultar respuesta" },
+    en: { panel: "Answer", open: "View answer", close: "Hide answer" },
+    it: { panel: "Risposta", open: "Vedi risposta", close: "Nascondi risposta" },
+  }[locale];
+  const faqItems = narrative.faq.items.map((item) => {
+    const actionLabel = "cta" in item ? item.cta : undefined;
+    const actionHref = "ctaHref" in item && item.ctaHref ? item.ctaHref : "#precios";
+
+    return {
+      title: item.question,
+      solution: item.answer,
+      action: actionLabel
+        ? {
+            label: actionLabel,
+            href: actionHref,
+            external: actionHref.startsWith("http"),
+          }
+        : undefined,
+    };
+  });
 
   useEffect(() => {
     if (!detectClientLocale) {
@@ -702,7 +715,7 @@ export function CommercialHome({
   }, [clientLocaleReady, locale]);
 
   useEffect(() => {
-    if (!menuOpen && !expandedLists.faq) return;
+    if (!menuOpen) return;
 
     function closeOutside(event: PointerEvent) {
       const target = event.target;
@@ -711,16 +724,11 @@ export function CommercialHome({
       if (menuOpen && !desktopHeaderRef.current?.contains(target)) {
         setMenuOpen(false);
       }
-
-      if (expandedLists.faq && !faqExpandableRef.current?.contains(target)) {
-        setExpandedLists((current) => ({ ...current, faq: false }));
-      }
     }
 
     function closeWithEscape(event: KeyboardEvent) {
       if (event.key !== "Escape") return;
       setMenuOpen(false);
-      setExpandedLists((current) => ({ ...current, faq: false }));
     }
 
     document.addEventListener("pointerdown", closeOutside, true);
@@ -729,7 +737,7 @@ export function CommercialHome({
       document.removeEventListener("pointerdown", closeOutside, true);
       document.removeEventListener("keydown", closeWithEscape);
     };
-  }, [expandedLists.faq, menuOpen]);
+  }, [menuOpen]);
 
   function selectLocale(nextLocale: MarketingLocale) {
     setLocale(nextLocale);
@@ -738,45 +746,6 @@ export function CommercialHome({
 
   function trackCta(eventName: string) {
     trackEvent(eventName, { locale });
-  }
-
-  function toggleExpandedList(key: ExpandableListKey) {
-    const isExpanded = expandedLists[key];
-
-    if (!isExpanded) {
-      expandedListOpenScrollY.current[key] = window.scrollY;
-      setExpandedLists((current) => ({ ...current, [key]: true }));
-      return;
-    }
-
-    const targetScrollY = expandedListOpenScrollY.current[key] ?? window.scrollY;
-    setExpandedLists((current) => ({ ...current, [key]: false }));
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        window.scrollTo({ top: Math.max(0, targetScrollY), behavior: "auto" });
-      });
-    });
-  }
-
-  function renderListToggle(key: ExpandableListKey, totalItems: number) {
-    if (totalItems <= previewItemCount) return null;
-
-    const isExpanded = expandedLists[key];
-    const collapsedLabels: Record<ExpandableListKey, string> = {
-      faq: narrative.controls.showMoreFaq,
-    };
-
-    return (
-      <button
-        className="mk-list-toggle"
-        type="button"
-        aria-expanded={isExpanded}
-        aria-controls={`${key}-expandable-list`}
-        onClick={() => toggleExpandedList(key)}
-      >
-        {isExpanded ? narrative.controls.showLess : collapsedLabels[key]}
-      </button>
-    );
   }
 
   return (
@@ -970,36 +939,18 @@ export function CommercialHome({
             <div className="mk-section-label"><span>07</span>{narrative.faq.kicker}</div>
             <h2>{narrative.faq.title}</h2>
           </div>
-          <div ref={faqExpandableRef}>
-            <div id="faq-expandable-list" className="mk-faq-grid">
-              {narrative.faq.items.map((item, index) => {
-                const ctaHref = "ctaHref" in item && item.ctaHref ? item.ctaHref : "#precios";
-                const ctaExternal = ctaHref.startsWith("http");
-
-                return (
-                  <article
-                    key={item.question}
-                    hidden={!expandedLists.faq && index >= previewItemCount}
-                  >
-                    <h3>{item.question}</h3>
-                    <p>{item.answer}</p>
-                    {"cta" in item && item.cta && (
-                      <a
-                        className="mk-faq-cta"
-                        href={ctaHref}
-                        target={ctaExternal ? "_blank" : undefined}
-                        rel={ctaExternal ? "noopener noreferrer" : undefined}
-                        onClick={() => trackCta(ctaHref === talkeyBookingUrl ? "faq_request_evaluation_click" : "faq_pricing_packages_click")}
-                      >
-                        {item.cta}<ArrowRight size={16} />
-                      </a>
-                    )}
-                  </article>
-                );
-              })}
-            </div>
-            {renderListToggle("faq", narrative.faq.items.length)}
-          </div>
+          <ProblemSolutionAccordion
+            items={faqItems}
+            variant="support"
+            panelLabel={faqLabels.panel}
+            openLabel={faqLabels.open}
+            closeLabel={faqLabels.close}
+            onAction={(href) => trackCta(
+              href === talkeyBookingUrl
+                ? "faq_request_evaluation_click"
+                : "faq_pricing_packages_click",
+            )}
+          />
         </div>
       </section>
 
