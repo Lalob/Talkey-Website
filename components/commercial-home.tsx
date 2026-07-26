@@ -739,11 +739,6 @@ export function CommercialHome({
     };
   }, [menuOpen]);
 
-  function selectLocale(nextLocale: MarketingLocale) {
-    setLocale(nextLocale);
-    setMenuOpen(false);
-  }
-
   function trackCta(eventName: string) {
     trackEvent(eventName, { locale });
   }
@@ -783,11 +778,6 @@ export function CommercialHome({
             <a className="mk-mobile-quote" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => { setMenuOpen(false); trackCta("agenda_click"); }}>{narrative.nav.quote}<ArrowRight size={16} /></a>
           </nav>
           <div className="mk-nav-actions">
-            <div className="mk-language" aria-label="Language selector">
-              {(["es", "en", "it"] as const).map((item) => (
-                <button key={item} type="button" className={locale === item ? "is-active" : ""} onClick={() => selectLocale(item)} aria-label={marketingCopy[item].languageName}>{item.toUpperCase()}</button>
-              ))}
-            </div>
             <a className="mk-nav-cta" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("agenda_click")}>{narrative.nav.quote}<ArrowUpRight size={16} /></a>
             <button className="mk-menu-button" type="button" onClick={() => setMenuOpen((value) => !value)} aria-label={copy.nav.menu} aria-expanded={menuOpen}>
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
