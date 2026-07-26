@@ -6357,34 +6357,34 @@ button { cursor: pointer; }
 }
 
 
-/* Support page desktop header: distribute navigation evenly between brand and CTA. */
+/* Suite desktop headers: distribute navigation evenly between brand and CTA. */
 @media (min-width: 1061px) {
-  .mk-support-page > .mk-desktop-suite-header .mk-container {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-container {
     width: min(100% - 32px, 1560px);
   }
 
-  .mk-support-page > .mk-desktop-suite-header .mk-nav {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-nav {
     grid-template-columns: minmax(180px, auto) minmax(0, 1fr) auto;
     gap: clamp(28px, 3vw, 58px);
   }
 
-  .mk-support-page > .mk-desktop-suite-header .mk-nav-links {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-nav-links {
     width: 100%;
     justify-content: center;
     gap: clamp(26px, 2.4vw, 48px);
   }
 
-  .mk-support-page > .mk-desktop-suite-header .mk-nav-links > a:not(.mk-mobile-quote) {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-nav-links > a:not(.mk-mobile-quote) {
     flex: 0 1 auto;
     white-space: nowrap;
   }
 
-  .mk-support-page > .mk-desktop-suite-header .mk-nav-actions {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-nav-actions {
     width: auto;
     justify-content: flex-end;
   }
 
-  .mk-support-page > .mk-desktop-suite-header .mk-nav-cta {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-nav-cta {
     flex: 0 0 auto;
     white-space: nowrap;
     padding-right: clamp(14px, 1vw, 18px);
@@ -6393,32 +6393,32 @@ button { cursor: pointer; }
 }
 
 @media (min-width: 1061px) and (max-width: 1360px) {
-  .mk-support-page > .mk-desktop-suite-header .mk-nav {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-nav {
     grid-template-columns: minmax(146px, auto) minmax(0, 1fr) auto;
     gap: clamp(18px, 2vw, 30px);
   }
 
-  .mk-support-page > .mk-desktop-suite-header .mk-brand {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-brand {
     gap: 6px;
   }
 
-  .mk-support-page > .mk-desktop-suite-header .mk-brand img:first-child {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-brand img:first-child {
     width: 60px;
   }
 
-  .mk-support-page > .mk-desktop-suite-header .mk-brand img:last-child {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-brand img:last-child {
     width: 92px;
   }
 
-  .mk-support-page > .mk-desktop-suite-header .mk-nav-links {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-nav-links {
     gap: clamp(16px, 1.8vw, 28px);
   }
 
-  .mk-support-page > .mk-desktop-suite-header .mk-nav-links > a:not(.mk-mobile-quote) {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-nav-links > a:not(.mk-mobile-quote) {
     font-size: clamp(14px, 1.05vw, 16px);
   }
 
-  .mk-support-page > .mk-desktop-suite-header .mk-nav-cta {
+  :is(.mk-support-page, .mk-sales-page) > .mk-desktop-suite-header .mk-nav-cta {
     min-height: 40px;
     padding-right: 12px;
     padding-left: 12px;
