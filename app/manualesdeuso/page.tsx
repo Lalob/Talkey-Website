@@ -6,13 +6,20 @@ import {
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
+  ClipboardCheck,
+  Database,
   FileText,
   Handshake,
   LayoutDashboard,
   LifeBuoy,
+  Mail,
   MessageSquareText,
+  Package,
+  Settings,
   ShieldCheck,
   Sparkles,
+  Target,
+  Users,
 } from "lucide-react";
 import { absoluteUrl, seoKeywords } from "@/lib/seo";
 
@@ -20,16 +27,19 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Manuales Talkey | Guías para soporte técnico, ventas y CRM",
+    absolute: "Manuales Talkey | Guía completa para ventas, soporte, IA y CRM",
   },
   description:
-    "Manuales Talkey para soporte técnico, CRM de soporte, asistente de ventas y CRM de ventas. Guías claras con pasos, referencias visuales y funciones IA.",
+    "Manual de uso Talkey para operar soporte técnico, CRM Soporte, agente de ventas, CRM de ventas, Smart Agent, configuración Playbook, maestros y Customer master.",
   keywords: [
     ...seoKeywords,
     "manuales Talkey",
     "manuales de uso Talkey",
     "CRM soporte Talkey",
     "CRM ventas Talkey",
+    "Smart Agent Talkey",
+    "Configuración Playbook Talkey",
+    "Customer master Talkey",
     "guías soporte técnico Talkey",
     "guías Talkey ventas",
   ],
@@ -51,7 +61,7 @@ export const metadata: Metadata = {
     type: "article",
     title: "Manuales Talkey",
     description:
-      "Guías paso a paso para usar las apps Talkey en soporte técnico, ventas y operación asistida por IA.",
+      "Guía completa para usar Talkey en soporte técnico, ventas, CRM, IA, configuración y operación diaria.",
     url: absoluteUrl("/manuales"),
     siteName: "Talkey",
     locale: "es_CL",
@@ -66,9 +76,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Manuales Talkey | Guías para soporte, ventas y CRM",
+    title: "Manuales Talkey | Guía completa de uso",
     description:
-      "Guías paso a paso para usar las apps Talkey en soporte técnico, ventas y operación asistida por IA.",
+      "Guía paso a paso para operar Talkey en soporte, ventas, CRM, Smart Agent y administración.",
     images: ["/opengraph-image"],
   },
 };
@@ -96,6 +106,8 @@ type AppManual = {
   title: string;
   subtitle: string;
   audience: string;
+  learningGoal: string;
+  outcome: string;
   preview: {
     eyebrow: string;
     title: string;
@@ -112,6 +124,94 @@ type AppManual = {
   tip: string;
 };
 
+type InfoCard = {
+  icon: LucideIcon;
+  title: string;
+  text: string;
+};
+
+const learningPath: InfoCard[] = [
+  {
+    icon: Target,
+    title: "1. Entiende el resultado esperado",
+    text: "Antes de tocar botones, identifica qué quieres lograr: resolver un ticket, calificar un prospecto, avanzar una oportunidad o configurar reglas.",
+  },
+  {
+    icon: LayoutDashboard,
+    title: "2. Ubica la pantalla correcta",
+    text: "Cada sección del manual nombra la app, el rol que la usa y los bloques visuales que deberías reconocer antes de operar.",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "3. Sigue pasos cortos",
+    text: "Los flujos están divididos en acciones pequeñas para que no tengas que memorizar el sistema completo antes de usarlo.",
+  },
+  {
+    icon: CheckCircle2,
+    title: "4. Verifica al final",
+    text: "Cada manual termina con una lista de control. Si esos puntos se cumplen, el caso, lead u oportunidad quedó trazable.",
+  },
+];
+
+const coreConcepts = [
+  ["Panel de control", "Pantalla inicial del CRM de ventas. Resume tareas prioritarias, alertas, actividad reciente, prospectos recomendados, documentos pendientes y pipeline por etapas."],
+  ["Pipeline abierto", "Monto total de oportunidades que siguen activas. No incluye ventas ya ganadas ni casos cerrados."],
+  ["Forecast ponderado", "Estimación de ventas esperadas ajustada por la probabilidad de cierre de cada etapa del pipeline."],
+  ["Smart Agent", "Asistente interno que recomienda tareas, prioriza oportunidades, detecta riesgos, prepara correos y sugiere próximos pasos."],
+  ["MQL", "Lead precalificado: tiene fit e intención suficiente para entrar al CRM sin ser considerado basura."],
+  ["SQL", "Lead listo para ventas: además de fit, muestra señales fuertes como demo, cotización, presupuesto o compra."],
+  ["Customer master", "Registro único de cliente que conecta ventas y soporte para evitar duplicados y mantener un solo historial."],
+  ["Configuración Playbook", "Sección donde administradores y gerentes definen reglas de venta: plazos, prioridades, automatizaciones, scoring, cotizaciones y traspaso a soporte."],
+  ["Maestro de productos", "Catálogo administrable que alimenta campos como Producto en oportunidades y cotizaciones."],
+  ["Maestro de emails", "Configuración de remitentes, plantillas y modo de envío usado por emails comerciales automáticos."],
+  ["Handoff a soporte", "Traspaso del cliente y contexto comercial hacia CRM Soporte cuando una venta se gana o cuando soporte debe intervenir."],
+  ["1/8, 2/8", "Progreso de documentos de cierre completados sobre el total del flujo documental de ventas."],
+];
+
+const salesDocumentFlow = [
+  ["Propuesta comercial", "Solución recomendada, alcance, valor para el cliente y próximos pasos."],
+  ["Cotización formal", "Precio, ítems, condiciones comerciales, garantía, vigencia, pago y entrega."],
+  ["Envío al cliente", "Correo comercial enviado o preparado con respaldo de estado y destinatario."],
+  ["Orden de compra", "Registro o solicitud de OC asociada a cotización y monto."],
+  ["Anexo técnico", "Alcance operativo, entregables, exclusiones y criterios de aceptación."],
+  ["Contrato / acuerdo", "Términos comerciales, obligaciones, pago, entrega, garantía y firmas."],
+  ["Acta de aceptación", "Confirmación formal de aceptación comercial."],
+  ["Orden de implementación", "Traspaso operativo hacia implementación y CRM Soporte."],
+];
+
+const adminModules: InfoCard[] = [
+  {
+    icon: Users,
+    title: "Usuarios y permisos",
+    text: "Define quién puede vender, atender soporte, administrar datos, ver reportes, configurar seguridad o gobernar toda la plataforma.",
+  },
+  {
+    icon: Package,
+    title: "Maestro de productos",
+    text: "Mantiene el catálogo que usan oportunidades, cotizaciones y agentes comerciales. Evita nombres inventados o productos duplicados.",
+  },
+  {
+    icon: Mail,
+    title: "Maestro de emails",
+    text: "Configura remitentes, plantillas, firma y modo de envío para que los correos automáticos tengan control operativo.",
+  },
+  {
+    icon: Settings,
+    title: "Configuración Playbook",
+    text: "Ajusta cómo vende la empresa: probabilidades por etapa, plazos, scoring, automatizaciones, reglas MQL/SQL y traspaso a soporte.",
+  },
+  {
+    icon: Database,
+    title: "Customer master",
+    text: "Consolida datos de clientes, tickets, leads y oportunidades para que ventas y soporte no trabajen con historiales separados.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Auditoría y observabilidad IA",
+    text: "Permite revisar acciones sensibles, uso de IA, errores, eventos y salud general de la operación.",
+  },
+];
+
 const appManuals: AppManual[] = [
   {
     id: "asistente-soporte",
@@ -122,12 +222,14 @@ const appManuals: AppManual[] = [
       "Para clientes o usuarios que necesitan abrir un ticket, explicar un problema y seguir el avance sin perder contexto.",
     audience:
       "Personas que necesitan ayuda técnica desde el sitio, un QR, un enlace de soporte o una conversación guiada.",
+    learningGoal: "Aprender a abrir un caso claro y trazable sin conocer la estructura interna de soporte.",
+    outcome: "Un ticket con código, estado, historial, datos de contacto, producto identificado y próximo paso visible.",
     preview: {
       eyebrow: "Vista cliente",
       title: "Ticket abierto automáticamente",
       primary: "TK-1048 · En revisión",
-      secondary: "Modelo detectado: equipo técnico · Prioridad media",
-      rows: ["Mensaje del cliente", "Foto o etiqueta del producto", "Respuesta sugerida", "Próximo paso"],
+      secondary: "Modelo detectado · Prioridad media · Próximo paso visible",
+      rows: ["Mensaje del cliente", "Foto o etiqueta del producto", "Respuesta sugerida", "Seguimiento del ticket"],
       chips: ["Estado", "Responsable", "ETA", "Historial"],
     },
     screenshots: [
@@ -159,38 +261,39 @@ const appManuals: AppManual[] = [
       { label: "Ver demo de soporte", href: "/soporte#demo-hero" },
     ],
     before: [
-      "Ten a mano tu email, nombre y teléfono de contacto.",
-      "Si el problema es de un equipo, intenta tener modelo, serie o una foto de la etiqueta.",
-      "Describe qué pasó con palabras simples: Talkey ordenará la información.",
+      "Ten a mano email, nombre y teléfono de contacto.",
+      "Si el caso trata de un equipo, intenta tener modelo, serie, QR o una foto de la etiqueta.",
+      "Describe el síntoma en lenguaje simple: qué pasó, desde cuándo y qué intentaste hacer.",
     ],
     steps: [
-      "Abre el asistente. Talkey creará un ticket automáticamente para que el caso tenga seguimiento.",
-      "Completa tus datos de contacto cuando la app los pida. Esto permite que soporte encuentre tu caso después.",
-      "Escribe el problema como lo dirías por WhatsApp: qué intentaste hacer, qué ocurrió y desde cuándo pasa.",
-      "Si el problema depende de un equipo físico, usa la opción de foto para adjuntar etiqueta, QR, número de serie o imagen del producto.",
-      "Antes de enviar, revisa las respuestas sugeridas de autoservicio. Si una te sirve, puedes usarla al tiro.",
-      "Si necesitas enviar el caso, Talkey lo dejará clasificado con categoría, prioridad, responsable sugerido y próximos pasos.",
+      "Abre el asistente. Talkey crea un ticket automáticamente para que el caso tenga seguimiento.",
+      "Completa los datos de contacto cuando la app los pida. Esto permite encontrar el caso después.",
+      "Escribe el problema como lo dirías por chat: producto, síntoma, urgencia y contexto.",
+      "Si el problema depende de un equipo físico, usa la cámara para adjuntar etiqueta, QR, número de serie o imagen del producto.",
+      "Revisa las respuestas sugeridas de autoservicio. Si una resuelve el caso, úsala antes de escalar.",
+      "Si necesitas ayuda humana, envía el caso. Talkey lo clasifica con categoría, prioridad, responsable sugerido y próximos pasos.",
       "Guarda el código de ticket. En el portal verás estado, responsable, prioridad, tiempo estimado e historial.",
-      "Usa el enlace de WhatsApp si quieres continuar el seguimiento por ese canal cuando esté disponible para tu operación.",
     ],
     checks: [
-      "El ticket muestra un código visible.",
+      "El ticket tiene código visible.",
       "El estado del caso aparece actualizado.",
-      "El historial contiene tus mensajes principales.",
+      "El historial contiene los mensajes principales y archivos útiles.",
       "El próximo paso queda claro antes de cerrar la página.",
     ],
     tip:
-      "Mientras más concreto sea el primer mensaje, mejor llega el ticket al equipo humano: síntoma, producto, urgencia y foto si aplica.",
+      "Un buen primer mensaje reduce idas y vueltas: incluye síntoma, producto, urgencia y foto si aplica.",
   },
   {
     id: "crm-soporte",
     number: "02",
     icon: LifeBuoy,
-    title: "CRM de soporte técnico",
+    title: "CRM Soporte",
     subtitle:
       "Para agentes, supervisores y equipos de postventa que gestionan tickets, respuestas, prioridad y trazabilidad.",
     audience:
-      "Equipos internos de soporte que reciben tickets desde el asistente, revisan contexto y deciden si responde Talkey o una persona.",
+      "Equipos internos de soporte que reciben tickets, revisan contexto y deciden si responde Talkey o una persona.",
+    learningGoal: "Aprender a pasar de una conversación desordenada a una atención con contexto, responsable y estado real.",
+    outcome: "Un ticket actualizado, con respuesta validada, estado correcto, cliente reconocido y conocimiento reutilizable si corresponde.",
     preview: {
       eyebrow: "Consola soporte",
       title: "Inteligencia del ticket",
@@ -218,29 +321,28 @@ const appManuals: AppManual[] = [
       { label: "Ver problemas/soluciones", href: "/soporte#problema" },
     ],
     before: [
-      "Revisa primero la lista de tickets y usa el buscador por email, serie, ticket o modelo.",
+      "Revisa la lista de tickets y usa el buscador por email, serie, ticket o modelo.",
       "Abre un ticket antes de responder: el detalle reúne conversación, datos del cliente y señales operativas.",
       "Si vas a intervenir como agente, toma control para que el usuario sepa que lo atiende una persona.",
     ],
     steps: [
-      "Entra al CRM de soporte y selecciona un ticket de la lista lateral.",
-      "Lee el bloque de IA integrada al ticket: categoría, urgencia, prioridad, responsable sugerido y tiempo estimado.",
+      "Entra al CRM Soporte y selecciona un ticket de la lista lateral.",
+      "Lee el bloque de IA integrada: categoría, urgencia, prioridad, responsable sugerido y tiempo estimado.",
       "Revisa el resumen automático: qué pasó, qué pidió el usuario, qué falta y próximo paso sugerido.",
-      "Si la respuesta inicial sugerida es correcta, usa el botón para preparar el borrador y ajústalo antes de enviarlo.",
-      "Revisa si la IA detectó modelo, serie, etiqueta o producto asociado a partir de texto o foto enviada por el usuario.",
-      "Cambia el estado del ticket según avance: nuevo, en revisión, escalado o cerrado.",
-      "Si detectas que varios tickets tratan el mismo tema, usa la sugerencia de duplicados para agruparlos o responder en bloque.",
-      "Al cerrar un caso, revisa la sugerencia de base de conocimiento y guarda el artículo si la solución puede servir de nuevo.",
-      "Consulta el panel de salud para ver tickets abiertos, urgentes, atrasados, temas repetidos y carga del equipo.",
+      "Si la respuesta recomendada es correcta, prepárala, ajústala y envíala. El cliente no la ve hasta que una persona la aprueba.",
+      "Confirma si Talkey detectó modelo, serie, etiqueta o producto asociado desde texto o foto.",
+      "Cambia el estado del ticket según avance: nuevo, en revisión, pendiente de cliente, escalado o cerrado.",
+      "Si hay casos repetidos, revisa duplicados y decide si corresponde agrupar, responder en bloque o crear artículo de ayuda.",
+      "Al cerrar, revisa si la solución debe quedar en base de conocimiento para que Talkey la reutilice.",
     ],
     checks: [
       "La prioridad y el responsable tienen sentido para el caso.",
       "El estado del ticket refleja la realidad.",
-      "La respuesta enviada no promete garantías, disponibilidad ni procedimientos no validados.",
-      "Si el caso se repite, quedó agrupado o con una respuesta común.",
+      "La respuesta no promete garantías, disponibilidad ni procedimientos no validados.",
+      "Si el caso se repite, quedó agrupado o documentado.",
     ],
     tip:
-      "Talkey ayuda a ordenar el caso, pero el agente siempre debe validar decisiones sensibles, garantías o compromisos técnicos.",
+      "Talkey acelera la atención, pero soporte valida decisiones sensibles, garantías y compromisos técnicos.",
   },
   {
     id: "agente-ventas",
@@ -251,13 +353,15 @@ const appManuals: AppManual[] = [
       "Para prospectos o clientes que quieren orientación comercial, comparación de productos, demo o cotización.",
     audience:
       "Personas interesadas en comprar, cotizar, entender productos o pedir una reunión comercial con contexto ya ordenado.",
+    learningGoal: "Aprender a convertir una conversación inicial en un lead útil para ventas, sin llenar el CRM de contactos basura.",
+    outcome: "Una precalificación con intención, score, producto sugerido, datos faltantes y próximo paso comercial.",
     preview: {
       eyebrow: "Vista prospecto",
       title: "Conversación comercial guiada",
-      primary: "Intención: cotización · Score alto",
-      secondary: "CTA sugerido: agendar demo o preparar presupuesto",
+      primary: "Estado: MQL o SQL según score y datos mínimos",
+      secondary: "CTA sugerido: agendar demo, preparar presupuesto o pedir datos faltantes",
       rows: ["Necesidad del prospecto", "Producto sugerido", "Datos mínimos", "Próximo paso"],
-      chips: ["Score", "Cotización", "Agenda", "CRM"],
+      chips: ["Score", "MQL", "SQL", "CRM"],
     },
     screenshots: [
       {
@@ -279,27 +383,27 @@ const appManuals: AppManual[] = [
     ],
     before: [
       "Piensa qué necesitas resolver: producto, aplicación, presupuesto, ciudad, demo o cotización.",
-      "Si preguntas por precio, ten claro que la cotización formal depende de configuración, accesorios e instalación.",
-      "Si quieres reunión, el botón de agenda abre Google Calendar para revisar y guardar el evento.",
+      "Si preguntas por precio, recuerda que una cotización formal depende de configuración, accesorios, despacho, instalación y condiciones.",
+      "Si quieres reunión, el botón de agenda abre Google Calendar para revisar y guardar el evento desde tu cuenta.",
     ],
     steps: [
       "Abre el agente de ventas y escribe tu necesidad en lenguaje natural.",
       "Pregunta por productos, usos, diferencias entre modelos, soporte técnico, capacitación o próximos pasos comerciales.",
-      "Revisa el panel de precalificación: intención, prioridad, producto sugerido y próximo paso.",
-      "Si Talkey sugiere una demo o reunión, usa Agendar demo para abrir una plantilla en Google Calendar.",
-      "Completa o revisa los datos del evento antes de guardarlo y enviarlo desde tu calendario.",
-      "Si pides cotización, entrega producto de interés, ciudad, uso principal, instalación, capacitación y cualquier accesorio relevante.",
-      "Al final de una conversación comercial, confirma que Talkey haya dejado un llamado a la acción claro: agendar reunión o preparar presupuesto.",
-      "Continúa la conversación hasta que el equipo comercial tenga suficiente contexto para responder sin partir desde cero.",
+      "Talkey evalúa fit, intención, interacción, datos completos y señales de descarte.",
+      "Si faltan datos mínimos, el lead queda en calificación y Talkey pregunta lo necesario: email o teléfono, empresa, producto de interés o necesidad concreta.",
+      "Si cumple umbral MQL, entra al CRM como lead precalificado. Si cumple umbral SQL, queda listo para que ventas lo atienda con prioridad alta.",
+      "Si Talkey sugiere demo o reunión, usa Agendar demo para abrir una plantilla de Google Calendar y revísala antes de guardar.",
+      "Si pides cotización, entrega producto de interés, uso principal, ciudad, instalación, capacitación y accesorios relevantes.",
+      "Al cerrar la conversación, confirma que exista un próximo paso claro: agendar reunión, preparar presupuesto, pedir datos o derivar a ejecutivo.",
     ],
     checks: [
-      "La intención del lead coincide con lo que necesitas: demo, cotización, compra o información.",
-      "El producto sugerido es razonable para tu caso.",
-      "El próximo paso quedó claro.",
-      "Si abriste Google Calendar, revisaste y guardaste tú el evento.",
+      "La intención del lead coincide con lo que necesita: demo, cotización, compra o información.",
+      "El producto sugerido es razonable para el caso.",
+      "Si faltan datos, Talkey los pidió antes de crear un lead activo.",
+      "El próximo paso quedó claro y accionable.",
     ],
     tip:
-      "El agente no reemplaza una cotización formal: prepara mejor la conversación para que ventas llegue con información útil.",
+      "El agente no reemplaza una cotización formal; prepara la conversación para que ventas llegue con información útil y menos ruido.",
   },
   {
     id: "crm-ventas",
@@ -307,16 +411,18 @@ const appManuals: AppManual[] = [
     icon: LayoutDashboard,
     title: "CRM de ventas",
     subtitle:
-      "Para equipos comerciales que administran prospectos, oportunidades, cotizaciones y handoff hacia soporte.",
+      "Para equipos comerciales que administran prospectos, cuentas, oportunidades, cotizaciones, documentos y traspaso a soporte.",
     audience:
       "Ejecutivos, jefaturas comerciales y equipos que necesitan pipeline claro, próximos pasos y coordinación con postventa.",
+    learningGoal: "Aprender a operar el ciclo completo: de lead precalificado a oportunidad, documentos, venta ganada y handoff a soporte.",
+    outcome: "Una oportunidad con etapa, monto, cuenta comercial, prospecto, producto, cotización, documentos y próximo paso claros.",
     preview: {
       eyebrow: "CRM ventas",
-      title: "Smart Agent interno",
-      primary: "Riesgo: sin seguimiento · Acción: enviar email",
-      secondary: "Oportunidad ganada crea cliente y ticket en soporte",
-      rows: ["Pipeline priorizado", "Correo preparado", "Duplicado detectado", "Handoff postventa"],
-      chips: ["Score", "Riesgo", "Agenda", "Soporte"],
+      title: "Panel de control y pipeline",
+      primary: "Pipeline abierto · Forecast ponderado · Foco sugerido",
+      secondary: "La oportunidad ganada crea o actualiza cliente y ticket de onboarding en CRM Soporte",
+      rows: ["Tareas priorizadas", "Pipeline por etapas", "Detalle de oportunidad", "Documentos de cierre"],
+      chips: ["Score", "Riesgo", "Cotización", "Soporte"],
     },
     screenshots: [
       {
@@ -349,45 +455,97 @@ const appManuals: AppManual[] = [
       { label: "Ver precios", href: "/ventas#precios" },
     ],
     before: [
-      "Parte en Inicio para revisar pipeline abierto, prospectos calientes y clientes enviados a CRM Soporte.",
-      "Usa Prospectos para capturar leads nuevos antes de convertirlos en cuenta, contacto y oportunidad.",
-      "Recuerda que un cliente pasa a CRM Soporte cuando una oportunidad se marca como ganada.",
+      "Parte en Panel de control para revisar tareas prioritarias, alertas, documentos pendientes, prospectos recomendados y actividad reciente.",
+      "Usa Prospectos para revisar leads precalificados por agente, aceptar MQL/SQL, pedir más datos o descartar contactos sin fit.",
+      "Recuerda que una cotización debe estar asociada a una oportunidad; se crea desde el detalle de la oportunidad cuando corresponde.",
     ],
     steps: [
-      "Crea un prospecto con empresa, contacto, email, segmento, score y necesidad comercial.",
-      "Convierte el prospecto cuando esté listo: la app creará cuenta comercial, contacto y oportunidad inicial.",
-      "Gestiona la oportunidad en el pipeline: avanza etapa, actualiza próximo paso, fecha de cierre y cotizaciones cuando corresponda.",
-      "Usa Smart Agent para priorizar pipeline, detectar riesgos, preparar correos, encontrar duplicados o sugerir agenda.",
-      "Cuando Smart Agent prepare un correo de seguimiento, revisa tono, datos del cliente, propuesta de valor y próximo paso antes de enviarlo.",
-      "Si necesitas reunión, genera el enlace de Google Calendar, revisa la invitación y guárdala desde tu cuenta.",
-      "Marca una oportunidad como ganada solo cuando el cierre sea real. Después de ganar, revisa Talkey Soporte: Talkey crea o actualiza el cliente operativo y deja ticket de onboarding.",
-      "Confirma que el evento de integración o handoff hacia soporte incluya producto, contexto comercial, responsable y próximos pasos.",
+      "Abre Panel de control y atiende primero lo rojo o más urgente: tareas por vencer, documentos pendientes, riesgos y foco sugerido.",
+      "En Prospectos, revisa leads precalificados por agente. Acepta solo los que tienen intención y datos suficientes.",
+      "Crea o confirma la cuenta comercial. Cada prospecto debe quedar asociado a una cuenta para mantener coherencia de datos.",
+      "Crea nueva oportunidad desde Pipeline o desde Prospectos. Selecciona cuenta comercial, prospecto, producto, monto, etapa, fecha de cierre y próximo paso del flujo.",
+      "Gestiona la oportunidad en Pipeline por etapas. Usa Avanzar o Retroceder cuando cambia el estado comercial.",
+      "Abre la oportunidad para trabajar el detalle: botones, datos, cotización, alertas, documentos, historial y siguiente acción.",
+      "Cuando la oportunidad llegue a Propuesta o Negociación, crea cotización y completa el flujo documental: propuesta, cotización, email, OC, anexo, contrato, acta y orden de implementación.",
+      "Usa Enviar email automático solo después de revisar contenido, destinatario y remitente configurado en Maestro de emails.",
+      "Marca como Ganada únicamente cuando la venta sea real. Talkey traspasa automáticamente cliente, contexto y ticket de onboarding a CRM Soporte.",
+      "Si un traspaso falla, revisa CRM Soporte: la cola queda en pendiente, reintentando o error, y el botón manual aparece solo para recuperación.",
     ],
     checks: [
-      "Cada oportunidad tiene responsable, monto, etapa, fecha y próximo paso.",
+      "Cada oportunidad tiene cuenta comercial, prospecto, producto, monto, etapa, fecha y próximo paso.",
       "No hay leads u oportunidades duplicadas sin revisar.",
-      "Las oportunidades ganadas aparecen como clientes en CRM Soporte.",
-      "La cola de eventos hacia soporte queda sin pendientes críticos.",
+      "La cotización aparece dentro de la oportunidad y muestra avance documental, por ejemplo 2/8.",
+      "Las oportunidades ganadas aparecen como clientes en CRM Soporte o quedan en cola con estado claro.",
     ],
     tip:
       "La regla de oro es simple: si el próximo paso no está claro, el pipeline no está realmente actualizado.",
   },
+  {
+    id: "administracion-configuracion",
+    number: "05",
+    icon: Settings,
+    title: "Administración y configuración",
+    subtitle:
+      "Para administradores y gerentes que definen usuarios, permisos, productos, emails, reglas Playbook, conocimiento y datos maestros.",
+    audience:
+      "Admin Talkey, super-admin empresa, administradores de ventas/soporte, gerentes, data admin, knowledge admin e integration admin.",
+    learningGoal: "Aprender qué se configura una vez para que el resto del equipo pueda operar sin improvisar.",
+    outcome: "Un entorno con roles claros, catálogo consistente, reglas comerciales visibles y datos compartidos entre ventas y soporte.",
+    preview: {
+      eyebrow: "Administración",
+      title: "Reglas, permisos y maestros",
+      primary: "Playbook · Productos · Emails · Customer master",
+      secondary: "Los usuarios operativos venden y atienden; la configuración define cómo debe comportarse Talkey.",
+      rows: ["Roles y permisos", "Maestro de productos", "Maestro de emails", "Configuración Playbook"],
+      chips: ["Seguridad", "Datos", "IA", "Gobierno"],
+    },
+    screenshots: [],
+    links: [
+      { label: "Volver a apps", href: "#apps" },
+      { label: "Ver buenas prácticas", href: "#practicas" },
+    ],
+    before: [
+      "Define quién puede administrar ventas, soporte, datos, conocimiento, integraciones y seguridad.",
+      "Ten claro si la empresa usa ventas, soporte o ambos módulos; Talkey puede operar por módulos y crecer después.",
+      "Revisa que productos, remitentes y reglas Playbook reflejen la forma real de vender y atender.",
+    ],
+    steps: [
+      "Crea usuarios y asigna roles: ventas, soporte, gerencia, administración empresa, administración Talkey o perfiles especializados.",
+      "Carga o revisa el Maestro de productos para que oportunidades, cotizaciones y agentes hablen de un catálogo consistente.",
+      "Configura Maestro de emails con remitente, responder a, prefijo, plantilla, texto base, firma y modo de envío.",
+      "Ajusta Configuración Playbook: probabilidades por etapa, plazos de cierre, scoring de prioridad, reglas de cotización, tareas y notificaciones.",
+      "Configura la calificación del agente de ventas: umbral MQL, umbral SQL, datos mínimos y si se crean leads automáticamente al llegar a MQL.",
+      "Revisa automatizaciones: riesgo comercial, preparación de cierre, sugerencia de demo, duplicados y traspaso de ventas ganadas a soporte.",
+      "Gobierna Customer master: revisa duplicados, fusiona registros autorizados y mantén un historial único de cliente.",
+      "Audita acciones sensibles y eventos IA para entender qué hizo el sistema, quién cambió algo y dónde puede mejorar la operación.",
+    ],
+    checks: [
+      "Cada usuario tiene el mínimo permiso necesario para su rol.",
+      "Los productos activos son los que deben aparecer en oportunidades y cotizaciones.",
+      "Hay un email maestro predeterminado para envíos comerciales.",
+      "Las reglas Playbook explican claramente cómo Talkey prioriza, notifica y automatiza.",
+    ],
+    tip:
+      "Configurar bien al inicio reduce errores operativos después: menos texto libre, menos duplicados y menos decisiones escondidas.",
+  },
 ];
 
 const quickFlows = [
-  { icon: MessageSquareText, title: "Usuario conversa", text: "El cliente o prospecto explica lo que necesita en lenguaje natural." },
-  { icon: Sparkles, title: "Talkey ordena", text: "La app clasifica, resume, sugiere prioridad, responsable y próximo paso." },
-  { icon: ShieldCheck, title: "Equipo valida", text: "Soporte o ventas revisa el contexto antes de prometer o cerrar algo." },
-  { icon: CheckCircle2, title: "Caso trazable", text: "Queda historial, código, estado y una ruta clara para continuar." },
+  { icon: MessageSquareText, title: "Usuario conversa", text: "Cliente o prospecto explica lo que necesita en lenguaje natural." },
+  { icon: Sparkles, title: "Talkey ordena", text: "Clasifica, resume, detecta datos faltantes, prioridad y próximo paso." },
+  { icon: ShieldCheck, title: "Equipo valida", text: "Ventas o soporte revisa decisiones sensibles antes de prometer o cerrar algo." },
+  { icon: CheckCircle2, title: "Caso trazable", text: "Queda historial, estado, responsable, documento o acción siguiente." },
 ];
 
 const bestPractices = [
-  "Usa siempre el código de ticket o el nombre de la oportunidad cuando hagas seguimiento.",
-  "No mezcles temas distintos en el mismo ticket: un problema claro se resuelve más rápido.",
-  "En soporte, valida riesgos, garantías y procedimientos sensibles antes de responder.",
-  "En ventas, deja siempre un próximo paso concreto: llamada, demo, cotización o handoff.",
+  "Empieza por el objetivo del usuario: resolver un problema, calificar un lead, avanzar una oportunidad o configurar una regla.",
+  "Usa nombres consistentes: CRM de ventas, CRM Soporte, cuenta comercial, prospecto, oportunidad, Smart Agent y Customer master.",
+  "No mezcles temas distintos en el mismo ticket ni oportunidades distintas en una sola conversación.",
+  "En soporte, valida riesgos, garantías y procedimientos sensibles antes de enviar una respuesta sugerida.",
+  "En ventas, deja siempre un próximo paso concreto: llamada, demo, cotización, documento pendiente o handoff a soporte.",
   "Revisa las sugerencias de IA antes de usarlas. Talkey acelera, pero el equipo decide.",
-  "Cuando una solución se repite, conviértela en artículo de ayuda para que Talkey aprenda a atender mejor.",
+  "Cuando una solución o respuesta se repite, conviértela en conocimiento reutilizable para que Talkey atienda mejor la próxima vez.",
+  "Si una regla de prioridad se corrige manualmente, documenta por qué: esa decisión debe quedar por sobre el recálculo automático.",
 ];
 
 function InterfacePreview({ manual }: { manual: AppManual }) {
@@ -429,6 +587,8 @@ function InterfacePreview({ manual }: { manual: AppManual }) {
 }
 
 function ManualScreenshots({ manual }: { manual: AppManual }) {
+  if (!manual.screenshots.length) return null;
+
   return (
     <div className="mk-manual-shot-list" aria-label={`Capturas anotadas de ${manual.title}`}>
       {manual.screenshots.map((screenshot) => (
@@ -470,9 +630,11 @@ export default function ManualsPage() {
           </Link>
           <nav className="mk-manual-nav-links" aria-label="Navegación de manuales">
             <Link href="/">Inicio</Link>
+            <a href="#ruta-aprendizaje">Ruta</a>
             <a href="#apps">Apps</a>
+            <a href="#conceptos">Glosario</a>
             <a href="#manuales">Manuales</a>
-            <a href="#practicas">Buenas prácticas</a>
+            <a href="#administracion">Administración</a>
           </nav>
           <div className="mk-manual-nav-actions">
             <Link className="mk-nav-cta mk-nav-cta-sales" href="/ventas">
@@ -493,23 +655,22 @@ export default function ManualsPage() {
               <BookIcon />
               Manuales Talkey
             </span>
-            <h1>Guías claras para usar cada app Talkey.</h1>
+            <h1>Aprende a usar Talkey de punta a punta.</h1>
             <p>
-              Manuales con pasos accionables, referencias visuales de interfaz y criterios para operar soporte y
-              ventas con asistencia IA sin tener que aprender un software enorme.
+              Esta guía explica qué hace cada app, cuándo usarla, qué datos mirar, qué botones ejecutar y cómo verificar que el trabajo quedó trazable. Está pensada para usuarios nuevos, equipos de ventas, soporte, gerentes y administradores.
             </p>
             <div className="mk-manual-hero-actions">
-              <a className="mk-button mk-button-primary" href="#apps">
-                Elegir app <ArrowRight size={18} />
+              <a className="mk-button mk-button-primary" href="#ruta-aprendizaje">
+                Empezar aprendizaje <ArrowRight size={18} />
               </a>
-              <Link className="mk-button mk-button-secondary" href="/">
-                Volver al sitio <ArrowUpRight size={18} />
-              </Link>
+              <a className="mk-button mk-button-secondary" href="#conceptos">
+                Ver glosario <FileText size={18} />
+              </a>
             </div>
           </div>
 
           <aside className="mk-manual-flow-card" aria-label="Flujo general de Talkey">
-            <p>Ruta recomendada</p>
+            <p>Modelo mental básico</p>
             {quickFlows.map((item) => {
               const Icon = item.icon;
               return (
@@ -533,9 +694,34 @@ export default function ManualsPage() {
           <div>
             <strong>Imágenes de ejemplo</strong>
             <p>
-              Las capturas muestran una interfaz Talkey aplicada a nuestro cliente BioHertz. En una implementación real,
-              tu empresa verá su propio logo, colores institucionales, productos, canales y reglas operativas.
+              Las capturas muestran una interfaz Talkey aplicada a BioHertz. En una implementación real, tu empresa verá su propio logo, colores institucionales, productos, canales y reglas operativas.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="ruta-aprendizaje" className="mk-section mk-manual-learning">
+        <div className="mk-container">
+          <div className="mk-manual-section-head mk-manual-section-head-compact">
+            <div className="mk-section-label">
+              <span>01</span> Ruta de aprendizaje
+            </div>
+            <h2>Primero entiende la tarea; después usa la pantalla.</h2>
+            <p>
+              La guía está organizada para reducir memoria y evitar tutoriales largos: propósito, ubicación visual, pasos concretos y checklist final.
+            </p>
+          </div>
+          <div className="mk-manual-learning-grid">
+            {learningPath.map((item) => {
+              const Icon = item.icon;
+              return (
+                <article key={item.title}>
+                  <Icon size={20} />
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -544,10 +730,12 @@ export default function ManualsPage() {
         <div className="mk-container">
           <div className="mk-manual-section-head">
             <div className="mk-section-label">
-              <span>01</span> Elige tu app
+              <span>02</span> Elige tu app
             </div>
             <h2>Empieza por la experiencia que vas a usar.</h2>
-            <p>Cada app está pensada para operar con asistencia IA: clasificación, resumen, sugerencias, próximos pasos automáticos y apoyo operativo para el equipo.</p>
+            <p>
+              Cada app resuelve una tarea distinta. Si no sabes por dónde partir, busca tu rol: cliente, prospecto, soporte, ventas, gerente o administrador.
+            </p>
           </div>
 
           <div className="mk-manual-app-grid">
@@ -576,14 +764,38 @@ export default function ManualsPage() {
         </div>
       </section>
 
+      <section id="conceptos" className="mk-section mk-manual-concepts">
+        <div className="mk-container">
+          <div className="mk-manual-section-head mk-manual-section-head-compact">
+            <div className="mk-section-label">
+              <span>03</span> Glosario operativo
+            </div>
+            <h2>Conceptos que conviene reconocer antes de operar.</h2>
+            <p>
+              Talkey usa palabras de ventas, soporte y administración. Este glosario evita que el usuario tenga que recordar definiciones de otras pantallas.
+            </p>
+          </div>
+          <div className="mk-manual-concept-grid">
+            {coreConcepts.map(([term, definition]) => (
+              <article key={term}>
+                <strong>{term}</strong>
+                <p>{definition}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="manuales" className="mk-section mk-manual-guides">
         <div className="mk-container">
           <div className="mk-manual-section-head mk-manual-section-head-compact">
             <div className="mk-section-label">
-              <span>02</span> Manuales paso a paso
+              <span>04</span> Manuales paso a paso
             </div>
             <h2>Usa Talkey con calma, pero con foco.</h2>
-            <p>Antes de seguir cada flujo, mira la referencia visual: te muestra qué bloques de la interfaz debes revisar y qué datos deberían quedar visibles.</p>
+            <p>
+              Cada manual explica el objetivo, el resultado esperado, lo que debes preparar, los pasos de uso y cómo comprobar que quedó bien.
+            </p>
           </div>
 
           <div className="mk-manual-guide-list">
@@ -607,6 +819,17 @@ export default function ManualsPage() {
                     </div>
                   </div>
 
+                  <div className="mk-manual-objective-row">
+                    <article>
+                      <strong>Objetivo de aprendizaje</strong>
+                      <p>{manual.learningGoal}</p>
+                    </article>
+                    <article>
+                      <strong>Resultado esperado</strong>
+                      <p>{manual.outcome}</p>
+                    </article>
+                  </div>
+
                   <InterfacePreview manual={manual} />
                   <ManualScreenshots manual={manual} />
 
@@ -626,9 +849,7 @@ export default function ManualsPage() {
                       <h3>Paso a paso</h3>
                       <ol>
                         {manual.steps.map((step) => (
-                          <li key={step}>
-                            {step}
-                          </li>
+                          <li key={step}>{step}</li>
                         ))}
                       </ol>
 
@@ -652,13 +873,58 @@ export default function ManualsPage() {
         </div>
       </section>
 
+      <section id="administracion" className="mk-section mk-manual-admin">
+        <div className="mk-container">
+          <div className="mk-manual-section-head mk-manual-section-head-compact">
+            <div className="mk-section-label">
+              <span>05</span> Administración y flujo comercial
+            </div>
+            <h2>Lo que se configura para que el equipo opere simple.</h2>
+            <p>
+              Las configuraciones viven detrás de la operación diaria: no todos los usuarios las editan, pero todos se benefician de que existan reglas claras.
+            </p>
+          </div>
+
+          <div className="mk-manual-admin-grid">
+            {adminModules.map((item) => {
+              const Icon = item.icon;
+              return (
+                <article key={item.title}>
+                  <Icon size={20} />
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="mk-manual-document-flow">
+            <div>
+              <span>Flujo documental de ventas</span>
+              <h3>La oportunidad avanza cuando sus documentos quedan completos.</h3>
+              <p>
+                Una cotización no vive aislada: debe estar asociada a una oportunidad y al momento del flujo donde corresponde cotizar.
+              </p>
+            </div>
+            <ol>
+              {salesDocumentFlow.map(([title, text]) => (
+                <li key={title}>
+                  <strong>{title}</strong>
+                  <p>{text}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
       <section id="practicas" className="mk-section mk-manual-practices">
         <div className="mk-container mk-manual-practices-grid">
           <div>
             <div className="mk-section-label">
-              <span>03</span> Buenas prácticas
+              <span>06</span> Buenas prácticas
             </div>
-            <h2>Pequeños hábitos que hacen que Talkey funcione mucho mejor.</h2>
+            <h2>Hábitos pequeños que hacen que Talkey funcione mucho mejor.</h2>
           </div>
           <div className="mk-manual-practice-list">
             {bestPractices.map((practice) => (
@@ -677,10 +943,12 @@ export default function ManualsPage() {
             <span>
               <FileText size={18} /> Manuales publicados
             </span>
-            <h2>Cuando tengas dudas, vuelve a esta página y parte por tu app.</h2>
-            <p>El objetivo de Talkey es que soporte y ventas trabajen con más contexto, menos fricción y una experiencia simple para usuarios y equipos internos.</p>
-            <a className="mk-button mk-button-primary" href="#apps">
-              Ver apps <ArrowRight size={18} />
+            <h2>Cuando tengas dudas, vuelve a esta página y parte por tu objetivo.</h2>
+            <p>
+              Talkey funciona mejor cuando las personas no memorizan el sistema, sino que reconocen la tarea, siguen el flujo y verifican el resultado. Esa es la lógica de estos manuales.
+            </p>
+            <a className="mk-button mk-button-primary" href="#ruta-aprendizaje">
+              Volver al inicio del manual <ArrowRight size={18} />
             </a>
           </div>
         </div>

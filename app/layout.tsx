@@ -1,11 +1,137 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { absoluteUrl, defaultSeoMetadata, languageAlternates, seoByLocale, seoKeywords, siteUrl } from "@/lib/seo";
+import { GoogleAnalytics } from "@/components/google-analytics";
+import { defaultSeoMetadata, rootSeo, seoKeywords, siteUrl } from "@/lib/seo";
 import "./globals.css";
 
-const title = seoByLocale.es.title;
-const description = seoByLocale.es.description;
-const gaId = process.env.NEXT_PUBLIC_GA_ID;
+const title = rootSeo.title;
+const description = rootSeo.description;
+
+const scrollRevealScript = String.raw`
+(() => {
+  const rootSelector = ".mk-sales-page, .mk-support-page";
+  const groups = [
+    {
+      direction: "left",
+      selectors: [
+        ".mk-sales-hero-copy",
+        ".mk-sales-page .mk-section-heading",
+        ".mk-sales-flow-section > .mk-container > .mk-section-label",
+        ".mk-sales-flow-section > .mk-container > h2",
+        ".mk-sales-flow-note",
+        ".mk-sales-editor-grid > div:first-child",
+        ".mk-sales-final-card > div:first-child",
+        ".mk-support-page .mk-hero-copy",
+        ".mk-support-page .mk-section-heading",
+        ".mk-support-page .mk-contact-copy"
+      ]
+    },
+    {
+      direction: "right",
+      selectors: [
+        ".mk-sales-page .mk-package-grid article:nth-child(1)",
+        ".mk-support-page .mk-support-package-pricing .mk-package-grid article:nth-child(1)"
+      ]
+    },
+    {
+      direction: "left",
+      selectors: [
+        ".mk-sales-page .mk-package-grid article:nth-child(3)",
+        ".mk-support-page .mk-support-package-pricing .mk-package-grid article:nth-child(3)"
+      ]
+    },
+    {
+      direction: "up",
+      selectors: [
+        ".mk-sales-hero-aside",
+        ".mk-sales-problem-table",
+        ".mk-sales-page .mk-sales-list-toggle",
+        ".mk-sales-flow",
+        ".mk-sales-editor-card",
+        ".mk-sales-page .mk-comparison-showcase",
+        ".mk-sales-page .mk-package-grid article:nth-child(2)",
+        ".mk-sales-final-card > .mk-diagnosis-cta",
+        ".mk-support-page .mk-hero-visual",
+        ".mk-support-page .mk-problem-pairs",
+        ".mk-support-page .mk-list-toggle",
+        ".mk-support-page .mk-manager-grid",
+        ".mk-support-page .mk-comparison-showcase",
+        ".mk-support-page .mk-privacy-grid",
+        ".mk-support-page .mk-privacy-data-note",
+        ".mk-support-page .mk-integration-grid",
+        ".mk-support-page .mk-faq-grid",
+        ".mk-support-page .mk-support-package-pricing .mk-package-grid article:nth-child(2)",
+        ".mk-support-page .mk-contact-grid > :not(.mk-contact-copy)"
+      ]
+    }
+  ];
+
+  let observer;
+  let mutationObserver;
+  let initialized = false;
+  const reduceMotion = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function revealImmediately(element) {
+    element.classList.add("is-visible");
+  }
+
+  function markElement(element, direction) {
+    if (!(element instanceof HTMLElement)) return;
+    if (element.dataset.mkRevealReady === "true") return;
+    if (element.closest(".mk-header, .mk-footer")) return;
+
+    element.dataset.mkReveal = direction;
+    element.dataset.mkRevealReady = "true";
+    element.classList.add("mk-scroll-reveal");
+
+    if (reduceMotion() || !observer) {
+      revealImmediately(element);
+      return;
+    }
+
+    observer.observe(element);
+  }
+
+  function scan() {
+    document.querySelectorAll(rootSelector).forEach((root) => {
+      groups.forEach(({ direction, selectors }) => {
+        root.querySelectorAll(selectors.join(",")).forEach((element) => markElement(element, direction));
+      });
+    });
+  }
+
+  function init() {
+    if (initialized) {
+      scan();
+      return;
+    }
+    initialized = true;
+
+    if ("IntersectionObserver" in window && !reduceMotion()) {
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.14, rootMargin: "0px 0px -10% 0px" });
+    }
+
+    scan();
+
+    mutationObserver = new MutationObserver(() => scan());
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
+
+  window.addEventListener("pageshow", scan);
+})();
+`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -21,10 +147,6 @@ export const metadata: Metadata = {
   creator: "Talkey",
   publisher: "Talkey",
   category: "Software",
-  alternates: {
-    canonical: absoluteUrl("/"),
-    languages: languageAlternates(),
-  },
   robots: {
     index: true,
     follow: true,
@@ -74,6 +196,33 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
+
+const frontendCopyProtectionScript = String.raw`
+(() => {
+  function isEditableTarget(target) {
+    return Boolean(target?.closest?.("input, textarea, select, [contenteditable='true'], [data-allow-copy]"));
+  }
+
+  function blockWhenProtected(event) {
+    if (!document.body.classList.contains("copy-protected")) return;
+    if (!isEditableTarget(event.target)) event.preventDefault();
+  }
+
+  document.body.classList.add("copy-protected");
+  document.addEventListener("contextmenu", blockWhenProtected);
+  document.addEventListener("copy", blockWhenProtected);
+  document.addEventListener("cut", blockWhenProtected);
+  document.addEventListener("dragstart", blockWhenProtected);
+  document.addEventListener("selectstart", blockWhenProtected);
+  document.addEventListener("keydown", (event) => {
+    if (!document.body.classList.contains("copy-protected")) return;
+    if (isEditableTarget(event.target)) return;
+    const key = event.key.toLowerCase();
+    if ((event.metaKey || event.ctrlKey) && ["a", "c", "p", "s", "u", "x"].includes(key)) event.preventDefault();
+  });
+})();
+`;
+
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -81,6 +230,7 @@ const structuredData = {
       "@type": "Organization",
       "@id": `${siteUrl}/#organization`,
       name: "Talkey",
+      alternateName: "Talkey Chile",
       url: siteUrl,
       logo: `${siteUrl}/brand/talkey-key.svg`,
       email: "contact@talkeyco.com",
@@ -133,8 +283,11 @@ const structuredData = {
       },
       availableLanguage: ["es", "en", "it"],
       offers: {
-        "@type": "Offer",
+        "@type": "AggregateOffer",
         priceCurrency: "CLP",
+        lowPrice: 590000,
+        highPrice: 2900000,
+        offerCount: 3,
         availability: "https://schema.org/InStock",
       },
       publisher: {
@@ -178,69 +331,25 @@ const structuredData = {
       },
       description,
     },
-    {
-      "@type": "FAQPage",
-      "@id": `${siteUrl}/#faq`,
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "¿Qué hace Talkey?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Talkey transforma conocimiento técnico disperso en respuestas consistentes, diagnósticos guiados y derivación humana cuando corresponde.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "¿Talkey reemplaza a un software de tickets?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "No. Talkey se enfoca en resolver problemas técnicos usando conocimiento estructurado; puede convivir con un software de tickets que ordena conversaciones, prioridades y estados.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "¿Talkey sirve si la documentación técnica está incompleta?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Sí. Talkey puede ayudar a estructurar manuales, procedimientos y troubleshootings durante la implementación.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "¿Talkey reemplaza a mis agentes humanos?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "No necesariamente. Talkey ayuda a que los agentes humanos trabajen mejor, con menos carga repetitiva y más contexto para casos complejos.",
-          },
-        },
-      ],
-    },
   ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body suppressHydrationWarning>
-        {gaId && (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
-            <Script id="talkey-google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${gaId}', { anonymize_ip: true });
-              `}
-            </Script>
-          </>
-        )}
+      <body className="copy-protected" suppressHydrationWarning>
+        <GoogleAnalytics />
         <script
           id="talkey-structured-data"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
         />
+        <Script id="talkey-scroll-reveal" strategy="afterInteractive">
+          {scrollRevealScript}
+        </Script>
+        <Script id="talkey-copy-protection" strategy="afterInteractive">
+          {frontendCopyProtectionScript}
+        </Script>
         {children}
       </body>
     </html>

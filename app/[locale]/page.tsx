@@ -9,13 +9,16 @@ type LocalePageProps = {
 };
 
 export const dynamic = "force-static";
+export const dynamicParams = false;
 
 function isMarketingLocale(locale: string): locale is MarketingLocale {
   return supportedSeoLocales.includes(locale as MarketingLocale);
 }
 
 export function generateStaticParams() {
-  return supportedSeoLocales.map((locale) => ({ locale }));
+  return supportedSeoLocales
+    .filter((locale) => locale !== "es")
+    .map((locale) => ({ locale }));
 }
 
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
@@ -39,4 +42,3 @@ export default async function LocaleHomePage({ params }: LocalePageProps) {
     />
   );
 }
-

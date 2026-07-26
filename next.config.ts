@@ -11,12 +11,12 @@ const securityHeaders = [
       "object-src 'none'",
       "frame-ancestors 'none'",
       "form-action 'self' https://calendar.app.google",
-      "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com",
+      "img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com",
       "font-src 'self'",
-      `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com`,
+      `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https://*.googletagmanager.com`,
       "script-src-attr 'none'",
       "style-src 'self' 'unsafe-inline'",
-      "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com",
+      "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
       "frame-src 'none'",
       "media-src 'self'",
       "manifest-src 'self'",
@@ -45,8 +45,28 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/soporte-tecnico",
+        destination: "/soporte",
+        permanent: true,
+      },
+      {
+        source: "/manualesdeuso",
+        destination: "/manuales",
+        permanent: true,
+      },
+      {
         source: "/manualesbiohertz",
-        destination: "/manualesdeuso",
+        destination: "/manuales",
+        permanent: true,
+      },
+      {
+        source: "/IA",
+        destination: "/soporte",
+        permanent: true,
+      },
+      {
+        source: "/es",
+        destination: "/soporte",
         permanent: true,
       },
     ];
@@ -67,27 +87,14 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/",
-        headers: [
-          { key: "Content-Language", value: "es-CL" },
-          { key: "Cache-Control", value: "no-store, max-age=0" },
-        ],
+        headers: [{ key: "Content-Language", value: "es-CL" }],
       },
       {
         source: "/ventas",
-        headers: [
-          { key: "Content-Language", value: "es-CL" },
-          { key: "Cache-Control", value: "no-store, max-age=0" },
-        ],
+        headers: [{ key: "Content-Language", value: "es-CL" }],
       },
       {
-        source: "/soporte-tecnico",
-        headers: [
-          { key: "Content-Language", value: "es-CL" },
-          { key: "Cache-Control", value: "no-store, max-age=0" },
-        ],
-      },
-      {
-        source: "/es",
+        source: "/soporte",
         headers: [{ key: "Content-Language", value: "es-CL" }],
       },
       {
@@ -99,8 +106,16 @@ const nextConfig: NextConfig = {
         headers: [{ key: "Content-Language", value: "it" }],
       },
       {
-        source: "/manualesdeuso",
+        source: "/manuales",
         headers: [{ key: "Content-Language", value: "es-CL" }],
+      },
+      {
+        source: "/climax/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+      {
+        source: "/davaterm/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
       {
         source: "/:path*",

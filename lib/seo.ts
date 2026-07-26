@@ -11,11 +11,17 @@ type SeoLocaleConfig = {
   languageName: string;
 };
 
+export const rootSeo = {
+  title: "Talkey Chile | IA para ventas y soporte técnico",
+  description:
+    "Talkey une CRM con IA, automatización de ventas y soporte técnico inteligente para calificar leads, guiar diagnósticos y mantener cada caso con contexto.",
+};
+
 export const seoByLocale: Record<MarketingLocale, SeoLocaleConfig> = {
   es: {
-    title: "Talkey | Plataforma IA para ventas y soporte técnico",
+    title: "Software de soporte técnico con IA para empresas | Talkey",
     description:
-      "Talkey es una plataforma IA para convertir conversaciones en ventas y problemas técnicos en fidelización. Une CRM de ventas, soporte técnico, tickets, historial, conocimiento editable e integraciones.",
+      "Talkey convierte manuales e historial en soporte técnico con IA: respuestas consistentes, diagnóstico guiado y derivación con contexto para postventa.",
     openGraphLocale: "es_CL",
     languageName: "Spanish",
   },
@@ -35,33 +41,48 @@ export const seoByLocale: Record<MarketingLocale, SeoLocaleConfig> = {
   },
 };
 
+export const salesSeoKeywords = [
+  "CRM con inteligencia artificial",
+  "CRM con IA Chile",
+  "automatización de ventas con IA",
+  "agente IA para ventas",
+  "asistente virtual de ventas",
+  "seguimiento automático de leads",
+  "calificación automática de leads",
+  "lead scoring con IA",
+  "pipeline de ventas automatizado",
+  "CRM para WhatsApp con IA",
+  "automatización de WhatsApp con IA",
+  "software de seguimiento comercial",
+  "IA para cotizaciones y seguimiento comercial",
+  "automatización comercial Chile",
+];
+
+export const supportSeoKeywords = [
+  "software de soporte técnico con IA",
+  "asistente virtual de soporte técnico",
+  "automatización de soporte técnico",
+  "IA para soporte técnico",
+  "IA para postventa",
+  "software de postventa",
+  "software de servicio técnico",
+  "base de conocimiento con IA",
+  "gestión de conocimiento técnico",
+  "diagnóstico técnico guiado con IA",
+  "chatbot de soporte técnico",
+  "soporte técnico 24/7",
+  "IA para soporte técnico de fabricantes y distribuidores",
+  "asistente virtual para postventa Chile",
+  "automatizar soporte técnico de productos",
+  "IA para manuales y troubleshooting",
+];
+
 export const seoKeywords = [
   "Talkey",
-  "plataforma IA ventas soporte",
-  "CRM de ventas con IA",
-  "asistente comercial IA",
-  "automatización de ventas con IA",
-  "asistente virtual soporte técnico",
-  "asistente virtual postventa",
-  "asistente virtual servicio técnico",
-  "asistente virtual para postventa Chile",
-  "IA para soporte técnico",
-  "soporte técnico con inteligencia artificial",
-  "agente de soporte técnico IA",
-  "automatización soporte técnico",
-  "automatización postventa",
-  "diagnóstico técnico remoto",
-  "software postventa",
-  "software servicio técnico",
-  "soporte técnico 24/7",
-  "base de conocimiento soporte técnico",
-  "software soporte técnico IA",
-  "software ventas soporte IA",
-  "chatbot soporte técnico",
-  "soporte técnico climatización",
-  "soporte técnico electrodomesticos",
-  "soporte técnico minería",
-  "soporte técnico equipos médicos",
+  "plataforma IA para empresas",
+  "plataforma IA para ventas y soporte técnico",
+  ...salesSeoKeywords,
+  ...supportSeoKeywords,
   "AI technical support assistant",
   "technical support automation",
   "AI customer support for technical products",
@@ -69,7 +90,7 @@ export const seoKeywords = [
 ];
 
 export const localePaths: Record<MarketingLocale, string> = {
-  es: "/es",
+  es: "/soporte",
   en: "/en",
   it: "/it",
 };
@@ -84,7 +105,7 @@ export function languageAlternates() {
     es: absoluteUrl(localePaths.es),
     en: absoluteUrl(localePaths.en),
     it: absoluteUrl(localePaths.it),
-    "x-default": absoluteUrl("/"),
+    "x-default": absoluteUrl(localePaths.es),
   };
 }
 
@@ -99,7 +120,7 @@ export function getPageMetadata(locale: MarketingLocale, path = localePaths[loca
       absolute: seo.title,
     },
     description: seo.description,
-    keywords: seoKeywords,
+    keywords: supportSeoKeywords,
     alternates: {
       canonical: absoluteUrl(path),
       languages: languageAlternates(),
@@ -117,7 +138,7 @@ export function getPageMetadata(locale: MarketingLocale, path = localePaths[loca
           url: "/opengraph-image",
           width: 1200,
           height: 630,
-          alt: "Talkey - asistente virtual de soporte técnico para postventa",
+          alt: "Talkey - software de soporte técnico con inteligencia artificial",
         },
       ],
     },
@@ -130,4 +151,35 @@ export function getPageMetadata(locale: MarketingLocale, path = localePaths[loca
   };
 }
 
-export const defaultSeoMetadata = getPageMetadata("es", "/");
+export const defaultSeoMetadata: Metadata = {
+  title: {
+    absolute: rootSeo.title,
+  },
+  description: rootSeo.description,
+  keywords: seoKeywords,
+  alternates: {
+    canonical: absoluteUrl("/"),
+  },
+  openGraph: {
+    type: "website",
+    url: absoluteUrl("/"),
+    siteName: "Talkey",
+    title: rootSeo.title,
+    description: rootSeo.description,
+    locale: "es_CL",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Talkey - plataforma IA para ventas y soporte técnico",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: rootSeo.title,
+    description: rootSeo.description,
+    images: ["/opengraph-image"],
+  },
+};

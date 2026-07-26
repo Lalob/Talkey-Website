@@ -1,57 +1,48 @@
 import type { MetadataRoute } from "next";
-import { absoluteUrl, languageAlternates, localePaths, supportedSeoLocales } from "@/lib/seo";
+import { absoluteUrl, languageAlternates, localePaths } from "@/lib/seo";
 
-const lastModified = new Date("2026-07-07");
+const pageDates = {
+  home: new Date("2026-07-23"),
+  sales: new Date("2026-07-23"),
+  support: new Date("2026-07-23"),
+  manuals: new Date("2026-07-07"),
+  translations: new Date("2026-07-07"),
+};
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: absoluteUrl("/"),
-      lastModified,
-      changeFrequency: "weekly",
-      priority: 1,
-      alternates: {
-        languages: languageAlternates(),
-      },
-    },
-    ...supportedSeoLocales.map((locale) => ({
-      url: absoluteUrl(localePaths[locale]),
-      lastModified,
-      changeFrequency: "weekly" as const,
-      priority: locale === "es" ? 0.95 : 0.85,
-      alternates: {
-        languages: languageAlternates(),
-      },
-    })),
-    {
-      url: absoluteUrl("/manuales"),
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.8,
+      lastModified: pageDates.home,
     },
     {
       url: absoluteUrl("/ventas"),
-      lastModified,
-      changeFrequency: "weekly",
-      priority: 0.9,
+      lastModified: pageDates.sales,
     },
     {
       url: absoluteUrl("/soporte"),
-      lastModified,
-      changeFrequency: "weekly",
-      priority: 0.9,
+      lastModified: pageDates.support,
+      alternates: {
+        languages: languageAlternates(),
+      },
     },
     {
-      url: absoluteUrl("/climax"),
-      lastModified: new Date("2026-07-10"),
-      changeFrequency: "monthly",
-      priority: 0.7,
+      url: absoluteUrl(localePaths.en),
+      lastModified: pageDates.translations,
+      alternates: {
+        languages: languageAlternates(),
+      },
     },
     {
-      url: absoluteUrl("/climax/productos"),
-      lastModified: new Date("2026-07-10"),
-      changeFrequency: "monthly",
-      priority: 0.65,
+      url: absoluteUrl(localePaths.it),
+      lastModified: pageDates.translations,
+      alternates: {
+        languages: languageAlternates(),
+      },
+    },
+    {
+      url: absoluteUrl("/manuales"),
+      lastModified: pageDates.manuals,
     },
   ];
 }

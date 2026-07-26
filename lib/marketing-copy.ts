@@ -163,6 +163,7 @@ export type MarketingCopy = {
     date: string;
     time: string;
     submit: string;
+    ctaDetail?: string;
     note: string;
     success: string;
     subject: string;
@@ -201,14 +202,14 @@ export const archivedSupportChatPrompts: Record<MarketingLocale, string[]> = {
 export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
   es: {
     languageName: "Español",
-    nav: { product: "Producto", how: "Cómo funciona", impact: "Impacto", pricing: "Simulador de precios", security: "Seguridad", quote: "Agenda una cotización", menu: "Abrir menú" },
+    nav: { product: "Producto", how: "Cómo funciona", impact: "Impacto", pricing: "Simulador de precios", security: "Seguridad", quote: "Agenda tu diagnóstico gratis", menu: "Abrir menú" },
     hero: {
       eyebrow: "Soporte técnico consistente · Disponible 24/7",
       lead: "Soporte técnico consistente",
       emphasis: "CON CONOCIMIENTO ESTRUCTURADO",
       tail: "para operaciones de postventa",
       body: "Talkey transforma manuales, procedimientos y experiencia técnica en respuestas claras, trazables y siempre disponibles.",
-      primary: "Agendar diagnóstico de 30 min",
+      primary: "Agenda tu diagnóstico gratis",
       secondary: "Probar demo",
       proof: ["Sin reemplazar tu equipo", "Derivación humana", "Respuestas trazables"],
     },
@@ -225,8 +226,8 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       actions: {
         pricingSimulator: "Ir al simulador de precios",
         tryAnotherCase: "Probar otro caso",
-        bookReview: "Agendar diagnóstico de 30 min",
-        bookDemo: "Agendar diagnóstico de 30 min",
+        bookReview: "Agenda tu diagnóstico gratis",
+        bookDemo: "Agenda tu diagnóstico gratis",
       },
       responses: {
         pricing: "El precio final se confirma en una evaluación, porque Talkey se ajusta al alcance real de cada operación. En el sitio puedes revisar paquetes referenciales y, si quieres aterrizarlo a tu empresa, solicita una evaluación.",
@@ -352,7 +353,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
         rangeConnector: "y",
         estimateBadge: "CLP · estimación referencial mensual",
         implementationRange: "Costo fijo de implementación estimado",
-        demoButton: "Solicitar una demostración",
+        demoButton: "Agenda tu diagnóstico gratis",
         legal: "Estos valores son estimativos y deben validarse mediante una evaluación comercial y técnica.",
         monthlySuffix: "/ mes",
         implementationSuffix: "Se paga solo una vez",
@@ -383,7 +384,7 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       ],
     },
     scheduler: {
-      kicker: "Agendar diagnóstico de 30 min",
+      kicker: "Agenda tu diagnóstico gratis",
       title: "Revisemos si Talkey calza con tu operación de soporte técnico",
       body: "Cuéntanos cómo funciona tu soporte, qué productos y servicios atiendes, qué documentación existe y qué canales necesitas cubrir. En 30 minutos revisaremos si Talkey puede ayudarte y qué haría falta para implementarlo.",
       duration: "30 minutos",
@@ -393,7 +394,8 @@ export const marketingCopy: Record<MarketingLocale, MarketingCopy> = {
       email: "Correo de trabajo",
       date: "Fecha",
       time: "Hora",
-      submit: "Ver horarios disponibles",
+      submit: "Agenda tu diagnóstico gratis",
+      ctaDetail: "30 minutos · Sin compromiso",
       note: "Elige un horario disponible en la página de reservas de Talkey. Recibirás la confirmación y los detalles de la reunión.",
       success: "Reserva confirmada.",
       subject: "Evaluación Talkey",

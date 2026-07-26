@@ -31,6 +31,7 @@ export function MarketingScheduler({ copy }: { copy: MarketingCopy["scheduler"] 
         <a className="mk-scheduler-submit mk-booking-button" href={bookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent("agenda_click", { source: "scheduler" })}>
           {copy.submit}<ArrowUpRight size={18} />
         </a>
+        {copy.ctaDetail ? <small className="mk-scheduler-cta-detail">{copy.ctaDetail}</small> : null}
       </div>
     </div>
   );
