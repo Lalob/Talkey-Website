@@ -18,6 +18,9 @@ import {
 } from "lucide-react";
 import { ComparisonShowcase } from "@/components/comparison-showcase";
 import { MarketingChatDemo } from "@/components/marketing-chat-demo";
+import { MobileSuiteHeader } from "@/components/mobile-suite-header";
+import { ProblemSolutionAccordion } from "@/components/problem-solution-accordion";
+import { LegalFooter } from "@/components/legal-footer";
 import { MarketingScheduler } from "@/components/marketing-scheduler";
 import { PricingSimulator } from "@/components/pricing-simulator";
 import { trackEvent } from "@/lib/analytics";
@@ -34,7 +37,7 @@ const navLineBreakLabels: Record<MarketingLocale, { cases: [string, string]; pri
 };
 
 const previewItemCount = 3;
-type ExpandableListKey = "problems" | "faq";
+type ExpandableListKey = "faq";
 
 const supportComparisonShowcaseContent: Record<
   MarketingLocale,
@@ -132,6 +135,7 @@ const supportPricingPackages = [
       "Detección de duplicados",
       "Integración CRM/calendario/API estándar",
       "Dashboard operacional",
+      "Soporte preferente",
     ],
   },
   {
@@ -157,17 +161,42 @@ const supportPricingPackages = [
   },
 ];
 
+const supportVoiceAddOnPricing = [
+  {
+    plan: "Base",
+    price: "+$290.000 CLP",
+    included: "Hasta 1.000 min/mes",
+    overage: "$390 CLP/min adicional",
+    note: "Para resolver consultas frecuentes por teléfono, guiar diagnóstico inicial y pasar casos con contexto.",
+  },
+  {
+    plan: "Pro",
+    price: "+$590.000 CLP",
+    included: "Hasta 3.000 min/mes",
+    overage: "$320 CLP/min adicional",
+    note: "Para soporte con más volumen, varios canales, tickets, diagnóstico guiado y CRM conectado.",
+  },
+  {
+    plan: "Enterprise",
+    price: "Desde +$1.490.000 CLP",
+    included: "Desde 10.000 min/mes",
+    overage: "Desde $240 CLP/min adicional",
+    note: "Para operaciones críticas, alto volumen, múltiples equipos, reglas avanzadas e integraciones de voz.",
+  },
+];
+
 const narrativeContent = {
   es: {
     controls: { showMoreProblems: "Ver más problemas/soluciones...", showMoreComparisons: "Ver más comparaciones...", showMoreIndustries: "Ver más industrias...", showMoreFaq: "Ver más preguntas frecuentes...", showLess: "Ver menos..." },
-    nav: { problem: "Problemas/Soluciones", solution: "Solución", cases: "Casos de uso", demo: "Demo", manuals: "Manuales", pricing: "Precios", comparison: "Comparación", quote: "Agendar diagnóstico de 30 min" },
+    nav: { problem: "Problemas/Soluciones", solution: "Solución", cases: "Casos de uso", demo: "Demo", manuals: "Manuales", pricing: "Precios", comparison: "Comparación", quote: "Agenda tu diagnóstico gratis" },
     hero: {
       eyebrow: "",
       titleParts: [
         { text: "Soporte técnico que no parte de cero" },
       ],
       body: "Talkey convierte manuales, procedimientos e historial en respuestas consistentes, diagnóstico guiado y derivación con contexto.",
-      primary: "Agendar diagnóstico de 30 min",
+      audienceNote: "Para empresas donde el soporte al cliente es una ventaja competitiva",
+      primary: "Agenda tu diagnóstico gratis",
       secondary: "Ver demo de caso técnico",
       tertiary: "Ver precios",
       proof: ["Soporte técnico de calidad", "Menos dependencia individual", "Diagnósticos repetibles"],
@@ -189,14 +218,14 @@ const narrativeContent = {
       pairTitleProblem: "Problema",
       pairTitleSolution: "Cómo lo resuelve Talkey Soporte Técnico",
       pairs: [
-        { problem: "Clientes esperando a ser atendidos", solution: "Talkey está disponible 24/7 para iniciar la atención de inmediato por chat o por voz si el cliente llama por teléfono, con respuestas pacientes, consistentes y basadas en conocimiento aprobado." },
-        { problem: "El cliente vuelve a consultar por un problema ya reportado", solution: "Talkey puede usar el historial individual de ese cliente, cuando está disponible, para que la atención no parta desde cero y continúe con más contexto." },
-        { problem: "El cliente no sabe exactamente qué modelo o producto tiene", solution: "Talkey identifica el producto desde una foto de la etiqueta, QR o número de serie, guía el diagnóstico y resuelve o deriva el caso con contexto." },
-        { problem: "Casos simples terminan derivados a especialistas", solution: "Talkey aplica criterios comunes, intenta resolver casos frecuentes y deriva solo cuando hay riesgo, baja certeza o complejidad real." },
-        { problem: "Los manuales existen, pero nadie los usa durante una llamada", solution: "Talkey transforma documentación técnica en respuestas claras y acciones concretas. También funciona como copiloto para agentes humanos: resume el ticket, sugiere prioridad, responsable, ETA y una respuesta inicial." },
-        { problem: "Cada agente responde distinto", solution: "Talkey responde desde conocimiento aprobado y mantiene el mismo criterio para casos equivalentes." },
-        { problem: "Los técnicos antiguos saben cosas que no están documentadas", solution: "Talkey convierte experiencia individual en conocimiento reutilizable para toda la operación." },
-        { problem: "Se envían técnicos a terreno demasiado pronto", solution: "Talkey mejora el diagnóstico remoto antes de enviar a una persona a terreno." },
+        { problem: "Más productos y modelos que atender", solution: "Talkey estructura el conocimiento por producto y modelo para ampliar la cobertura sin multiplicar la complejidad del equipo de soporte." },
+        { problem: "Manuales y procedimientos dispersos", solution: "Talkey convierte manuales, procedimientos y experiencia técnica en una base aprobada que entrega respuestas y pasos concretos durante la atención." },
+        { problem: "Usuarios que esperan respuestas inmediatas", solution: "Talkey inicia la atención 24/7 por chat o voz, responde consultas frecuentes y deriva con contexto cuando se necesita una persona." },
+        { problem: "Dificultad para ampliar equipos humanos", solution: "Talkey absorbe demanda repetitiva y guía a los agentes humanos para ampliar la capacidad de atención sin depender únicamente de nuevas contrataciones." },
+        { problem: "Contexto perdido entre canales", solution: "Talkey conserva el historial del cliente, producto y caso para continuar la atención por distintos canales sin volver a preguntar lo mismo." },
+        { problem: "Respuestas distintas para el mismo problema", solution: "Talkey responde desde conocimiento aprobado y aplica criterios consistentes para que casos equivalentes reciban la misma calidad de atención." },
+        { problem: "Clientes que no identifican su producto", solution: "Talkey reconoce el producto o modelo desde una foto de la etiqueta, QR o número de serie y comienza el diagnóstico con mejor contexto." },
+        { problem: "Especialistas ocupados en casos repetitivos", solution: "Talkey resuelve casos frecuentes y entrega a los especialistas solo los casos de mayor complejidad, ya resumidos y con la información necesaria." },
       ],
     },
     solution: {
@@ -281,7 +310,7 @@ const narrativeContent = {
       kicker: "Preguntas frecuentes",
       title: "Respuestas rápidas antes de una evaluación.",
       items: [
-        { question: "¿Cuánto demora una implementación?", answer: "Depende del volumen de productos, documentos, canales y validación técnica. Lo correcto es revisarlo en una evaluación.", cta: "Agendar diagnóstico de 30 min", ctaHref: talkeyBookingUrl },
+        { question: "¿Cuánto demora una implementación?", answer: "Depende del volumen de productos, documentos, canales y validación técnica. Lo correcto es revisarlo en una evaluación.", cta: "Agenda tu diagnóstico gratis", ctaHref: talkeyBookingUrl },
         { question: "¿Cuánto cuesta?", answer: "El precio depende del volumen, canales, documentación, integraciones y nivel de acompañamiento requerido. Revisa los paquetes referenciales y luego solicita una evaluación para ajustar alcance y precio final.", cta: "Ver paquetes de precios" },
         { question: "¿Talkey ayuda también al equipo interno?", answer: "Sí. Además de asistir al cliente, Talkey puede actuar como copiloto operativo para agentes: resume tickets, sugiere prioridad, responsable, próximos pasos y respuestas iniciales." },
         { question: "¿Talkey es un chatbot?", answer: "No solamente. La interfaz puede parecer un chat, pero el valor está en organizar conocimiento técnico, aplicar procedimientos y mantener criterios de soporte." },
@@ -582,11 +611,7 @@ function SupportPricingPackagesSection() {
       <div className="mk-container">
         <div className="mk-section-heading">
           <div className="mk-section-label"><span>08</span>Precios</div>
-          <h2>Paquetes para partir con soporte técnico estructurado.</h2>
-          <p>
-            Los valores son referenciales. Talkey se posiciona como una solución premium porque une asistente virtual,
-            conocimiento técnico, consola para agentes humanos, trazabilidad y continuidad operacional.
-          </p>
+          <h2>Paquetes para adaptarnos a tus necesidades</h2>
         </div>
         <div className="mk-package-grid">
           {supportPricingPackages.map((plan) => (
@@ -600,9 +625,33 @@ function SupportPricingPackagesSection() {
                   <li key={feature}><BadgeCheck size={17} />{feature}</li>
                 ))}
               </ul>
-              <a href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">Agendar diagnóstico de 30 min <ArrowRight size={16} /></a>
+              <a href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer">Agenda tu diagnóstico gratis <ArrowRight size={16} /></a>
+              <p className="mk-package-channel-note">El plan incluye chat de texto e imágenes. No incluye conversaciones de voz.</p>
+              <a className="mk-package-voice-link" href="#planes-con-voz">Ver planes con voz <ArrowRight size={15} /></a>
             </article>
           ))}
+        </div>
+
+        <div id="planes-con-voz" className="mk-voice-addon" aria-labelledby="voice-addon-title-support">
+          <div className="mk-voice-addon-copy">
+            <p className="mk-voice-addon-kicker">Add-on opcional</p>
+            <h3 id="voice-addon-title-support">Voz IA para soporte telefónico</h3>
+            <p>
+              Se suma al plan mensual solo si quieres que tus clientes hablen con Talkey por teléfono: diagnóstico guiado,
+              paciencia constante y derivación con contexto cuando corresponde.
+            </p>
+          </div>
+          <div className="mk-voice-addon-grid">
+            {supportVoiceAddOnPricing.map((option) => (
+              <article key={option.plan}>
+                <span>{option.plan}</span>
+                <strong>{option.price} <em>al mes</em></strong>
+                <p>{option.included}</p>
+                <small>{option.overage}</small>
+                <p className="mk-voice-addon-note">{option.note}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -626,20 +675,13 @@ export function CommercialHome({
   const [clientLocaleReady, setClientLocaleReady] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedLists, setExpandedLists] = useState<Record<ExpandableListKey, boolean>>({
-    problems: false,
     faq: false,
   });
   const expandedListOpenScrollY = useRef<Partial<Record<ExpandableListKey, number>>>({});
   const copy = marketingCopy[locale];
   const narrative = narrativeContent[locale];
   const navLineBreaks = navLineBreakLabels[locale];
-  const problemRows = [
-    ...narrative.problem.pairs.slice(0, 4),
-    { problem: narrative.problem.customerImpact.title, solution: narrative.problem.customerImpact.text },
-    ...narrative.problem.pairs.slice(4),
-  ];
-  const visibleProblemRows = expandedLists.problems ? problemRows : problemRows.slice(0, previewItemCount);
-  const visibleFaqItems = expandedLists.faq ? narrative.faq.items : narrative.faq.items.slice(0, previewItemCount);
+  const problemRows = narrative.problem.pairs;
   const supportComparisonShowcase = supportComparisonShowcaseContent[locale];
 
   useEffect(() => {
@@ -693,23 +735,39 @@ export function CommercialHome({
 
     const isExpanded = expandedLists[key];
     const collapsedLabels: Record<ExpandableListKey, string> = {
-      problems: narrative.controls.showMoreProblems,
       faq: narrative.controls.showMoreFaq,
     };
 
     return (
-      <button className="mk-list-toggle" type="button" onClick={() => toggleExpandedList(key)}>
+      <button
+        className="mk-list-toggle"
+        type="button"
+        aria-expanded={isExpanded}
+        aria-controls={`${key}-expandable-list`}
+        onClick={() => toggleExpandedList(key)}
+      >
         {isExpanded ? narrative.controls.showLess : collapsedLabels[key]}
       </button>
     );
   }
 
   return (
-    <main className={`mk-site mk-locale-${locale}`}>
+    <main className={`mk-site mk-support-page mk-locale-${locale}`}>
       <div className="mk-ambient mk-ambient-one" />
       <div className="mk-ambient mk-ambient-two" />
 
-      <header className="mk-header">
+      <MobileSuiteHeader
+        suite="support"
+        labels={{
+          home: locale === "en" ? "Home" : locale === "it" ? "Inizio" : "Inicio",
+          manuals: narrative.nav.manuals,
+          problem: narrative.nav.problem,
+          comparison: narrative.nav.comparison,
+          pricing: narrative.nav.pricing,
+        }}
+      />
+
+      <header className="mk-header mk-desktop-suite-header">
         <div className="mk-container mk-nav">
           <a className="mk-brand" href="#top" aria-label="Talkey home">
             <Image src="/brand/talkey-key.svg" width={345} height={158} alt="" priority />
@@ -753,8 +811,16 @@ export function CommercialHome({
               ))}
             </h1>
             <p className="mk-hero-subtitle">{narrative.hero.body}</p>
+            {"audienceNote" in narrative.hero && narrative.hero.audienceNote ? (
+              <p className="mk-hero-audience-note">{narrative.hero.audienceNote}</p>
+            ) : null}
             <div className="mk-hero-actions">
-              <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("hero_request_evaluation_click")}>{narrative.hero.primary}<ArrowUpRight size={18} /></a>
+              <div className="mk-diagnosis-cta">
+                <a className="mk-button mk-button-primary" href={talkeyBookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("hero_request_evaluation_click")}>
+                  {narrative.hero.primary}<ArrowUpRight size={18} />
+                </a>
+                {locale === "es" ? <span>30 minutos · Sin compromiso</span> : null}
+              </div>
               <a className="mk-button mk-button-secondary" href="#precios" onClick={() => trackCta("hero_estimate_price_click")}>{narrative.hero.tertiary}<ArrowRight size={18} /></a>
             </div>
           </div>
@@ -777,19 +843,13 @@ export function CommercialHome({
             <h2>{narrative.problem.title}</h2>
             {narrative.problem.body && <p>{narrative.problem.body}</p>}
           </div>
-          <div className="mk-problem-pairs">
-            <div className="mk-problem-pair-head">
-              <span>{narrative.problem.pairTitleProblem}</span>
-              <span>{narrative.problem.pairTitleSolution}</span>
-            </div>
-            {visibleProblemRows.map((item) => (
-              <article key={item.problem} className="mk-problem-pair">
-                <h3>{item.problem}</h3>
-                <p>{item.solution}</p>
-              </article>
-            ))}
-          </div>
-          {renderListToggle("problems", problemRows.length)}
+          <ProblemSolutionAccordion
+            items={problemRows.map((item) => ({
+              title: item.problem,
+              solution: item.solution,
+            }))}
+            variant="support"
+          />
         </div>
       </section>
 
@@ -882,13 +942,16 @@ export function CommercialHome({
             <div className="mk-section-label"><span>07</span>{narrative.faq.kicker}</div>
             <h2>{narrative.faq.title}</h2>
           </div>
-          <div className="mk-faq-grid">
-            {visibleFaqItems.map((item) => {
+          <div id="faq-expandable-list" className="mk-faq-grid">
+            {narrative.faq.items.map((item, index) => {
               const ctaHref = "ctaHref" in item && item.ctaHref ? item.ctaHref : "#precios";
               const ctaExternal = ctaHref.startsWith("http");
 
               return (
-                <article key={item.question}>
+                <article
+                  key={item.question}
+                  hidden={!expandedLists.faq && index >= previewItemCount}
+                >
                   <h3>{item.question}</h3>
                   <p>{item.answer}</p>
                   {"cta" in item && item.cta && (
@@ -924,20 +987,7 @@ export function CommercialHome({
         </div>
       </section>
 
-      <footer className="mk-footer">
-        <div className="mk-container">
-          <div className="mk-footer-top">
-            <a className="mk-brand mk-brand-footer" href="#top">
-              <Image src="/brand/talkey-key.svg" width={345} height={158} alt="" />
-              <Image src="/brand/talkey-wordmark.svg" width={442} height={140} alt="Talkey" />
-            </a>
-            <p>{copy.footer.line}</p>
-          </div>
-          <div className="mk-footer-bottom">
-            <span>© {currentYear} Talkey</span>
-          </div>
-        </div>
-      </footer>
+      <LegalFooter currentYear={currentYear} />
     </main>
   );
 }
