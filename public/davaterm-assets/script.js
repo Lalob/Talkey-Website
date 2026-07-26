@@ -10,6 +10,44 @@
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
 
+  function canCopyFrom(target) {
+    return Boolean(
+      target &&
+        target.closest(
+          'input, textarea, select, [contenteditable="true"], [data-copy-allowed]'
+        )
+    );
+  }
+
+  function blockContentCopy(event) {
+    if (canCopyFrom(event.target)) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  ["copy", "cut", "contextmenu", "dragstart", "selectstart"].forEach((eventName) => {
+    document.addEventListener(eventName, blockContentCopy, { capture: true });
+  });
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+      if (canCopyFrom(event.target)) return;
+      const key = event.key.toLowerCase();
+      const commandKey = event.metaKey || event.ctrlKey;
+      const blockedCommand = commandKey && ["a", "c", "p", "s", "u", "x"].includes(key);
+      const blockedInspector =
+        event.key === "F12" ||
+        (commandKey && event.shiftKey && ["c", "i", "j"].includes(key));
+
+      if (blockedCommand || blockedInspector) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    },
+    { capture: true }
+  );
+
   const revealItems = Array.from(document.querySelectorAll(".reveal"));
   const revealObserver = new IntersectionObserver(
     (entries) => {
@@ -367,7 +405,8 @@
         height: 0,
         dpr: 1,
         nodes: [],
-        visible: true,
+        initialized: false,
+        visible: false,
         lastTime: 0
       };
       fieldByCanvas.set(canvas, field);
@@ -402,14 +441,28 @@
       field.dpr = Math.min(window.devicePixelRatio || 1, 2);
       field.width = field.canvas.offsetWidth;
       field.height = field.canvas.offsetHeight;
+      if (!field.width || !field.height) return false;
       field.canvas.width = Math.floor(field.width * field.dpr);
       field.canvas.height = Math.floor(field.height * field.dpr);
       field.ctx.setTransform(field.dpr, 0, 0, field.dpr, 0, 0);
       createNodes(field);
+      return true;
+    }
+
+    function initField(field) {
+      if (!field.initialized) {
+        if (!resizeField(field)) return;
+        field.initialized = true;
+      }
+      field.visible = true;
+      field.lastTime = 0;
+      startDrawing();
     }
 
     function resizeAll() {
-      fields.forEach(resizeField);
+      fields.forEach((field) => {
+        if (field.initialized) resizeField(field);
+      });
     }
 
     function palette(field) {
@@ -418,7 +471,7 @@
 
     function drawField(field, time) {
       const { ctx, width, height } = field;
-      if (!field.visible || !width || !height) return;
+      if (!field.initialized || !field.visible || !width || !height) return;
 
       const elapsed = field.lastTime ? time - field.lastTime : 16.67;
       field.lastTime = time;
@@ -478,7 +531,26 @@
     }
 
     function draw(time) {
-      fields.forEach((field) => drawField(field, time));
+      let hasVisibleField = false;
+      fields.forEach((field) => {
+        if (field.initialized && field.visible) {
+          hasVisibleField = true;
+          drawField(field, time);
+        }
+      });
+
+      if (hasVisibleField) {
+        requestAnimationFrame(draw);
+      } else {
+        rafStarted = false;
+      }
+    }
+
+    let rafStarted = false;
+
+    function startDrawing() {
+      if (rafStarted) return;
+      rafStarted = true;
       requestAnimationFrame(draw);
     }
 
@@ -505,13 +577,18 @@
           entries.forEach((entry) => {
             const field = fieldByCanvas.get(entry.target);
             if (!field) return;
-            field.visible = entry.isIntersecting;
-            if (field.visible) field.lastTime = 0;
+            if (entry.isIntersecting) {
+              initField(field);
+            } else {
+              field.visible = false;
+            }
           });
         },
         { rootMargin: "240px 0px" }
       );
       fields.forEach((field) => visibilityObserver.observe(field.canvas));
+    } else {
+      fields.forEach(initField);
     }
 
     window.addEventListener("resize", resizeAll);
@@ -531,7 +608,6 @@
     });
 
     resizeAll();
-    requestAnimationFrame(draw);
   }
 
   function initCurveCanvas(canvas, stage) {

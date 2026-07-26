@@ -1,5 +1,5 @@
-import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { cp, lstat, mkdir, readFile, readdir, realpath, rm, writeFile } from "node:fs/promises";
+import { dirname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const rootDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -7,6 +7,33 @@ const sourceDir = join(rootDir, "sites", "davaterm");
 const publicHtml = join(rootDir, "public", "davaterm.html");
 const legacyPublicDir = join(rootDir, "public", "davaterm");
 const publicAssetsDir = join(rootDir, "public", "davaterm-assets");
+
+function isWithin(root, candidate) {
+  const pathFromRoot = relative(root, candidate);
+  return pathFromRoot === "" || (!pathFromRoot.startsWith(`..${sep}`) && pathFromRoot !== ".." && !pathFromRoot.startsWith(sep));
+}
+
+async function assertSafeTree(root) {
+  const rootRealPath = await realpath(root);
+
+  async function visit(path) {
+    const metadata = await lstat(path);
+    if (metadata.isSymbolicLink()) throw new Error(`Unsafe symbolic link in Davaterm content: ${path}`);
+
+    const resolvedPath = await realpath(path);
+    if (!isWithin(rootRealPath, resolvedPath)) throw new Error(`Davaterm content escapes its source root: ${path}`);
+
+    if (metadata.isDirectory()) {
+      for (const entry of await readdir(path)) await visit(join(path, entry));
+      return;
+    }
+    if (!metadata.isFile()) throw new Error(`Unsupported Davaterm content type: ${path}`);
+  }
+
+  await visit(root);
+}
+
+await assertSafeTree(sourceDir);
 
 await rm(publicHtml, { force: true });
 await rm(legacyPublicDir, { recursive: true, force: true });

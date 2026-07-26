@@ -42,6 +42,9 @@ body {
   background: var(--blue-wash);
   letter-spacing: 0;
   overflow-x: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 img,
@@ -49,6 +52,12 @@ svg,
 canvas {
   display: block;
   max-width: 100%;
+  -webkit-user-drag: none;
+}
+
+::selection {
+  background: transparent;
+  color: inherit;
 }
 
 a {
