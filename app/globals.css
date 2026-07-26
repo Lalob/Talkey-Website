@@ -7098,8 +7098,14 @@ button { cursor: pointer; }
 
   .mk-problem .mk-problem-accordion-trigger,
   .mk-sales-section .mk-problem-accordion-trigger {
+    min-height: 124px;
     justify-content: flex-start;
     gap: 14px;
+  }
+
+  .mk-problem .mk-problem-accordion-title,
+  .mk-sales-section .mk-problem-accordion-title {
+    min-height: 2.5em;
   }
 
   .mk-problem-accordion-title {
@@ -7115,6 +7121,7 @@ button { cursor: pointer; }
     width: 100% !important;
     max-width: 100%;
     padding: 17px 17px 19px;
+    cursor: pointer;
     transform: none !important;
   }
 
@@ -7165,6 +7172,18 @@ button { cursor: pointer; }
 @media (max-width: 820px) {
   .mk-platform-home-minimal .mk-footer-bottom div {
     flex: 0 1 auto;
+  }
+}
+
+@media (max-width: 360px) {
+  .mk-problem .mk-problem-accordion-trigger,
+  .mk-sales-section .mk-problem-accordion-trigger {
+    min-height: 146px;
+  }
+
+  .mk-problem .mk-problem-accordion-title,
+  .mk-sales-section .mk-problem-accordion-title {
+    min-height: 3.75em;
   }
 }
 

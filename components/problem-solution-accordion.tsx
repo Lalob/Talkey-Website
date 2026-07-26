@@ -92,6 +92,11 @@ export function ProblemSolutionAccordion({
               role="region"
               aria-labelledby={triggerId}
               hidden={!isOpen}
+              onClick={(event) => {
+                const target = event.target;
+                if (target instanceof Element && target.closest("a")) return;
+                setOpenTitle(null);
+              }}
             >
               {panelLabel ? <span>{panelLabel}</span> : null}
               <p>{item.solution}</p>
