@@ -7067,6 +7067,10 @@ button { cursor: pointer; }
     grid-template-columns: 1fr 1fr;
   }
 
+  .mk-cookie-settings {
+    display: none;
+  }
+
   .mk-legal-footer-bottom {
     align-items: flex-start;
     min-height: 136px;

@@ -20,10 +20,18 @@ export function getAnalyticsConsent(): AnalyticsConsent | null {
 
   try {
     const value = window.localStorage.getItem(ANALYTICS_CONSENT_STORAGE_KEY);
-    return value === "granted" || value === "denied" ? value : null;
+    if (value === "granted" || value === "denied") return value;
   } catch {
-    return null;
+    // Fall back to the first-party preference cookie below.
   }
+
+  const cookieValue = document.cookie
+    .split(";")
+    .map((cookie) => cookie.trim())
+    .find((cookie) => cookie.startsWith(`${ANALYTICS_CONSENT_STORAGE_KEY}=`))
+    ?.split("=")[1];
+
+  return cookieValue === "granted" || cookieValue === "denied" ? cookieValue : null;
 }
 
 export function saveAnalyticsConsent(value: AnalyticsConsent) {
@@ -31,8 +39,11 @@ export function saveAnalyticsConsent(value: AnalyticsConsent) {
   try {
     window.localStorage.setItem(ANALYTICS_CONSENT_STORAGE_KEY, value);
   } catch {
-    // Analytics remains disabled when the browser blocks local storage.
+    // The first-party preference cookie below remains available as a fallback.
   }
+
+  const secure = window.location.protocol === "https:" ? "; Secure" : "";
+  document.cookie = `${ANALYTICS_CONSENT_STORAGE_KEY}=${value}; Max-Age=31536000; Path=/; SameSite=Lax${secure}`;
 }
 
 export function trackEvent(eventName: string, params: AnalyticsParams = {}) {

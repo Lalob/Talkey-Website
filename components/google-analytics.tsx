@@ -129,14 +129,23 @@ export function GoogleAnalytics() {
   useEffect(() => {
     if (!preferencesOpen) return;
 
-    function closeOutsideDialog(event: PointerEvent) {
-      const target = event.target;
-      if (!(target instanceof Node) || consentDialogRef.current?.contains(target)) return;
+    function closePreferences() {
+      if (consent === null) {
+        saveAnalyticsConsent("denied");
+        setConsent("denied");
+        removeAnalyticsCookies();
+      }
       setPreferencesOpen(false);
     }
 
+    function closeOutsideDialog(event: PointerEvent) {
+      const target = event.target;
+      if (!(target instanceof Node) || consentDialogRef.current?.contains(target)) return;
+      closePreferences();
+    }
+
     function closeWithEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") setPreferencesOpen(false);
+      if (event.key === "Escape") closePreferences();
     }
 
     document.addEventListener("pointerdown", closeOutsideDialog, true);
@@ -145,7 +154,7 @@ export function GoogleAnalytics() {
       document.removeEventListener("pointerdown", closeOutsideDialog, true);
       document.removeEventListener("keydown", closeWithEscape);
     };
-  }, [preferencesOpen]);
+  }, [consent, preferencesOpen]);
 
   function updateConsent(value: AnalyticsConsent) {
     saveAnalyticsConsent(value);
